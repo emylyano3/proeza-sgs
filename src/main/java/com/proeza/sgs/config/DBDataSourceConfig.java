@@ -7,5 +7,7 @@ import org.springframework.context.annotation.Profile;
 @Profile(value="prod")
 public class DBDataSourceConfig {
 
-
+	public DBDataSourceConfig () {
+		// TODO Auto-generated constructor stub
+	}
 }
