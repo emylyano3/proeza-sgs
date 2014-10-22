@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:social="http://spring.io/springsocial"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<body>
+
+	<div id="content" layout:fragment="content">
+		<form id="signin" th:action="@{/login/authenticate}" method="post">
+			<input type="hidden" name="_csrf" th:value="${_csrf.token}"></input>
+			<div class="error"
+				th:if="${param.error != null and param.error[0] == 'bad_credentials'}">
+				Your sign in information was incorrect. Please try again or <a
+					th:href="@{/signup}">sign up</a>.
+			</div>
+			<fieldset>
+				<label for="login">Username</label> <input id="login"
+					name="username" type="text" size="25"></input> <label
+					for="password">Password</label> <input id="password"
+					name="password" type="password" size="25"></input>
+			</fieldset>
+			<button type="submit">Sign In</button>
+
+		</form>
+
+	</div>
+</body>
+</html>

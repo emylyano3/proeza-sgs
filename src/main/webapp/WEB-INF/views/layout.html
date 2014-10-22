@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:social="http://spring.io/springsocial"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+		<title>Spring Social Showcase</title>
+		<link rel="stylesheet" th:href="@{/resources/old/page.css}" type="text/css" media="screen"/>
+		<link rel="stylesheet" th:href="@{/resources/old/form.css}" type="text/css" media="screen"/>
+		<link rel="stylesheet" th:href="@{/resources/old/messages/messages.css}" type="text/css" media="screen"/>
+	</head>
+	<body>
+		<div id="header">
+			<h1><a th:href="@{/}">Proeza SGS</a></h1>
+		</div>
+		
+		<div id="content" layout:fragment="content">
+			Content goes here
+		</div>		
+	</body>
+</html>

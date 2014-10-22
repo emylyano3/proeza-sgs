@@ -1,0 +1,296 @@
+/* ====== Misc ====== */
+
+#message h1, #message h2, #message a {
+	display: none;
+}
+
+header#header {
+	background: #2a3644 url(../img/slider/social-media-mess.png) repeat fixed;
+}
+
+@media (min-width: 1200px) {
+
+	header#header {
+		height: 672px;
+	}
+
+}
+
+/* ====== Navigation ====== */
+
+.signup.home {
+	*display: inline;
+	padding: 6px 20px 8px;
+	margin-bottom: 0;
+	*margin-left: .3em;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	font-weight: 700 !important;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	        border-radius: 3px;
+	display: inline-block;
+	position: relative;
+	margin-top: 10px !important;
+	color: #fff !important;
+	background-color: #acd90e;
+	border: none !important;
+}
+
+.signup:hover,
+.signup:focus,
+.signup:active,
+.signup.active,
+.signup.disabled,
+.signup[disabled] {
+	color: #ffffff !important;
+	background-color: #98c611;
+}
+
+#navigation {
+	margin-bottom: 80px;
+	margin-top: 80px;
+	background-color: transparent;
+}
+
+#nav {
+	float: right;
+	height: 55px;
+}
+
+#nav a {
+	font-size: 16px;
+	font-weight: 600;
+	color: #fff;
+	margin-top: 17px;
+	margin-left: 40px;
+	float: right;
+}
+
+#nav a:hover {
+	color: #acd90e;
+	text-decoration: none;
+}
+
+/* ====== Logos ====== */
+
+a#logo.home {
+	background: url(../img/qsocial-logo-flat.png) right top;
+	width: 129px;
+}
+
+@media 
+(-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) {
+		
+		a#logo.home {
+			background: url(../img/logo-flat@2x.png) right top !important;
+			     background-size: 129px 50px !important;
+			-moz-background-size: 129px 50px !important;
+		}
+}
+
+/* ====== Fade In ====== */
+
+@-webkit-keyframes fadeIn{0%{opacity:0}
+}
+@-moz-keyframes fadeIn{0%{opacity:0}
+}
+@-o-keyframes fadeIn{0%{opacity:0}
+}
+@keyframes fadeIn{0%{opacity:0}
+}
+.fadeIn{-webkit-animation-name:fadeIn;-moz-animation-name:fadeIn;-o-animation-name:fadeIn;animation-name:fadeIn}
+
+/* ====== Slider ====== */
+
+#slider {
+	padding-bottom: 100px;
+	position: relative;
+}
+
+.slide {
+	color: #fff;
+	font-weight: 300;
+}
+
+#message-wrapper {
+}
+
+.message {
+	display: none;
+}
+
+.slide h1 {
+	font-weight: 200 !important;
+	line-height: 33px;
+	color: #fff;
+	margin: 0 0 20px;
+	font-size: 24px;
+}
+
+.slide h1 span {
+	color: #fff;
+	font-weight: 600;
+	letter-spacing: -1px;
+}
+
+.slide h2 {
+	color: #fff;
+	font-weight: 400;
+	margin: 0 0 60px;
+	font-size: 60px;
+	line-height: 66px;
+	letter-spacing: -2px;
+}
+
+.slide p {
+	font-size: 18px;
+	font-weight: 200;
+	margin-bottom: 40px;
+	color: #fff;
+}
+
+.slide a.button {
+	margin-right: 10px;
+}
+
+.slide a.white {
+	font-weight: 300;
+}
+
+@media (max-width: 767px) {
+
+	.slide h1 {
+		font-weight: 300 !important;
+		line-height: 24px !important;
+	}
+
+}
+
+/* ====== Why Us ====== */
+
+#common-uses {
+	background: url(../img/bg-cables-2.jpg) no-repeat fixed left center #000000;
+}
+
+#snotty-ron {
+	background: url(../img/bg-snottyron-5.jpg) left center repeat fixed #000000;
+}
+
+#whyuswrap {
+	padding-top: 60px;
+	padding-bottom: 60px;
+}
+
+#users figure, #support figure {
+	margin-top: -90px;
+}
+
+#users {
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+
+.service-row {
+	margin-top: 80px;
+}
+
+/* ====== Services ====== */
+
+#services-list {
+	
+}
+
+#services-list li {
+/*	-webkit-box-shadow: 0 0 5px #238a96; */
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	     -o-border-radius: 3px;
+	        border-radius: 3px;
+	text-align: left;
+	background-color: #fff;
+	margin-bottom: 30px;
+	-webkit-transition:background-color .1s ease-in;
+}
+
+#services-list li a {
+	padding: 30px;
+	display: inline-block;
+}
+
+#services-list li:hover {
+	background-color: #f9f9f9;
+}
+
+#services-list li h1 {
+	font-weight: 300;
+	margin-bottom: 0px !important;
+}
+
+#services-list li h3 {
+	margin-top: -5px !important;
+}
+
+#services-list li p {
+	color: ;
+	font-weight: 400;
+	line-height: 20px;
+	font-size: 14px;
+	margin-bottom: 0;
+}
+
+#services-list li p span {
+	color: #26c1d0;
+}
+
+#services-list-nav li a:active {
+	
+}
+
+.service-icon {
+	float: left;
+	border: 10px solid #fff;
+	-webkit-border-radius: 170px;
+	height: 250px;
+	width: 250px;
+}
+
+/* ====== Filter ====== */
+
+#filter {
+	padding-top: 15px;
+}
+
+#filter li {
+	display: inline-block;
+	float: right;
+	margin-left: 5px;
+}
+
+#filter li a {
+	display: inline-block;
+	color: #fff;
+	font-weight: 400;
+	font-size: 14px;
+	padding: 5px 20px;
+}
+
+#filter li a.selected {
+	background-color: #feffff;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	     -o-border-radius: 3px;
+	        border-radius: 3px;
+	color: #26c1d0;
+}
+
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
