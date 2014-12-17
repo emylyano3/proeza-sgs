@@ -123,6 +123,6 @@ public class Usuario implements java.io.Serializable {
 
 	@Override
 	public String toString () {
-		return "Usuario [alias=" + this.alias + ", nombre=" + this.nombre + ", apellido=" + this.apellido + ", email=" + this.email + ", rolesUsuario=" + this.rolesUsuario + "]";
+		return "Usuario [alias=" + this.alias + ", nombre=" + this.nombre + ", apellido=" + this.apellido + ", email=" + this.email + "]";
 	}
 }
