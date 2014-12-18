@@ -5,7 +5,15 @@
 	layout:decorator="layout">
 <body>
 
-	<div id="content" layout:fragment="content">
+	<div id="breadcum" class="span10" layout:fragment="breadcrumb" >
+		<div>
+			<ul class="breadcrumb">
+				<li><a href="#" th:text="#{breadcum.login}">Login</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div id="content" layout:fragment="contenido">
 		<form id="signin" th:action="@{/login/authenticate}" method="post">
 			<input type="hidden" name="_csrf" th:value="${_csrf.token}"></input>
 			<div class="error"
