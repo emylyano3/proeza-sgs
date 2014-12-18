@@ -1,34 +1,203 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="es" 
+	xmlns:th="http://www.thymeleaf.org" 
 	xmlns:social="http://spring.io/springsocial"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout">
-<body>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<!--
+		Charisma v1.0.0
 
-	<div id="breadcum" class="span10" layout:fragment="breadcrumb" >
-		<div>
-			<ul class="breadcrumb">
-				<li><a href="#" th:text="#{breadcum.login}">Login</a></li>
-			</ul>
-		</div>
-	</div>
-	
-	<div id="content" layout:fragment="contenido">
-		<form id="signin" th:action="@{/login/authenticate}" method="post">
-			<input type="hidden" name="_csrf" th:value="${_csrf.token}"></input>
-			<div class="error"
-				th:if="${param.error != null and param.error[0] == 'bad_credentials'}">
-				Your sign in information was incorrect. Please try again or <a
-					th:href="@{/signup}">sign up</a>.
+		Copyright 2012 Muhammad Usman
+		Licensed under the Apache License v2.0
+		http://www.apache.org/licenses/LICENSE-2.0
+
+		http://usman.it
+		http://twitter.com/halalit_usman
+	-->
+<meta charset="utf-8" />
+<title th:text="#{app.title}">Sistema de Gestión de Stock para Comercios</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" th:content="#{app.description}" content="SGS Sistema de gestión de stock" />
+<meta name="author" th:content="#{app.author}" content="Emiliano Schiano" />
+
+<!-- The styles -->
+<link id="bs-css" href="../../resources/css/bootstrap-cerulean.css" th:href="@{/resources/css/bootstrap-cerulean.css}" rel="stylesheet"/>
+<style type="text/css">
+body {
+	padding-bottom: 40px;
+}
+
+.sidebar-nav {
+	padding: 9px 0;
+}
+</style>
+<link href="../../resources/css/bootstrap-responsive.css" th:href="@{/resources/css/bootstrap-responsive.css}" rel="stylesheet"/>
+<link href="../../resources/css/charisma-app.css" th:href="@{/resources/css/charisma-app.css}" rel="stylesheet"/>
+<link href="../../resources/css/jquery-ui-1.8.21.custom.css" th:href="@{/resources/css/jquery-ui-1.8.21.custom.css}" rel="stylesheet"/>
+<link href="../../resources/css/fullcalendar.css" th:href="@{/resources/css/fullcalendar.css}" rel="stylesheet"/>
+<link href="../../resources/css/fullcalendar.print.css" th:href="@{/resources/css/fullcalendar.print.css}" rel="stylesheet" media="print"/>
+<link href="../../resources/css/chosen.css" th:href="@{/resources/css/chosen.css}" rel="stylesheet"/>
+<link href="../../resources/css/uniform.default.css" th:href="@{/resources/css/uniform.default.css}" rel="stylesheet"/>
+<link href="../../resources/css/colorbox.css" th:href="@{/resources/css/colorbox.css}" rel="stylesheet"/>
+<link href="../../resources/css/jquery.cleditor.css" th:href="@{/resources/css/jquery.cleditor.css}" rel="stylesheet"/>
+<link href="../../resources/css/jquery.noty.css" th:href="@{/resources/css/jquery.noty.css}" rel="stylesheet"/>
+<link href="../../resources/css/noty_theme_default.css" th:href="@{/resources/css/noty_theme_default.css}" rel="stylesheet"/>
+<link href="../../resources/css/elfinder.min.css" th:href="@{/resources/css/elfinder.min.css}" rel="stylesheet"/>
+<link href="../../resources/css/elfinder.theme.css" th:href="@{/resources/css/elfinder.theme.css}" rel="stylesheet"/>
+<link href="../../resources/css/jquery.iphone.toggle.css" th:href="@{/resources/css/jquery.iphone.toggle.css}" rel="stylesheet"/>
+<link href="../../resources/css/opa-icons.css" th:href="@{/resources/css/opa-icons.css}" rel="stylesheet"/>
+<link href="../../resources/css/uploadify.css" th:href="@{/resources/css/uploadify.css}" rel="stylesheet"/>
+
+<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+	  <script src="../../resources/http://html5shim.googlecode.com/svn/trunk/html5.js"/>
+	<![endif]-->
+
+<!-- The fav icon -->
+<link rel="shortcut icon" href="../../resources/img/favicon.ico" th:href="@{/resources/img/favicon.ico}"/>
+
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="row-fluid">
+				<div class="span12 center login-header">
+					<h2 th:text="#{user.msg.welcome}" >Bienvenido a SGS</h2>
+				</div>
+				<!--/span-->
 			</div>
-			<fieldset>
-				<label for="login">Username</label> 
-				<input id="login" name="username" type="text" size="25"/>
-				<label for="password">Password</label> 
-				<input id="password" name="password" type="password" size="25"/>
-			</fieldset>
-			<button type="submit">Sign In</button>
-		</form>
+			<!--/row-->
+			<div class="row-fluid">
+				<div class="well span5 center login-box">
+					<div class="alert alert-info" th:text="#{user.msg.pleaselogin}">Por favor ingrese con su usuario y contraseña</div>
+					<form class="form-horizontal" action="index.html" method="post">
+						<fieldset>
+							<div class="input-prepend" title="Username" data-rel="tooltip">
+								<span class="add-on"><i class="icon-user"></i></span><input autofocus="true" class="input-large span10" name="username" id="username"
+									type="text" value="admin" />
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="input-prepend" title="Password" data-rel="tooltip">
+								<span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10" name="password" id="password" type="password"
+									value="admin123456" />
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="input-prepend">
+								<label class="remember" for="remember"><input type="checkbox" id="remember" th:text="#{control.rememberme}"/>Recordarme</label>
+							</div>
+							<div class="clearfix"></div>
+
+							<p class="center span5">
+								<button type="submit" class="btn btn-primary" th:text="#{control.login}">Ingresar</button>
+							</p>
+						</fieldset>
+					</form>
+				</div>
+				<!--/span-->
+			</div>
+			<!--/row-->
+		</div>
+		<!--/fluid-row-->
+
 	</div>
+	<!--/.fluid-container-->
+
+	<!-- external javascript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+
+	<!-- jQuery -->
+	<script src="../../resources/js/jquery-1.7.2.min.js" th:src="@{/resources/js/jquery-1.7.2.min.js}"/>
+	<!-- jQuery UI -->
+	<script src="../../resources/js/jquery-ui-1.8.21.custom.min.js" th:src="@{/resources/js/jquery-ui-1.8.21.custom.min.js}"/>
+	<!-- transition / effect library -->
+	<script src="../../resources/js/bootstrap-transition.js" th:src="@{/resources/js/bootstrap-transition.js}"/>
+	<!-- alert enhancer library -->
+	<script src="../../resources/js/bootstrap-alert.js" th:src="@{/resources/js/bootstrap-alert.js}"/>
+	<!-- modal / dialog library -->
+	<script src="../../resources/js/bootstrap-modal.js" th:src="@{/resources/js/bootstrap-modal.js}"/>
+	<!-- custom dropdown library -->
+	<script src="../../resources/js/bootstrap-dropdown.js" th:src="@{/resources/js/bootstrap-dropdown.js}"/>
+	<!-- scrolspy library -->
+	<script src="../../resources/js/bootstrap-scrollspy.js" th:src="@{/resources/js/bootstrap-scrollspy.js}"/>
+	<!-- library for creating tabs -->
+	<script src="../../resources/js/bootstrap-tab.js" th:src="@{/resources/js/bootstrap-tab.js}"/>
+	<!-- library for advanced tooltip -->
+	<script src="../../resources/js/bootstrap-tooltip.js" th:src="@{/resources/js/bootstrap-tooltip.js}"/>
+	<!-- popover effect library -->
+	<script src="../../resources/js/bootstrap-popover.js" th:src="@{/resources/js/bootstrap-popover.js}"/>
+	<!-- button enhancer library -->
+	<script src="../../resources/js/bootstrap-button.js" th:src="@{/resources/js/bootstrap-button.js}"/>
+	<!-- accordion library (optional, not used in demo) -->
+	<script src="../../resources/js/bootstrap-collapse.js" th:src="@{/resources/js/bootstrap-collapse.js}"/>
+	<!-- carousel slideshow library (optional, not used in demo) -->
+	<script src="../../resources/js/bootstrap-carousel.js" th:src="@{/resources/js/bootstrap-carousel.js}"/>
+	<!-- autocomplete library -->
+	<script src="../../resources/js/bootstrap-typeahead.js" th:src="@{/resources/js/bootstrap-typeahead.js}"/>
+	<!-- tour library -->
+	<script src="../../resources/js/bootstrap-tour.js" th:src="@{/resources/js/bootstrap-tour.js}"/>
+	<!-- library for cookie management -->
+	<script src="../../resources/js/jquery.cookie.js" th:src="@{/resources/js/jquery.cookie.js}"/>
+	<!-- calander plugin -->
+	<script src="../../resources/js/fullcalendar.min.js" th:src="@{/resources/js/fullcalendar.min.js}"/>
+	<!-- data table plugin -->
+	<script src="../../resources/js/jquery.dataTables.min.js" th:src="@{/resources/js/jquery.dataTables.min.js}"/>
+
+	<!-- chart libraries start -->
+	<script src="../../resources/js/excanvas.js" th:src="@{/resources/js/excanvas.js}"/>
+	<script src="../../resources/js/jquery.flot.min.js" th:src="@{/resources/js/jquery.flot.min.js}"/>
+	<script src="../../resources/js/jquery.flot.pie.min.js" th:src="@{/resources/js/jquery.flot.pie.min.js}"/>
+	<script src="../../resources/js/jquery.flot.stack.js" th:src="@{/resources/js/jquery.flot.stack.js}"/>
+	<script src="../../resources/js/jquery.flot.resize.min.js" th:src="@{/resources/js/jquery.flot.resize.min.js}"/>
+	<!-- chart libraries end -->
+
+	<!-- select or dropdown enhancer -->
+	<script src="../../resources/js/jquery.chosen.min.js" th:src="@{/resources/js/jquery.chosen.min.js}"/>
+	<!-- checkbox, radio, and file input styler -->
+	<script src="../../resources/js/jquery.uniform.min.js" th:src="@{/resources/js/jquery.uniform.min.js}"/>
+	<!-- plugin for gallery image view -->
+	<script src="../../resources/js/jquery.colorbox.min.js" th:src="@{/resources/js/jquery.colorbox.min.js}"/>
+	<!-- rich text editor library -->
+	<script src="../../resources/js/jquery.cleditor.min.js" th:src="@{/resources/js/jquery.cleditor.min.js}"/>
+	<!-- notification plugin -->
+	<script src="../../resources/js/jquery.noty.js" th:src="@{/resources/js/jquery.noty.js}"/>
+	<!-- file manager library -->
+	<script src="../../resources/js/jquery.elfinder.min.js" th:src="@{/resources/js/jquery.elfinder.min.js}"/>
+	<!-- star rating plugin -->
+	<script src="../../resources/js/jquery.raty.min.js" th:src="@{/resources/js/jquery.raty.min.js}"/>
+	<!-- for iOS style toggle switch -->
+	<script src="../../resources/js/jquery.iphone.toggle.js" th:src="@{/resources/js/jquery.iphone.toggle.js}"/>
+	<!-- autogrowing textarea plugin -->
+	<script src="../../resources/js/jquery.autogrow-textarea.js" th:src="@{/resources/js/jquery.autogrow-textarea.js}"/>
+	<!-- multiple file upload plugin -->
+	<script src="../../resources/js/jquery.uploadify-3.1.min.js" th:src="@{/resources/js/jquery.uploadify-3.1.min.js}"/>
+	<!-- history.js for cross-browser state change on ajax -->
+	<script src="../../resources/js/jquery.history.js" th:src="@{/resources/js/jquery.history.js}"/>
+	<!-- application script for Charisma demo -->
+	<script src="../../resources/js/charisma.js" th:src="@{/resources/js/charisma.js}"/>
+
 </body>
 </html>
+
+<!-- 
+<div id="content" layout:fragment="contenido">
+	<form id="signin" th:action="@{/login/authenticate}" method="post">
+		<input type="hidden" name="_csrf" th:value="${_csrf.token}"></input>
+		<div class="error"
+			th:if="${param.error != null and param.error[0] == 'bad_credentials'}">
+			Your sign in information was incorrect. Please try again or <a
+				th:href="../../resources/@{/signup}">sign up</a>.
+		</div>
+		<fieldset>
+			<label for="login">Username</label> 
+			<input id="login" name="username" type="text" size="25"/>
+			<label for="password">Password</label> 
+			<input id="password" name="password" type="password" size="25"/>
+		</fieldset>
+		<button type="submit">Sign In</button>
+	</form>
+</div>
+ -->
