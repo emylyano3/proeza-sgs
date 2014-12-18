@@ -5,7 +5,7 @@
 
 	<div id="content" layout:fragment="content">
 		<div th:if="${usuario != null and usuario.nombre == 'admin'}">
-			<p th:text="${usuario}">El Usuario es admin</p>
+			<p th:text="'Roles usuario admin: ' + ${usuario.rolesUsuario}">El Usuario es admin</p>
 		</div>
 	</div>
 </body>
