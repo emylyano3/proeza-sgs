@@ -57,7 +57,7 @@ public class MemoryDataSourceConfig {
 	@Bean
 	public AbstractEntityManagerFactoryBean entityManager (DataSource ds, AbstractJpaVendorAdapter jpaAdapter, Properties jpaProperties) {
 		final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setPackagesToScan("com.proeza.sgs.business.entity", "com.proeza.security.entity");
+		em.setPackagesToScan("com.proeza.sgs.business.entity", "com.proeza.security.entity", "com.proeza.sgs.system.entity");
 		em.setDataSource(ds);
 		em.setJpaVendorAdapter(jpaAdapter);
 		em.setJpaProperties(jpaProperties);

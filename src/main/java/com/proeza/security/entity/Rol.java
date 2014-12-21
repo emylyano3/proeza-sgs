@@ -37,18 +37,6 @@ public class Rol implements java.io.Serializable {
 	public Rol () {
 	}
 
-	public Rol (String codigo, String nombre) {
-		this.codigo = codigo;
-		this.nombre = nombre;
-	}
-
-	public Rol (String codigo, String nombre, String descripcion, Set<UsuarioRol> usuarioRols) {
-		this.codigo = codigo;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.usuarios = usuarioRols;
-	}
-
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
@@ -98,7 +86,7 @@ public class Rol implements java.io.Serializable {
 	}
 
 	@Transactional
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="rol")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rol")
 	public Set<FuncionalidadRol> getFuncionalidades () {
 		return this.funcionalidades;
 	}

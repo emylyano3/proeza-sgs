@@ -3,9 +3,14 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory>
+	<!-- 
+	 <session-factory>
 		<mapping class="com.proeza.security.entity.Usuario"/>
 		<mapping class="com.proeza.security.entity.Rol"/>
 		<mapping class="com.proeza.security.entity.UsuarioRol"/>
+		<mapping class="com.proeza.sgs.system.entity.MenuItem"/>
+		<mapping class="com.proeza.sgs.system.entity.Page"/>
+		<mapping class="com.proeza.sgs.system.entity.PageMenu"/>
 	</session-factory>
+	 -->
 </hibernate-configuration>
