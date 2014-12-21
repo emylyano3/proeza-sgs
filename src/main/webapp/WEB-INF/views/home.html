@@ -6,15 +6,14 @@
 
 <body>
 
-	<div id="breadcum" class="span10" layout:fragment="breadcrumb" >
+	<div class="content" layout:fragment="contenido" >
 		<div>
 			<ul class="breadcrumb">
-				<li><a href="#" th:text="#{breadcum.home}">Inicio</a></li>
+				<li>
+					<a href="#" th:text="#{breadcumb.home}">Inicio</a>
+				</li>
 			</ul>
 		</div>
-	</div>
-
-	<div class="content" layout:fragment="contenido" >
 		<div class="sortable row-fluid">
 			<a data-rel="tooltip" title="6 new members." class="well span3 top-block" href="#">
 				<span class="icon32 icon-red icon-user"/>

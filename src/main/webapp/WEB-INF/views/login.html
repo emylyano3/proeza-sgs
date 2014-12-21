@@ -71,22 +71,27 @@ body {
 			<div class="row-fluid">
 				<div class="well span5 center login-box">
 					<div class="alert alert-info" th:text="#{user.msg.pleaselogin}">Por favor ingrese con su usuario y contraseña</div>
-					<form class="form-horizontal" action="index.html" method="post">
+					<form class="form-horizontal" action="login/authenticate" method="post">
+						<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 						<fieldset>
 							<div class="input-prepend" title="Username" data-rel="tooltip">
-								<span class="add-on"><i class="icon-user"></i></span><input autofocus="true" class="input-large span10" name="username" id="username"
-									type="text" value="admin" />
+								<span class="add-on">
+									<i class="icon-user"/>
+								</span>
+								<input autofocus="autofocus" class="input-large span10" name="username" id="username" type="text" value="admin" />
 							</div>
 							<div class="clearfix"></div>
-
 							<div class="input-prepend" title="Password" data-rel="tooltip">
-								<span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10" name="password" id="password" type="password"
-									value="admin123456" />
+								<span class="add-on">
+									<i class="icon-lock"/>
+								</span>
+								<input class="input-large span10" name="password" id="password" type="password" value="admin123456" />
 							</div>
 							<div class="clearfix"></div>
-
 							<div class="input-prepend">
-								<label class="remember" for="remember"><input type="checkbox" id="remember" th:text="#{control.rememberme}"/>Recordarme</label>
+								<label class="remember" for="remember">
+									<input type="checkbox" id="remember" th:text="#{control.rememberme}" text="Recordarme"/>
+								</label>
 							</div>
 							<div class="clearfix"></div>
 
