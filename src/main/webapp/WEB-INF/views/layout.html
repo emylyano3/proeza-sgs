@@ -121,16 +121,18 @@ body {
 				<div class="well nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li class="nav-header hidden-tablet" th:text="#{menu.main}">Menú principal</li>
+						<!--
 						<li>
 							<a class="ajax-link" href="home">
 								<i class="icon-home"/>
 								<span class="hidden-tablet" th:text="#{menu.home}"/>
 							</a>
 						</li>
+						-->
 						<li th:each="item : ${SIDE_MENU_LEFT.items}">
 							<a class="ajax-link" th:href="${item.href}">
 								<i class="icon-home" th:class="${item.icon}"/>
-								<span class="hidden-tablet" th:text="${item.text}"/>
+								<span class="hidden-tablet" th:text="${item.text}" />
 							</a>
 						</li>
 					</ul>

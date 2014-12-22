@@ -1,6 +1,7 @@
 package com.proeza.sgs.menu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,9 @@ public class ViewMenuManager {
 		for (PageMenu pageMenu : menues) {
 			List<VMenuItem> items = new ArrayList<VMenuItem>();
 			for (MenuItem menuItem : pageMenu.getMenu().getItems()) {
-				items.add(new VMenuItem(menuItem.getItem()));
+				items.add(new VMenuItem(menuItem));
 			}
+			Collections.sort(items);
 			result.put(pageMenu.getMenu().getType(), new VMenu(items));
 		}
 		return result;

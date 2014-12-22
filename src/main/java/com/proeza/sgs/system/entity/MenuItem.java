@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(catalog = "sgs_proeza_db", name = "menu_item")
-public class MenuItem implements Serializable {
+public class MenuItem implements Serializable, Comparable<MenuItem> {
 
 	private static final long	serialVersionUID	= 1L;
 
@@ -65,5 +65,13 @@ public class MenuItem implements Serializable {
 
 	public void setIndex (int index) {
 		this.index = index;
+	}
+
+	@Override
+	public int compareTo (MenuItem o) {
+		if (o == null) {
+			return -1;
+		}
+		return this.getIndex() - o.getIndex();
 	}
 }
