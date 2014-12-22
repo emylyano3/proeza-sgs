@@ -13,11 +13,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.transaction.annotation.Transactional;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "menu")
+@Table(catalog = "sgs_proeza_db", name = "menu", uniqueConstraints = {
+	@UniqueConstraint(columnNames = {"codigo"})
+})
 public class Menu implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
@@ -47,7 +50,7 @@ public class Menu implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "codigo", nullable = false)
+	@Column(name = "codigo", nullable = false, unique = true)
 	public String getCode () {
 		return this.code;
 	}

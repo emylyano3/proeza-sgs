@@ -12,9 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "menu_pagina")
+@Table(catalog = "sgs_proeza_db", name = "menu_pagina", uniqueConstraints = {
+	@UniqueConstraint(columnNames = {"fk_pagina", "fk_menu"})
+})
 public class PageMenu implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;

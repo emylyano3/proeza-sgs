@@ -12,17 +12,25 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.proeza.security.dao.UsuarioDao;
 import com.proeza.security.entity.Usuario;
+import com.proeza.sgs.menu.ViewMenuManager;
 
 @Controller
 public class AdminController {
 
-	@Autowired
-	private UsuarioDao	usuarioDao;
+	public static final String	PAGE_CODE	= "P_ADMIN";
+	public static final String	PAGE_NAME	= "admin";
 
-	@RequestMapping({"/admin"})
+	@Autowired
+	private UsuarioDao			usuarioDao;
+
+	@Autowired
+	private ViewMenuManager		menuManager;
+
+	@RequestMapping({"/" + PAGE_NAME})
 	public ModelAndView home (ModelAndView model, Principal principal) {
 		User activeUser = (User) ((Authentication) principal).getPrincipal();
 		Usuario usuario = this.usuarioDao.findByAlias(activeUser.getUsername());
+		model.addAllObjects(this.menuManager.getMenus(PAGE_CODE));
 		model.addObject("usuario", usuario);
 		model.setViewName("admin");
 		return model;
@@ -30,6 +38,6 @@ public class AdminController {
 
 	@ModelAttribute("pageName")
 	public String pageName () {
-		return "admin";
+		return PAGE_NAME;
 	}
 }

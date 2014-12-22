@@ -15,6 +15,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 	@NamedQuery(name = "pageWithMenuFiltered", query = "select p from Page p join p.menues m where p.code = :code and m.menu.type = :type")
 })
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "pagina")
+@Table(catalog = "sgs_proeza_db", name = "pagina", uniqueConstraints = {
+	@UniqueConstraint(columnNames = {"codigo"})
+})
 public class Page implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
@@ -48,7 +51,7 @@ public class Page implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "codigo", nullable = false)
+	@Column(name = "codigo", nullable = false, unique = true)
 	public String getCode () {
 		return this.code;
 	}
