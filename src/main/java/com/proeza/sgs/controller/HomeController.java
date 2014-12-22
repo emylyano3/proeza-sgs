@@ -12,19 +12,20 @@ import com.proeza.sgs.menu.ViewMenuManager;
 public class HomeController {
 
 	public static final String	PAGE_CODE	= "P_HOME";
+	public static final String	PAGE_NAME	= "home";
 
 	@Autowired
-	private ViewMenuManager			menuManager;
+	private ViewMenuManager		menuManager;
 
-	@RequestMapping({"/", "/home"})
+	@RequestMapping({"/", "/" + PAGE_NAME})
 	public ModelAndView home (ModelAndView model) {
-		model.setViewName("home");
-		model.addObject("menu", this.menuManager.getMenu(PAGE_CODE));
+		model.setViewName(PAGE_NAME);
+		model.addAllObjects(this.menuManager.getMenus(PAGE_CODE));
 		return model;
 	}
 
 	@ModelAttribute("pageName")
 	public String pageName () {
-		return "home";
+		return PAGE_NAME;
 	}
 }

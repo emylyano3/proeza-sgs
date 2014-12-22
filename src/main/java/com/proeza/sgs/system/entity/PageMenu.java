@@ -14,18 +14,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "menu_item")
-public class MenuItem implements Serializable {
+@Table(catalog = "sgs_proeza_db", name = "menu_pagina")
+public class PageMenu implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
 	private long				id;
 
-	private Item				item;
+	private Page				page;
 
 	private Menu				menu;
-
-	private int					index				= 0;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -39,6 +37,16 @@ public class MenuItem implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_pagina", nullable = false)
+	public Page getPage () {
+		return this.page;
+	}
+
+	public void setPage (Page page) {
+		this.page = page;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_menu", nullable = false)
 	public Menu getMenu () {
 		return this.menu;
@@ -46,24 +54,5 @@ public class MenuItem implements Serializable {
 
 	public void setMenu (Menu menu) {
 		this.menu = menu;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_item", nullable = false)
-	public Item getItem () {
-		return this.item;
-	}
-
-	public void setItem (Item item) {
-		this.item = item;
-	}
-
-	@Column(name = "index", nullable = false, unique = true)
-	public int getIndex () {
-		return this.index;
-	}
-
-	public void setIndex (int index) {
-		this.index = index;
 	}
 }

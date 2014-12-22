@@ -23,10 +23,23 @@
 /* Seguridad */
 
 /* Sistema */
-
-	insert into sgs_proeza_db.item_menu(codigo, tooltip, texto, link, icono) values ('M_HOME', 'Mené para volver al inicio de la aplicación','Inicio', 'home', null);
+	
+	/* Pagina */
 	insert into sgs_proeza_db.pagina (codigo, nombre, descripcion) values ('P_HOME','Inicio','Inicio de la aplicación');
-	insert into sgs_proeza_db.menu_pagina (fk_pagina, fk_item_menu) values (1,1);
+
+	/* Menu*/
+	insert into sgs_proeza_db.menu(codigo, texto, tooltip, tipo, icono) values ('M_HOME_MAIN','Menú Principal', 'Para acceder al inicio de la aplicación','SIDE_MENU_LEFT', null);
+	
+	/* Asociacion pagina - menu*/
+	insert into sgs_proeza_db.menu_pagina (fk_pagina, fk_menu) values (1,1);
+
+	/* Item de Menu */
+	insert into sgs_proeza_db.item(codigo, texto, tooltip, link, icono) values ('MI_HOME', 'Inicio', 'Para acceder al inicio de la aplicación', 'home', null);
+	insert into sgs_proeza_db.item(codigo, texto, tooltip, link, icono) values ('MI_USER', 'Usuarios', 'Para acceder a la gestion de usuarios','admin/user', null);
+	
+	/* Menu - Item de Menu */
+	insert into sgs_proeza_db.menu_item(fk_menu, fk_item, index) values (1,1,0);
+	insert into sgs_proeza_db.menu_item(fk_menu, fk_item, index) values (1,2,1);
 
 /* Sistema */
 

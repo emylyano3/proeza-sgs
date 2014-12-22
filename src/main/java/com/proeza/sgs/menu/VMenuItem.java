@@ -1,6 +1,15 @@
 package com.proeza.sgs.menu;
 
+import com.proeza.sgs.system.entity.Item;
+
 public class VMenuItem {
+
+	public VMenuItem (Item item) {
+		this.text = item.getText();
+		this.code = item.getCode();
+		this.href = item.getLink();
+		this.icon = item.getIcon();
+	}
 
 	private String	text;
 	private String	code;

@@ -12,11 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.transaction.annotation.Transactional;
 
 @Entity
-@Table(name = "funcionalidad", catalog = "seg_proeza_db")
+@Table(name = "funcionalidad", catalog = "seg_proeza_db", uniqueConstraints = {@UniqueConstraint(columnNames = "codigo")})
 public class Funcionalidad implements Serializable {
 
 	private static final long		serialVersionUID	= 1L;
@@ -39,7 +40,7 @@ public class Funcionalidad implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "codigo", nullable = false)
+	@Column(name = "codigo", nullable = false, unique = true)
 	public String getCodigo () {
 		return this.codigo;
 	}

@@ -13,9 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.proeza.security.entity.Funcionalidad;
+
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "menu_pagina")
-public class PageMenuItem implements Serializable {
+@Table(catalog = "sgs_proeza_db", name = "funcionalidad_item")
+public class FunctionItem implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
@@ -25,12 +27,12 @@ public class PageMenuItem implements Serializable {
 	private long				id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_pagina", nullable = false)
-	private Page				page;
+	@JoinColumn(name = "fk_funcionalidad", nullable = false)
+	private Funcionalidad		function;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_item_menu", nullable = false)
-	private MenuItem			menuItem;
+	private Item			menuItem;
 
 	public long getId () {
 		return this.id;
@@ -40,19 +42,19 @@ public class PageMenuItem implements Serializable {
 		this.id = id;
 	}
 
-	public Page getPage () {
-		return this.page;
+	public Funcionalidad getFunction () {
+		return this.function;
 	}
 
-	public void setPage (Page page) {
-		this.page = page;
+	public void setFunction (Funcionalidad function) {
+		this.function = function;
 	}
 
-	public MenuItem getMenuItem () {
+	public Item getMenuItem () {
 		return this.menuItem;
 	}
 
-	public void setMenuItem (MenuItem menuItem) {
+	public void setMenuItem (Item menuItem) {
 		this.menuItem = menuItem;
 	}
 }

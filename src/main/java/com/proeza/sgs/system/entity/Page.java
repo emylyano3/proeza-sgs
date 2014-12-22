@@ -3,19 +3,24 @@ package com.proeza.sgs.system.entity;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.transaction.annotation.Transactional;
 
+@NamedQueries(value = {
+	@NamedQuery(name = "pageWithMenuFiltered", query = "select p from Page p join p.menues m where p.code = :code and m.menu.type = :type")
+})
 @Entity
 @Table(catalog = "sgs_proeza_db", name = "pagina")
 public class Page implements Serializable {
@@ -30,7 +35,7 @@ public class Page implements Serializable {
 
 	private String				description;
 
-	private Set<PageMenuItem>	menues				= new HashSet<PageMenuItem>(0);
+	private Set<PageMenu>		menues				= new TreeSet<PageMenu>();
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -72,11 +77,11 @@ public class Page implements Serializable {
 
 	@Transactional
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "page")
-	public Set<PageMenuItem> getMenues () {
+	public Set<PageMenu> getMenues () {
 		return this.menues;
 	}
 
-	public void setMenues (Set<PageMenuItem> menues) {
+	public void setMenues (Set<PageMenu> menues) {
 		this.menues = menues;
 	}
 }

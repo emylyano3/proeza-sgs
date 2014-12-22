@@ -23,6 +23,7 @@ import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.config.MemoryDataSourceConfig;
 import com.proeza.sgs.controller.HomeController;
 import com.proeza.sgs.system.dao.PageDao;
+import com.proeza.sgs.system.entity.MenuType;
 import com.proeza.sgs.system.entity.Page;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -128,5 +129,24 @@ public class DerbyDataLoading {
 		assertEquals("El nombre de la pagina referenciada por el item de menu, debe coincidir con el nombre de la pagina",
 			page.getName(),
 			page.getMenues().iterator().next().getPage().getName());
+		assertNotNull("Los items del menu no deben ser null", page.getMenues().iterator().next().getMenu().getItems());
+		assertFalse("El menu debe tener items", page.getMenues().iterator().next().getMenu().getItems().isEmpty());
+	}
+
+	@Test
+	@Transactional
+	public void page_FIND_BY_CODE_TYPE () {
+		log.info("Inicia page_FIND_BY_ID");
+		final Page page = this.pageDao.findByCodeAndMenuType(HomeController.PAGE_CODE, MenuType.SIDE_MENU_LEFT);
+		assertNotNull("La pagina con id 1 debe existir", page);
+		assertNotNull("La pagina debe tener menues asociados", page.getMenues());
+		assertFalse("La pagina debe tener al menos un menu item", page.getMenues().isEmpty());
+		assertNotNull("El item de menu no debe ser nulo", page.getMenues().iterator().next());
+		assertNotNull("El menu debe referenciar a la pagina", page.getMenues().iterator().next().getPage());
+		assertEquals("El nombre de la pagina referenciada por el item de menu, debe coincidir con el nombre de la pagina",
+			page.getName(),
+			page.getMenues().iterator().next().getPage().getName());
+		assertNotNull("Los items del menu no deben ser null", page.getMenues().iterator().next().getMenu().getItems());
+		assertFalse("El menu debe tener items", page.getMenues().iterator().next().getMenu().getItems().isEmpty());
 	}
 }
