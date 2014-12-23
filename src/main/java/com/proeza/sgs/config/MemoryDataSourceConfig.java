@@ -5,6 +5,8 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import net.sf.ehcache.CacheManager;
+
 import org.apache.derby.jdbc.EmbeddedDriver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -51,6 +53,10 @@ public class MemoryDataSourceConfig {
 		jpaProperties.put("hibernate.hbm2ddl.auto", "create-drop");
 		jpaProperties.put("hibernate.show_sql", "true");
 		jpaProperties.put("hbm2ddl.auto", "create-drop");
+		jpaProperties.put("hibernate.cache.use_second_level_cache", "true");
+		jpaProperties.put("hibernate.cache.use_query_cache", "true");
+		jpaProperties.put("hibernate.generate_statistics", "true");
+		jpaProperties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
 		return jpaProperties;
 	}
 
@@ -62,6 +68,11 @@ public class MemoryDataSourceConfig {
 		em.setJpaVendorAdapter(jpaAdapter);
 		em.setJpaProperties(jpaProperties);
 		return em;
+	}
+
+	@Bean
+	public CacheManager cacheManager () {
+		return CacheManager.getInstance();
 	}
 
 	@Bean

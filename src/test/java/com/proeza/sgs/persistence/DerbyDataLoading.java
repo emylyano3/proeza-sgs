@@ -7,6 +7,9 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.sf.ehcache.Statistics;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,7 +108,7 @@ public class DerbyDataLoading {
 	@Transactional
 	public void page_FIND_BY_ID () {
 		log.info("Inicia page_FIND_BY_ID");
-		final Page page = this.pageDao.findById(1L);
+		final Page page = this.pageDao.find(1L);
 		assertNotNull("La pagina con id 1 debe existir", page);
 		assertNotNull("La pagina debe tener menues asociados", page.getMenues());
 		assertFalse("La pagina debe tener al menos un menu item", page.getMenues().isEmpty());
@@ -148,5 +151,15 @@ public class DerbyDataLoading {
 			page.getMenues().iterator().next().getPage().getName());
 		assertNotNull("Los items del menu no deben ser null", page.getMenues().iterator().next().getMenu().getItems());
 		assertFalse("El menu debe tener items", page.getMenues().iterator().next().getMenu().getItems().isEmpty());
+	}
+
+	@Test
+	@Ignore
+	@Transactional
+	public void page_CACHE_STATISTICS () {
+		this.pageDao.find(1L);
+		this.pageDao.find(1L);
+		Statistics statistics = this.pageDao.getCacheStatistics();
+		assertFalse(statistics.getCacheHits() <= 0);
 	}
 }

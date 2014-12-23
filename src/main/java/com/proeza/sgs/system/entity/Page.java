@@ -1,6 +1,7 @@
 package com.proeza.sgs.system.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_ONLY;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -17,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
 import org.springframework.transaction.annotation.Transactional;
 
 @NamedQueries(value = {
@@ -26,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Table(catalog = "sgs_proeza_db", name = "pagina", uniqueConstraints = {
 	@UniqueConstraint(columnNames = {"codigo"})
 })
+@Cache(usage = READ_ONLY)
 public class Page implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;

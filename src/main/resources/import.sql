@@ -37,13 +37,11 @@
 
 	/* Item de Menu */
 	insert into sgs_proeza_db.item(codigo, texto, tooltip, link, icono) values ('MI_HOME', 'Inicio', 'Para acceder al inicio de la aplicación', 'home', 'icon-home');
-	insert into sgs_proeza_db.item(codigo, texto, tooltip, link, icono) values ('MI_LOGIN', 'Ingresar', 'Para loguearse en el sistema','login', 'icon-user');
-	insert into sgs_proeza_db.item(codigo, texto, tooltip, link, icono) values ('MI_USER_ADMIN', 'Usuarios', 'Para acceder a la gestion de usuarios','admin', 'icon.icon-users');
+	insert into sgs_proeza_db.item(codigo, texto, tooltip, link, icono) values ('MI_USER_ADMIN', 'Usuarios', 'Para acceder a la gestion de usuarios','admin', 'icon icon-users');
 	
 	/* Menu - Item de Menu */
 	insert into sgs_proeza_db.menu_item(fk_menu, fk_item, index) values (1,1,0);
 	insert into sgs_proeza_db.menu_item(fk_menu, fk_item, index) values (1,2,1);
-	insert into sgs_proeza_db.menu_item(fk_menu, fk_item, index) values (1,3,2);
 
 /* Sistema */
 
