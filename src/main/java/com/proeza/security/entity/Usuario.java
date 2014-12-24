@@ -7,12 +7,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -27,20 +30,20 @@ import org.springframework.transaction.annotation.Transactional;
 , uniqueConstraints = @UniqueConstraint(columnNames = "alias"))
 public class Usuario implements java.io.Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	private long              id;
-	private String            alias;
-	private String            nombre;
-	private String            apellido;
-	private String            email;
-	private String            password;
-	private Set<UsuarioRol>   rolesUsuario     = new HashSet<UsuarioRol>(0);
+	private long				id;
+	private String				alias;
+	private String				nombre;
+	private String				apellido;
+	private String				email;
+	private String				password;
+	private Set<Rol>			roles				= new HashSet<Rol>(0);
 
-	public Usuario() {
+	public Usuario () {
 	}
 
-	public Usuario(String alias, String email, String password) {
+	public Usuario (String alias, String email, String password) {
 		this.alias = alias;
 		this.email = email;
 		this.password = password;
@@ -49,67 +52,71 @@ public class Usuario implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId() {
+	public long getId () {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId (long id) {
 		this.id = id;
 	}
 
 	@Column(name = "alias", unique = true, nullable = false, length = 12)
-	public String getAlias() {
+	public String getAlias () {
 		return this.alias;
 	}
 
-	public void setAlias(String alias) {
+	public void setAlias (String alias) {
 		this.alias = alias;
 	}
 
 	@Column(name = "nombre", length = 50)
-	public String getNombre() {
+	public String getNombre () {
 		return this.nombre;
 	}
 
-	public void setNombre(String nombre) {
+	public void setNombre (String nombre) {
 		this.nombre = nombre;
 	}
 
 	@Column(name = "apellido", length = 50)
-	public String getApellido() {
+	public String getApellido () {
 		return this.apellido;
 	}
 
-	public void setApellido(String apellido) {
+	public void setApellido (String apellido) {
 		this.apellido = apellido;
 	}
 
 	@Column(name = "email", nullable = false, length = 100)
-	public String getEmail() {
+	public String getEmail () {
 		return this.email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail (String email) {
 		this.email = email;
 	}
 
 	@Column(name = "password", nullable = false, length = 100)
-	public String getPassword() {
+	public String getPassword () {
 		return this.password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword (String password) {
 		this.password = password;
 	}
 
 	@Transactional
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-	public Set<UsuarioRol> getRolesUsuario() {
-		return this.rolesUsuario;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "usuario_rol", catalog = "seg_proeza_db", joinColumns = {
+		@JoinColumn(name = "fk_usuario", nullable = false, updatable = false)},
+		inverseJoinColumns = {@JoinColumn(name = "fk_rol",
+		nullable = false, updatable = false)})
+	public Set<Rol> getRoles () {
+		return this.roles;
 	}
 
-	public void setRolesUsuario(Set<UsuarioRol> usuarioRols) {
-		this.rolesUsuario = usuarioRols;
+	public void setRoles (Set<Rol> roles) {
+		this.roles = roles;
 	}
 
 	@Override

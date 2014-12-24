@@ -75,8 +75,8 @@ public class DerbyDataLoading {
 		final Usuario usuario = this.userDao.findByAlias("admin");
 		assertNotNull(usuario);
 		assertEquals("admin", usuario.getAlias());
-		assertNotNull(usuario.getRolesUsuario());
-		assertFalse("El usuario admin tiene que tener dos roles asociados", usuario.getRolesUsuario().isEmpty());
+		assertNotNull(usuario.getRoles());
+		assertFalse("El usuario admin tiene que tener dos roles asociados", usuario.getRoles().isEmpty());
 	}
 
 	@Test

@@ -122,13 +122,14 @@ body {
 			<div class="span2 main-menu-span">
 				<div class="well nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
-						<li class="nav-header hidden-tablet" th:text="#{menu.main}">Menú principal</li>
+<!-- 						<li class="nav-header hidden-tablet" th:text="#{menu.main}">Menú principal</li> -->
 						<li th:each="item : ${SIDE_MENU_LEFT.items}">
 							<a class="ajax-link" th:href="${item.href}">
 								<i class="icon-home" th:class="${item.icon}"/>
 								<span class="hidden-tablet" th:text="${item.text}" />
 							</a>
 						</li>
+						
 						<li sec:authorize="isAnonymous()">
 							<a class="ajax-link" href="login">
 								<i class="icon icon-darkgrey icon-key"/>

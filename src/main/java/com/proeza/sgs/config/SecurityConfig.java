@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.failureUrl("/login?error=bad_credentials")
 		.and()
 		.logout()
-		.logoutUrl("/signout")
+		.logoutUrl("/logout")
 		.deleteCookies("JSESSIONID")
 		.and()
 		.authorizeRequests()

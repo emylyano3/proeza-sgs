@@ -14,8 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.proeza.security.dao.UsuarioDao;
+import com.proeza.security.entity.Rol;
 import com.proeza.security.entity.Usuario;
-import com.proeza.security.entity.UsuarioRol;
 
 @Service("proezaUserDetailsService")
 public class ProezaUserDetailsService implements UserDetailsService {
@@ -45,9 +45,9 @@ public class ProezaUserDetailsService implements UserDetailsService {
 	}
 
 	private List<GrantedAuthority> getUserAuthorities(Usuario user) {
-		final List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(user.getRolesUsuario().size());
-		for (final UsuarioRol userRole : user.getRolesUsuario()) {
-			result.add(new SimpleGrantedAuthority(userRole.getRol().getCodigo()));
+		final List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(user.getRoles().size());
+		for (final Rol rol : user.getRoles()) {
+			result.add(new SimpleGrantedAuthority(rol.getCodigo()));
 		}
 		return result;
 	}

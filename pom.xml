@@ -20,6 +20,7 @@
 		<servlet.api-version>2.5</servlet.api-version>
 		<dbunit-version>2.4.9</dbunit-version>
 		<junit-version>4.11</junit-version>
+		<commons-collections-version>3.2.1</commons-collections-version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -32,7 +33,11 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${org.slf4j-version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>${commons-collections-version}</version>
+		</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

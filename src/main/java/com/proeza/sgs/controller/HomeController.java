@@ -1,5 +1,7 @@
 package com.proeza.sgs.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,9 +20,9 @@ public class HomeController {
 	private ViewMenuManager		menuManager;
 
 	@RequestMapping({"/", "/" + PAGE_NAME})
-	public ModelAndView home (ModelAndView model) {
+	public ModelAndView home (ModelAndView model, Principal principal) {
 		model.setViewName(PAGE_NAME);
-		model.addAllObjects(this.menuManager.getMenus(PAGE_CODE));
+		model.addAllObjects(this.menuManager.getMenus(PAGE_CODE, principal));
 		return model;
 	}
 

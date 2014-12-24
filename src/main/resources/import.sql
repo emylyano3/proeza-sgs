@@ -9,17 +9,10 @@
 	insert into seg_proeza_db.rol (codigo, nombre, descripcion) values ('ROLE_USER','user','Rol de usuario básico');
 	
 	/* Asociacion de Usuarios y roles */
-	insert into seg_proeza_db.usuario_rol (fk_rol, fk_usuario) values (1, 1);
-	insert into seg_proeza_db.usuario_rol (fk_rol, fk_usuario) values (2, 1);
-	insert into seg_proeza_db.usuario_rol (fk_rol, fk_usuario) values (2, 2);
+	insert into seg_proeza_db.usuario_rol (id, fk_rol, fk_usuario) values (1, 1, 1);
+	insert into seg_proeza_db.usuario_rol (id, fk_rol, fk_usuario) values (2, 2, 1);
+	insert into seg_proeza_db.usuario_rol (id, fk_rol, fk_usuario) values (3, 2, 2);
 	
-	/* Funcionalidades */
-	insert into seg_proeza_db.funcionalidad (codigo, nombre, descripcion) values ('F_HOME','Home','Start point de la aplicacion');
-	
-	/* Asociacion de Funcionalidadeds y roles */
-	insert into seg_proeza_db.funcionalidad_rol (fk_rol, fk_funcionalidad) values (1, 1);
-	insert into seg_proeza_db.funcionalidad_rol (fk_rol, fk_funcionalidad) values (2, 1);
-
 /* Seguridad */
 
 /* Sistema */
@@ -42,6 +35,9 @@
 	/* Menu - Item de Menu */
 	insert into sgs_proeza_db.menu_item(fk_menu, fk_item, index) values (1,1,0);
 	insert into sgs_proeza_db.menu_item(fk_menu, fk_item, index) values (1,2,1);
+
+	/* Item de Menu - Rol*/
+	insert into sgs_proeza_db.item_rol(id, fk_item, fk_rol) values (1, 2,1);
 
 /* Sistema */
 

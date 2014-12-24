@@ -3,40 +3,40 @@ package com.proeza.sgs.system.entity;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.springframework.transaction.annotation.Transactional;
-
-import com.proeza.security.entity.FuncionalidadRol;
+import com.proeza.security.entity.Rol;
 
 @Entity
 @Table(catalog = "sgs_proeza_db", name = "item")
 public class Item implements Serializable {
 
-	private static final long		serialVersionUID	= 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	private long					id;
+	private long				id;
 
-	private String					code;
+	private String				code;
 
-	private String					text;
+	private String				text;
 
-	private String					tooltip;
+	private String				tooltip;
 
-	private String					link;
+	private String				link;
 
-	private String					icon;
+	private String				icon;
 
-	private Set<FuncionalidadRol>	funcionalidades		= new HashSet<FuncionalidadRol>(0);
+	private Set<Rol>			roles;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -94,13 +94,16 @@ public class Item implements Serializable {
 		this.icon = icon;
 	}
 
-	@Transactional
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rol")
-	public Set<FuncionalidadRol> getFuncionalidades () {
-		return this.funcionalidades;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "item_rol", catalog = "sgs_proeza_db", joinColumns = {
+		@JoinColumn(name = "fk_item", nullable = false, updatable = false)},
+		inverseJoinColumns = {@JoinColumn(name = "fk_rol",
+		nullable = false, updatable = false)})
+	public Set<Rol> getRoles () {
+		return this.roles;
 	}
 
-	public void setFuncionalidades (Set<FuncionalidadRol> funcionalidades) {
-		this.funcionalidades = funcionalidades;
+	public void setRoles (Set<Rol> roles) {
+		this.roles = roles;
 	}
 }
