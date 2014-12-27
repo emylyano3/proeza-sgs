@@ -131,19 +131,19 @@ body {
 						</li>
 						
 						<li sec:authorize="isAnonymous()">
-							<a class="ajax-link" href="login">
+							<a class="ajax-link" href="login.html" th:href="@{login}">
 								<i class="icon icon-darkgrey icon-key"/>
 								<span class="hidden-tablet" th:text="#{menu.login}"/>
 							</a>
 						</li>
 						<li sec:authorize="isAnonymous()">
-							<a class="ajax-link" href="register">
+							<a class="ajax-link" href="register.html" th:href="@{register}">
 								<i class="icon-user"/>
 								<span class="hidden-tablet" th:text="#{menu.register}"/>
 							</a>
 						</li>
 						<li sec:authorize="isAuthenticated()">
-							<a class="ajax-link" href="logout">
+							<a class="ajax-link" href="logout.html" th:href="@{logout}">
 								<i class="icon icon-darkgrey icon-reply"/>
 								<span class="hidden-tablet" th:text="#{menu.logout}"/>
 							</a>

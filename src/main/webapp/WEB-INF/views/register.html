@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorator="layout">
+<body>
+
+	<div id="content" layout:fragment="contenido">
+		<div sec:authorize="isAnonymous()">
+			<form class="form-horizontal" action="#" th:action="@{register}" th:object="${user}" method="post">
+				<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+				<fieldset>
+					<label th:text="#{form.register.alias}">Alias</label>
+					<input type="text" th:field="*{alias}"/>
+					<label th:text="#{form.register.name}">Nombre</label>
+					<input type="text" th:field="*{nombre}"/>
+					<label th:text="#{form.register.lastname}">Apellido</label>
+					<input type="text" th:field="*{apellido}"/>
+					<label th:text="#{form.register.email}">Email</label>
+					<input type="text" th:field="*{email}"/>
+					<label th:text="#{form.register.password}">Contraseña</label>
+					<input type="text" th:field="*{password}"/>
+					<label th:text="#{form.register.passwordconfirm}">Confirmar contraseña</label>
+					<input type="text" th:field="*{password}"/>
+					<p/>
+					<button type="submit" class="btn btn-primary" th:text="#{control.register}">Registrarme</button>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

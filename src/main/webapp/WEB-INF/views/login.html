@@ -71,7 +71,7 @@ body {
 			<div class="row-fluid">
 				<div class="well span5 center login-box">
 					<div class="alert alert-info" th:text="#{user.msg.pleaselogin}">Por favor ingrese con su usuario y contraseña</div>
-					<form class="form-horizontal" action="login/authenticate" method="post">
+					<form class="form-horizontal" action="@{login/authenticate}" method="post">
 						<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 						<fieldset>
 							<div class="input-prepend" title="Username" data-rel="tooltip">
