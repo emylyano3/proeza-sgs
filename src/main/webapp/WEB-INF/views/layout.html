@@ -143,7 +143,7 @@ body {
 							</a>
 						</li>
 						<li sec:authorize="isAuthenticated()">
-							<a class="ajax-link" href="logout.html" th:href="@{logout}">
+							<a class="ajax-link" href="#" th:href="@{doLogout}">
 								<i class="icon icon-darkgrey icon-reply"/>
 								<span class="hidden-tablet" th:text="#{menu.logout}"/>
 							</a>

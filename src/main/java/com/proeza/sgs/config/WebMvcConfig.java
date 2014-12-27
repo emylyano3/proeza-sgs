@@ -4,6 +4,8 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
@@ -20,8 +22,9 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
-@Configuration
 @EnableWebMvc
+@Configuration
+@ComponentScan(basePackages = "com.proeza", excludeFilters = {@Filter(Configuration.class)})
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override
@@ -38,8 +41,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public LocaleResolver localeResolver () {
-		final LocaleResolver localeResolver = new FixedLocaleResolver();
-		return localeResolver;
+		return new FixedLocaleResolver();
 	}
 
 	@Bean

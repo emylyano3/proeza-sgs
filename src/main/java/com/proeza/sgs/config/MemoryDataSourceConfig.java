@@ -9,8 +9,6 @@ import net.sf.ehcache.CacheManager;
 
 import org.apache.derby.jdbc.EmbeddedDriver;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
@@ -28,7 +26,6 @@ import org.springframework.transaction.support.AbstractPlatformTransactionManage
 @Configuration
 @Profile(value = {"dev", "test"})
 @EnableTransactionManagement
-@ComponentScan(basePackages = "com.proeza", excludeFilters = {@Filter(Configuration.class)})
 @PropertySource("classpath:com/proeza/sgs/config/application.properties")
 @Import({SecurityConfig.class})
 public class MemoryDataSourceConfig {

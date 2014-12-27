@@ -32,6 +32,7 @@ public class LoginController {
 		@RequestParam(value = "logout", required = false) String logout,
 		HttpServletRequest request)
 	{
+		model.setViewName(PAGE_NAME);
 		if (error != null) {
 			model.addObject("errorMsg", getLoginErrorMessage(request));
 		}
@@ -39,7 +40,6 @@ public class LoginController {
 			String logoutMsg = this.messages.getMessage("sec.logoutsuccess", null, this.localeResolver.resolveLocale(request));
 			model.addObject("logoutMsg", logoutMsg);
 		}
-		model.setViewName(PAGE_NAME);
 		return model;
 	}
 
