@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="es" 
+<html 
+	lang="es" 
 	xmlns:th="http://www.thymeleaf.org" 
-	xmlns:social="http://spring.io/springsocial"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <!--
@@ -21,7 +21,7 @@
 <meta name="author" th:content="#{app.author}" content="Emiliano Schiano" />
 
 <!-- The styles -->
-<link id="bs-css" href="../../resources/css/bootstrap-cerulean.css" th:href="@{resources/css/bootstrap-cerulean.css}" rel="stylesheet"/>
+<link id="bs-css" href="../../resources/css/bootstrap-cerulean.css" th:href="@{resources/css/bootstrap-cerulean.css}" rel="stylesheet" />
 <style type="text/css">
 body {
 	padding-bottom: 40px;
@@ -31,22 +31,22 @@ body {
 	padding: 9px 0;
 }
 </style>
-<link href="../../resources/css/bootstrap-responsive.css" th:href="@{resources/css/bootstrap-responsive.css}" rel="stylesheet"/>
-<link href="../../resources/css/charisma-app.css" th:href="@{resources/css/charisma-app.css}" rel="stylesheet"/>
-<link href="../../resources/css/jquery-ui-1.8.21.custom.css" th:href="@{resources/css/jquery-ui-1.8.21.custom.css}" rel="stylesheet"/>
-<link href="../../resources/css/fullcalendar.css" th:href="@{resources/css/fullcalendar.css}" rel="stylesheet"/>
-<link href="../../resources/css/fullcalendar.print.css" th:href="@{resources/css/fullcalendar.print.css}" rel="stylesheet" media="print"/>
-<link href="../../resources/css/chosen.css" th:href="@{resources/css/chosen.css}" rel="stylesheet"/>
-<link href="../../resources/css/uniform.default.css" th:href="@{resources/css/uniform.default.css}" rel="stylesheet"/>
-<link href="../../resources/css/colorbox.css" th:href="@{resources/css/colorbox.css}" rel="stylesheet"/>
-<link href="../../resources/css/jquery.cleditor.css" th:href="@{resources/css/jquery.cleditor.css}" rel="stylesheet"/>
-<link href="../../resources/css/jquery.noty.css" th:href="@{resources/css/jquery.noty.css}" rel="stylesheet"/>
-<link href="../../resources/css/noty_theme_default.css" th:href="@{resources/css/noty_theme_default.css}" rel="stylesheet"/>
-<link href="../../resources/css/elfinder.min.css" th:href="@{resources/css/elfinder.min.css}" rel="stylesheet"/>
-<link href="../../resources/css/elfinder.theme.css" th:href="@{resources/css/elfinder.theme.css}" rel="stylesheet"/>
-<link href="../../resources/css/jquery.iphone.toggle.css" th:href="@{resources/css/jquery.iphone.toggle.css}" rel="stylesheet"/>
-<link href="../../resources/css/opa-icons.css" th:href="@{resources/css/opa-icons.css}" rel="stylesheet"/>
-<link href="../../resources/css/uploadify.css" th:href="@{resources/css/uploadify.css}" rel="stylesheet"/>
+<link href="../../resources/css/bootstrap-responsive.css" th:href="@{resources/css/bootstrap-responsive.css}" rel="stylesheet" />
+<link href="../../resources/css/charisma-app.css" th:href="@{resources/css/charisma-app.css}" rel="stylesheet" />
+<link href="../../resources/css/jquery-ui-1.8.21.custom.css" th:href="@{resources/css/jquery-ui-1.8.21.custom.css}" rel="stylesheet" />
+<link href="../../resources/css/fullcalendar.css" th:href="@{resources/css/fullcalendar.css}" rel="stylesheet" />
+<link href="../../resources/css/fullcalendar.print.css" th:href="@{resources/css/fullcalendar.print.css}" rel="stylesheet" media="print" />
+<link href="../../resources/css/chosen.css" th:href="@{resources/css/chosen.css}" rel="stylesheet" />
+<link href="../../resources/css/uniform.default.css" th:href="@{resources/css/uniform.default.css}" rel="stylesheet" />
+<link href="../../resources/css/colorbox.css" th:href="@{resources/css/colorbox.css}" rel="stylesheet" />
+<link href="../../resources/css/jquery.cleditor.css" th:href="@{resources/css/jquery.cleditor.css}" rel="stylesheet" />
+<link href="../../resources/css/jquery.noty.css" th:href="@{resources/css/jquery.noty.css}" rel="stylesheet" />
+<link href="../../resources/css/noty_theme_default.css" th:href="@{resources/css/noty_theme_default.css}" rel="stylesheet" />
+<link href="../../resources/css/elfinder.min.css" th:href="@{resources/css/elfinder.min.css}" rel="stylesheet" />
+<link href="../../resources/css/elfinder.theme.css" th:href="@{resources/css/elfinder.theme.css}" rel="stylesheet" />
+<link href="../../resources/css/jquery.iphone.toggle.css" th:href="@{resources/css/jquery.iphone.toggle.css}" rel="stylesheet" />
+<link href="../../resources/css/opa-icons.css" th:href="@{resources/css/opa-icons.css}" rel="stylesheet" />
+<link href="../../resources/css/uploadify.css" th:href="@{resources/css/uploadify.css}" rel="stylesheet" />
 
 <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -54,7 +54,7 @@ body {
 	<![endif]-->
 
 <!-- The fav icon -->
-<link rel="shortcut icon" href="../../resources/img/favicon.ico" th:href="@{resources/img/favicon.ico}"/>
+<link rel="shortcut icon" href="../../resources/img/favicon.ico" th:href="@{resources/img/favicon.ico}" />
 
 </head>
 
@@ -63,7 +63,15 @@ body {
 		<div class="row-fluid">
 			<div class="row-fluid">
 				<div class="span12 center login-header">
-					<h2 th:text="#{user.msg.goodbye}" >Gracias por utilizar SGS</h2>
+					<h2 th:text="#{user.msg.goodbye}">Gracias por utilizar SGS</h2>
+				</div>
+				<div class="well span5 center login-box">
+					<div th:if="${logoutMsg != null}" class="alert alert-success" th:text="${logoutMsg}">Se ha deslogueado con éxito</div>
+					<form action="#" th:action="@{home}">
+						<p class="center span5">
+							<button type="submit" class="btn btn-primary" th:text="#{control.gohome}">Ir a Inicio</button>
+						</p>
+					</form>
 				</div>
 				<!--/span-->
 			</div>
@@ -77,74 +85,74 @@ body {
 	<!-- Placed at the end of the document so the pages load faster -->
 
 	<!-- jQuery -->
-	<script src="../../resources/js/jquery-1.7.2.min.js" th:src="@{resources/js/jquery-1.7.2.min.js}"/>
+	<script src="../../resources/js/jquery-1.7.2.min.js" th:src="@{resources/js/jquery-1.7.2.min.js}" />
 	<!-- jQuery UI -->
-	<script src="../../resources/js/jquery-ui-1.8.21.custom.min.js" th:src="@{resources/js/jquery-ui-1.8.21.custom.min.js}"/>
+	<script src="../../resources/js/jquery-ui-1.8.21.custom.min.js" th:src="@{resources/js/jquery-ui-1.8.21.custom.min.js}" />
 	<!-- transition / effect library -->
-	<script src="../../resources/js/bootstrap-transition.js" th:src="@{resources/js/bootstrap-transition.js}"/>
+	<script src="../../resources/js/bootstrap-transition.js" th:src="@{resources/js/bootstrap-transition.js}" />
 	<!-- alert enhancer library -->
-	<script src="../../resources/js/bootstrap-alert.js" th:src="@{resources/js/bootstrap-alert.js}"/>
+	<script src="../../resources/js/bootstrap-alert.js" th:src="@{resources/js/bootstrap-alert.js}" />
 	<!-- modal / dialog library -->
-	<script src="../../resources/js/bootstrap-modal.js" th:src="@{resources/js/bootstrap-modal.js}"/>
+	<script src="../../resources/js/bootstrap-modal.js" th:src="@{resources/js/bootstrap-modal.js}" />
 	<!-- custom dropdown library -->
-	<script src="../../resources/js/bootstrap-dropdown.js" th:src="@{resources/js/bootstrap-dropdown.js}"/>
+	<script src="../../resources/js/bootstrap-dropdown.js" th:src="@{resources/js/bootstrap-dropdown.js}" />
 	<!-- scrolspy library -->
-	<script src="../../resources/js/bootstrap-scrollspy.js" th:src="@{resources/js/bootstrap-scrollspy.js}"/>
+	<script src="../../resources/js/bootstrap-scrollspy.js" th:src="@{resources/js/bootstrap-scrollspy.js}" />
 	<!-- library for creating tabs -->
-	<script src="../../resources/js/bootstrap-tab.js" th:src="@{resources/js/bootstrap-tab.js}"/>
+	<script src="../../resources/js/bootstrap-tab.js" th:src="@{resources/js/bootstrap-tab.js}" />
 	<!-- library for advanced tooltip -->
-	<script src="../../resources/js/bootstrap-tooltip.js" th:src="@{resources/js/bootstrap-tooltip.js}"/>
+	<script src="../../resources/js/bootstrap-tooltip.js" th:src="@{resources/js/bootstrap-tooltip.js}" />
 	<!-- popover effect library -->
-	<script src="../../resources/js/bootstrap-popover.js" th:src="@{resources/js/bootstrap-popover.js}"/>
+	<script src="../../resources/js/bootstrap-popover.js" th:src="@{resources/js/bootstrap-popover.js}" />
 	<!-- button enhancer library -->
-	<script src="../../resources/js/bootstrap-button.js" th:src="@{resources/js/bootstrap-button.js}"/>
+	<script src="../../resources/js/bootstrap-button.js" th:src="@{resources/js/bootstrap-button.js}" />
 	<!-- accordion library (optional, not used in demo) -->
-	<script src="../../resources/js/bootstrap-collapse.js" th:src="@{resources/js/bootstrap-collapse.js}"/>
+	<script src="../../resources/js/bootstrap-collapse.js" th:src="@{resources/js/bootstrap-collapse.js}" />
 	<!-- carousel slideshow library (optional, not used in demo) -->
-	<script src="../../resources/js/bootstrap-carousel.js" th:src="@{resources/js/bootstrap-carousel.js}"/>
+	<script src="../../resources/js/bootstrap-carousel.js" th:src="@{resources/js/bootstrap-carousel.js}" />
 	<!-- autocomplete library -->
-	<script src="../../resources/js/bootstrap-typeahead.js" th:src="@{resources/js/bootstrap-typeahead.js}"/>
+	<script src="../../resources/js/bootstrap-typeahead.js" th:src="@{resources/js/bootstrap-typeahead.js}" />
 	<!-- tour library -->
-	<script src="../../resources/js/bootstrap-tour.js" th:src="@{resources/js/bootstrap-tour.js}"/>
+	<script src="../../resources/js/bootstrap-tour.js" th:src="@{resources/js/bootstrap-tour.js}" />
 	<!-- library for cookie management -->
-	<script src="../../resources/js/jquery.cookie.js" th:src="@{resources/js/jquery.cookie.js}"/>
+	<script src="../../resources/js/jquery.cookie.js" th:src="@{resources/js/jquery.cookie.js}" />
 	<!-- calander plugin -->
-	<script src="../../resources/js/fullcalendar.min.js" th:src="@{resources/js/fullcalendar.min.js}"/>
+	<script src="../../resources/js/fullcalendar.min.js" th:src="@{resources/js/fullcalendar.min.js}" />
 	<!-- data table plugin -->
-	<script src="../../resources/js/jquery.dataTables.min.js" th:src="@{resources/js/jquery.dataTables.min.js}"/>
+	<script src="../../resources/js/jquery.dataTables.min.js" th:src="@{resources/js/jquery.dataTables.min.js}" />
 
 	<!-- chart libraries start -->
-	<script src="../../resources/js/excanvas.js" th:src="@{resources/js/excanvas.js}"/>
-	<script src="../../resources/js/jquery.flot.min.js" th:src="@{resources/js/jquery.flot.min.js}"/>
-	<script src="../../resources/js/jquery.flot.pie.min.js" th:src="@{resources/js/jquery.flot.pie.min.js}"/>
-	<script src="../../resources/js/jquery.flot.stack.js" th:src="@{resources/js/jquery.flot.stack.js}"/>
-	<script src="../../resources/js/jquery.flot.resize.min.js" th:src="@{resources/js/jquery.flot.resize.min.js}"/>
+	<script src="../../resources/js/excanvas.js" th:src="@{resources/js/excanvas.js}" />
+	<script src="../../resources/js/jquery.flot.min.js" th:src="@{resources/js/jquery.flot.min.js}" />
+	<script src="../../resources/js/jquery.flot.pie.min.js" th:src="@{resources/js/jquery.flot.pie.min.js}" />
+	<script src="../../resources/js/jquery.flot.stack.js" th:src="@{resources/js/jquery.flot.stack.js}" />
+	<script src="../../resources/js/jquery.flot.resize.min.js" th:src="@{resources/js/jquery.flot.resize.min.js}" />
 	<!-- chart libraries end -->
 
 	<!-- select or dropdown enhancer -->
-	<script src="../../resources/js/jquery.chosen.min.js" th:src="@{resources/js/jquery.chosen.min.js}"/>
+	<script src="../../resources/js/jquery.chosen.min.js" th:src="@{resources/js/jquery.chosen.min.js}" />
 	<!-- checkbox, radio, and file input styler -->
-	<script src="../../resources/js/jquery.uniform.min.js" th:src="@{resources/js/jquery.uniform.min.js}"/>
+	<script src="../../resources/js/jquery.uniform.min.js" th:src="@{resources/js/jquery.uniform.min.js}" />
 	<!-- plugin for gallery image view -->
-	<script src="../../resources/js/jquery.colorbox.min.js" th:src="@{resources/js/jquery.colorbox.min.js}"/>
+	<script src="../../resources/js/jquery.colorbox.min.js" th:src="@{resources/js/jquery.colorbox.min.js}" />
 	<!-- rich text editor library -->
-	<script src="../../resources/js/jquery.cleditor.min.js" th:src="@{resources/js/jquery.cleditor.min.js}"/>
+	<script src="../../resources/js/jquery.cleditor.min.js" th:src="@{resources/js/jquery.cleditor.min.js}" />
 	<!-- notification plugin -->
-	<script src="../../resources/js/jquery.noty.js" th:src="@{resources/js/jquery.noty.js}"/>
+	<script src="../../resources/js/jquery.noty.js" th:src="@{resources/js/jquery.noty.js}" />
 	<!-- file manager library -->
-	<script src="../../resources/js/jquery.elfinder.min.js" th:src="@{resources/js/jquery.elfinder.min.js}"/>
+	<script src="../../resources/js/jquery.elfinder.min.js" th:src="@{resources/js/jquery.elfinder.min.js}" />
 	<!-- star rating plugin -->
-	<script src="../../resources/js/jquery.raty.min.js" th:src="@{resources/js/jquery.raty.min.js}"/>
+	<script src="../../resources/js/jquery.raty.min.js" th:src="@{resources/js/jquery.raty.min.js}" />
 	<!-- for iOS style toggle switch -->
-	<script src="../../resources/js/jquery.iphone.toggle.js" th:src="@{resources/js/jquery.iphone.toggle.js}"/>
+	<script src="../../resources/js/jquery.iphone.toggle.js" th:src="@{resources/js/jquery.iphone.toggle.js}" />
 	<!-- autogrowing textarea plugin -->
-	<script src="../../resources/js/jquery.autogrow-textarea.js" th:src="@{resources/js/jquery.autogrow-textarea.js}"/>
+	<script src="../../resources/js/jquery.autogrow-textarea.js" th:src="@{resources/js/jquery.autogrow-textarea.js}" />
 	<!-- multiple file upload plugin -->
-	<script src="../../resources/js/jquery.uploadify-3.1.min.js" th:src="@{resources/js/jquery.uploadify-3.1.min.js}"/>
+	<script src="../../resources/js/jquery.uploadify-3.1.min.js" th:src="@{resources/js/jquery.uploadify-3.1.min.js}" />
 	<!-- history.js for cross-browser state change on ajax -->
-	<script src="../../resources/js/jquery.history.js" th:src="@{resources/js/jquery.history.js}"/>
+	<script src="../../resources/js/jquery.history.js" th:src="@{resources/js/jquery.history.js}" />
 	<!-- application script for Charisma demo -->
-	<script src="../../resources/js/charisma.js" th:src="@{resources/js/charisma.js}"/>
+	<script src="../../resources/js/charisma.js" th:src="@{resources/js/charisma.js}" />
 
 </body>
 </html>
