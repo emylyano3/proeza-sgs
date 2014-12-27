@@ -69,9 +69,13 @@ body {
 			</div>
 			<!--/row-->
 			<div class="row-fluid">
-				<div class="well span5 center login-box">
-					<div class="alert alert-info" th:text="#{user.msg.pleaselogin}">Por favor ingrese con su usuario y contraseña</div>
-					<form class="form-horizontal" action="@{login/authenticate}" method="post">
+				<div th:if="${logoutMsg != null}" class="well span5 center login-box">
+					<div class="alert alert-info" th:text="${logoutMsg}">Se ha logueado con exito</div>
+				</div>
+				<div th:if="${logoutMsg == null}" class="well span5 center login-box">
+					<div th:if="${errorMsg != null}" class="alert error-info" th:text="${errorMsg}">Error en el ingreso</div>
+					<div class="alert alert-info" th:text="#{sec.pleaselogin}">Por favor ingrese con su usuario y contraseña</div>
+					<form class="form-horizontal" action="#" th:action="@{login/authenticate}" method="post">
 						<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 						<fieldset>
 							<div class="input-prepend" title="Username" data-rel="tooltip">
@@ -186,23 +190,3 @@ body {
 
 </body>
 </html>
-
-<!-- 
-<div id="content" layout:fragment="contenido">
-	<form id="signin" th:action="@{/login/authenticate}" method="post">
-		<input type="hidden" name="_csrf" th:value="${_csrf.token}"></input>
-		<div class="error"
-			th:if="${param.error != null and param.error[0] == 'bad_credentials'}">
-			Your sign in information was incorrect. Please try again or <a
-				th:href="../../resources/@{/signup}">sign up</a>.
-		</div>
-		<fieldset>
-			<label for="login">Username</label> 
-			<input id="login" name="username" type="text" size="25"/>
-			<label for="password">Password</label> 
-			<input id="password" name="password" type="password" size="25"/>
-		</fieldset>
-		<button type="submit">Sign In</button>
-	</form>
-</div>
- -->

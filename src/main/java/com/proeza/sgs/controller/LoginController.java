@@ -2,37 +2,55 @@ package com.proeza.sgs.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
-		final ModelAndView model = new ModelAndView();
+
+	public static final String	PAGE_CODE	= "P_LOGIN";
+	public static final String	PAGE_NAME	= "login";
+
+	@Autowired
+	private MessageSource		messages;
+
+	@Autowired
+	private LocaleResolver		localeResolver;
+
+	@RequestMapping(value = "/" + PAGE_NAME, method = RequestMethod.GET)
+	public ModelAndView login (
+		ModelAndView model,
+		@RequestParam(value = "error", required = false) String error,
+		@RequestParam(value = "logout", required = false) String logout,
+		HttpServletRequest request)
+	{
 		if (error != null) {
-			model.addObject("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
+			model.addObject("errorMsg", getLoginErrorMessage(request));
 		}
 		if (logout != null) {
-			model.addObject("msg", "You've been logged out successfully.");
+			String logoutMsg = this.messages.getMessage("sec.logoutsuccess", null, this.localeResolver.resolveLocale(request));
+			model.addObject("logoutMsg", logoutMsg);
 		}
-		model.setViewName("login");
+		model.setViewName(PAGE_NAME);
 		return model;
 	}
-	
-	private String getErrorMessage(HttpServletRequest request, String key) {
-		final Exception exception = (Exception) request.getSession().getAttribute(key);
+
+	private String getLoginErrorMessage (HttpServletRequest request) {
+		final Exception exception = (Exception) request.getSession().getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
 		if (exception instanceof BadCredentialsException) {
-			return "Invalid username and password!";
+			return this.messages.getMessage("sec.badcredentials", null, this.localeResolver.resolveLocale(request));
 		} else if (exception instanceof LockedException) {
-			return exception.getMessage();
+			return this.messages.getMessage("sec.accountlocked", null, this.localeResolver.resolveLocale(request));
 		} else {
-			return "Invalid username and password!";
+			return this.messages.getMessage("sec.loginerror", null, this.localeResolver.resolveLocale(request));
 		}
 	}
 }

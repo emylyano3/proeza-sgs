@@ -23,6 +23,7 @@
 	insert into sgs_proeza_db.pagina (codigo, nombre, descripcion) values ('P_HOME','home','Inicio de la aplicación');
 	insert into sgs_proeza_db.pagina (codigo, nombre, descripcion) values ('P_ADMIN','admin','Inicio de la aplicación');
 	insert into sgs_proeza_db.pagina (codigo, nombre, descripcion) values ('P_REGISTER','register','Registro de usuario');
+	insert into sgs_proeza_db.pagina (codigo, nombre, descripcion) values ('P_LOGIN','login','Ingreso de usuario al sistema');
 
 	/* Menu*/
 	insert into sgs_proeza_db.menu(codigo, texto, tooltip, tipo, icono) values ('M_LEFT_MAIN','Menú Principal', 'Para acceder al inicio de la aplicación','SIDE_MENU_LEFT', null);
