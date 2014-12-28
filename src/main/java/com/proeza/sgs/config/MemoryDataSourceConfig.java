@@ -10,7 +10,6 @@ import net.sf.ehcache.CacheManager;
 import org.apache.derby.jdbc.EmbeddedDriver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -27,7 +26,6 @@ import org.springframework.transaction.support.AbstractPlatformTransactionManage
 @Profile(value = {"dev", "test"})
 @EnableTransactionManagement
 @PropertySource("classpath:com/proeza/sgs/config/application.properties")
-@Import({SecurityConfig.class})
 public class MemoryDataSourceConfig {
 
 	@Bean

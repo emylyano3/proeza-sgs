@@ -22,6 +22,8 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
+import com.proeza.core.MessageResolver;
+
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = "com.proeza", excludeFilters = {@Filter(Configuration.class)})
@@ -37,6 +39,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 		messageSource.setBasename("/WEB-INF/messages/messages");
 		return messageSource;
+	}
+
+	@Bean
+	public MessageResolver proezaMessageResolver (MessageSource messageSource, LocaleResolver localeResolver) {
+		return new MessageResolver(messageSource, localeResolver);
 	}
 
 	@Bean

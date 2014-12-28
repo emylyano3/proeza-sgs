@@ -11,6 +11,8 @@ public class MessageResolver {
 	private LocaleResolver	localeResolver;
 
 	public MessageResolver (MessageSource messageSource, LocaleResolver localeResolver) {
+		this.messageSource = messageSource;
+		this.localeResolver = localeResolver;
 	}
 
 	public String getMessage (String code) {
