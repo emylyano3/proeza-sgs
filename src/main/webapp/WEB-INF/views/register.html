@@ -7,21 +7,28 @@
 
 	<div id="content" layout:fragment="contenido">
 		<div sec:authorize="isAnonymous()">
-			<form class="form-horizontal" action="#" th:action="@{register}" th:object="${user}" method="post">
+			<form class="form-horizontal" action="#" th:action="@{register}" th:object="${userForm}" method="post">
 				<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 				<fieldset>
-					<label th:text="#{form.register.alias}">Alias</label>
-					<input type="text" th:field="*{alias}"/>
-					<label th:text="#{form.register.name}">Nombre</label>
-					<input type="text" th:field="*{nombre}"/>
-					<label th:text="#{form.register.lastname}">Apellido</label>
-					<input type="text" th:field="*{apellido}"/>
-					<label th:text="#{form.register.email}">Email</label>
-					<input type="text" th:field="*{email}"/>
-					<label th:text="#{form.register.password}">Contraseña</label>
-					<input type="text" th:field="*{password}"/>
-					<label th:text="#{form.register.passwordconfirm}">Confirmar contraseña</label>
-					<input type="text" th:field="*{password}"/>
+					<label for="alias" th:text="#{form.register.alias}">Alias</label>
+					<input id="alias" type="text" th:field="*{alias}" placeholder="Su alias" required="required" autofocus="autofocus"/>
+					<p/>
+					<label for="name" th:text="#{form.register.name}">Nombre</label>
+					<input id="name" type="text" th:field="*{nombre}" placeholder="Su nombre" required="required" />
+					<p/>
+					<label for="lastname" th:text="#{form.register.lastname}">Apellido</label>
+					<input id="lastname" type="text" th:field="*{apellido}" placeholder="Su apellido" required="required" />
+					<p/>
+					<label for="email" th:text="#{form.register.email}">Email</label>
+					<input id="email" type="email" th:field="*{email}" placeholder="mail@email.com" required="required"/>
+					<p/>
+					<label for="pass" th:text="#{form.register.password}">Contraseña</label>
+					<input id="pass" type="password" th:field="*{password}" pattern="[\w\d-_]{5,15}" required="required" />
+					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error en el dato ingresado</p>
+					<p/>
+					<label for="passConfirm" th:text="#{form.register.passwordconfirm}">Confirmar contraseña</label>
+					<input id="passConfirm" type="password" th:field="*{passwordConfirm}" pattern="[\w\d-_]{5,15}" required="required"/>
+					<p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Error en el dato ingresado</p>
 					<p/>
 					<button type="submit" class="btn btn-primary" th:text="#{control.register}">Registrarme</button>
 				</fieldset>
