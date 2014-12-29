@@ -23,17 +23,18 @@
 					<input id="email" type="email" th:field="*{email}" placeholder="mail@email.com" required="required"/>
 					<p/>
 					<label for="pass" th:text="#{form.register.password}">Contraseña</label>
-					<input id="pass" type="password" th:field="*{password}" pattern="[\w\d-_]{5,15}" required="required" />
+					<input id="pass" type="password" th:field="*{password}" pattern="[\w\d-_]{5,15}" required="required" th:title="#{form.error.password}"/>
 					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error en el dato ingresado</p>
 					<p/>
 					<label for="passConfirm" th:text="#{form.register.passwordconfirm}">Confirmar contraseña</label>
-					<input id="passConfirm" type="password" th:field="*{passwordConfirm}" pattern="[\w\d-_]{5,15}" required="required"/>
+					<input id="passConfirm" type="password" th:field="*{passwordConfirm}" pattern="[\w\d-_]{5,15}" required="required" th:title="#{form.error.password}" />
 					<p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Error en el dato ingresado</p>
 					<p/>
-					<button type="submit" class="btn btn-primary" th:text="#{control.register}">Registrarme</button>
+					<button type="submit" name="save" class="btn btn-primary" th:text="#{control.register}">Registrarme</button>
 				</fieldset>
 			</form>
 		</div>
 	</div>
 </body>
 </html>
+	

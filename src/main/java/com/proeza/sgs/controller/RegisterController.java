@@ -6,10 +6,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.proeza.security.form.UsuarioForm;
 import com.proeza.sgs.menu.ViewMenuManager;
@@ -23,24 +24,24 @@ public class RegisterController {
 	@Autowired
 	private ViewMenuManager		menuManager;
 
-	@RequestMapping(value = "/" + PAGE_NAME, method = RequestMethod.GET)
-	public ModelAndView getForm (ModelAndView model, Principal principal) {
-		model.setViewName(PAGE_NAME);
-		model.addObject("userForm", new UsuarioForm());
-		model.addAllObjects(this.menuManager.getMenus(PAGE_CODE, principal));
-		return model;
+	@ModelAttribute
+	public void menues (final ModelMap model, final Principal principal) {
+		model.addAllAttributes(this.menuManager.getMenus(PAGE_CODE, principal));
 	}
 
-	@RequestMapping(value = "/" + PAGE_NAME, method = RequestMethod.POST)
-	public ModelAndView register (ModelAndView model, Principal principal, @Valid UsuarioForm userForm, BindingResult result) {
+	@RequestMapping(value = "/" + PAGE_NAME, method = RequestMethod.GET)
+	public String getForm (final ModelMap model, final UsuarioForm usuarioForm) {
+		model.addAttribute("userForm", usuarioForm);
+		return PAGE_NAME;
+	}
+
+	@RequestMapping(value = "/" + PAGE_NAME, params = {"save"}, method = RequestMethod.POST)
+	public String register (final ModelMap model, @Valid final UsuarioForm userForm, final BindingResult result) {
 		if (result.hasErrors()) {
-			model.addAllObjects(this.menuManager.getMenus(PAGE_CODE, principal));
-			model.addObject("userForm", userForm);
-			model.setViewName(PAGE_NAME);
+			model.addAttribute("userForm", userForm);
+			return PAGE_NAME;
 		} else {
-			model.addObject("userForm", userForm);
-			model.setViewName("redirect:" + HomeController.PAGE_NAME);
+			return "redirect:/" + HomeController.PAGE_NAME;
 		}
-		return model;
 	}
 }
