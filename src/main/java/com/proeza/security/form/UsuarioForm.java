@@ -5,6 +5,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
+import com.proeza.security.entity.Usuario;
+
 public class UsuarioForm {
 
 	@NotNull
@@ -22,12 +24,20 @@ public class UsuarioForm {
 	private String	email;
 
 	@NotNull
-	@Length(min = 7, max = 15)
+	@Length(min = 5, max = 15, message="Ingrese una contraseña que tenga entre 5 y 15 caracteres y que sólo tenga Letras, Números, Guión o Guión Bajo")
 	private String	password;
 
-	@NotNull
-	@Length(min = 7, max = 15)
 	private String	passwordConfirm;
+
+	public Usuario getUsuario () {
+		Usuario usuario = new Usuario();
+		usuario.setAlias(this.alias);
+		usuario.setNombre(this.nombre);
+		usuario.setApellido(this.apellido);
+		usuario.setEmail(this.email);
+		usuario.setPassword(this.password);
+		return usuario;
+	}
 
 	public String getAlias () {
 		return this.alias;

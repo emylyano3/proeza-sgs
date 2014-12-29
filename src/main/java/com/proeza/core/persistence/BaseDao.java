@@ -1,4 +1,4 @@
-package com.proeza.sgs.system.dao;
+package com.proeza.core.persistence;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
@@ -10,9 +10,7 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Statistics;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public abstract class BaseDao<Entity> {
 
 	@PersistenceContext

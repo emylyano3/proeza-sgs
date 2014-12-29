@@ -23,8 +23,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.AbstractPlatformTransactionManager;
 
 @Configuration
-@Profile(value = {"dev", "test"})
 @EnableTransactionManagement
+@Profile(value = {"dev", "test"})
 @PropertySource("classpath:com/proeza/sgs/config/application.properties")
 public class MemoryDataSourceConfig {
 
@@ -79,7 +79,7 @@ public class MemoryDataSourceConfig {
 	}
 
 	@Bean
-	public PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer () {
+	public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer () {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 }

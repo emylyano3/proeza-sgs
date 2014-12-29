@@ -24,14 +24,14 @@ import com.proeza.security.entity.Usuario;
 import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.config.MemoryDataSourceConfig;
-import com.proeza.sgs.controller.HomeController;
 import com.proeza.sgs.system.dao.PageDao;
 import com.proeza.sgs.system.entity.MenuType;
 import com.proeza.sgs.system.entity.Page;
+import com.proeza.sgs.web.controller.HomeController;
 
+@ActiveProfiles(profiles = "test")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = MemoryDataSourceConfig.class, loader = AnnotationConfigContextLoader.class)
-@ActiveProfiles(profiles = "test")
 public class DerbyDataLoading {
 	private static Logger	log	= Logger.getLogger(DerbyDataLoading.class.getName());
 
@@ -56,7 +56,7 @@ public class DerbyDataLoading {
 	@Test
 	public void usuario_FIND_BY_ID () {
 		log.info("Inicia usuario_FIND_BY_ID");
-		final Usuario usuario = this.userDao.findById(1L);
+		final Usuario usuario = this.userDao.find(1L);
 		assertNotNull(usuario);
 		assertEquals("admin", usuario.getAlias());
 	}
@@ -91,7 +91,7 @@ public class DerbyDataLoading {
 	@Test
 	public void clase_FIND_BY_ID () {
 		log.info("Inicia clase_FIND_BY_ID");
-		final Clase clase = this.claseDao.findById(1L);
+		final Clase clase = this.claseDao.find(1L);
 		assertNotNull(clase);
 		assertFalse(clase.getCodigo().equals("ROTATIVO"));
 	}

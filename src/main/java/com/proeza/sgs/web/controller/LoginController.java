@@ -1,4 +1,4 @@
-package com.proeza.sgs.controller;
+package com.proeza.sgs.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

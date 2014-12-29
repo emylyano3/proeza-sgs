@@ -9,14 +9,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.proeza.security.service.ProezaUserDetailsService;
+import com.proeza.security.service.UserService;
 
 @Configuration
 @EnableWebMvcSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private ProezaUserDetailsService	userDetailsService;
+	private UserService	userDetailsService;
 
 	@Override
 	protected UserDetailsService userDetailsService () {

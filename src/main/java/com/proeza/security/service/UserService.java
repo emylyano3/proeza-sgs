@@ -18,11 +18,11 @@ import com.proeza.security.entity.Rol;
 import com.proeza.security.entity.Usuario;
 
 @Service("proezaUserDetailsService")
-public class ProezaUserDetailsService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
-	public static final Logger log = Logger.getLogger(ProezaUserDetailsService.class);
+	public static final Logger log = Logger.getLogger(UserService.class);
 
-	public ProezaUserDetailsService() {
+	public UserService() {
 		log.debug("Inicializando el servicio de detalle de usuarios para integracion con Spring Security");
 	}
 
@@ -34,6 +34,11 @@ public class ProezaUserDetailsService implements UserDetailsService {
 		final Usuario user = getSystemUser(userName);
 		final List<GrantedAuthority> authorities = getUserAuthorities(user);
 		return buildUserForAuthentication(user, authorities);
+	}
+
+	public Usuario create (Usuario user) {
+		this.userDao.persist(user);
+		return user;
 	}
 
 	private User buildUserForAuthentication(Usuario user, List<GrantedAuthority> authorities) {
