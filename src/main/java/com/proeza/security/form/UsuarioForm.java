@@ -24,7 +24,7 @@ public class UsuarioForm {
 	private String	email;
 
 	@NotNull
-	@Length(min = 5, max = 15, message="Ingrese una contraseña que tenga entre 5 y 15 caracteres y que sólo tenga Letras, Números, Guión o Guión Bajo")
+	@Length(min = 6, max = 15, message="{form.error.password}")
 	private String	password;
 
 	private String	passwordConfirm;
