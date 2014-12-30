@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -19,11 +20,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Craig Walls
  */
 @Configuration
-//@Profile(value = {"dev", "test"})
-@ComponentScan(basePackages = "com.proeza", excludeFilters = {@Filter(Configuration.class)})
+@ComponentScan(basePackages = "com.proeza", excludeFilters = {
+	@Filter(Configuration.class),
+	@Filter(Controller.class)
+})
 @PropertySource("classpath:com/proeza/sgs/config/application.properties")
 @EnableTransactionManagement
-public class MainConfig {
+public class RootConfig {
 
 	@Bean
 	public DataSource dataSource () {
