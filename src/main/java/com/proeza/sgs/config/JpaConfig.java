@@ -25,6 +25,8 @@ public class JpaConfig {
 	//		return cacheManager;
 	//	}
 
+	private static final String	SCHEMA_IMPORT_SCRIPTS	= "/schema-import/negocio.sql,/schema-import/seguridad.sql,/schema-import/sistema.sql";
+
 	@Bean
 	public AbstractJpaVendorAdapter jpaVendorAdapter () {
 		final HibernateJpaVendorAdapter jpaAdapter = new HibernateJpaVendorAdapter();
@@ -35,13 +37,12 @@ public class JpaConfig {
 	@Bean
 	public Properties jpaProperties () {
 		final Properties jpaProperties = new Properties();
-		jpaProperties.put("hibernate.hbm2ddl.auto", "create-drop");
-		jpaProperties.put("hibernate.hbm2ddl.import_files", "/import.sql,/notengoImport.sql");
+		jpaProperties.put("hibernate.hbm2ddl.auto", "create");
+		jpaProperties.put("hibernate.hbm2ddl.import_files", SCHEMA_IMPORT_SCRIPTS);
 		jpaProperties.put("hibernate.show_sql", "true");
-		jpaProperties.put("hbm2ddl.auto", "create-drop");
+		jpaProperties.put("hibernate.generate_statistics", "true");
 		jpaProperties.put("hibernate.cache.use_second_level_cache", "true");
 		jpaProperties.put("hibernate.cache.use_query_cache", "true");
-		jpaProperties.put("hibernate.generate_statistics", "true");
 		jpaProperties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
 		return jpaProperties;
 	}
