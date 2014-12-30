@@ -16,9 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.proeza.security.dao.UsuarioDao;
 import com.proeza.security.entity.Usuario;
 import com.proeza.sgs.system.dao.PageDao;
+import com.proeza.sgs.system.entity.Menu;
 import com.proeza.sgs.system.entity.MenuItem;
 import com.proeza.sgs.system.entity.Page;
-import com.proeza.sgs.system.entity.PageMenu;
 
 @Component
 public class ViewMenuManager {
@@ -32,11 +32,11 @@ public class ViewMenuManager {
 	@Transactional
 	public Map<String, VMenu> getMenus (String pageCode, Principal principal) {
 		Page page = this.pageDao.findByCode(pageCode);
-		Set<PageMenu> menues = page.getMenues();
+		Set<Menu> menues = page.getMenues();
 		Map<String, VMenu> result = new HashMap<String, VMenu>(menues.size());
-		for (PageMenu pageMenu : menues) {
+		for (Menu menu : menues) {
 			List<VMenuItem> items = new ArrayList<VMenuItem>();
-			for (MenuItem menuItem : pageMenu.getMenu().getItems()) {
+			for (MenuItem menuItem : menu.getItems()) {
 				if (menuItem.getItem().getRoles().isEmpty()) {
 					items.add(new VMenuItem(menuItem));
 				} else {
@@ -52,7 +52,7 @@ public class ViewMenuManager {
 				}
 			}
 			Collections.sort(items);
-			result.put(pageMenu.getMenu().getType(), new VMenu(items));
+			result.put(menu.getType(), new VMenu(items));
 		}
 		return result;
 	}

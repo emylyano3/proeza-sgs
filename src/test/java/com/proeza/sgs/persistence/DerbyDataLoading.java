@@ -110,10 +110,6 @@ public class DerbyDataLoading {
 		assertNotNull("La pagina debe tener menues asociados", page.getMenues());
 		assertFalse("La pagina debe tener al menos un menu item", page.getMenues().isEmpty());
 		assertNotNull("El item de menu no debe ser nulo", page.getMenues().iterator().next());
-		assertNotNull("El menu debe referenciar a la pagina", page.getMenues().iterator().next().getPage());
-		assertEquals("El nombre de la pagina referenciada por el item de menu, debe coincidir con el nombre de la pagina",
-			page.getName(),
-			page.getMenues().iterator().next().getPage().getName());
 	}
 
 	@Test
@@ -125,12 +121,8 @@ public class DerbyDataLoading {
 		assertNotNull("La pagina debe tener menues asociados", page.getMenues());
 		assertFalse("La pagina debe tener al menos un menu item", page.getMenues().isEmpty());
 		assertNotNull("El item de menu no debe ser nulo", page.getMenues().iterator().next());
-		assertNotNull("El menu debe referenciar a la pagina", page.getMenues().iterator().next().getPage());
-		assertEquals("El nombre de la pagina referenciada por el item de menu, debe coincidir con el nombre de la pagina",
-			page.getName(),
-			page.getMenues().iterator().next().getPage().getName());
-		assertNotNull("Los items del menu no deben ser null", page.getMenues().iterator().next().getMenu().getItems());
-		assertFalse("El menu debe tener items", page.getMenues().iterator().next().getMenu().getItems().isEmpty());
+		assertNotNull("Los items del menu no deben ser null", page.getMenues().iterator().next().getItems());
+		assertFalse("El menu debe tener items", page.getMenues().iterator().next().getItems().isEmpty());
 	}
 
 	@Test
@@ -142,21 +134,17 @@ public class DerbyDataLoading {
 		assertNotNull("La pagina debe tener menues asociados", page.getMenues());
 		assertFalse("La pagina debe tener al menos un menu item", page.getMenues().isEmpty());
 		assertNotNull("El item de menu no debe ser nulo", page.getMenues().iterator().next());
-		assertNotNull("El menu debe referenciar a la pagina", page.getMenues().iterator().next().getPage());
-		assertEquals("El nombre de la pagina referenciada por el item de menu, debe coincidir con el nombre de la pagina",
-			page.getName(),
-			page.getMenues().iterator().next().getPage().getName());
-		assertNotNull("Los items del menu no deben ser null", page.getMenues().iterator().next().getMenu().getItems());
-		assertFalse("El menu debe tener items", page.getMenues().iterator().next().getMenu().getItems().isEmpty());
+		assertNotNull("Los items del menu no deben ser null", page.getMenues().iterator().next().getItems());
+		assertFalse("El menu debe tener items", page.getMenues().iterator().next().getItems().isEmpty());
 	}
 
-	//	@Test
-	//	@Ignore
-	//	@Transactional
-	//	public void page_CACHE_STATISTICS () {
-	//		this.pageDao.find(1L);
-	//		this.pageDao.find(1L);
-	//		Statistics statistics = this.pageDao.getCacheStatistics();
-	//		assertFalse(statistics.getCacheHits() <= 0);
-	//	}
+	// @Test
+	// @Ignore
+	// @Transactional
+	// public void page_CACHE_STATISTICS () {
+	// this.pageDao.find(1L);
+	// this.pageDao.find(1L);
+	// Statistics statistics = this.pageDao.getCacheStatistics();
+	// assertFalse(statistics.getCacheHits() <= 0);
+	// }
 }

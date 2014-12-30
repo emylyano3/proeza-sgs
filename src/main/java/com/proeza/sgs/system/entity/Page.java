@@ -7,22 +7,24 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
-import org.springframework.transaction.annotation.Transactional;
 
 @NamedQueries(value = {
-	@NamedQuery(name = "pageWithMenuFiltered", query = "select p from Page p join p.menues m where p.code = :code and m.menu.type = :type")
+	@NamedQuery(name = "pageWithMenuFiltered", query = "select p from Page p join p.menues m where p.code = :code and m.type = :type")
 })
 @Entity
 @Table(catalog = "sgs_proeza_db", name = "pagina", uniqueConstraints = {
@@ -41,7 +43,7 @@ public class Page implements Serializable {
 
 	private String				description;
 
-	private Set<PageMenu>		menues				= new TreeSet<PageMenu>();
+	private Set<Menu>			menues				= new TreeSet<Menu>();
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -81,13 +83,17 @@ public class Page implements Serializable {
 		this.description = description;
 	}
 
-	@Transactional
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "page")
-	public Set<PageMenu> getMenues () {
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(
+		name = "menu_pagina", catalog = "sgs_proeza_db",
+		joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false, updatable = false)},
+		inverseJoinColumns = {@JoinColumn(name = "fk_menu", nullable = false, updatable = false)}
+		)
+	public Set<Menu> getMenues () {
 		return this.menues;
 	}
 
-	public void setMenues (Set<PageMenu> menues) {
+	public void setMenues (Set<Menu> menues) {
 		this.menues = menues;
 	}
 }

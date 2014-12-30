@@ -29,9 +29,9 @@
 	insert into sgs_proeza_db.menu(codigo, texto, tooltip, tipo, icono) values ('M_LEFT_MAIN','Menú Principal', 'Para acceder al inicio de la aplicación','SIDE_MENU_LEFT', null);
 	
 	/* Asociacion pagina - menu*/
-	insert into sgs_proeza_db.menu_pagina (fk_pagina, fk_menu) values (1, 1);
-	insert into sgs_proeza_db.menu_pagina (fk_pagina, fk_menu) values (2, 1);
-	insert into sgs_proeza_db.menu_pagina (fk_pagina, fk_menu) values (3, 1);
+	insert into sgs_proeza_db.menu_pagina (id, fk_pagina, fk_menu) values (1, 1, 1);
+	insert into sgs_proeza_db.menu_pagina (id, fk_pagina, fk_menu) values (2, 2, 1);
+	insert into sgs_proeza_db.menu_pagina (id, fk_pagina, fk_menu) values (3, 3, 1);
 
 	/* Item de Menu */
 	insert into sgs_proeza_db.item(codigo, texto, tooltip, link, icono) values ('MI_HOME', 'Inicio', 'Para acceder al inicio de la aplicación', 'home', 'icon-home');

@@ -4,6 +4,7 @@ package com.proeza.security.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "usuario"
 , catalog = "seg_proeza_db"
 , uniqueConstraints = @UniqueConstraint(columnNames = "alias"))
-public class Usuario implements java.io.Serializable {
+public class Usuario implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 

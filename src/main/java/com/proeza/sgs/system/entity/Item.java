@@ -95,10 +95,12 @@ public class Item implements Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "item_rol", catalog = "sgs_proeza_db", joinColumns = {
-		@JoinColumn(name = "fk_item", nullable = false, updatable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "fk_rol",
-		nullable = false, updatable = false)})
+	@JoinTable(
+		name = "item_rol",
+		catalog = "sgs_proeza_db",
+		joinColumns = {@JoinColumn(name = "fk_item", nullable = false, updatable = false)},
+		inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false, updatable = false)}
+		)
 	public Set<Rol> getRoles () {
 		return this.roles;
 	}
