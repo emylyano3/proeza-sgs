@@ -7,9 +7,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 import java.util.logging.Logger;
 
-import net.sf.ehcache.Statistics;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +20,7 @@ import com.proeza.security.dao.UsuarioDao;
 import com.proeza.security.entity.Usuario;
 import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.entity.Clase;
-import com.proeza.sgs.config.MemoryDataSourceConfig;
+import com.proeza.sgs.config.JpaConfig;
 import com.proeza.sgs.system.dao.PageDao;
 import com.proeza.sgs.system.entity.MenuType;
 import com.proeza.sgs.system.entity.Page;
@@ -31,7 +28,7 @@ import com.proeza.sgs.web.controller.HomeController;
 
 @ActiveProfiles(profiles = "test")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = MemoryDataSourceConfig.class, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = JpaConfig.class, loader = AnnotationConfigContextLoader.class)
 public class DerbyDataLoading {
 	private static Logger	log	= Logger.getLogger(DerbyDataLoading.class.getName());
 
@@ -153,13 +150,13 @@ public class DerbyDataLoading {
 		assertFalse("El menu debe tener items", page.getMenues().iterator().next().getMenu().getItems().isEmpty());
 	}
 
-	@Test
-	@Ignore
-	@Transactional
-	public void page_CACHE_STATISTICS () {
-		this.pageDao.find(1L);
-		this.pageDao.find(1L);
-		Statistics statistics = this.pageDao.getCacheStatistics();
-		assertFalse(statistics.getCacheHits() <= 0);
-	}
+	//	@Test
+	//	@Ignore
+	//	@Transactional
+	//	public void page_CACHE_STATISTICS () {
+	//		this.pageDao.find(1L);
+	//		this.pageDao.find(1L);
+	//		Statistics statistics = this.pageDao.getCacheStatistics();
+	//		assertFalse(statistics.getCacheHits() <= 0);
+	//	}
 }

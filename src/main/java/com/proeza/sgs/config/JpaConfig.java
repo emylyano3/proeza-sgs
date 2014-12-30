@@ -5,35 +5,25 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import net.sf.ehcache.CacheManager;
-
-import org.apache.derby.jdbc.EmbeddedDriver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.AbstractEntityManagerFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.support.AbstractPlatformTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@EnableTransactionManagement
-@Profile(value = {"dev", "test"})
-@PropertySource("classpath:com/proeza/sgs/config/application.properties")
-public class MemoryDataSourceConfig {
+//@EnableCaching
+public class JpaConfig {
 
-	@Bean
-	public DataSource dataSource () {
-		final DriverManagerDataSource ds = new DriverManagerDataSource("jdbc:derby:target/database/testDB;create=true", "app", "app");
-		ds.setDriverClassName(EmbeddedDriver.class.getName());
-		return ds;
-	}
+	//	@Bean
+	//	public CacheManager cacheManager () {
+	//		EhCacheCacheManager cacheManager = new EhCacheCacheManager();
+	//		cacheManager.setCacheManager(net.sf.ehcache.CacheManager.getInstance());
+	//		return cacheManager;
+	//	}
 
 	@Bean
 	public AbstractJpaVendorAdapter jpaVendorAdapter () {
@@ -46,6 +36,7 @@ public class MemoryDataSourceConfig {
 	public Properties jpaProperties () {
 		final Properties jpaProperties = new Properties();
 		jpaProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+		jpaProperties.put("hibernate.hbm2ddl.import_files", "/import.sql,/notengoImport.sql");
 		jpaProperties.put("hibernate.show_sql", "true");
 		jpaProperties.put("hbm2ddl.auto", "create-drop");
 		jpaProperties.put("hibernate.cache.use_second_level_cache", "true");
@@ -66,20 +57,10 @@ public class MemoryDataSourceConfig {
 	}
 
 	@Bean
-	public CacheManager cacheManager () {
-		return CacheManager.getInstance();
-	}
-
-	@Bean
-	public AbstractPlatformTransactionManager transactionManager (DataSource ds, EntityManagerFactory em) {
+	public PlatformTransactionManager transactionManager (DataSource ds, EntityManagerFactory em) {
 		final JpaTransactionManager tm = new JpaTransactionManager();
 		tm.setDataSource(ds);
 		tm.setEntityManagerFactory(em);
 		return tm;
-	}
-
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer () {
-		return new PropertySourcesPlaceholderConfigurer();
 	}
 }

@@ -6,11 +6,6 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Statistics;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 public abstract class BaseDao<Entity> {
 
 	@PersistenceContext
@@ -18,12 +13,12 @@ public abstract class BaseDao<Entity> {
 
 	private Class<Entity>		entityClass;
 
-	@Autowired
-	private CacheManager		cacheManager;
-
-	public Statistics getCacheStatistics () {
-		return this.cacheManager.getCache(getEntityClass().getName()).getStatistics();
-	}
+	//	@Autowired
+	//	private CacheManager		cacheManager;
+	//
+	//	public Statistics getCacheStatistics () {
+	//		return this.cacheManager.getCache(getEntityClass().getName()).getStatistics();
+	//	}
 
 	@SuppressWarnings("unchecked")
 	private Class<Entity> getEntityClass () {

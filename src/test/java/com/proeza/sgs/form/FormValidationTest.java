@@ -12,10 +12,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.proeza.security.form.UsuarioForm;
-import com.proeza.sgs.config.MemoryDataSourceConfig;
+import com.proeza.sgs.config.JpaConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = MemoryDataSourceConfig.class, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = JpaConfig.class, loader = AnnotationConfigContextLoader.class)
 @ActiveProfiles(profiles = "test")
 public class FormValidationTest {
 
