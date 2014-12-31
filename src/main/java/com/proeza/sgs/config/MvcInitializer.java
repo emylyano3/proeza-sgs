@@ -6,6 +6,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.proeza.sgs.config.dispatcher.WebMvcConfig;
+import com.proeza.sgs.config.env.Dev;
 import com.proeza.sgs.config.root.JpaConfig;
 import com.proeza.sgs.config.root.RootConfig;
 import com.proeza.sgs.config.root.SecurityConfig;
@@ -14,7 +15,7 @@ public class MvcInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses () {
-		return new Class<?>[] {RootConfig.class, JpaConfig.class, SecurityConfig.class};
+		return new Class<?>[] {Dev.class, RootConfig.class, JpaConfig.class, SecurityConfig.class};
 	}
 
 	@Override

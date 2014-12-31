@@ -21,7 +21,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
-import com.proeza.core.MessageResolver;
+import com.proeza.core.resources.MessageResolver;
 
 @Configuration
 @ComponentScan(basePackages = "com.proeza.sgs.web.controller")

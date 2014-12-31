@@ -1,4 +1,4 @@
-package com.proeza.core;
+package com.proeza.core.resources;
 
 import javax.servlet.http.HttpServletRequest;
 
