@@ -5,6 +5,12 @@ import javax.servlet.Filter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.proeza.sgs.config.dispatcher.WebMvcConfig;
+import com.proeza.sgs.config.root.JpaConfig;
+import com.proeza.sgs.config.root.RootConfig;
+import com.proeza.sgs.config.root.SecurityConfig;
+import com.proeza.sgs.config.root.ServiceConfig;
+
 public class MvcInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override

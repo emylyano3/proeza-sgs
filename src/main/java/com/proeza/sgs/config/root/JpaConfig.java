@@ -1,4 +1,4 @@
-package com.proeza.sgs.config;
+package com.proeza.sgs.config.root;
 
 import java.util.Properties;
 

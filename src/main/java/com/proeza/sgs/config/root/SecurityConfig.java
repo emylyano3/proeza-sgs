@@ -1,4 +1,4 @@
-package com.proeza.sgs.config;
+package com.proeza.sgs.config.root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

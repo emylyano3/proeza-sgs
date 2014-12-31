@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.proeza.security.form.UsuarioForm;
-import com.proeza.sgs.config.JpaConfig;
+import com.proeza.sgs.config.root.JpaConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = JpaConfig.class, loader = AnnotationConfigContextLoader.class)

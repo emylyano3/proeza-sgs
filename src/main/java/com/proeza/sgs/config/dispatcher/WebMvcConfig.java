@@ -1,4 +1,4 @@
-package com.proeza.sgs.config;
+package com.proeza.sgs.config.dispatcher;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 

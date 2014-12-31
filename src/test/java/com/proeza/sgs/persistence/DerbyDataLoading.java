@@ -20,7 +20,7 @@ import com.proeza.security.dao.UsuarioDao;
 import com.proeza.security.entity.Usuario;
 import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.entity.Clase;
-import com.proeza.sgs.config.JpaConfig;
+import com.proeza.sgs.config.root.JpaConfig;
 import com.proeza.sgs.system.dao.PageDao;
 import com.proeza.sgs.system.entity.MenuType;
 import com.proeza.sgs.system.entity.Page;
