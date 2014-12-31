@@ -9,13 +9,12 @@ import com.proeza.sgs.config.dispatcher.WebMvcConfig;
 import com.proeza.sgs.config.root.JpaConfig;
 import com.proeza.sgs.config.root.RootConfig;
 import com.proeza.sgs.config.root.SecurityConfig;
-import com.proeza.sgs.config.root.ServiceConfig;
 
 public class MvcInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses () {
-		return new Class<?>[] {RootConfig.class, JpaConfig.class, ServiceConfig.class, SecurityConfig.class};
+		return new Class<?>[] {RootConfig.class, JpaConfig.class, SecurityConfig.class};
 	}
 
 	@Override

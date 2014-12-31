@@ -1,7 +1,6 @@
 package com.proeza.sgs.config.root;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,16 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebMvcSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	//	@Autowired
-	//	private UserService	userDetailsService;
-
 	@Autowired
-	private ApplicationContext	context;
-
-	//	@Override
-	//	protected UserDetailsService userDetailsService () {
-	//		return this.userDetailsService;
-	//	}
+	private UserDetailsService	userDetailsService;
 
 	@Override
 	public void configure (WebSecurity web) throws Exception {
@@ -34,8 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure (AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService((UserDetailsService)this.context.getBean("userDetailsService"));
-		//		auth.userDetailsService(this.userDetailsService);
+		auth.userDetailsService(this.userDetailsService);
 	}
 
 	@Override

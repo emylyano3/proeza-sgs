@@ -4,22 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.proeza.security.dao.UsuarioDao;
 import com.proeza.security.entity.Rol;
 import com.proeza.security.entity.Usuario;
 
+@Transactional
+@Service("userDetailsService")
 public class SpringSecIntegrationUserService implements UserDetailsService {
 
 	public static final Logger	log	= Logger.getLogger(SpringSecIntegrationUserService.class);
 
+	@Autowired
 	public SpringSecIntegrationUserService (UsuarioDao dao) {
 		log.debug("Inicializando el servicio de detalle de usuarios para integracion con Spring Security");
 		this.userDao = dao;
@@ -28,7 +33,6 @@ public class SpringSecIntegrationUserService implements UserDetailsService {
 	private UsuarioDao	userDao;
 
 	@Override
-	@Transactional
 	public UserDetails loadUserByUsername (String userName) throws UsernameNotFoundException {
 		final Usuario user = getSystemUser(userName);
 		final List<GrantedAuthority> authorities = getUserAuthorities(user);
