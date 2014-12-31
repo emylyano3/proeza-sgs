@@ -4,11 +4,12 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 
 import com.proeza.core.config.Settings;
 
-//@Profile("test")
+@Profile("test")
 @Configuration
 @ComponentScan(basePackageClasses = {Settings.class})
 public class Test {
@@ -16,7 +17,7 @@ public class Test {
 	@Bean
 	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer () {
 		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-		ppc.setLocation(new ClassPathResource("/env/test/application.properties"));
+		ppc.setLocation(new ClassPathResource("/env/test/app-config.properties"));
 		return ppc;
 	}
 }

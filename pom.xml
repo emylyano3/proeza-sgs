@@ -23,6 +23,31 @@
 		<junit-version>4.11</junit-version>
 		<commons-collections-version>3.2.1</commons-collections-version>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<app.environment>dev</app.environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<app.environment>test</app.environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<app.environment>prod</app.environment>
+			</properties>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -103,11 +128,11 @@
 			<artifactId>hibernate-ehcache</artifactId>
 			<version>${hibernate-version}</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>net.sf.ehcache</groupId> -->
-<!-- 			<artifactId>ehcache-core</artifactId> -->
-<!-- 			<version>${ehcache-core-version}</version> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>net.sf.ehcache</groupId> -->
+		<!-- <artifactId>ehcache-core</artifactId> -->
+		<!-- <version>${ehcache-core-version}</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
@@ -173,7 +198,14 @@
 		</dependency>
 	</dependencies>
 
+
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<finalName>proeza-sgs</finalName>
 		<plugins>
 			<plugin>
