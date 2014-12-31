@@ -30,13 +30,13 @@ public class RootConfig {
 
 	@Bean
 	public DataSource dataSource () {
-		final DriverManagerDataSource ds = new DriverManagerDataSource("jdbc:derby:target/database/testDB;create=true", "app", "app");
+		final DriverManagerDataSource ds = new DriverManagerDataSource("jdbc:derby:target/database/sgs-test-db;create=true", "app", "app");
 		ds.setDriverClassName(EmbeddedDriver.class.getName());
 		return ds;
 	}
 
 	@Bean
-	public PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer () {
+	public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer () {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 }

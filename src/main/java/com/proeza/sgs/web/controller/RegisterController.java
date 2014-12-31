@@ -5,6 +5,7 @@ import java.security.Principal;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.proeza.security.dao.UsuarioDao;
 import com.proeza.security.form.UsuarioForm;
 import com.proeza.security.service.UserService;
 import com.proeza.sgs.menu.ViewMenuManager;
@@ -23,7 +25,10 @@ public class RegisterController {
 	public static final String	PAGE_NAME	= "register";
 
 	@Autowired
-	private UserService			userService;
+	private UsuarioDao			usuarioDao;
+
+	@Autowired
+	private ApplicationContext	context;
 
 	@Autowired
 	private ViewMenuManager		menuManager;
@@ -46,11 +51,12 @@ public class RegisterController {
 	}
 
 	@RequestMapping(value = "/" + PAGE_NAME, params = {"save"}, method = RequestMethod.POST)
-	public String register (final ModelMap model,  @ModelAttribute("userForm") @Valid final UsuarioForm userForm, final BindingResult result) {
+	public String register (final ModelMap model, @ModelAttribute("userForm") @Valid final UsuarioForm userForm, final BindingResult result) {
 		if (result.hasErrors()) {
 			return PAGE_NAME;
 		} else {
-			this.userService.create(userForm.getUsuario());
+			this.usuarioDao.persist(userForm.getUsuario());
+			this.context.getBean(UserService.class).create(userForm.getUsuario());
 			return "redirect:/" + HomeController.PAGE_NAME;
 		}
 	}

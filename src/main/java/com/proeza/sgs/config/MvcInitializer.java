@@ -9,7 +9,7 @@ public class MvcInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses () {
-		return new Class<?>[] {RootConfig.class, JpaConfig.class, SecurityConfig.class};
+		return new Class<?>[] {RootConfig.class, JpaConfig.class, ServiceConfig.class, SecurityConfig.class};
 	}
 
 	@Override

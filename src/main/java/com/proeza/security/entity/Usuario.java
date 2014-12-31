@@ -104,7 +104,7 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "usuario_rol", catalog = "seg_proeza_db", joinColumns = {
 		@JoinColumn(name = "fk_usuario", nullable = false, updatable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "fk_rol",
