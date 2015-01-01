@@ -21,6 +21,7 @@ import com.proeza.security.entity.Usuario;
 import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.config.root.JpaConfig;
+import com.proeza.sgs.config.root.RootConfig;
 import com.proeza.sgs.system.dao.PageDao;
 import com.proeza.sgs.system.entity.MenuType;
 import com.proeza.sgs.system.entity.Page;
@@ -28,7 +29,7 @@ import com.proeza.sgs.web.controller.HomeController;
 
 @ActiveProfiles(profiles = "test")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = JpaConfig.class, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = {com.proeza.sgs.config.env.Test.class, RootConfig.class, JpaConfig.class}, loader = AnnotationConfigContextLoader.class)
 public class DerbyDataLoading {
 	private static Logger	log	= Logger.getLogger(DerbyDataLoading.class.getName());
 
@@ -67,6 +68,7 @@ public class DerbyDataLoading {
 	}
 
 	@Test
+	@Transactional
 	public void usuario_ROLES () {
 		log.info("Inicia usuario_ROLES");
 		final Usuario usuario = this.userDao.findByAlias("admin");
