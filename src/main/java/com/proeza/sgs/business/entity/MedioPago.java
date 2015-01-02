@@ -2,6 +2,8 @@ package com.proeza.sgs.business.entity;
 
 // Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ import static javax.persistence.GenerationType.*;
 @Table(name = "medio_pago"
 , catalog = "sgs_proeza_db"
 , uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
-public class MedioPago implements java.io.Serializable {
+public class MedioPago implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 

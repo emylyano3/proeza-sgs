@@ -31,6 +31,7 @@ public class Rubro implements java.io.Serializable {
 	private String				codigo;
 	private String				nombre;
 	private String				descripcion;
+
 	private Set<Articulo>		articulos			= new HashSet<Articulo>(0);
 
 	public Rubro () {

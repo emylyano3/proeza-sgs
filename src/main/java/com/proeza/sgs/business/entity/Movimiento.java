@@ -2,6 +2,7 @@ package com.proeza.sgs.business.entity;
 
 // Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,74 +23,67 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(name = "movimiento"
-		, catalog = "sgs_proeza_db")
-public class Movimiento implements java.io.Serializable {
+, catalog = "sgs_proeza_db")
+public class Movimiento implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
-	private long			id;
-	private Articulo		articulo;
-	private TipoMovimiento	tipoMovimiento;
-	private Date			fechaMovimiento;
-	private String			valor;
+	private long				id;
+	private Articulo			articulo;
+	private TipoMovimiento		tipoMovimiento;
+	private Date				fechaMovimiento;
+	private String				valor;
 
-	public Movimiento() {
-	}
-
-	public Movimiento(Articulo articulo, TipoMovimiento tipoMovimiento, Date fechaMovimiento, String valor) {
-		this.articulo = articulo;
-		this.tipoMovimiento = tipoMovimiento;
-		this.fechaMovimiento = fechaMovimiento;
-		this.valor = valor;
+	public Movimiento () {
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId() {
+	public long getId () {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId (long id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_articulo", nullable = false)
-	public Articulo getArticulo() {
+	public Articulo getArticulo () {
 		return this.articulo;
 	}
 
-	public void setArticulo(Articulo articulo) {
+	public void setArticulo (Articulo articulo) {
 		this.articulo = articulo;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_tipo", nullable = false)
-	public TipoMovimiento getTipoMovimiento() {
+	public TipoMovimiento getTipoMovimiento () {
 		return this.tipoMovimiento;
 	}
 
-	public void setTipoMovimiento(TipoMovimiento tipoMovimiento) {
+	public void setTipoMovimiento (TipoMovimiento tipoMovimiento) {
 		this.tipoMovimiento = tipoMovimiento;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "f_movimiento", nullable = false, length = 10)
-	public Date getFechaMovimiento() {
+	public Date getFechaMovimiento () {
 		return this.fechaMovimiento;
 	}
 
-	public void setFechaMovimiento(Date fechaMovimiento) {
+	public void setFechaMovimiento (Date fechaMovimiento) {
 		this.fechaMovimiento = fechaMovimiento;
 	}
 
 	@Column(name = "valor", nullable = false, length = 100)
-	public String getValor() {
+	public String getValor () {
 		return this.valor;
 	}
 
-	public void setValor(String valor) {
+	public void setValor (String valor) {
 		this.valor = valor;
 	}
 

@@ -2,6 +2,8 @@ package com.proeza.sgs.business.entity;
 
 // Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +21,7 @@ import static javax.persistence.GenerationType.*;
 @Entity
 @Table(name = "venta_articulo"
 , catalog = "sgs_proeza_db")
-public class VentaArticulo implements java.io.Serializable {
+public class VentaArticulo implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 

@@ -2,6 +2,7 @@ package com.proeza.sgs.business.entity;
 
 // Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +27,7 @@ import static javax.persistence.GenerationType.*;
 @Table(name = "articulo"
 , catalog = "sgs_proeza_db"
 , uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
-public class Articulo implements java.io.Serializable {
+public class Articulo implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
@@ -41,7 +42,6 @@ public class Articulo implements java.io.Serializable {
 	private BigDecimal			precio;
 	private int					cantidad;
 
-	private Set<VentaArticulo>	ventaArticulos		= new HashSet<VentaArticulo>(0);
 	private Set<Movimiento>		movimientos			= new HashSet<Movimiento>(0);
 
 	public Articulo () {
@@ -141,15 +141,6 @@ public class Articulo implements java.io.Serializable {
 
 	public void setCantidad (int cantidad) {
 		this.cantidad = cantidad;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "articulo")
-	public Set<VentaArticulo> getVentaArticulos () {
-		return this.ventaArticulos;
-	}
-
-	public void setVentaArticulos (Set<VentaArticulo> ventaArticulos) {
-		this.ventaArticulos = ventaArticulos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "articulo")

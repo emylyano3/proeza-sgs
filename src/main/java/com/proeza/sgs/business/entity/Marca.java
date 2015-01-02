@@ -2,6 +2,7 @@ package com.proeza.sgs.business.entity;
 
 // Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ import static javax.persistence.GenerationType.*;
 @Table(name = "marca"
 , catalog = "sgs_proeza_db"
 , uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
-public class Marca implements java.io.Serializable {
+public class Marca implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
@@ -31,6 +32,7 @@ public class Marca implements java.io.Serializable {
 	private String				nombre;
 	private String				codigo;
 	private String				descripcion;
+
 	private Set<Articulo>		articulos			= new HashSet<Articulo>(0);
 
 	public Marca () {
