@@ -1,7 +1,5 @@
 package com.proeza.sgs.system.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
@@ -20,14 +18,18 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import static javax.persistence.GenerationType.*;
+
 @NamedQueries(value = {
 	@NamedQuery(name = "pageWithMenuFiltered", query = "select p from Page p join p.menues m where p.code = :code and m.type = :type")
 })
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "pagina", uniqueConstraints = {
-	@UniqueConstraint(columnNames = {"codigo"})
-})
-//@Cache(usage = READ_ONLY)
+@Table(
+	catalog = "sgs_proeza_db",
+	name = "sys_pagina",
+	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})
+	})
+// @Cache(usage = READ_ONLY)
 public class Page implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
@@ -82,7 +84,7 @@ public class Page implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(
-		name = "menu_pagina", catalog = "sgs_proeza_db",
+		name = "sys_menu_pagina", catalog = "sgs_proeza_db",
 		joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false, updatable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "fk_menu", nullable = false, updatable = false)}
 		)

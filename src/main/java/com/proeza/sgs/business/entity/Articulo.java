@@ -24,13 +24,14 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(name = "articulo"
-		, catalog = "sgs_proeza_db"
-		, uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
+, catalog = "sgs_proeza_db"
+, uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class Articulo implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
 	private long				id;
+	private String				codigo;
 	private Rubro				rubro;
 	private Marca				marca;
 	private Clase				clase;
@@ -38,152 +39,125 @@ public class Articulo implements java.io.Serializable {
 	private String				descripcion;
 	private BigDecimal			costo;
 	private BigDecimal			precio;
-	private String				codigo;
 	private int					cantidad;
-	private Set<VentaArticulo>	ventaArticulos	= new HashSet<VentaArticulo>(0);
-	private Set<Movimiento>		movimientos		= new HashSet<Movimiento>(0);
 
-	public Articulo() {
-	}
+	private Set<VentaArticulo>	ventaArticulos		= new HashSet<VentaArticulo>(0);
+	private Set<Movimiento>		movimientos			= new HashSet<Movimiento>(0);
 
-	public Articulo(Rubro rubro, Marca marca, Clase clase, Categoria categoria, String descripcion, BigDecimal costo, BigDecimal precio, String codigo, int cantidad) {
-		this.rubro = rubro;
-		this.marca = marca;
-		this.clase = clase;
-		this.categoria = categoria;
-		this.descripcion = descripcion;
-		this.costo = costo;
-		this.precio = precio;
-		this.codigo = codigo;
-		this.cantidad = cantidad;
-	}
-
-	public Articulo(Rubro rubro, Marca marca, Clase clase, Categoria categoria, String descripcion, BigDecimal costo, BigDecimal precio, String codigo, int cantidad, Set<VentaArticulo> ventaArticulos, Set<Movimiento> movimientos) {
-		this.rubro = rubro;
-		this.marca = marca;
-		this.clase = clase;
-		this.categoria = categoria;
-		this.descripcion = descripcion;
-		this.costo = costo;
-		this.precio = precio;
-		this.codigo = codigo;
-		this.cantidad = cantidad;
-		this.ventaArticulos = ventaArticulos;
-		this.movimientos = movimientos;
+	public Articulo () {
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId() {
+	public long getId () {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId (long id) {
 		this.id = id;
+	}
+
+	@Column(name = "codigo", unique = true, nullable = false, length = 10)
+	public String getCodigo () {
+		return this.codigo;
+	}
+
+	public void setCodigo (String codigo) {
+		this.codigo = codigo;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_rubro", nullable = false)
-	public Rubro getRubro() {
+	public Rubro getRubro () {
 		return this.rubro;
 	}
 
-	public void setRubro(Rubro rubro) {
+	public void setRubro (Rubro rubro) {
 		this.rubro = rubro;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_marca", nullable = false)
-	public Marca getMarca() {
+	public Marca getMarca () {
 		return this.marca;
 	}
 
-	public void setMarca(Marca marca) {
+	public void setMarca (Marca marca) {
 		this.marca = marca;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_clase", nullable = false)
-	public Clase getClase() {
+	public Clase getClase () {
 		return this.clase;
 	}
 
-	public void setClase(Clase clase) {
+	public void setClase (Clase clase) {
 		this.clase = clase;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_categoria", nullable = false)
-	public Categoria getCategoria() {
+	public Categoria getCategoria () {
 		return this.categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria (Categoria categoria) {
 		this.categoria = categoria;
 	}
 
 	@Column(name = "descripcion", nullable = false, length = 300)
-	public String getDescripcion() {
+	public String getDescripcion () {
 		return this.descripcion;
 	}
 
-	public void setDescripcion(String descripcion) {
+	public void setDescripcion (String descripcion) {
 		this.descripcion = descripcion;
 	}
 
 	@Column(name = "costo", nullable = false, precision = 10)
-	public BigDecimal getCosto() {
+	public BigDecimal getCosto () {
 		return this.costo;
 	}
 
-	public void setCosto(BigDecimal costo) {
+	public void setCosto (BigDecimal costo) {
 		this.costo = costo;
 	}
 
 	@Column(name = "precio", nullable = false, precision = 10)
-	public BigDecimal getPrecio() {
+	public BigDecimal getPrecio () {
 		return this.precio;
 	}
 
-	public void setPrecio(BigDecimal precio) {
+	public void setPrecio (BigDecimal precio) {
 		this.precio = precio;
 	}
 
-	@Column(name = "codigo", unique = true, nullable = false, length = 10)
-	public String getCodigo() {
-		return this.codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
 	@Column(name = "cantidad", nullable = false)
-	public int getCantidad() {
+	public int getCantidad () {
 		return this.cantidad;
 	}
 
-	public void setCantidad(int cantidad) {
+	public void setCantidad (int cantidad) {
 		this.cantidad = cantidad;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "articulo")
-	public Set<VentaArticulo> getVentaArticulos() {
+	public Set<VentaArticulo> getVentaArticulos () {
 		return this.ventaArticulos;
 	}
 
-	public void setVentaArticulos(Set<VentaArticulo> ventaArticulos) {
+	public void setVentaArticulos (Set<VentaArticulo> ventaArticulos) {
 		this.ventaArticulos = ventaArticulos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "articulo")
-	public Set<Movimiento> getMovimientos() {
+	public Set<Movimiento> getMovimientos () {
 		return this.movimientos;
 	}
 
-	public void setMovimientos(Set<Movimiento> movimientos) {
+	public void setMovimientos (Set<Movimiento> movimientos) {
 		this.movimientos = movimientos;
 	}
-
 }

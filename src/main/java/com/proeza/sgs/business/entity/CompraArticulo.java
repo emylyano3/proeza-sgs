@@ -15,61 +15,54 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(name = "compra_articulo"
-		, catalog = "sgs_proeza_db")
+, catalog = "sgs_proeza_db")
 public class CompraArticulo implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
-	private long	id;
-	private long	articulo;
-	private long	compra;
-	private int		cantidad;
+	private long				id;
+	private long				articulo;
+	private long				compra;
+	private int					cantidad;
 
-	public CompraArticulo() {
-	}
-
-	public CompraArticulo(long articulo, long compra, int cantidad) {
-		this.articulo = articulo;
-		this.compra = compra;
-		this.cantidad = cantidad;
+	public CompraArticulo () {
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId() {
+	public long getId () {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId (long id) {
 		this.id = id;
 	}
 
 	@Column(name = "fk_articulo", nullable = false)
-	public long getArticulo() {
+	public long getArticulo () {
 		return this.articulo;
 	}
 
-	public void setArticulo(long articulo) {
+	public void setArticulo (long articulo) {
 		this.articulo = articulo;
 	}
 
 	@Column(name = "fk_compra", nullable = false)
-	public long getCompra() {
+	public long getCompra () {
 		return this.compra;
 	}
 
-	public void setCompra(long compra) {
+	public void setCompra (long compra) {
 		this.compra = compra;
 	}
 
 	@Column(name = "cantidad", nullable = false)
-	public int getCantidad() {
+	public int getCantidad () {
 		return this.cantidad;
 	}
 
-	public void setCantidad(int cantidad) {
+	public void setCantidad (int cantidad) {
 		this.cantidad = cantidad;
 	}
-
 }

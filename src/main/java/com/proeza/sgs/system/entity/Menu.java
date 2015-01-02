@@ -1,7 +1,5 @@
 package com.proeza.sgs.system.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
@@ -17,8 +15,10 @@ import javax.persistence.UniqueConstraint;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import static javax.persistence.GenerationType.*;
+
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "menu", uniqueConstraints = {
+@Table(catalog = "sgs_proeza_db", name = "sys_menu", uniqueConstraints = {
 	@UniqueConstraint(columnNames = {"codigo"})
 })
 public class Menu implements Serializable {

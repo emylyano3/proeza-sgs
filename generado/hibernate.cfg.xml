@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<!-- a SessionFactory instance -->
+	<session-factory name="sgs-proeza">
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306</property>
+		<property name="hibernate.default_schema">seg_proeza_db</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">true</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
+
+		<mapping class="com.proeza.security.entity.Usuario"/>
+		<mapping class="com.proeza.security.entity.Rol"/>
+		<mapping class="com.proeza.security.entity.UsuarioRol"/>
+		
+		<mapping class="com.proeza.sgs.business.entity.Articulo"/>
+		<mapping class="com.proeza.sgs.business.entity.Categoria"/>
+		<mapping class="com.proeza.sgs.business.entity.Clase"/>
+		<mapping class="com.proeza.sgs.business.entity.Compra"/>
+		<mapping class="com.proeza.sgs.business.entity.CompraArticulo"/>
+		<mapping class="com.proeza.sgs.business.entity.Marca"/>
+		<mapping class="com.proeza.sgs.business.entity.MedioPago"/>
+		<mapping class="com.proeza.sgs.business.entity.Movimiento"/>
+		<mapping class="com.proeza.sgs.business.entity.Rubro"/>
+		<mapping class="com.proeza.sgs.business.entity.TipoMovimiento"/>
+		<mapping class="com.proeza.sgs.business.entity.Venta"/>
+		<mapping class="com.proeza.sgs.business.entity.VentaArticulo"/>
+
+		<mapping class="com.proeza.sgs.system.entity.Item"/>
+		<mapping class="com.proeza.sgs.system.entity.ItemRol"/>
+		<mapping class="com.proeza.sgs.system.entity.Menu"/>
+		<mapping class="com.proeza.sgs.system.entity.MenuItem"/>
+		<mapping class="com.proeza.sgs.system.entity.Page"/>
+		<mapping class="com.proeza.sgs.system.entity.PageMenu"/>
+	</session-factory>
+</hibernate-configuration>

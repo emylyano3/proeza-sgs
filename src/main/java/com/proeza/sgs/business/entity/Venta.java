@@ -3,8 +3,6 @@ package com.proeza.sgs.business.entity;
 // Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,92 +22,56 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(name = "venta"
-		, catalog = "sgs_proeza_db")
+, catalog = "sgs_proeza_db")
 public class Venta implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
 	private long				id;
 	private MedioPago			medioPago;
-	private String				codigo;
 	private Date				fecha;
 	private double				importe;
-	private Set<VentaArticulo>	ventaArticulos	= new HashSet<VentaArticulo>(0);
 
-	public Venta() {
-	}
-
-	public Venta(MedioPago medioPago, String codigo, Date fecha, double importe) {
-		this.medioPago = medioPago;
-		this.codigo = codigo;
-		this.fecha = fecha;
-		this.importe = importe;
-	}
-
-	public Venta(MedioPago medioPago, String codigo, Date fecha, double importe, Set<VentaArticulo> ventaArticulos) {
-		this.medioPago = medioPago;
-		this.codigo = codigo;
-		this.fecha = fecha;
-		this.importe = importe;
-		this.ventaArticulos = ventaArticulos;
+	public Venta () {
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId() {
+	public long getId () {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId (long id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_medio_pago", nullable = false)
-	public MedioPago getMedioPago() {
+	public MedioPago getMedioPago () {
 		return this.medioPago;
 	}
 
-	public void setMedioPago(MedioPago medioPago) {
+	public void setMedioPago (MedioPago medioPago) {
 		this.medioPago = medioPago;
-	}
-
-	@Column(name = "codigo", nullable = false, length = 20)
-	public String getCodigo() {
-		return this.codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha", nullable = false, length = 10)
-	public Date getFecha() {
+	public Date getFecha () {
 		return this.fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha (Date fecha) {
 		this.fecha = fecha;
 	}
 
 	@Column(name = "importe", nullable = false, precision = 10)
-	public double getImporte() {
+	public double getImporte () {
 		return this.importe;
 	}
 
-	public void setImporte(double importe) {
+	public void setImporte (double importe) {
 		this.importe = importe;
 	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "venta")
-	public Set<VentaArticulo> getVentaArticulos() {
-		return this.ventaArticulos;
-	}
-
-	public void setVentaArticulos(Set<VentaArticulo> ventaArticulos) {
-		this.ventaArticulos = ventaArticulos;
-	}
-
 }

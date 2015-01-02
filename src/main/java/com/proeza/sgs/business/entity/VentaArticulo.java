@@ -18,7 +18,7 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(name = "venta_articulo"
-		, catalog = "sgs_proeza_db")
+, catalog = "sgs_proeza_db")
 public class VentaArticulo implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
@@ -28,53 +28,46 @@ public class VentaArticulo implements java.io.Serializable {
 	private Venta				venta;
 	private int					cantidad;
 
-	public VentaArticulo() {
-	}
-
-	public VentaArticulo(Articulo articulo, Venta venta, int cantidad) {
-		this.articulo = articulo;
-		this.venta = venta;
-		this.cantidad = cantidad;
+	public VentaArticulo () {
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId() {
+	public long getId () {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId (long id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_articulo", nullable = false)
-	public Articulo getArticulo() {
+	public Articulo getArticulo () {
 		return this.articulo;
 	}
 
-	public void setArticulo(Articulo articulo) {
+	public void setArticulo (Articulo articulo) {
 		this.articulo = articulo;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_venta", nullable = false)
-	public Venta getVenta() {
+	public Venta getVenta () {
 		return this.venta;
 	}
 
-	public void setVenta(Venta venta) {
+	public void setVenta (Venta venta) {
 		this.venta = venta;
 	}
 
 	@Column(name = "cantidad", nullable = false)
-	public int getCantidad() {
+	public int getCantidad () {
 		return this.cantidad;
 	}
 
-	public void setCantidad(int cantidad) {
+	public void setCantidad (int cantidad) {
 		this.cantidad = cantidad;
 	}
-
 }

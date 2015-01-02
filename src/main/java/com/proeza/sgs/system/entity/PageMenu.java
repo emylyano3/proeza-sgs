@@ -1,7 +1,5 @@
 package com.proeza.sgs.system.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -14,10 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import static javax.persistence.GenerationType.*;
+
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "menu_pagina", uniqueConstraints = {
-	@UniqueConstraint(columnNames = {"fk_pagina", "fk_menu"})
-})
+@Table(
+	catalog = "sgs_proeza_db",
+	name = "sys_menu_pagina",
+	uniqueConstraints = {@UniqueConstraint(columnNames = {"fk_pagina", "fk_menu"})
+	})
 public class PageMenu implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;

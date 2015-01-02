@@ -2,9 +2,9 @@ package com.proeza.sgs.config.root;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.AbstractEntityManagerFactoryBean;
@@ -14,36 +14,41 @@ import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.proeza.core.config.JpaSettings;
+
+import static org.hibernate.cfg.AvailableSettings.*;
+
 @Configuration
-//@EnableCaching
+// @EnableCaching
 public class JpaConfig {
 
-	//	@Bean
-	//	public CacheManager cacheManager () {
-	//		EhCacheCacheManager cacheManager = new EhCacheCacheManager();
-	//		cacheManager.setCacheManager(net.sf.ehcache.CacheManager.getInstance());
-	//		return cacheManager;
-	//	}
+	// @Bean
+	// public CacheManager cacheManager () {
+	// EhCacheCacheManager cacheManager = new EhCacheCacheManager();
+	// cacheManager.setCacheManager(net.sf.ehcache.CacheManager.getInstance());
+	// return cacheManager;
+	// }
 
-	private static final String	SCHEMA_IMPORT_SCRIPTS	= "/schema-import/negocio.sql,/schema-import/seguridad.sql,/schema-import/sistema.sql";
+	@Autowired
+	private JpaSettings	jpaSettings;
 
 	@Bean
 	public AbstractJpaVendorAdapter jpaVendorAdapter () {
-		final HibernateJpaVendorAdapter jpaAdapter = new HibernateJpaVendorAdapter();
-		jpaAdapter.setDatabasePlatform("org.hibernate.dialect.DB2Dialect");
+		final AbstractJpaVendorAdapter jpaAdapter = new HibernateJpaVendorAdapter();
+		jpaAdapter.setDatabasePlatform(this.jpaSettings.getDialect());
 		return jpaAdapter;
 	}
 
 	@Bean
 	public Properties jpaProperties () {
 		final Properties jpaProperties = new Properties();
-		jpaProperties.put("hibernate.hbm2ddl.auto", "create-drop");
-		jpaProperties.put("hibernate.hbm2ddl.import_files", SCHEMA_IMPORT_SCRIPTS);
-		jpaProperties.put("hibernate.show_sql", "true");
-		jpaProperties.put("hibernate.generate_statistics", "true");
-		//		jpaProperties.put("hibernate.cache.use_second_level_cache", "true");
-		//		jpaProperties.put("hibernate.cache.use_query_cache", "true");
-		//		jpaProperties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
+		jpaProperties.put(HBM2DDL_AUTO, this.jpaSettings.getHbm2ddlAuto());
+		jpaProperties.put(HBM2DDL_IMPORT_FILES, this.jpaSettings.getHbm2ddlImportFiles());
+		jpaProperties.put(SHOW_SQL, this.jpaSettings.getShowSql());
+		jpaProperties.put(GENERATE_STATISTICS, this.jpaSettings.getGenerateStatistics());
+		jpaProperties.put(USE_SECOND_LEVEL_CACHE, this.jpaSettings.getUseSecondLevelCache());
+		jpaProperties.put(USE_QUERY_CACHE, this.jpaSettings.getUseQueryCache());
+		jpaProperties.put(CACHE_REGION_FACTORY, this.jpaSettings.getCacheRegionFactoryClass());
 		return jpaProperties;
 	}
 
@@ -58,10 +63,10 @@ public class JpaConfig {
 	}
 
 	@Bean
-	public PlatformTransactionManager transactionManager (DataSource ds, EntityManagerFactory em) {
+	public PlatformTransactionManager transactionManager (DataSource ds, AbstractEntityManagerFactoryBean emf) {
 		final JpaTransactionManager tm = new JpaTransactionManager();
 		tm.setDataSource(ds);
-		tm.setEntityManagerFactory(em);
+		tm.setEntityManagerFactory(emf.getObject());
 		return tm;
 	}
 }

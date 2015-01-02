@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS `seg_proeza_db`.`rol` ;
 
 CREATE TABLE IF NOT EXISTS `seg_proeza_db`.`rol` (
   `id` BIGINT UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `codigo` VARCHAR(20) NOT NULL,
+  `codigo` VARCHAR(20) NOT NULL UNIQUE,
   `nombre` VARCHAR(45) NOT NULL,
   `descripcion` VARCHAR(100) NULL,
   PRIMARY KEY (`id`))
@@ -72,6 +72,78 @@ CREATE UNIQUE INDEX `id_uk` ON `seg_proeza_db`.`usuario_rol` (`id` ASC);
 CREATE INDEX `usuario_idx` ON `seg_proeza_db`.`usuario_rol` (`fk_usuario` ASC);
 
 CREATE INDEX `rol_idx` ON `seg_proeza_db`.`usuario_rol` (`fk_rol` ASC);
+
+
+--
+-- Dumping data for table `rol`
+--
+
+LOCK TABLES `rol` WRITE;
+/*!40000 ALTER TABLE `rol` DISABLE KEYS */;
+INSERT INTO `rol`
+     VALUES (00000000000000000001,
+             'ROLE_ADMIN',
+             'admin',
+             'Rol de administrador del sistema (God)'),
+            (00000000000000000002,
+             'ROLE_USER',
+             'user',
+             'Rol de usuario básico'),
+            (00000000000000000003,
+             'ROLE_USER_ADMIN',
+             'user_admin',
+             'Rol de administrador de usuarios');
+
+/*!40000 ALTER TABLE `rol` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario`
+     VALUES (00000000000000000001,
+             'admin',
+             'admin',
+             'admin',
+             'admin@proeza.com.ar',
+             'admin'),
+            (00000000000000000002,
+             'user',
+             'user',
+             'user',
+             'user@proeza.com.ar',
+             'user');
+
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
+-- Dumping data for table `usuario_rol`
+--
+
+LOCK TABLES `usuario_rol` WRITE;
+/*!40000 ALTER TABLE `usuario_rol` DISABLE KEYS */;
+INSERT INTO `usuario_rol`
+        VALUES (00000000000000000001,
+                00000000000000000001,
+                00000000000000000001),
+               (00000000000000000002,
+                00000000000000000001,
+                00000000000000000002),
+               (00000000000000000003,
+                00000000000000000001,
+                00000000000000000003),
+               (00000000000000000004,
+                00000000000000000002,
+                00000000000000000002);
+
+/*!40000 ALTER TABLE `usuario_rol` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

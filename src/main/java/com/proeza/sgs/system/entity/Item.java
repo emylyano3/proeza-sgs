@@ -1,7 +1,5 @@
 package com.proeza.sgs.system.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.io.Serializable;
 import java.util.Set;
 
@@ -18,8 +16,10 @@ import javax.persistence.Table;
 
 import com.proeza.security.entity.Rol;
 
+import static javax.persistence.GenerationType.*;
+
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "item")
+@Table(catalog = "sgs_proeza_db", name = "sys_item")
 public class Item implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
@@ -96,7 +96,7 @@ public class Item implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(
-		name = "item_rol",
+		name = "sys_item_rol",
 		catalog = "sgs_proeza_db",
 		joinColumns = {@JoinColumn(name = "fk_item", nullable = false, updatable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false, updatable = false)}

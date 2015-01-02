@@ -2,16 +2,12 @@ package com.proeza.sgs.business.entity;
 
 // Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import static javax.persistence.GenerationType.*;
 
@@ -20,88 +16,55 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(name = "medio_pago"
-		, catalog = "sgs_proeza_db")
+, catalog = "sgs_proeza_db"
+, uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class MedioPago implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
-	private long		id;
-	private String		codigo;
-	private String		nombre;
-	private String		descripcion;
-	private Set<Compra>	compras	= new HashSet<Compra>(0);
-	private Set<Venta>	ventas	= new HashSet<Venta>(0);
+	private long				id;
+	private String				codigo;
+	private String				nombre;
+	private String				descripcion;
 
-	public MedioPago() {
-	}
-
-	public MedioPago(String codigo, String nombre) {
-		this.codigo = codigo;
-		this.nombre = nombre;
-	}
-
-	public MedioPago(String codigo, String nombre, String descripcion, Set<Compra> compras, Set<Venta> ventas) {
-		this.codigo = codigo;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.compras = compras;
-		this.ventas = ventas;
+	public MedioPago () {
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId() {
+	public long getId () {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId (long id) {
 		this.id = id;
 	}
 
-	@Column(name = "codigo", nullable = false, length = 10)
-	public String getCodigo() {
+	@Column(name = "codigo", unique = true, nullable = false, length = 10)
+	public String getCodigo () {
 		return this.codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo (String codigo) {
 		this.codigo = codigo;
 	}
 
 	@Column(name = "nombre", nullable = false, length = 20)
-	public String getNombre() {
+	public String getNombre () {
 		return this.nombre;
 	}
 
-	public void setNombre(String nombre) {
+	public void setNombre (String nombre) {
 		this.nombre = nombre;
 	}
 
 	@Column(name = "descripcion", length = 100)
-	public String getDescripcion() {
+	public String getDescripcion () {
 		return this.descripcion;
 	}
 
-	public void setDescripcion(String descripcion) {
+	public void setDescripcion (String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "medioPago")
-	public Set<Compra> getCompras() {
-		return this.compras;
-	}
-
-	public void setCompras(Set<Compra> compras) {
-		this.compras = compras;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "medioPago")
-	public Set<Venta> getVentas() {
-		return this.ventas;
-	}
-
-	public void setVentas(Set<Venta> ventas) {
-		this.ventas = ventas;
-	}
-
 }

@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import static javax.persistence.GenerationType.*;
 
@@ -20,65 +21,65 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(name = "marca"
-		, catalog = "sgs_proeza_db")
+, catalog = "sgs_proeza_db"
+, uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class Marca implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
-	private long			id;
-	private String			nombre;
-	private String			descripcion;
-	private Set<Articulo>	articulos	= new HashSet<Articulo>(0);
+	private long				id;
+	private String				nombre;
+	private String				codigo;
+	private String				descripcion;
+	private Set<Articulo>		articulos			= new HashSet<Articulo>(0);
 
-	public Marca() {
-	}
-
-	public Marca(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public Marca(String nombre, String descripcion, Set<Articulo> articulos) {
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.articulos = articulos;
+	public Marca () {
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId() {
+	public long getId () {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId (long id) {
 		this.id = id;
 	}
 
+	@Column(name = "codigo", unique = true, nullable = false, length = 20)
+	public String getCodigo () {
+		return this.codigo;
+	}
+
+	public void setCodigo (String codigo) {
+		this.codigo = codigo;
+	}
+
 	@Column(name = "nombre", nullable = false, length = 45)
-	public String getNombre() {
+	public String getNombre () {
 		return this.nombre;
 	}
 
-	public void setNombre(String nombre) {
+	public void setNombre (String nombre) {
 		this.nombre = nombre;
 	}
 
 	@Column(name = "descripcion", length = 100)
-	public String getDescripcion() {
+	public String getDescripcion () {
 		return this.descripcion;
 	}
 
-	public void setDescripcion(String descripcion) {
+	public void setDescripcion (String descripcion) {
 		this.descripcion = descripcion;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "marca")
-	public Set<Articulo> getArticulos() {
+	public Set<Articulo> getArticulos () {
 		return this.articulos;
 	}
 
-	public void setArticulos(Set<Articulo> articulos) {
+	public void setArticulos (Set<Articulo> articulos) {
 		this.articulos = articulos;
 	}
-
 }
