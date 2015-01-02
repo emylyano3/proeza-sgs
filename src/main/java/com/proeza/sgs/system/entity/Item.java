@@ -13,13 +13,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.proeza.security.entity.Rol;
 
 import static javax.persistence.GenerationType.*;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "sys_item")
+@Table(
+	catalog = "sgs_proeza_db",
+	name = "sys_item",
+	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})}
+	)
 public class Item implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
@@ -49,7 +54,7 @@ public class Item implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "codigo", nullable = false)
+	@Column(name = "codigo", unique = true, nullable = false)
 	public String getCode () {
 		return this.code;
 	}

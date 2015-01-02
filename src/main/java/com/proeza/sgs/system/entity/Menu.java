@@ -18,9 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import static javax.persistence.GenerationType.*;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "sys_menu", uniqueConstraints = {
-	@UniqueConstraint(columnNames = {"codigo"})
-})
+@Table(
+	catalog = "sgs_proeza_db", 
+	name = "sys_menu", 
+	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})}
+)
 public class Menu implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
@@ -68,7 +70,7 @@ public class Menu implements Serializable {
 		this.tooltip = tooltip;
 	}
 
-	@Column(name = "texto", nullable = false)
+	@Column(name = "texto")
 	public String getText () {
 		return this.text;
 	}
@@ -86,7 +88,7 @@ public class Menu implements Serializable {
 		this.icon = icon;
 	}
 
-	@Column(name = "tipo")
+	@Column(name = "tipo", nullable = false)
 	public String getType () {
 		return this.type;
 	}
