@@ -58,7 +58,7 @@ public class MenuItem implements Serializable, Comparable<MenuItem> {
 		this.item = item;
 	}
 
-	@Column(name = "index", nullable = false, unique = true)
+	@Column(name = "indice", nullable = false, unique = true)
 	public int getIndex () {
 		return this.index;
 	}

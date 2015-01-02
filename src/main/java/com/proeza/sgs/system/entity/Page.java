@@ -84,7 +84,7 @@ public class Page implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(
-		name = "sys_menu_pagina", catalog = "sgs_proeza_db",
+		name = "sys_pagina_menu", catalog = "sgs_proeza_db",
 		joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false, updatable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "fk_menu", nullable = false, updatable = false)}
 		)

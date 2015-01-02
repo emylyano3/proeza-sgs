@@ -14,6 +14,7 @@
 		<ehcache-version>2.9.0</ehcache-version>
 		<spring-version>4.0.2.RELEASE</spring-version>
 		<spring.security-version>3.2.3.RELEASE</spring.security-version>
+		<mysql-connector-version>5.1.6</mysql-connector-version>
 		<derby-version>10.11.1.1</derby-version>
 		<thymeleaf-version>2.1.4.RELEASE</thymeleaf-version>
 		<thymeleaf-layout-version>1.2.2</thymeleaf-layout-version>
@@ -64,6 +65,7 @@
 			<artifactId>commons-collections</artifactId>
 			<version>${commons-collections-version}</version>
 		</dependency>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -138,12 +140,10 @@
 			<artifactId>ehcache</artifactId>
 			<version>${ehcache-version}</version>
 		</dependency>
-		<!-- Testing -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit-version}</version>
-			<scope>test</scope>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.derby</groupId>
@@ -158,6 +158,14 @@
 			<version>${derby-version}</version>
 			<!-- Scope compile para utilizarlo en el ambiente de desarrollo -->
 			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.dbunit</groupId>
