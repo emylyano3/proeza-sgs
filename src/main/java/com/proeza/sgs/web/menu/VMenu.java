@@ -1,4 +1,4 @@
-package com.proeza.sgs.menu;
+package com.proeza.sgs.web.menu;
 
 import java.util.ArrayList;
 import java.util.List;

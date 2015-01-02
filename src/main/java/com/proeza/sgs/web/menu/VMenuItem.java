@@ -1,4 +1,4 @@
-package com.proeza.sgs.menu;
+package com.proeza.sgs.web.menu;
 
 import com.proeza.sgs.system.entity.MenuItem;
 

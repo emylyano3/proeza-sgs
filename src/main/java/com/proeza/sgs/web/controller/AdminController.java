@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.proeza.security.dao.UsuarioDao;
-import com.proeza.sgs.menu.ViewMenuManager;
+import com.proeza.sgs.web.menu.ViewMenuManager;
 
 @Controller
 public class AdminController {

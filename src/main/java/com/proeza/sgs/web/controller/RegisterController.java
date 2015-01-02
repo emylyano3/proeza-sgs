@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.proeza.security.form.UsuarioForm;
 import com.proeza.security.service.UserService;
-import com.proeza.sgs.menu.ViewMenuManager;
+import com.proeza.sgs.web.menu.ViewMenuManager;
 
 @Controller
 public class RegisterController {
