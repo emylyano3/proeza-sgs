@@ -30,6 +30,9 @@ public class JpaSettings {
 	@Value("${hibernate.dialect}")
 	private String	dialect;
 
+	@Value("${hibernate.current_session_context_class}")
+	private String	currentSessionContextClass;
+
 	public String getHbm2ddlAuto () {
 		return this.hbm2ddlAuto;
 	}
@@ -60,5 +63,9 @@ public class JpaSettings {
 
 	public String getDialect () {
 		return this.dialect;
+	}
+
+	public String getCurrentSessionContextClass () {
+		return this.currentSessionContextClass;
 	}
 }

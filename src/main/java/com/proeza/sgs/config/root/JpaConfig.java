@@ -49,6 +49,7 @@ public class JpaConfig {
 		jpaProperties.put(USE_SECOND_LEVEL_CACHE, this.jpaSettings.getUseSecondLevelCache());
 		jpaProperties.put(USE_QUERY_CACHE, this.jpaSettings.getUseQueryCache());
 		jpaProperties.put(CACHE_REGION_FACTORY, this.jpaSettings.getCacheRegionFactoryClass());
+		jpaProperties.put(CURRENT_SESSION_CONTEXT_CLASS, this.jpaSettings.getCurrentSessionContextClass());
 		return jpaProperties;
 	}
 

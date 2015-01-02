@@ -1,15 +1,21 @@
 package com.proeza.sgs.persistence;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.persistence.EntityManagerFactory;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.internal.SessionFactoryImpl;
+import org.hibernate.jpa.internal.EntityManagerFactoryImpl;
+import org.hibernate.stat.Statistics;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.EntityManagerFactoryInfo;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,6 +32,8 @@ import com.proeza.sgs.system.dao.PageDao;
 import com.proeza.sgs.system.entity.MenuType;
 import com.proeza.sgs.system.entity.Page;
 import com.proeza.sgs.web.controller.HomeController;
+
+import static org.junit.Assert.*;
 
 @ActiveProfiles(profiles = "test")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -140,13 +148,27 @@ public class DerbyDataLoading {
 		assertFalse("El menu debe tener items", page.getMenues().iterator().next().getItems().isEmpty());
 	}
 
-	// @Test
-	// @Ignore
-	// @Transactional
-	// public void page_CACHE_STATISTICS () {
-	// this.pageDao.find(1L);
-	// this.pageDao.find(1L);
-	// Statistics statistics = this.pageDao.getCacheStatistics();
-	// assertFalse(statistics.getCacheHits() <= 0);
-	// }
+	@Autowired
+	EntityManagerFactoryInfo	entityManagerFactory;
+
+	@Test
+	@Ignore
+	public void page_CACHE_STATISTICS () {
+		EntityManagerFactory emf = this.entityManagerFactory.getNativeEntityManagerFactory();
+		EntityManagerFactoryImpl emfImp = (EntityManagerFactoryImpl) emf;
+		SessionFactoryImpl sessionFactory = emfImp.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		Session otherSession = sessionFactory.openSession();
+		Transaction otherTransaction = otherSession.beginTransaction();
+		Page page = (Page) session.load(Page.class, 1L);
+		session.evict(page);
+		page = (Page) session.load(Page.class, 1L);
+		page = (Page) session.load(Page.class, 3L);
+		page = (Page) otherSession.load(Page.class, 1L);
+		transaction.commit();
+		otherTransaction.commit();
+		Statistics stats = sessionFactory.getStatistics();
+		Assert.assertTrue(stats.getSecondLevelCacheHitCount() > 0);
+	}
 }

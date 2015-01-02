@@ -18,7 +18,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+
 import static javax.persistence.GenerationType.*;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 
 @NamedQueries(value = {
 	@NamedQuery(name = "pageWithMenuFiltered", query = "select p from Page p join p.menues m where p.code = :code and m.type = :type")
@@ -29,17 +32,14 @@ import static javax.persistence.GenerationType.*;
 	name = "sys_pagina",
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})
 	})
-// @Cache(usage = READ_ONLY)
+@Cache(usage = READ_ONLY)
 public class Page implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
 	private long				id;
-
 	private String				code;
-
 	private String				name;
-
 	private String				description;
 
 	private Set<Menu>			menues				= new TreeSet<Menu>();

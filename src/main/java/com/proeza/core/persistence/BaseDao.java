@@ -9,16 +9,9 @@ import javax.persistence.PersistenceContext;
 public abstract class BaseDao<Entity> {
 
 	@PersistenceContext
-	protected EntityManager		entityManager;
+	protected EntityManager			entityManager;
 
-	private Class<Entity>		entityClass;
-
-	//	@Autowired
-	//	private CacheManager		cacheManager;
-	//
-	//	public Statistics getCacheStatistics () {
-	//		return this.cacheManager.getCache(getEntityClass().getName()).getStatistics();
-	//	}
+	private Class<Entity>			entityClass;
 
 	@SuppressWarnings("unchecked")
 	private Class<Entity> getEntityClass () {
