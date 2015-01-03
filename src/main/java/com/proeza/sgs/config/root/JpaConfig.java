@@ -19,15 +19,7 @@ import com.proeza.core.config.JpaSettings;
 import static org.hibernate.cfg.AvailableSettings.*;
 
 @Configuration
-// @EnableCaching
 public class JpaConfig {
-
-	// @Bean
-	// public CacheManager cacheManager () {
-	// EhCacheCacheManager cacheManager = new EhCacheCacheManager();
-	// cacheManager.setCacheManager(net.sf.ehcache.CacheManager.getInstance());
-	// return cacheManager;
-	// }
 
 	@Autowired
 	private JpaSettings	jpaSettings;
