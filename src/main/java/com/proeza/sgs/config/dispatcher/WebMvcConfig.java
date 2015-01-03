@@ -24,7 +24,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 import com.proeza.core.resources.MessageResolver;
 
 @Configuration
-@ComponentScan(basePackages = "com.proeza.sgs.web.controller")
+@ComponentScan(basePackages = {"com.proeza.sgs.web.controller","com.proeza.sgs.web.handler"})
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 

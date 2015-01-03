@@ -1,21 +1,30 @@
 package com.proeza.sgs.web.handler;
 
-import org.springframework.ui.ModelMap;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
 	public static final String	ERROR_PAGE_CODE	= "error";
 
-	@ExceptionHandler
-	public String handleAllException (ModelMap model, Exception e) {
-		model.addAttribute("goto", "home");
-		model.addAttribute("gotoText", "Ir a Inicio");
-		model.addAttribute("errorCode", "500");
-		model.addAttribute("errorMessage", e.getMessage());
-		model.addAttribute("errorDescription", "Ocurrio un error al cargar la pagina.");
-		return ERROR_PAGE_CODE;
+	@ExceptionHandler(value = Exception.class)
+	public ModelAndView handleAllException (HttpServletRequest req, Exception e) throws Exception {
+		if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) {
+			throw e;
+		}
+		ModelAndView model = new ModelAndView();
+		model.addObject("goto", "home");
+		model.addObject("gotoText", "Ir a Inicio");
+		model.addObject("errorCode", "500");
+		model.addObject("errorMessage", e.getMessage());
+		model.addObject("errorDescription", "Ocurrio un error al cargar la pagina.");
+		model.setViewName(ERROR_PAGE_CODE);
+		return model;
 	}
 }
