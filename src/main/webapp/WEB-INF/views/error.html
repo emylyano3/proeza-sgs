@@ -68,23 +68,17 @@
 	</head>
 	<body>
 			<p th:text="${errorCode}" class="error-code">
-				404
+				500
 			</p>
 			<p class="not-found" th:text="${errorDescription}">
-				Not Found
+				Error inesperado
 			</p>
 			<div class="clear"/>
 			<div class="content" th:text="${errorMessage}">
-				The page your are looking for is not found.
-				<br/>
-				<a href="#" th:href="${goto}" th:text="${gotoText}">Go Home</a> 
-				<!-- or<br/> -->
-				<!-- 
-				<form>
-					Search<br/>
-					<input autofocus type="text" name="search" />
-				</form>
-				 -->
+				Ocurrió un error cargando la pagina
+			</div>
+			<div class="content">
+				<a href="#" th:href="@{${goto}}" th:text="${gotoText}">Ir al inicio</a> 
 			</div>
 	</body>
 </html>
