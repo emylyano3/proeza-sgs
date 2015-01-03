@@ -54,4 +54,10 @@ public class RegisterController {
 			return "redirect:/" + HomeController.PAGE_NAME;
 		}
 	}
+	//
+	//	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "El usuario ya existe")
+	//	@ExceptionHandler(PersistenceException.class)
+	//	public void handler (PersistenceException e) {
+	//
+	//	}
 }

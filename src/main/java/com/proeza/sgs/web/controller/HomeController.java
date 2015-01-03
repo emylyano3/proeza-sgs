@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,15 +20,14 @@ public class HomeController {
 	@Autowired
 	private ViewMenuManager		menuManager;
 
+	@ModelAttribute
+	public void menues (final ModelMap model, final Principal principal) {
+		model.addAllAttributes(this.menuManager.getMenus(PAGE_CODE, principal));
+	}
+
 	@RequestMapping({"/", "/" + PAGE_NAME})
 	public ModelAndView home (ModelAndView model, Principal principal) {
 		model.setViewName(PAGE_NAME);
-		model.addAllObjects(this.menuManager.getMenus(PAGE_CODE, principal));
 		return model;
-	}
-
-	@ModelAttribute("pageName")
-	public String pageName () {
-		return PAGE_NAME;
 	}
 }
