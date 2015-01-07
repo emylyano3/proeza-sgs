@@ -92,17 +92,25 @@ body {
 
 				<!-- user dropdown starts -->
 				<div class="btn-group pull-right">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i><span class="hidden-phone"> admin</span> <span
-						class="caret" />
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> 
+						<i class="icon-user"/>
+						<span sec:authorize="isAuthenticated()" class="hidden-phone" sec:authentication="name">Usuario</span> 
+						<span sec:authorize="isAnonymous()" class="hidden-phone" th:text="#{control.guest}">Invitado</span> 
+						<span class="caret" />
 					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Profile</a></li>
+					<ul sec:authorize="isAuthenticated()" class="dropdown-menu">
+						<li><a href="#" th:text="#{control.profile}" th:href="@{profile}">Perfil</a></li>
 						<li class="divider"></li>
-						<li><a href="login.html">Logout</a></li>
+						<li><a href="#" th:text="#{control.logout}" th:href="@{doLogout}">Salir</a></li>
+					</ul>
+					<ul sec:authorize="isAnonymous()" class="dropdown-menu">
+						<li><a href="#" th:text="#{control.login}" th:href="@{login}">Ingresar</a></li>
+						<li class="divider"></li>
+						<li><a href="#" th:text="#{control.register}" th:href="@{register}">Registrarse</a></li>
 					</ul>
 				</div>
 				<!-- user dropdown ends -->
-
+				<!-- 
 				<div class="top-nav nav-collapse">
 					<ul class="nav">
 						<li><a href="#">Visit Site</a></li>
@@ -113,6 +121,7 @@ body {
 						</li>
 					</ul>
 				</div>
+				 -->
 				<!--/.nav-collapse -->
 			</div>
 		</div>
@@ -133,13 +142,13 @@ body {
 						</li>
 						
 						<li sec:authorize="isAnonymous()">
-							<a class="ajax-link" href="login.html" th:href="@{login}">
+							<a class="ajax-link" href="#" th:href="@{login}">
 								<i class="icon icon-darkgrey icon-key"/>
 								<span class="hidden-tablet" th:text="#{menu.login}"/>
 							</a>
 						</li>
 						<li sec:authorize="isAnonymous()">
-							<a class="ajax-link" href="register.html" th:href="@{register}">
+							<a class="ajax-link" href="#" th:href="@{register}">
 								<i class="icon-user"/>
 								<span class="hidden-tablet" th:text="#{menu.register}"/>
 							</a>
