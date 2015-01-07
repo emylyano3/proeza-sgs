@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DataSourceSettings {
+public class DataSourceSettings extends Settings {
 
 	@Value("${datasource.url}")
 	private String	url;

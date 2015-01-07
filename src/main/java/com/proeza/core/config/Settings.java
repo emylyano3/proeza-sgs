@@ -1,5 +1,9 @@
 package com.proeza.core.config;
 
-public class Settings {
+import java.util.Properties;
 
+public abstract class Settings {
+	public Properties asProperties () {
+		return new Properties();
+	}
 }

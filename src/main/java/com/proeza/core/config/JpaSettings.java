@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JpaSettings {
+public class JpaSettings extends Settings {
 
 	@Value("${hibernate.hbm2ddl.auto}")
 	private String	hbm2ddlAuto;
