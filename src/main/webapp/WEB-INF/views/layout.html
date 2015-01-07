@@ -91,19 +91,28 @@ body {
 				<!-- theme selector ends -->
 
 				<!-- user dropdown starts -->
-				<div class="btn-group pull-right">
+				<!-- Si está autenticado -->
+				<div sec:authorize="isAuthenticated()" class="btn-group pull-right">
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> 
 						<i class="icon-user"/>
-						<span sec:authorize="isAuthenticated()" class="hidden-phone" sec:authentication="name">Usuario</span> 
-						<span sec:authorize="isAnonymous()" class="hidden-phone" th:text="#{control.guest}">Invitado</span> 
+						<span class="hidden-phone" sec:authentication="name">Usuario</span> 
 						<span class="caret" />
 					</a>
-					<ul sec:authorize="isAuthenticated()" class="dropdown-menu">
+					<ul class="dropdown-menu">
 						<li><a href="#" th:text="#{control.profile}" th:href="@{profile}">Perfil</a></li>
 						<li class="divider"></li>
 						<li><a href="#" th:text="#{control.logout}" th:href="@{doLogout}">Salir</a></li>
 					</ul>
-					<ul sec:authorize="isAnonymous()" class="dropdown-menu">
+				</div>
+
+				<!-- Si es usuario anonimo -->
+				<div sec:authorize="isAnonymous()" class="btn-group pull-right">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> 
+						<i class="icon-user"/>
+						<span class="hidden-phone" th:text="#{control.guest}">Invitado</span> 
+						<span class="caret" />
+					</a>
+					<ul class="dropdown-menu">
 						<li><a href="#" th:text="#{control.login}" th:href="@{login}">Ingresar</a></li>
 						<li class="divider"></li>
 						<li><a href="#" th:text="#{control.register}" th:href="@{register}">Registrarse</a></li>
