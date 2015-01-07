@@ -4,6 +4,8 @@ package com.proeza.security.dao;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.proeza.core.persistence.BaseDao;
@@ -17,6 +19,16 @@ import com.proeza.security.entity.Usuario;
  */
 @Repository
 public class UsuarioDao extends BaseDao<Usuario> {
+
+	@Autowired
+	private PasswordEncoder	passwordEncoder;
+
+	@Override
+	public Usuario persist (Usuario entity) {
+		entity.setPassword(this.passwordEncoder.encode(entity.getPassword()));
+		this.entityManager.persist(entity);
+		return entity;
+	}
 
 	public Usuario findByAlias (String alias) {
 		return this.entityManager.createQuery("select u from Usuario u where alias = :alias", Usuario.class)

@@ -24,12 +24,11 @@ public class SpringSecIntegrationUserService implements UserDetailsService {
 
 	public static final Logger	log	= Logger.getLogger(SpringSecIntegrationUserService.class);
 
-	@Autowired
-	public SpringSecIntegrationUserService (UsuarioDao dao) {
+	public SpringSecIntegrationUserService () {
 		log.debug("Inicializando el servicio de detalle de usuarios para integracion con Spring Security");
-		this.userDao = dao;
 	}
 
+	@Autowired
 	private UsuarioDao	userDao;
 
 	@Override

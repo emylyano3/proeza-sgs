@@ -1,8 +1,8 @@
 /* Seguridad */
 
 	/* Usuarios */
-	insert into seg_proeza_db.usuario (alias, nombre, apellido, email, password) values ('admin','admin','admin', 'admin@proeza.com.ar', 'admin');
-	insert into seg_proeza_db.usuario (alias, nombre, apellido, email, password) values ('user','user','user', 'user@proeza.com.ar', 'user');
+	insert into seg_proeza_db.usuario (alias, nombre, apellido, email, password) values ('admin','admin','admin', 'admin@proeza.com.ar', '$2a$10$vu.GPiWbD/G7mxM9qjU4R.ZPGiKt1kB.wLyoRsjRbBDCK5PCL3Xu6');
+	insert into seg_proeza_db.usuario (alias, nombre, apellido, email, password) values ('user','user','user', 'user@proeza.com.ar', '$2a$10$kykMHqNu59hMkYJ6gUYjgekCK.Mt1q7ZKcMLH3aGT8ReHPnYCO87m');
 	
 	/* Roles */
 	insert into seg_proeza_db.rol (codigo, nombre, descripcion) values ('ROLE_ADMIN','admin','Rol de administrador del sistema (God)');
