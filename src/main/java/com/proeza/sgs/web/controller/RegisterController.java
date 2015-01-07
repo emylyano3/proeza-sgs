@@ -2,6 +2,8 @@ package com.proeza.sgs.web.controller;
 
 import java.security.Principal;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.LocaleResolver;
 
+import com.proeza.core.service.MailService;
+import com.proeza.security.entity.Usuario;
 import com.proeza.security.form.UsuarioForm;
 import com.proeza.security.service.UserService;
 import com.proeza.sgs.web.menu.ViewMenuManager;
@@ -27,6 +32,12 @@ public class RegisterController {
 
 	@Autowired
 	private ViewMenuManager		menuManager;
+
+	@Autowired
+	private MailService			mailService;
+
+	@Autowired
+	private LocaleResolver		localeResolver;
 
 	@ModelAttribute
 	public void menues (final ModelMap model, final Principal principal) {
@@ -46,18 +57,17 @@ public class RegisterController {
 	}
 
 	@RequestMapping(value = "/" + PAGE_NAME, params = {"save"}, method = RequestMethod.POST)
-	public String register (final ModelMap model, @ModelAttribute("userForm") @Valid final UsuarioForm userForm, final BindingResult result) {
+	public String register (
+		final ModelMap model,
+		@ModelAttribute("userForm") @Valid final UsuarioForm userForm,
+		final BindingResult result,
+		HttpServletRequest request) throws MessagingException {
 		if (result.hasErrors()) {
 			return PAGE_NAME;
 		} else {
-			this.userService.create(userForm.getUsuario());
+			Usuario user = this.userService.create(userForm.getUsuario());
+			this.mailService.sendContactEmail(user.getNombre(), user.getEmail(), null, null, null, this.localeResolver.resolveLocale(request));
 			return "redirect:/" + HomeController.PAGE_NAME;
 		}
 	}
-	//
-	//	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "El usuario ya existe")
-	//	@ExceptionHandler(PersistenceException.class)
-	//	public void handler (PersistenceException e) {
-	//
-	//	}
 }
