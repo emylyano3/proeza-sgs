@@ -10,6 +10,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.TemplateEngine;
@@ -24,6 +25,7 @@ public class MailService {
 	@Autowired
 	private TemplateEngine	templateEngine;
 
+	@Async
 	@Transactional(readOnly = true)
 	public void sendContactEmail (final String recipientName, final String recipientEmail, final String imageResourceName, final byte[] imageBytes, final String imageContentType, final Locale locale) throws MessagingException {
 		// Prepare the evaluation context
