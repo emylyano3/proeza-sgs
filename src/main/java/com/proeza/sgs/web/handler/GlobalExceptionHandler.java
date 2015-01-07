@@ -2,6 +2,7 @@ package com.proeza.sgs.web.handler;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class GlobalExceptionHandler {
 
 	public static final String	ERROR_PAGE_CODE	= "error";
+
+	private static final Logger	log				= Logger.getLogger(GlobalExceptionHandler.class);
 
 	@ExceptionHandler(value = Exception.class)
 	public ModelAndView handleAllException (HttpServletRequest req, Exception e) throws Exception {
@@ -25,6 +28,7 @@ public class GlobalExceptionHandler {
 		model.addObject("errorMessage", e.getMessage());
 		model.addObject("errorDescription", "Ocurrio un error al cargar la pagina.");
 		model.setViewName(ERROR_PAGE_CODE);
+		log.error("Exception handled by " + GlobalExceptionHandler.class.getSimpleName(), e);
 		return model;
 	}
 }
