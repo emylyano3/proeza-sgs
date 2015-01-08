@@ -42,7 +42,7 @@ public class Articulo implements Serializable {
 	private BigDecimal			precio;
 	private int					cantidad;
 
-	private Set<Movimiento>		movimientos			= new HashSet<Movimiento>(0);
+	private Set<Movimiento>		movimientos			= new HashSet<>(0);
 
 	public Articulo () {
 	}

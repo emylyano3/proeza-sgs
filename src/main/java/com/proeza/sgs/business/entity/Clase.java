@@ -33,7 +33,7 @@ public class Clase implements Serializable {
 	private String				nombre;
 	private String				descripcion;
 
-	private Set<Articulo>		articulos			= new HashSet<Articulo>(0);
+	private Set<Articulo>		articulos			= new HashSet<>(0);
 
 	public Clase () {
 	}

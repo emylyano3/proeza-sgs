@@ -32,7 +32,7 @@ public class Categoria implements Serializable {
 	private String				codigo;
 	private String				nombre;
 	private String				descripcion;
-	private Set<Articulo>		articulos			= new HashSet<Articulo>(0);
+	private Set<Articulo>		articulos			= new HashSet<>(0);
 
 	public Categoria () {
 	}
