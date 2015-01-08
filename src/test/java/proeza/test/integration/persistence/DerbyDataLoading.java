@@ -1,4 +1,4 @@
-package com.proeza.sgs.persistence;
+package proeza.test.integration.persistence;
 
 import java.util.List;
 import java.util.logging.Logger;

@@ -1,4 +1,4 @@
-package com.proeza.sgs.form;
+package proeza.test.integration.form;
 
 import javax.validation.ValidatorFactory;
 

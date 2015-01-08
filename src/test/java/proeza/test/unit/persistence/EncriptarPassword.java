@@ -1,4 +1,4 @@
-package com.proeza.sgs.persistence;
+package proeza.test.unit.persistence;
 
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
