@@ -1,79 +1,112 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+-- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+--
+-- Host: localhost    Database: sgs_proeza_db
+-- ------------------------------------------------------
+-- Server version	5.6.21-log
 
--- -----------------------------------------------------
--- Schema seg_proeza_db
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `seg_proeza_db` ;
-CREATE SCHEMA IF NOT EXISTS `seg_proeza_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `seg_proeza_db` ;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
--- -----------------------------------------------------
--- Table `seg_proeza_db`.`usuario`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `seg_proeza_db`.`usuario` ;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-CREATE TABLE IF NOT EXISTS `seg_proeza_db`.`usuario` (
-  `id` BIGINT UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `alias` VARCHAR(12) NOT NULL,
-  `nombre` VARCHAR(50) NULL DEFAULT 'N/A',
-  `apellido` VARCHAR(50) NULL DEFAULT 'N/A',
-  `email` VARCHAR(100) NOT NULL,
-  `password` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+-- Dump completed on 2015-01-08 13:03:20
+-- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+--
+-- Host: localhost    Database: seg_proeza_db
+-- ------------------------------------------------------
+-- Server version	5.6.21-log
 
-CREATE UNIQUE INDEX `id_UNIQUE` ON `seg_proeza_db`.`usuario` (`id` ASC);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE UNIQUE INDEX `alias_UNIQUE` ON `seg_proeza_db`.`usuario` (`alias` ASC);
+--
+-- Table structure for table `rol`
+--
 
-
--- -----------------------------------------------------
--- Table `seg_proeza_db`.`rol`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `seg_proeza_db`.`rol` ;
-
-CREATE TABLE IF NOT EXISTS `seg_proeza_db`.`rol` (
-  `id` BIGINT UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `codigo` VARCHAR(20) NOT NULL UNIQUE,
-  `nombre` VARCHAR(45) NOT NULL,
-  `descripcion` VARCHAR(100) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-CREATE UNIQUE INDEX `id_UNIQUE` ON `seg_proeza_db`.`rol` (`id` ASC);
-
-
--- -----------------------------------------------------
--- Table `seg_proeza_db`.`usuario_rol`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `seg_proeza_db`.`usuario_rol` ;
-
-CREATE TABLE IF NOT EXISTS `seg_proeza_db`.`usuario_rol` (
-  `id` BIGINT UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `fk_usuario` BIGINT ZEROFILL UNSIGNED NOT NULL,
-  `fk_rol` BIGINT ZEROFILL UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `rol`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rol` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `usuario`
-    FOREIGN KEY (`fk_usuario`)
-    REFERENCES `seg_proeza_db`.`usuario` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `rol`
-    FOREIGN KEY (`fk_rol`)
-    REFERENCES `seg_proeza_db`.`rol` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `codigo` (`codigo`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE UNIQUE INDEX `id_uk` ON `seg_proeza_db`.`usuario_rol` (`id` ASC);
+--
+-- Table structure for table `usuario`
+--
 
-CREATE INDEX `usuario_idx` ON `seg_proeza_db`.`usuario_rol` (`fk_usuario` ASC);
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `alias` varchar(12) NOT NULL,
+  `nombre` varchar(50) DEFAULT 'N/A',
+  `apellido` varchar(50) DEFAULT 'N/A',
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `alias_UNIQUE` (`alias`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE INDEX `rol_idx` ON `seg_proeza_db`.`usuario_rol` (`fk_rol` ASC);
+--
+-- Table structure for table `usuario_rol`
+--
 
+DROP TABLE IF EXISTS `usuario_rol`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario_rol` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_usuario` bigint(20) unsigned zerofill NOT NULL,
+  `fk_rol` bigint(20) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  KEY `usuario_idx` (`fk_usuario`),
+  KEY `rol_idx` (`fk_rol`),
+  CONSTRAINT `rol` FOREIGN KEY (`fk_rol`) REFERENCES `rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `usuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-01-08 13:03:20

@@ -1,402 +1,451 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema sgs_proeza_db
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `sgs_proeza_db` ;
-CREATE SCHEMA IF NOT EXISTS `sgs_proeza_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;
-USE `sgs_proeza_db` ;
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`categoria`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`categoria` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`categoria` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `codigo` VARCHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
-  `nombre` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
-  `descripcion` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT 'N/A',
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`categoria` (`id` ASC);
-
-CREATE UNIQUE INDEX `codigo` ON `sgs_proeza_db`.`categoria` (`codigo` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`clase`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`clase` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`clase` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `codigo` VARCHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
-  `nombre` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
-  `descripcion` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT 'N/A',
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`clase` (`id` ASC);
-
-CREATE UNIQUE INDEX `codigo` ON `sgs_proeza_db`.`clase` (`codigo` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`marca`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`marca` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`marca` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `codigo` VARCHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' UNIQUE NOT NULL,
-  `nombre` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
-  `descripcion` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT 'N/A',
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`marca` (`id` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`rubro`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`rubro` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`rubro` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `codigo` VARCHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
-  `nombre` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
-  `descripcion` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT 'N/A',
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`rubro` (`id` ASC);
-
-CREATE UNIQUE INDEX `codigo` ON `sgs_proeza_db`.`rubro` (`codigo` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`articulo`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`articulo` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`articulo` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `codigo` VARCHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL COMMENT 'Codigo clave subrrogada unica de artículo',
-  `descripcion` VARCHAR(300) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
-  `fk_clase` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `fk_categoria` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `fk_marca` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `fk_rubro` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `costo` DECIMAL(10,2) NOT NULL DEFAULT '0.00' COMMENT 'Valor de compra del articulo',
-  `precio` DECIMAL(10,2) NOT NULL DEFAULT '0.00' COMMENT 'Valor de venta del articulo\r',
-  `cantidad` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Representa el stock actual del articulo',
-  PRIMARY KEY (`id`),
-  CONSTRAINT `articulo_categoria`
-    FOREIGN KEY (`fk_categoria`)
-    REFERENCES `sgs_proeza_db`.`categoria` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `articulo_clase`
-    FOREIGN KEY (`fk_clase`)
-    REFERENCES `sgs_proeza_db`.`clase` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `articulo_marca`
-    FOREIGN KEY (`fk_marca`)
-    REFERENCES `sgs_proeza_db`.`marca` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `articulo_rubro`
-    FOREIGN KEY (`fk_rubro`)
-    REFERENCES `sgs_proeza_db`.`rubro` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`articulo` (`id` ASC);
-
-CREATE UNIQUE INDEX `codigo_uk` ON `sgs_proeza_db`.`articulo` (`codigo` ASC);
-
-CREATE INDEX `clase` ON `sgs_proeza_db`.`articulo` (`fk_clase` ASC);
-
-CREATE INDEX `categoria` ON `sgs_proeza_db`.`articulo` (`fk_categoria` ASC);
-
-CREATE INDEX `rubro` ON `sgs_proeza_db`.`articulo` (`fk_rubro` ASC);
-
-CREATE INDEX `marca` ON `sgs_proeza_db`.`articulo` (`fk_marca` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`categoria_clase`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`categoria_clase` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`categoria_clase` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `fk_categoria` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `fk_clase` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `cc_categoria`
-    FOREIGN KEY (`fk_categoria`)
-    REFERENCES `sgs_proeza_db`.`categoria` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `cc_clase`
-    FOREIGN KEY (`fk_clase`)
-    REFERENCES `sgs_proeza_db`.`clase` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`categoria_clase` (`id` ASC);
-
-CREATE INDEX `cc_categoria` ON `sgs_proeza_db`.`categoria_clase` (`fk_categoria` ASC);
-
-CREATE INDEX `cc_clase` ON `sgs_proeza_db`.`categoria_clase` (`fk_clase` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`medio_pago`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`medio_pago` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`medio_pago` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
-  `codigo` VARCHAR(10) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL COMMENT 'Codigo clave subrrogada unica',
-  `nombre` VARCHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL COMMENT 'Nombre del medio de pago',
-  `descripcion` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci
-COMMENT = 'Tabla maestro con los medios de pago disponibles';
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`medio_pago` (`id` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`compra`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`compra` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`compra` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
-  `codigo` VARCHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' UNIQUE NOT NULL,
-  `fecha` DATE NOT NULL COMMENT 'Fecha de  compra',
-  `importe` DOUBLE(10,2) NOT NULL COMMENT 'Monto de compra',
-  `fk_medio_pago` BIGINT(20) UNSIGNED ZEROFILL NOT NULL COMMENT 'FK a la tabla medio_pago',
-  PRIMARY KEY (`id`),
-  CONSTRAINT `compra_uk`
-    FOREIGN KEY (`fk_medio_pago`)
-    REFERENCES `sgs_proeza_db`.`medio_pago` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci
-COMMENT = 'Compra de articulos';
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`compra` (`id` ASC);
-
-CREATE INDEX `compra_uk_idx` ON `sgs_proeza_db`.`compra` (`fk_medio_pago` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`compra_articulo`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`compra_articulo` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`compra_articulo` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `fk_articulo` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `fk_compra` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `cantidad` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_UNIQUE` ON `sgs_proeza_db`.`compra_articulo` (`id` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`tipo_movimiento`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`tipo_movimiento` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`tipo_movimiento` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `codigo` VARCHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
-  `nombre` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
-  `descripcion` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT 'N/A',
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 7
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`tipo_movimiento` (`id` ASC);
-
-CREATE UNIQUE INDEX `codigo` ON `sgs_proeza_db`.`tipo_movimiento` (`codigo` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`movimiento`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`movimiento` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`movimiento` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `fk_tipo` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `fk_articulo` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `f_movimiento` DATE NOT NULL,
-  `valor` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL DEFAULT '""',
-  PRIMARY KEY (`id`),
-  CONSTRAINT `movimiento_articulo`
-    FOREIGN KEY (`fk_articulo`)
-    REFERENCES `sgs_proeza_db`.`articulo` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `movimiento_tipo`
-    FOREIGN KEY (`fk_tipo`)
-    REFERENCES `sgs_proeza_db`.`tipo_movimiento` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 19
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`movimiento` (`id` ASC);
-
-CREATE INDEX `tipo` ON `sgs_proeza_db`.`movimiento` (`fk_tipo` ASC);
-
-CREATE INDEX `articulo` ON `sgs_proeza_db`.`movimiento` (`fk_articulo` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`rubro_categoria`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`rubro_categoria` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`rubro_categoria` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `fk_categoria` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `fk_rubro` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `rc_categoria`
-    FOREIGN KEY (`fk_categoria`)
-    REFERENCES `sgs_proeza_db`.`categoria` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `rc_rubro`
-    FOREIGN KEY (`fk_rubro`)
-    REFERENCES `sgs_proeza_db`.`rubro` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`rubro_categoria` (`id` ASC);
-
-CREATE INDEX `categoria` ON `sgs_proeza_db`.`rubro_categoria` (`fk_categoria` ASC);
-
-CREATE INDEX `rubro` ON `sgs_proeza_db`.`rubro_categoria` (`fk_rubro` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`venta`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`venta` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`venta` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'Pk de la tabla',
-  `codigo` VARCHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL COMMENT 'Codigo clave subrrogada unica',
-  `fecha` DATE NOT NULL COMMENT 'Fecha de la compra',
-  `importe` DOUBLE(10,2) NOT NULL COMMENT 'Importe total de la venta',
-  `fk_medio_pago` BIGINT(20) UNSIGNED ZEROFILL NOT NULL COMMENT 'FK a la tabla de medio de pagos',
-  PRIMARY KEY (`id`),
-  CONSTRAINT `venta_mp`
-    FOREIGN KEY (`fk_medio_pago`)
-    REFERENCES `sgs_proeza_db`.`medio_pago` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`venta` (`id` ASC);
-
-CREATE INDEX `venta_mp_idx` ON `sgs_proeza_db`.`venta` (`fk_medio_pago` ASC);
-
-
--- -----------------------------------------------------
--- Table `sgs_proeza_db`.`venta_articulo`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sgs_proeza_db`.`venta_articulo` ;
-
-CREATE TABLE IF NOT EXISTS `sgs_proeza_db`.`venta_articulo` (
-  `id` BIGINT(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `fk_venta` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `fk_articulo` BIGINT(20) UNSIGNED ZEROFILL NOT NULL,
-  `cantidad` INT(10) UNSIGNED NOT NULL COMMENT 'Cantidad de articulos de un tipo en la venta',
-  PRIMARY KEY (`id`),
-  CONSTRAINT `va_articulo`
-    FOREIGN KEY (`fk_articulo`)
-    REFERENCES `sgs_proeza_db`.`articulo` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `va_venta`
-    FOREIGN KEY (`fk_venta`)
-    REFERENCES `sgs_proeza_db`.`venta` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 4
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_spanish_ci;
-
-CREATE UNIQUE INDEX `id_uk` ON `sgs_proeza_db`.`venta_articulo` (`id` ASC);
-
-CREATE INDEX `venta` ON `sgs_proeza_db`.`venta_articulo` (`fk_venta` ASC);
-
-CREATE INDEX `articulo` ON `sgs_proeza_db`.`venta_articulo` (`fk_articulo` ASC);
+-- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+--
+-- Host: localhost    Database: sgs_proeza_db
+-- ------------------------------------------------------
+-- Server version	5.6.21-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- TABLAS DE SISTEMA
+-- Table structure for table `articulo`
 --
+
+DROP TABLE IF EXISTS `articulo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `articulo` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Codigo clave subrrogada unica de artículo',
+  `descripcion` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
+  `fk_clase` bigint(20) unsigned zerofill NOT NULL,
+  `fk_categoria` bigint(20) unsigned zerofill NOT NULL,
+  `fk_marca` bigint(20) unsigned zerofill NOT NULL,
+  `fk_rubro` bigint(20) unsigned zerofill NOT NULL,
+  `costo` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT 'Valor de compra del articulo',
+  `precio` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT 'Valor de venta del articulo\r',
+  `cantidad` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Representa el stock actual del articulo',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  UNIQUE KEY `codigo_uk` (`codigo`),
+  KEY `clase` (`fk_clase`),
+  KEY `categoria` (`fk_categoria`),
+  KEY `rubro` (`fk_rubro`),
+  KEY `marca` (`fk_marca`),
+  CONSTRAINT `articulo_categoria` FOREIGN KEY (`fk_categoria`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `articulo_clase` FOREIGN KEY (`fk_clase`) REFERENCES `clase` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `articulo_marca` FOREIGN KEY (`fk_marca`) REFERENCES `marca` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `articulo_rubro` FOREIGN KEY (`fk_rubro`) REFERENCES `rubro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_registrar_movimiento_articulo
+   AFTER UPDATE
+   ON sgs_proeza_db.articulo
+   FOR EACH ROW
+BEGIN
+   DECLARE id_tipo_mov   INT;
+   DECLARE nuevo_valor   VARCHAR(100);
+
+   IF NEW.cantidad <> OLD.cantidad
+   THEN
+      /* Busco el tipo de movimiento para la modificacion de stock */
+      SELECT id
+        INTO id_tipo_mov
+        FROM tipo_movimiento tm
+       WHERE tm.codigo = 'MS';
+
+      /* Obtengo el nuevo valor del stock */
+      SET nuevo_valor = NEW.cantidad;
+
+      /* Inserto el movimiento */
+      INSERT INTO movimiento(fk_tipo,
+                             fk_articulo,
+                             f_movimiento,
+                             valor)
+           VALUES (id_tipo_mov,
+                   NEW.id,
+                   sysdate(),
+                   nuevo_valor);
+   END IF;
+
+   IF NEW.costo <> OLD.costo
+   THEN
+      /* Busco el tipo de movimiento para la modificacion de costo */
+      SELECT id
+        INTO id_tipo_mov
+        FROM tipo_movimiento tm
+       WHERE tm.codigo = 'MC';
+
+      /* Obtengo el nuevo valor del costo */
+      SET nuevo_valor = NEW.costo;
+
+      /* Inserto el movimiento */
+      INSERT INTO movimiento(fk_tipo,
+                             fk_articulo,
+                             f_movimiento,
+                             valor)
+           VALUES (id_tipo_mov,
+                   NEW.id,
+                   sysdate(),
+                   nuevo_valor);
+   END IF;
+
+   IF NEW.precio <> OLD.precio
+   THEN
+      /* Busco el tipo de movimiento para la modificacion de precio */
+      SELECT id
+        INTO id_tipo_mov
+        FROM tipo_movimiento tm
+       WHERE tm.codigo = 'MP';
+
+      /* Obtengo el nuevo valor del precio */
+      SET nuevo_valor = NEW.precio;
+
+      /* Inserto el movimiento */
+      INSERT INTO movimiento(fk_tipo,
+                             fk_articulo,
+                             f_movimiento,
+                             valor)
+           VALUES (id_tipo_mov,
+                   NEW.id,
+                   sysdate(),
+                   nuevo_valor);
+   END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `categoria`
+--
+
+DROP TABLE IF EXISTS `categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categoria` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  UNIQUE KEY `codigo` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `categoria_clase`
+--
+
+DROP TABLE IF EXISTS `categoria_clase`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categoria_clase` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_categoria` bigint(20) unsigned zerofill NOT NULL,
+  `fk_clase` bigint(20) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  KEY `cc_categoria` (`fk_categoria`),
+  KEY `cc_clase` (`fk_clase`),
+  CONSTRAINT `cc_categoria` FOREIGN KEY (`fk_categoria`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `cc_clase` FOREIGN KEY (`fk_clase`) REFERENCES `clase` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `clase`
+--
+
+DROP TABLE IF EXISTS `clase`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clase` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  UNIQUE KEY `codigo` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cliente` (
+  `fk_persona` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla persona. Guarda la relacion de herencia con dicha tabla.',
+  KEY `cliente_persona` (`fk_persona`),
+  CONSTRAINT `cliente_persona` FOREIGN KEY (`fk_persona`) REFERENCES `articulo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene los clientes de la aplicacion.\r\nGuarda una relacion de herencia con la tabla persona.';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `compra`
+--
+
+DROP TABLE IF EXISTS `compra`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `compra` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha` date NOT NULL COMMENT 'Fecha de  compra',
+  `importe` double(10,2) NOT NULL COMMENT 'Monto de compra',
+  `fk_medio_pago` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla medio_pago',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo` (`codigo`),
+  KEY `compra_uk` (`fk_medio_pago`),
+  CONSTRAINT `compra_uk` FOREIGN KEY (`fk_medio_pago`) REFERENCES `medio_pago` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Compra de articulos';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `compra_articulo`
+--
+
+DROP TABLE IF EXISTS `compra_articulo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `compra_articulo` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_articulo` bigint(20) unsigned zerofill NOT NULL,
+  `fk_compra` bigint(20) unsigned zerofill NOT NULL,
+  `cantidad` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_nueva_compra
+   AFTER INSERT
+   ON sgs_proeza_db.compra_articulo
+   FOR EACH ROW
+BEGIN
+   CALL sp_quitar_del_stock(NEW.fk_articulo, - NEW.cantidad);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_compra_modificada
+   AFTER UPDATE
+   ON sgs_proeza_db.compra_articulo
+   FOR EACH ROW
+BEGIN
+   CALL sp_quitar_del_stock(NEW.fk_articulo,  OLD.cantidad - NEW.cantidad);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_compra_anulada
+   AFTER DELETE
+   ON sgs_proeza_db.compra_articulo
+   FOR EACH ROW
+BEGIN
+   CALL sp_quitar_del_stock(OLD.fk_articulo, OLD.cantidad);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `email`
+--
+
+DROP TABLE IF EXISTS `email`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `email` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
+  `direccion` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Direccion de correo electronico',
+  `fk_persona` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla persona',
+  PRIMARY KEY (`id`),
+  KEY `email_persona` (`fk_persona`),
+  CONSTRAINT `email_persona` FOREIGN KEY (`fk_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene los emails ';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `marca`
+--
+
+DROP TABLE IF EXISTS `marca`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `marca` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo` (`codigo`),
+  UNIQUE KEY `id_uk` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `medio_pago`
+--
+
+DROP TABLE IF EXISTS `medio_pago`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `medio_pago` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
+  `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Codigo clave subrrogada unica',
+  `nombre` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del medio de pago',
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla maestro con los medios de pago disponibles';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `movimiento`
+--
+
+DROP TABLE IF EXISTS `movimiento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `movimiento` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_tipo` bigint(20) unsigned zerofill NOT NULL,
+  `fk_articulo` bigint(20) unsigned zerofill NOT NULL,
+  `f_movimiento` date NOT NULL,
+  `valor` varchar(100) COLLATE utf8_spanish_ci NOT NULL DEFAULT '""',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  KEY `tipo` (`fk_tipo`),
+  KEY `articulo` (`fk_articulo`),
+  CONSTRAINT `movimiento_articulo` FOREIGN KEY (`fk_articulo`) REFERENCES `articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `movimiento_tipo` FOREIGN KEY (`fk_tipo`) REFERENCES `tipo_movimiento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `persona`
+--
+
+DROP TABLE IF EXISTS `persona`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `persona` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
+  `nombre` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre de la persona',
+  `apellido` varchar(50) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Apellido de la persona',
+  `sexo` varchar(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'M' COMMENT 'Sexo de la persona',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que representa persona de manera asbtracta. ';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `proveedor`
+--
+
+DROP TABLE IF EXISTS `proveedor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `proveedor` (
+  `fk_persona` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK de la tabla persona. Guarda relacion de herencia.',
+  KEY `proveedor_persona` (`fk_persona`),
+  CONSTRAINT `proveedor_persona` FOREIGN KEY (`fk_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene datos de los proveedores del usuario';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `rubro`
+--
+
+DROP TABLE IF EXISTS `rubro`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rubro` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  UNIQUE KEY `codigo` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `rubro_categoria`
+--
+
+DROP TABLE IF EXISTS `rubro_categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rubro_categoria` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_categoria` bigint(20) unsigned zerofill NOT NULL,
+  `fk_rubro` bigint(20) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  KEY `categoria` (`fk_categoria`),
+  KEY `rubro` (`fk_rubro`),
+  CONSTRAINT `rc_categoria` FOREIGN KEY (`fk_categoria`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `rc_rubro` FOREIGN KEY (`fk_rubro`) REFERENCES `rubro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `sys_item`
@@ -411,9 +460,10 @@ CREATE TABLE `sys_item` (
   `texto` varchar(200) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Texto del item',
   `tooltip` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Tooltip del item de menu',
   `icono` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Ruta al icono del item',
+  `link` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Enlace del item de menu',
   PRIMARY KEY (`id`),
   UNIQUE KEY `item_uk` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene todos los items de los menus de la aplicacion. La asociacion menu item se realiza a traves de la tabla sys_menu_item';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene todos los items de los menus de la aplicacion. La asociacion menu item se realiza a traves de la tabla sys_menu_item';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -432,7 +482,7 @@ CREATE TABLE `sys_item_rol` (
   KEY `ir_item_idx` (`fk_item`),
   CONSTRAINT `ir_item` FOREIGN KEY (`fk_item`) REFERENCES `sys_item` (`id`),
   CONSTRAINT `ir_rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_proeza_db`.`rol` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene la relacion de los item de menus con los roles de acceso.\r\nDe esta forma se puede saber que item se deben mostrar a cada rol y por ende a cada usuario.';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene la relacion de los item de menus con los roles de acceso.\r\nDe esta forma se puede saber que item se deben mostrar a cada rol y por ende a cada usuario.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -451,7 +501,7 @@ CREATE TABLE `sys_menu` (
   `icono` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Ruta al icono del menu',
   PRIMARY KEY (`id`),
   UNIQUE KEY `menu_uk` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla con los menues de la aplicacion. Cada menu se puede asociar a diferentes paginas; esa relacion se realiza a travÃ©s de la tabla sys_pagina_menu';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla con los menues de la aplicacion. Cada menu se puede asociar a diferentes paginas; esa relacion se realiza a través de la tabla sys_pagina_menu';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -471,7 +521,7 @@ CREATE TABLE `sys_menu_item` (
   KEY `mi_item_idx` (`fk_item`),
   CONSTRAINT `mi_item` FOREIGN KEY (`fk_item`) REFERENCES `sys_item` (`id`),
   CONSTRAINT `mi_menu` FOREIGN KEY (`fk_menu`) REFERENCES `sys_menu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene las relaciones entre los menues y los items de menu';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene las relaciones entre los menues y los items de menu';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -488,7 +538,7 @@ CREATE TABLE `sys_pagina` (
   `descripcion` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion de la pagina',
   PRIMARY KEY (`id`),
   UNIQUE KEY `pagina_uk` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene todas las paginas que componen la aplicacion.';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene todas las paginas que componen la aplicacion.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -500,16 +550,184 @@ DROP TABLE IF EXISTS `sys_pagina_menu`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_pagina_menu` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
-  `fk_page` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla de paginas',
+  `fk_pagina` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla de paginas',
   `fk_menu` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla de menues',
   PRIMARY KEY (`id`),
-  KEY `pm_pagina_idx` (`fk_page`),
+  KEY `pm_pagina_idx` (`fk_pagina`),
   KEY `pm_menu_idx` (`fk_menu`),
   CONSTRAINT `pm_menu` FOREIGN KEY (`fk_menu`) REFERENCES `sys_menu` (`id`),
-  CONSTRAINT `pm_pagina` FOREIGN KEY (`fk_page`) REFERENCES `sys_pagina` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Asociacion entre las paginas y los menues';
+  CONSTRAINT `pm_pagina` FOREIGN KEY (`fk_pagina`) REFERENCES `sys_pagina` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Asociacion entre las paginas y los menues';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `sys_pagina_rol`
+--
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+DROP TABLE IF EXISTS `sys_pagina_rol`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sys_pagina_rol` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_pagina` bigint(20) unsigned zerofill NOT NULL,
+  `fk_rol` bigint(20) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `pr_pagina_idx` (`fk_pagina`),
+  KEY `pr_rol_idx` (`fk_rol`),
+  CONSTRAINT `pr_pagina` FOREIGN KEY (`fk_pagina`) REFERENCES `sys_pagina` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `pr_rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_proeza_db`.`rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Relaciona las paginas de la aplicacion con los roles de usuario. Permite saber que usuario puede acceder a que pagina.';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `telefono`
+--
+
+DROP TABLE IF EXISTS `telefono`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `telefono` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
+  `pref_internacional` varchar(3) COLLATE utf8_spanish_ci NOT NULL DEFAULT '+54' COMMENT 'Prefijo internacional del numero telefonico',
+  `pref_area` varchar(3) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Prefijo de area del numero telefonico',
+  `numero` varchar(10) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Numero telefonico',
+  `fk_persona` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla persona',
+  PRIMARY KEY (`id`),
+  KEY `telefono_persona` (`fk_persona`),
+  CONSTRAINT `telefono_persona` FOREIGN KEY (`fk_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que define telefono';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tipo_movimiento`
+--
+
+DROP TABLE IF EXISTS `tipo_movimiento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipo_movimiento` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  UNIQUE KEY `codigo` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `venta`
+--
+
+DROP TABLE IF EXISTS `venta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `venta` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'Pk de la tabla',
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Codigo clave subrrogada unica',
+  `fecha` date NOT NULL COMMENT 'Fecha de la compra',
+  `importe` double(10,2) NOT NULL COMMENT 'Importe total de la venta',
+  `fk_medio_pago` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla de medio de pagos',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  KEY `venta_mp_idx` (`fk_medio_pago`),
+  CONSTRAINT `venta_mp` FOREIGN KEY (`fk_medio_pago`) REFERENCES `medio_pago` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `venta_articulo`
+--
+
+DROP TABLE IF EXISTS `venta_articulo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `venta_articulo` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_venta` bigint(20) unsigned zerofill NOT NULL,
+  `fk_articulo` bigint(20) unsigned zerofill NOT NULL,
+  `cantidad` int(10) unsigned NOT NULL COMMENT 'Cantidad de articulos de un tipo en la venta',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  KEY `venta` (`fk_venta`),
+  KEY `articulo` (`fk_articulo`),
+  CONSTRAINT `va_articulo` FOREIGN KEY (`fk_articulo`) REFERENCES `articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `va_venta` FOREIGN KEY (`fk_venta`) REFERENCES `venta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_nueva_venta
+   AFTER INSERT
+   ON sgs_proeza_db.venta_articulo
+   FOR EACH ROW
+BEGIN
+	Call sp_quitar_del_stock(NEW.fk_articulo, NEW.cantidad);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_venta_modificada
+   AFTER UPDATE
+   ON sgs_proeza_db.venta_articulo
+   FOR EACH ROW
+BEGIN
+	Call sp_quitar_del_stock(NEW.fk_articulo, NEW.cantidad - OLD.cantidad);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_venta_anulada
+   AFTER DELETE 
+   ON sgs_proeza_db.venta_articulo
+   FOR EACH ROW
+BEGIN
+	Call sp_quitar_del_stock(OLD.fk_articulo, - OLD.cantidad);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-01-08 12:56:43
