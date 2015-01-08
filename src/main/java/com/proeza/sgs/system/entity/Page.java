@@ -100,7 +100,7 @@ public class Page implements Serializable {
 		this.menues = menues;
 	}
 
-	@ManyToMany(cascade = CascadeType.DETACH)
+	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinTable(
 		catalog = "sgs_proeza_db",
 		name = "sys_pagina_rol",
