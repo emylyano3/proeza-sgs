@@ -1,11 +1,5 @@
-/target
-
 /.settings
 .project
 .classpath
-/derby.log
-/hs_err_pid4196.log
-/hs_err_pid4796.log
+/*.log
 /target
-/target
-/hs_err_pid4764.log
