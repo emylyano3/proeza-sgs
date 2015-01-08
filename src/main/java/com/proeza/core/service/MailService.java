@@ -7,6 +7,7 @@ import java.util.Locale;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,11 +20,13 @@ import org.thymeleaf.context.Context;
 @Service
 public class MailService {
 
-	@Autowired
-	private JavaMailSender	mailSender;
+	private static final Logger	log	= Logger.getLogger(MailService.class);
 
 	@Autowired
-	private TemplateEngine	templateEngine;
+	private JavaMailSender		mailSender;
+
+	@Autowired
+	private TemplateEngine		templateEngine;
 
 	@Async
 	@Transactional(readOnly = true)
@@ -51,6 +54,10 @@ public class MailService {
 		// message.addInline(imageResourceName, imageSource, imageContentType);
 
 		// Send mail
-		this.mailSender.send(mimeMessage);
+		try {
+			this.mailSender.send(mimeMessage);
+		} catch (Exception e) {
+			log.error("Error enviando el correo: " + mimeMessage, e);
+		}
 	}
 }
