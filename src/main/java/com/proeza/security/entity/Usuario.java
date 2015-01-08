@@ -25,8 +25,8 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(
-	name = "usuario",
 	catalog = "seg_proeza_db",
+	name = "usuario",
 	uniqueConstraints = @UniqueConstraint(columnNames = "alias"))
 public class Usuario implements Serializable {
 

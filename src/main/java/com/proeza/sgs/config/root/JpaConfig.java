@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.AbstractEntityManagerFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -19,6 +20,11 @@ import com.proeza.core.config.JpaSettings;
 import static org.hibernate.cfg.AvailableSettings.*;
 
 @Configuration
+@ComponentScan(
+	basePackages = {
+		"com.proeza.**.dao"
+	}
+	)
 public class JpaConfig {
 
 	@Autowired

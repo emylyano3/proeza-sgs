@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -33,17 +34,26 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 import com.proeza.core.config.DataSourceSettings;
 import com.proeza.core.config.MailSettings;
+import com.proeza.core.config.Settings;
 import com.proeza.core.resources.MessageResolver;
 
 @Configuration
-@ComponentScan(basePackages = "com.proeza", excludeFilters = {
-	@Filter(Configuration.class),
-	@Filter(Controller.class)
+@Import(value = {
+	DataSourceConfig.class,
+	JpaConfig.class,
+	SecurityConfig.class
 })
+@ComponentScan(
+	basePackages = {"com.proeza.**.service"},
+	basePackageClasses = {Settings.class},
+	excludeFilters = {
+		@Filter(Configuration.class),
+		@Filter(Controller.class)
+	})
 @EnableAsync
 @EnableScheduling
 @EnableTransactionManagement
-public class RootConfig {
+public class ContextConfig {
 
 	@Autowired
 	private DataSourceSettings	dsSettings;
