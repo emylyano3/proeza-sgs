@@ -101,8 +101,8 @@ public class Item implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(
-		name = "sys_item_rol",
 		catalog = "sgs_proeza_db",
+		name = "sys_item_rol",
 		joinColumns = {@JoinColumn(name = "fk_item", nullable = false, updatable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false, updatable = false)}
 		)

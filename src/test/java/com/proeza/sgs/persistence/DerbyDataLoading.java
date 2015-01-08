@@ -28,6 +28,7 @@ import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.config.root.JpaConfig;
 import com.proeza.sgs.config.root.RootConfig;
+import com.proeza.sgs.config.root.SecurityConfig;
 import com.proeza.sgs.system.dao.PageDao;
 import com.proeza.sgs.system.entity.MenuType;
 import com.proeza.sgs.system.entity.Page;
@@ -37,7 +38,7 @@ import static org.junit.Assert.*;
 
 @ActiveProfiles(profiles = "test")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {com.proeza.sgs.config.env.Test.class, RootConfig.class, JpaConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = {com.proeza.sgs.config.env.Test.class, RootConfig.class, SecurityConfig.class, JpaConfig.class}, loader = AnnotationConfigContextLoader.class)
 public class DerbyDataLoading {
 	private static Logger	log	= Logger.getLogger(DerbyDataLoading.class.getName());
 

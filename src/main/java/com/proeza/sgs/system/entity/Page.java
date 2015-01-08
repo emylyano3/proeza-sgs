@@ -20,6 +20,8 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 
+import com.proeza.security.entity.Rol;
+
 import static javax.persistence.GenerationType.*;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 
@@ -42,7 +44,8 @@ public class Page implements Serializable {
 	private String				name;
 	private String				description;
 
-	private Set<Menu>			menues				= new TreeSet<Menu>();
+	private Set<Menu>			menues				= new TreeSet<>();
+	private Set<Rol>			roles				= new TreeSet<>();
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -82,9 +85,10 @@ public class Page implements Serializable {
 		this.description = description;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
 	@JoinTable(
-		name = "sys_pagina_menu", catalog = "sgs_proeza_db",
+		catalog = "sgs_proeza_db",
+		name = "sys_pagina_menu",
 		joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false, updatable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "fk_menu", nullable = false, updatable = false)}
 		)
@@ -94,5 +98,19 @@ public class Page implements Serializable {
 
 	public void setMenues (Set<Menu> menues) {
 		this.menues = menues;
+	}
+
+	@ManyToMany(cascade = CascadeType.DETACH)
+	@JoinTable(
+		catalog = "sgs_proeza_db",
+		name = "sys_pagina_rol",
+		joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false)},
+		inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false)})
+	public Set<Rol> getRoles () {
+		return this.roles;
+	}
+
+	public void setRoles (Set<Rol> roles) {
+		this.roles = roles;
 	}
 }
