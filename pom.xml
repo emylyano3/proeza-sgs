@@ -25,7 +25,6 @@
 		<thymeleaf-version>2.1.4.RELEASE</thymeleaf-version>
 		<thymeleaf-layout-version>1.2.7</thymeleaf-layout-version>
 		<thymeleaf-extras-springsecurity3-version>2.0.1</thymeleaf-extras-springsecurity3-version>
-		<servlet.api-version>2.5</servlet.api-version>
 		<javax.servlet-api-version>3.1.0</javax.servlet-api-version>
 		<dbunit-version>2.4.9</dbunit-version>
 		<junit-version>4.12</junit-version>
@@ -250,6 +249,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${javax.servlet-api-version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
