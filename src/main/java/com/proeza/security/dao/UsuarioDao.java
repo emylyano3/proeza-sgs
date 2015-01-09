@@ -13,12 +13,12 @@ import com.proeza.security.entity.Usuario;
 
 /**
  * Home object for domain model class Usuario.
- * 
+ *
  * @see com.proeza.security.entity.Usuario
  * @author Hibernate Tools
  */
 @Repository
-public class UsuarioDao extends BaseDao<Usuario> {
+public class UsuarioDao extends BaseDao<Usuario> implements IUsuarioDao {
 
 	@Autowired
 	private PasswordEncoder	passwordEncoder;
@@ -30,12 +30,14 @@ public class UsuarioDao extends BaseDao<Usuario> {
 		return entity;
 	}
 
+	@Override
 	public Usuario findByAlias (String alias) {
 		return this.entityManager.createQuery("select u from Usuario u where alias = :alias", Usuario.class)
 			.setParameter("alias", alias)
 			.getSingleResult();
 	}
 
+	@Override
 	public List<Usuario> findAll () {
 		return this.entityManager.createQuery("select u from Usuario u", Usuario.class).getResultList();
 	}

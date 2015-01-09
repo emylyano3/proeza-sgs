@@ -6,12 +6,12 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public abstract class BaseDao<Entity> {
+public abstract class BaseDao<Entity> implements Dao<Entity> {
 
 	@PersistenceContext
-	protected EntityManager			entityManager;
+	protected EntityManager	entityManager;
 
-	private Class<Entity>			entityClass;
+	private Class<Entity>	entityClass;
 
 	@SuppressWarnings("unchecked")
 	private Class<Entity> getEntityClass () {
@@ -25,15 +25,18 @@ public abstract class BaseDao<Entity> {
 		return this.entityClass;
 	}
 
+	@Override
 	public Entity find (Object id) {
 		return this.entityManager.find(getEntityClass(), id);
 	}
 
+	@Override
 	public Entity persist (Entity entity) {
 		this.entityManager.persist(entity);
 		return entity;
 	}
 
+	@Override
 	public Collection<Entity> persist (Collection<Entity> entities) {
 		for (Entity entity : entities) {
 			persist(entity);
@@ -41,6 +44,7 @@ public abstract class BaseDao<Entity> {
 		return entities;
 	}
 
+	@Override
 	public void delete (Entity entity) {
 		this.entityManager.remove(entity);
 	}

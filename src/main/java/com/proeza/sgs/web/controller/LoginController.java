@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.proeza.core.resources.MessageResolver;
+import com.proeza.core.resources.IMessageResolver;
 
 @Controller
 public class LoginController {
@@ -20,7 +20,7 @@ public class LoginController {
 	public static final String	PAGE_NAME	= "login";
 
 	@Autowired
-	private MessageResolver		messageResolver;
+	private IMessageResolver		messageResolver;
 
 	@RequestMapping(value = "/" + PAGE_NAME, method = RequestMethod.GET)
 	public ModelAndView login (

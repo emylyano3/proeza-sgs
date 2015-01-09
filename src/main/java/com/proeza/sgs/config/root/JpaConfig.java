@@ -14,6 +14,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.proeza.core.config.JpaSettings;
 
@@ -23,8 +24,8 @@ import static org.hibernate.cfg.AvailableSettings.*;
 @ComponentScan(
 	basePackages = {
 		"com.proeza.**.dao"
-	}
-	)
+	})
+@EnableTransactionManagement
 public class JpaConfig {
 
 	@Autowired

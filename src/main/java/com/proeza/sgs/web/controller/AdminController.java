@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.proeza.security.dao.UsuarioDao;
+import com.proeza.security.service.IUserService;
 import com.proeza.sgs.web.menu.ViewMenuManager;
 
 @Controller
@@ -19,7 +19,7 @@ public class AdminController {
 	public static final String	PAGE_NAME	= "admin";
 
 	@Autowired
-	private UsuarioDao			usuarioDao;
+	private IUserService		usuarioService;
 
 	@Autowired
 	private ViewMenuManager		menuManager;

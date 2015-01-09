@@ -1,6 +1,7 @@
 package com.proeza.sgs.system.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -23,25 +24,18 @@ import static javax.persistence.GenerationType.*;
 @Table(
 	catalog = "sgs_proeza_db",
 	name = "sys_item",
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})}
-	)
+	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})})
 public class Item implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
 	private long				id;
-
 	private String				code;
-
 	private String				text;
-
 	private String				tooltip;
-
 	private String				link;
-
 	private String				icon;
-
-	private Set<Rol>			roles;
+	private Set<Rol>			roles				= new HashSet<>();
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -106,7 +100,7 @@ public class Item implements Serializable {
 		joinColumns = {@JoinColumn(name = "fk_item", nullable = false, updatable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false, updatable = false)}
 		)
-	public Set<Rol> getRoles () {
+		public Set<Rol> getRoles () {
 		return this.roles;
 	}
 

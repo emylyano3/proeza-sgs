@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.LocaleResolver;
 
-import com.proeza.core.service.MailService;
+import com.proeza.core.service.IMailService;
 import com.proeza.security.entity.Usuario;
 import com.proeza.security.form.UsuarioForm;
-import com.proeza.security.service.UserService;
+import com.proeza.security.service.IUserService;
 import com.proeza.sgs.web.menu.ViewMenuManager;
 
 @Controller
@@ -28,13 +28,13 @@ public class RegisterController {
 	public static final String	PAGE_NAME	= "register";
 
 	@Autowired
-	private UserService			userService;
+	private IUserService			userService;
 
 	@Autowired
 	private ViewMenuManager		menuManager;
 
 	@Autowired
-	private MailService			mailService;
+	private IMailService			mailService;
 
 	@Autowired
 	private LocaleResolver		localeResolver;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.proeza.core.resources.MessageResolver;
+import com.proeza.core.resources.IMessageResolver;
 
 @Controller
 public class LogoutController {
@@ -17,7 +17,7 @@ public class LogoutController {
 	public static final String	PAGE_NAME	= "logout";
 
 	@Autowired
-	private MessageResolver		messageResolver;
+	private IMessageResolver		messageResolver;
 
 	@RequestMapping(value = "/" + PAGE_NAME, method = RequestMethod.GET)
 	public ModelAndView logout (ModelAndView model, HttpServletRequest request) {

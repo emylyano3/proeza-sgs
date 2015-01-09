@@ -19,24 +19,18 @@ import static javax.persistence.GenerationType.*;
 
 @Entity
 @Table(
-	catalog = "sgs_proeza_db", 
-	name = "sys_menu", 
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})}
-)
+	catalog = "sgs_proeza_db",
+	name = "sys_menu",
+	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})})
 public class Menu implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
 	private long				id;
-
 	private String				code;
-
 	private String				text;
-
 	private String				tooltip;
-
 	private String				type;
-
 	private String				icon;
 
 	private Set<MenuItem>		menuItems			= new TreeSet<MenuItem>();

@@ -13,46 +13,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.proeza.security.dao.UsuarioDao;
+import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.entity.Usuario;
-import com.proeza.sgs.system.dao.PageDao;
+import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.entity.Menu;
 import com.proeza.sgs.system.entity.MenuItem;
 import com.proeza.sgs.system.entity.Page;
 
 @Component
-public class ViewMenuManager {
+public class ViewMenuManager implements IViewMenuManager {
 
 	@Autowired
-	private PageDao		pageDao;
+	private IPageDao	pageDao;
 
 	@Autowired
-	private UsuarioDao	userDao;
+	private IUsuarioDao	userDao;
 
 	@Transactional
-	public Map<String, VMenu> getMenus (String pageCode, Principal principal) {
+	public Map<String, ViewMenu> getMenus (String pageCode, Principal principal) {
 		Page page = this.pageDao.findByCode(pageCode);
 		Set<Menu> menues = page.getMenues();
-		Map<String, VMenu> result = new HashMap<String, VMenu>(menues.size());
+		Map<String, ViewMenu> result = new HashMap<String, ViewMenu>(menues.size());
 		for (Menu menu : menues) {
-			List<VMenuItem> items = new ArrayList<VMenuItem>();
+			List<ViewMenuItem> items = new ArrayList<ViewMenuItem>();
 			for (MenuItem menuItem : menu.getItems()) {
 				if (menuItem.getItem().getRoles().isEmpty()) {
-					items.add(new VMenuItem(menuItem));
+					items.add(new ViewMenuItem(menuItem));
 				} else {
 					if (principal != null) {
 						Usuario user = this.userDao.findByAlias(principal.getName());
 						if (user != null) {
 							boolean roleInCommon = !CollectionUtils.intersection(user.getRoles(), menuItem.getItem().getRoles()).isEmpty();
 							if (roleInCommon) {
-								items.add(new VMenuItem(menuItem));
+								items.add(new ViewMenuItem(menuItem));
 							}
 						}
 					}
 				}
 			}
 			Collections.sort(items);
-			result.put(menu.getType(), new VMenu(items));
+			result.put(menu.getType(), new ViewMenu(items));
 		}
 		return result;
 	}

@@ -2,9 +2,12 @@ package com.proeza.sgs.web.menu;
 
 import com.proeza.sgs.system.entity.MenuItem;
 
-public class VMenuItem implements Comparable<VMenuItem> {
+public class ViewMenuItem implements Comparable<ViewMenuItem> {
 
-	public VMenuItem (MenuItem menuItem) {
+	public ViewMenuItem () {
+	}
+
+	public ViewMenuItem (MenuItem menuItem) {
 		this.text = menuItem.getItem().getText();
 		this.code = menuItem.getItem().getCode();
 		this.href = menuItem.getItem().getLink();
@@ -59,7 +62,7 @@ public class VMenuItem implements Comparable<VMenuItem> {
 	}
 
 	@Override
-	public int compareTo (VMenuItem o) {
+	public int compareTo (ViewMenuItem o) {
 		if (o == null) {
 			return -1;
 		}

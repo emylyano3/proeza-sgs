@@ -18,7 +18,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 @Service
-public class MailService {
+public class MailService implements IMailService {
 
 	private static final Logger	log	= Logger.getLogger(MailService.class);
 
@@ -28,6 +28,7 @@ public class MailService {
 	@Autowired
 	private TemplateEngine		templateEngine;
 
+	@Override
 	@Async
 	@Transactional(readOnly = true)
 	public void sendContactEmail (final String recipientName, final String recipientEmail, final String imageResourceName, final byte[] imageBytes, final String imageContentType, final Locale locale) throws MessagingException {

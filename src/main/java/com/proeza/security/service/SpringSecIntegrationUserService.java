@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.proeza.security.dao.UsuarioDao;
+import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.entity.Rol;
 import com.proeza.security.entity.Usuario;
 
@@ -29,7 +29,7 @@ public class SpringSecIntegrationUserService implements UserDetailsService {
 	}
 
 	@Autowired
-	private UsuarioDao	userDao;
+	private IUsuarioDao	userDao;
 
 	@Override
 	public UserDetails loadUserByUsername (String userName) throws UsernameNotFoundException {

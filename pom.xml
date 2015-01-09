@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.proeza</groupId>
 	<artifactId>proeza-sgs</artifactId>
@@ -25,8 +26,12 @@
 		<thymeleaf-layout-version>1.2.7</thymeleaf-layout-version>
 		<thymeleaf-extras-springsecurity3-version>2.0.1</thymeleaf-extras-springsecurity3-version>
 		<servlet.api-version>2.5</servlet.api-version>
+		<javax.servlet-api-version>3.1.0</javax.servlet-api-version>
 		<dbunit-version>2.4.9</dbunit-version>
 		<junit-version>4.12</junit-version>
+		<mockito-core-version>1.10.19</mockito-core-version>
+		<jackson-core-version>2.5.0</jackson-core-version>
+		<hamcrest-all-version>1.3</hamcrest-all-version>
 	</properties>
 	<prerequisites>
 		<maven>2.2.1</maven>
@@ -81,7 +86,7 @@
 			<artifactId>activation</artifactId>
 			<version>${javax.activation-version}</version>
 		</dependency>
-		
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -179,6 +184,12 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit-version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>hamcrest-core</artifactId>
+					<groupId>org.hamcrest</groupId>
+				</exclusion>
+			</exclusions>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -191,6 +202,29 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito-core-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson-core-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-core-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>${hamcrest-all-version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -214,12 +248,10 @@
 		<!-- Web -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${servlet.api-version}</version>
-			<scope>provided</scope>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet-api-version}</version>
 		</dependency>
 	</dependencies>
-
 
 	<build>
 		<resources>

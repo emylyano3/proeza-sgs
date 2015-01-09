@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.MessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 
-public class MessageResolver {
+public class MessageResolver implements IMessageResolver {
 
 	private MessageSource	messageSource;
 	private LocaleResolver	localeResolver;
@@ -15,18 +15,22 @@ public class MessageResolver {
 		this.localeResolver = localeResolver;
 	}
 
+	@Override
 	public String getMessage (String code) {
 		return this.messageSource.getMessage(code, null, null);
 	}
 
+	@Override
 	public String getMessage (String code, HttpServletRequest request) {
 		return this.messageSource.getMessage(code, null, this.localeResolver.resolveLocale(request));
 	}
 
+	@Override
 	public String getMessage (String code, HttpServletRequest request, String... params) {
 		return this.messageSource.getMessage(code, params, this.localeResolver.resolveLocale(request));
 	}
 
+	@Override
 	public String getMessage (String code, String... params) {
 		return this.messageSource.getMessage(code, params, null);
 	}

@@ -20,11 +20,8 @@ public class MenuItem implements Serializable, Comparable<MenuItem> {
 	private static final long	serialVersionUID	= 1L;
 
 	private long				id;
-
 	private Item				item;
-
 	private Menu				menu;
-
 	private int					index				= 0;
 
 	@Id

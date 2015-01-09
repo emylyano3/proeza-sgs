@@ -10,7 +10,7 @@ import com.proeza.security.entity.Usuario;
 
 @Transactional
 @Service("userService")
-public class UserService {
+public class UserService implements IUserService {
 
 	public static final Logger	log	= Logger.getLogger(UserService.class);
 
@@ -22,6 +22,10 @@ public class UserService {
 
 	private UsuarioDao	userDao;
 
+	/* (non-Javadoc)
+	 * @see com.proeza.security.service.IUserService#create(com.proeza.security.entity.Usuario)
+	 */
+	@Override
 	public Usuario create (Usuario user) {
 		this.userDao.persist(user);
 		return user;

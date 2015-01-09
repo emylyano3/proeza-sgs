@@ -9,14 +9,16 @@ import com.proeza.sgs.system.entity.MenuType;
 import com.proeza.sgs.system.entity.Page;
 
 @Repository
-public class PageDao extends BaseDao<Page> {
+public class PageDao extends BaseDao<Page> implements IPageDao {
 
+	@Override
 	public Page findByCode (String code) {
 		return this.entityManager.createQuery("select p from " + Page.class.getSimpleName() + " p where code = :code", Page.class)
 			.setParameter("code", code)
 			.getSingleResult();
 	}
 
+	@Override
 	public Page findByCodeAndMenuType (String code, MenuType type) {
 		return this.entityManager
 			.createNamedQuery("pageWithMenuFiltered", Page.class)
@@ -25,11 +27,12 @@ public class PageDao extends BaseDao<Page> {
 			.getSingleResult();
 	}
 
+	@Override
 	public List<Page> findAll () {
 		@SuppressWarnings("unchecked")
 		final List<Page> resultList = this.entityManager
-		.createQuery(" select c from " + Page.class.getName() + " c")
-		.getResultList();
+			.createQuery(" select c from " + Page.class.getName() + " c")
+			.getResultList();
 		return resultList;
 	}
 }

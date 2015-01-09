@@ -18,7 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.proeza.security.entity.Rol;
-import com.proeza.sgs.system.dao.PageDao;
+import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.entity.Page;
 
 @Configuration
@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService	userDetailsService;
 
 	@Autowired
-	private PageDao				pageDao;
+	private IPageDao				pageDao;
 
 	@Override
 	public void configure (WebSecurity web) throws Exception {
