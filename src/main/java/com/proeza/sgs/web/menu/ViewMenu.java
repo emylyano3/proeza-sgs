@@ -6,7 +6,7 @@ import java.util.List;
 public class ViewMenu {
 
 	public ViewMenu () {
-		this.items = new ArrayList<ViewMenuItem>(0);
+		this.items = new ArrayList<>(0);
 	}
 
 	public ViewMenu (List<ViewMenuItem> items) {
@@ -18,7 +18,7 @@ public class ViewMenu {
 		this.items = items;
 	}
 
-	private String					name;
+	private String						name;
 	private final List<ViewMenuItem>	items;
 
 	public String getName () {

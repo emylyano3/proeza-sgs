@@ -33,9 +33,9 @@ public class ViewMenuManager implements IViewMenuManager {
 	public Map<String, ViewMenu> getMenus (String pageCode, Principal principal) {
 		Page page = this.pageDao.findByCode(pageCode);
 		Set<Menu> menues = page.getMenues();
-		Map<String, ViewMenu> result = new HashMap<String, ViewMenu>(menues.size());
+		Map<String, ViewMenu> result = new HashMap<>(menues.size());
 		for (Menu menu : menues) {
-			List<ViewMenuItem> items = new ArrayList<ViewMenuItem>();
+			List<ViewMenuItem> items = new ArrayList<>();
 			for (MenuItem menuItem : menu.getItems()) {
 				if (menuItem.getItem().getRoles().isEmpty()) {
 					items.add(new ViewMenuItem(menuItem));
@@ -52,7 +52,7 @@ public class ViewMenuManager implements IViewMenuManager {
 				}
 			}
 			Collections.sort(items);
-			result.put(menu.getType(), new ViewMenu(items));
+			result.put(menu.getType(), new ViewMenu(items, menu.getCode()));
 		}
 		return result;
 	}

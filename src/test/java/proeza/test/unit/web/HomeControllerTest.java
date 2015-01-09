@@ -20,6 +20,7 @@ import com.proeza.sgs.system.entity.builder.MenuItemBuilder;
 import com.proeza.sgs.system.entity.builder.PageBuilder;
 import com.proeza.sgs.web.controller.HomeController;
 
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -43,7 +44,7 @@ public class HomeControllerTest extends WebMvcTest {
 			.build();
 
 		Menu menu = new MenuBuilder()
-			.withCode("SIDE_MENU_LEFT")
+			.withCode("M_LEFT_MAIN")
 			.withIcon(null)
 			.withId(1)
 			.withText("")
@@ -74,23 +75,8 @@ public class HomeControllerTest extends WebMvcTest {
 
 		this.mockMvc.perform(get("/"))
 			.andExpect(status().isOk())
-			.andExpect(view().name("home"));
-
-		// .andExpect(model().attribute("todos", hasSize(2)))
-		// .andExpect(model().attribute("todos", hasItem(
-		// allOf(
-		// hasProperty("id", is(1L)),
-		// hasProperty("description", is("Lorem ipsum")),
-		// hasProperty("title", is("Foo"))
-		// )
-		// )))
-		// .andExpect(model().attribute("todos", hasItem(
-		// allOf(
-		// hasProperty("id", is(2L)),
-		// hasProperty("description", is("Lorem ipsum")),
-		// hasProperty("title", is("Bar"))
-		// )
-		// )));
+			.andExpect(view().name("home"))
+			.andExpect(model().attribute(MenuType.SIDE_MENU_LEFT.name(), hasProperty("name", is("M_LEFT_MAIN"))));
 		verify(this.pageDao, times(1)).findByCode(HomeController.PAGE_CODE);
 		verifyNoMoreInteractions(this.pageDao);
 	}
