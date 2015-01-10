@@ -16,7 +16,9 @@ public abstract class Settings {
 				try {
 					String key = getKey(annValue);
 					Object value = getValue(field);
-					properties.put(key, value);
+					if (key != null && value != null){
+						properties.put(key, value);
+					}
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}

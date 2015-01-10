@@ -66,7 +66,7 @@ public class RegisterController {
 			return PAGE_NAME;
 		} else {
 			Usuario user = this.userService.create(userForm.getUsuario());
-			this.mailService.sendContactEmail(user.getNombre(), user.getEmail(), null, null, null, this.localeResolver.resolveLocale(request));
+			this.mailService.sendContactEmail(user.getNombre(), user.getEmail(), this.localeResolver.resolveLocale(request));
 			return "redirect:/" + HomeController.PAGE_NAME;
 		}
 	}

@@ -6,6 +6,7 @@ import javax.mail.MessagingException;
 
 public interface IMailService {
 
-	public abstract void sendContactEmail (String recipientName, String recipientEmail, String imageResourceName, byte[] imageBytes, String imageContentType, Locale locale) throws MessagingException;
+	void sendContactEmail (String recipientName, String recipientEmail, Locale locale) throws MessagingException;
 
+	void sendPromoEmail (final String destinatario, final String emailDestinatario, final String imageResourceName, final byte[] imageBytes, final String imageContentType, final Locale locale) throws MessagingException;
 }

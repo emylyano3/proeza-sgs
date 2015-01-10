@@ -6,37 +6,40 @@ import org.springframework.stereotype.Component;
 @Component
 public class MailSettings extends Settings {
 
-	@Value("${mail.server.host}")
+	public MailSettings () {
+	}
+
+	@Value("${mail.smtp.host}")
 	private String	host;
 
-	@Value("${mail.server.port}")
-	private int		port;
+	@Value("${mail.smtp.port}")
+	private Integer	port;
 
-	@Value("${mail.server.protocol}")
+	@Value("${mail.smtp.protocol}")
 	private String	protocol;
 
-	@Value("${mail.server.username}")
+	@Value("${mail.smtp.username}")
 	private String	username;
 
-	@Value("${mail.server.password}")
+	@Value("${mail.smtp.password}")
 	private String	password;
 
-	@Value("${mail.sender.defaultEncoding}")
+	@Value("${mail.smtp.defaultEncoding}")
 	private String	defaultEncoding;
 
-	@Value("${mail.sender.smtp.starttls.enable}")
+	@Value("${mail.smtp.starttls.enable}")
 	private String	smtpStarttlsEnabled;
 
-	@Value("${mail.sender.smtp.socketFactory.fallback}")
+	@Value("${mail.smtp.socketFactory.fallback}")
 	private String	smtpSocketFactoryFallback;
 
-	@Value("${mail.sender.smtp.socketFactory.class}")
+	@Value("${mail.smtp.socketFactory.class}")
 	private String	smtpSocketFactoryClass;
 
-	@Value("${mail.sender.smtp.socketFactory.port}")
-	private int		smtpSocketFactoryPort;
+	@Value("${mail.smtp.socketFactory.port}")
+	private Integer	smtpSocketFactoryPort;
 
-	@Value("${mail.sender.smtp.auth}")
+	@Value("${mail.smtp.auth}")
 	private String	smtpAuth;
 
 	public String getHost () {

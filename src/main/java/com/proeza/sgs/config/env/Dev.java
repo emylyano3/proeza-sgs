@@ -14,6 +14,7 @@ public class Dev {
 	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer () {
 		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
 		ppc.setLocation(new ClassPathResource("env/dev/app-config.properties"));
+		ppc.setNullValue("");
 		return ppc;
 	}
 }
