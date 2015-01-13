@@ -24,7 +24,6 @@ import com.proeza.sgs.web.menu.ViewMenuManager;
 @Controller
 public class RegisterController {
 
-	public static final String	PAGE_CODE	= "P_REGISTER";
 	public static final String	PAGE_NAME	= "register";
 
 	@Autowired
@@ -41,7 +40,7 @@ public class RegisterController {
 
 	@ModelAttribute
 	public void menues (final ModelMap model, final Principal principal) {
-		model.addAllAttributes(this.menuManager.getMenus(PAGE_CODE, principal));
+		model.addAllAttributes(this.menuManager.getMenus(PAGE_NAME, principal));
 	}
 
 	@RequestMapping(value = "/" + PAGE_NAME, method = RequestMethod.GET)

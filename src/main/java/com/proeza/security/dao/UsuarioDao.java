@@ -2,8 +2,6 @@ package com.proeza.security.dao;
 
 // Generated 26/08/2014 22:19:35 by Hibernate Tools 4.0.0
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -35,10 +33,5 @@ public class UsuarioDao extends BaseDao<Usuario> implements IUsuarioDao {
 		return this.entityManager.createQuery("select u from Usuario u where alias = :alias", Usuario.class)
 			.setParameter("alias", alias)
 			.getSingleResult();
-	}
-
-	@Override
-	public List<Usuario> findAll () {
-		return this.entityManager.createQuery("select u from Usuario u", Usuario.class).getResultList();
 	}
 }

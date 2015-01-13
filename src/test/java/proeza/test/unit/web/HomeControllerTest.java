@@ -65,19 +65,19 @@ public class HomeControllerTest extends WebMvcTest {
 
 		Page page = new PageBuilder()
 			.withId(1)
-			.withCode(HomeController.PAGE_CODE)
+			.withCode(HomeController.PAGE_NAME)
 			.withName(HomeController.PAGE_NAME)
 			.withDescription("Pagina de inicio")
 			.withMenues(menues)
 			.build();
 
-		when(this.pageDao.findByCode(HomeController.PAGE_CODE)).thenReturn(page);
+		when(this.pageDao.findByCode(HomeController.PAGE_NAME)).thenReturn(page);
 
 		this.mockMvc.perform(get("/"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("home"))
 			.andExpect(model().attribute(MenuType.SIDE_MENU_LEFT.name(), hasProperty("name", is("M_LEFT_MAIN"))));
-		verify(this.pageDao, times(1)).findByCode(HomeController.PAGE_CODE);
+		verify(this.pageDao, times(1)).findByCode(HomeController.PAGE_NAME);
 		verifyNoMoreInteractions(this.pageDao);
 	}
 

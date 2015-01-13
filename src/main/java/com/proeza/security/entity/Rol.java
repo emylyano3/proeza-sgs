@@ -51,7 +51,7 @@ public class Rol implements java.io.Serializable {
 		this.codigo = codigo;
 	}
 
-	@Column(name = "nombre", nullable = false, length = 45)
+	@Column(name = "nombre", nullable = false, length = 50)
 	public String getNombre () {
 		return this.nombre;
 	}
@@ -60,7 +60,7 @@ public class Rol implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	@Column(name = "descripcion", length = 100)
+	@Column(name = "descripcion", length = 200)
 	public String getDescripcion () {
 		return this.descripcion;
 	}

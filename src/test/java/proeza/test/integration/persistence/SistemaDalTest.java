@@ -43,7 +43,7 @@ public class SistemaDalTest extends DalTest {
 	@Transactional
 	public void page_FIND_BY_CODE () {
 		log.info("Inicia page_FIND_BY_ID");
-		final Page page = this.pageDao.findByCode(HomeController.PAGE_CODE);
+		final Page page = this.pageDao.findByCode(HomeController.PAGE_NAME);
 		assertNotNull("La pagina con id 1 debe existir", page);
 		assertNotNull("La pagina debe tener menues asociados", page.getMenues());
 		assertFalse("La pagina debe tener al menos un menu item", page.getMenues().isEmpty());
@@ -56,7 +56,7 @@ public class SistemaDalTest extends DalTest {
 	@Transactional
 	public void page_FIND_BY_CODE_TYPE () {
 		log.info("Inicia page_FIND_BY_ID");
-		final Page page = this.pageDao.findByCodeAndMenuType(HomeController.PAGE_CODE, MenuType.SIDE_MENU_LEFT);
+		final Page page = this.pageDao.findByCodeAndMenuType(HomeController.PAGE_NAME, MenuType.SIDE_MENU_LEFT);
 		assertNotNull("La pagina con id 1 debe existir", page);
 		assertNotNull("La pagina debe tener menues asociados", page.getMenues());
 		assertFalse("La pagina debe tener al menos un menu item", page.getMenues().isEmpty());

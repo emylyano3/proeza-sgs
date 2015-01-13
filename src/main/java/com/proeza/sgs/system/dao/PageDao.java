@@ -1,7 +1,5 @@
 package com.proeza.sgs.system.dao;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import com.proeza.core.persistence.BaseDao;
@@ -25,14 +23,5 @@ public class PageDao extends BaseDao<Page> implements IPageDao {
 			.setParameter("code", code)
 			.setParameter("type", type.name())
 			.getSingleResult();
-	}
-
-	@Override
-	public List<Page> findAll () {
-		@SuppressWarnings("unchecked")
-		final List<Page> resultList = this.entityManager
-			.createQuery(" select c from " + Page.class.getName() + " c")
-			.getResultList();
-		return resultList;
 	}
 }

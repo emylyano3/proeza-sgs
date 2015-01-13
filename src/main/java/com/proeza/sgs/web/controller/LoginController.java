@@ -16,7 +16,6 @@ import com.proeza.core.resources.IMessageResolver;
 @Controller
 public class LoginController {
 
-	public static final String	PAGE_CODE	= "P_LOGIN";
 	public static final String	PAGE_NAME	= "login";
 
 	@Autowired
