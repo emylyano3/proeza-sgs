@@ -1,4 +1,4 @@
-package com.proeza.sgs.system.entity;
+package com.proeza.sgs.business.entity;
 
 import java.io.Serializable;
 
@@ -10,27 +10,27 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import static javax.persistence.GenerationType.*;
 
 @Entity
 @Table(
 	catalog = "sgs_proeza_db",
-	name = "sys_pagina_menu",
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"fk_pagina", "fk_menu"})
-	})
-public class PageMenu implements Serializable {
+	name = "art_articulo_proveedor")
+public class ArticuloProveedor implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
 	private long				id;
-	private Page				page;
-	private Menu				menu;
+	private Articulo			articulo;
+	private Proveedor			proveedor;
+
+	public ArticuloProveedor () {
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", nullable = false, unique = true)
+	@Column(name = "id", unique = true, nullable = false)
 	public long getId () {
 		return this.id;
 	}
@@ -40,22 +40,22 @@ public class PageMenu implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_pagina", nullable = false)
-	public Page getPage () {
-		return this.page;
+	@JoinColumn(name = "fk_articulo", nullable = false, referencedColumnName = "id")
+	public Articulo getArticulo () {
+		return this.articulo;
 	}
 
-	public void setPage (Page page) {
-		this.page = page;
+	public void setArticulo (Articulo articulo) {
+		this.articulo = articulo;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_menu", nullable = false)
-	public Menu getMenu () {
-		return this.menu;
+	@JoinColumn(name = "fk_proveedor", nullable = false, referencedColumnName = "id")
+	public Proveedor getProveedor () {
+		return this.proveedor;
 	}
 
-	public void setMenu (Menu menu) {
-		this.menu = menu;
+	public void setProveedor (Proveedor proveedor) {
+		this.proveedor = proveedor;
 	}
 }

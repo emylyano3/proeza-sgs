@@ -16,15 +16,15 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `articulo`
+-- Table structure for table `art_articulo`
 --
 
-DROP TABLE IF EXISTS `articulo`;
+DROP TABLE IF EXISTS `art_articulo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `articulo` (
+CREATE TABLE `art_articulo` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Codigo clave subrrogada unica de artículo',
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Codigo clave subrrogada unica de artículo',
   `modelo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
   `fk_rubro` bigint(20) unsigned zerofill NOT NULL,
@@ -35,17 +35,17 @@ CREATE TABLE `articulo` (
   `precio` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT 'Valor de venta del articulo\r',
   `cantidad` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Representa el stock actual del articulo',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  UNIQUE KEY `codigo_uk` (`codigo`),
-  KEY `clase` (`fk_clase`),
-  KEY `rubro` (`fk_rubro`),
-  KEY `marca` (`fk_marca`),
-  KEY `tipo` (`fk_tipo`),
-  CONSTRAINT `articulo_clase` FOREIGN KEY (`fk_clase`) REFERENCES `clase` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `articulo_marca` FOREIGN KEY (`fk_marca`) REFERENCES `marca` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `articulo_rubro` FOREIGN KEY (`fk_rubro`) REFERENCES `rubro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `articulo_tipo` FOREIGN KEY (`fk_tipo`) REFERENCES `tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  UNIQUE KEY `id_uk_idx` (`id`),
+  UNIQUE KEY `codigo_uk_idx` (`codigo`),
+  KEY `clase_idx` (`fk_clase`),
+  KEY `rubro_idx` (`fk_rubro`),
+  KEY `marca_idx` (`fk_marca`),
+  KEY `tipo_idx` (`fk_tipo`),
+  CONSTRAINT `articulo_clase` FOREIGN KEY (`fk_clase`) REFERENCES `art_clase` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `articulo_marca` FOREIGN KEY (`fk_marca`) REFERENCES `art_marca` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `articulo_rubro` FOREIGN KEY (`fk_rubro`) REFERENCES `art_rubro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `articulo_tipo` FOREIGN KEY (`fk_tipo`) REFERENCES `art_tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -58,8 +58,7 @@ CREATE TABLE `articulo` (
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_registrar_movimiento_articulo
    AFTER UPDATE
-   ON sgs_proeza_db.articulo
-   FOR EACH ROW
+   ON `art_articulo` FOR EACH ROW
 BEGIN
    DECLARE id_tipo_mov   INT;
    DECLARE nuevo_valor   VARCHAR(100);
@@ -137,94 +136,137 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Table structure for table `clase`
+-- Table structure for table `art_articulo_cliente`
 --
 
-DROP TABLE IF EXISTS `clase`;
+DROP TABLE IF EXISTS `art_articulo_cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `clase` (
+CREATE TABLE `art_articulo_cliente` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
-  `fk_rubro` bigint(20) unsigned zerofill DEFAULT NULL,
+  `fk_articulo` bigint(20) unsigned zerofill NOT NULL,
+  `fk_cliente` bigint(20) unsigned zerofill NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  UNIQUE KEY `codigo` (`codigo`),
-  KEY `clase_rubro_idx` (`fk_rubro`),
-  CONSTRAINT `clase_rubro` FOREIGN KEY (`fk_rubro`) REFERENCES `rubro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  UNIQUE KEY `id_pk_idx` (`id`),
+  KEY `ac_articulo_idx` (`fk_articulo`),
+  KEY `ac_cliente_idx` (`fk_cliente`),
+  CONSTRAINT `ac_articulo` FOREIGN KEY (`fk_articulo`) REFERENCES `art_articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `ac_cliente` FOREIGN KEY (`fk_cliente`) REFERENCES `art_cliente` (`fk_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `clase_tipo`
+-- Table structure for table `art_articulo_proveedor`
 --
 
-DROP TABLE IF EXISTS `clase_tipo`;
+DROP TABLE IF EXISTS `art_articulo_proveedor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `clase_tipo` (
+CREATE TABLE `art_articulo_proveedor` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_articulo` bigint(20) unsigned zerofill NOT NULL,
+  `fk_proveedor` bigint(20) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_pk_idx` (`id`),
+  KEY `fk_proveedor_idx` (`fk_proveedor`),
+  KEY `fk_articulo_idx` (`fk_articulo`),
+  CONSTRAINT `fk_articulo` FOREIGN KEY (`fk_articulo`) REFERENCES `art_articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proveedor` FOREIGN KEY (`fk_proveedor`) REFERENCES `art_proveedor` (`fk_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `art_clase`
+--
+
+DROP TABLE IF EXISTS `art_clase`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `art_clase` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+  `fk_rubro` bigint(20) unsigned zerofill DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk_idx` (`id`),
+  UNIQUE KEY `codigo_idx` (`codigo`),
+  KEY `clase_rubro_idx_idx` (`fk_rubro`),
+  CONSTRAINT `clase_rubro` FOREIGN KEY (`fk_rubro`) REFERENCES `art_rubro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `art_clase_tipo`
+--
+
+DROP TABLE IF EXISTS `art_clase_tipo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `art_clase_tipo` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `fk_clase` bigint(20) unsigned zerofill NOT NULL,
   `fk_tipo` bigint(20) unsigned zerofill NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  KEY `ct_clase` (`fk_clase`),
-  KEY `ct_tipo` (`fk_tipo`),
-  CONSTRAINT `ct_clase` FOREIGN KEY (`fk_clase`) REFERENCES `clase` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `ct_tipo` FOREIGN KEY (`fk_tipo`) REFERENCES `tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Asociacion de tablas clase y tipo. [Clase Reel, Tipo Embarcado] [Clase Caña, Tipo Embarcado]';
+  UNIQUE KEY `id_uk_idx` (`id`),
+  KEY `ct_clase_idx` (`fk_clase`),
+  KEY `ct_tipo_idx` (`fk_tipo`),
+  CONSTRAINT `ct_clase` FOREIGN KEY (`fk_clase`) REFERENCES `art_clase` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `ct_tipo` FOREIGN KEY (`fk_tipo`) REFERENCES `art_tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Asociacion de tablas clase y tipo. [Clase Reel, Tipo Embarcado] [Clase Caña, Tipo Embarcado]';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `cliente`
+-- Table structure for table `art_cliente`
 --
 
-DROP TABLE IF EXISTS `cliente`;
+DROP TABLE IF EXISTS `art_cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cliente` (
+CREATE TABLE `art_cliente` (
   `fk_persona` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla persona. Guarda la relacion de herencia con dicha tabla.',
   KEY `cliente_persona` (`fk_persona`),
-  CONSTRAINT `cliente_persona` FOREIGN KEY (`fk_persona`) REFERENCES `articulo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `cliente_persona` FOREIGN KEY (`fk_persona`) REFERENCES `cmn_persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene los clientes de la aplicacion.\r\nGuarda una relacion de herencia con la tabla persona.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `compra`
+-- Table structure for table `art_compra`
 --
 
-DROP TABLE IF EXISTS `compra`;
+DROP TABLE IF EXISTS `art_compra`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `compra` (
+CREATE TABLE `art_compra` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
   `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `fecha` date NOT NULL COMMENT 'Fecha de  compra',
   `importe` double(10,2) NOT NULL COMMENT 'Monto de compra',
   `fk_medio_pago` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla medio_pago',
+  `fk_proveedor` bigint(20) unsigned zerofill DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `codigo` (`codigo`),
-  KEY `compra_uk` (`fk_medio_pago`),
-  CONSTRAINT `compra_uk` FOREIGN KEY (`fk_medio_pago`) REFERENCES `medio_pago` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  UNIQUE KEY `codigo_idx` (`codigo`),
+  KEY `compra_mp_idx` (`fk_medio_pago`),
+  KEY `compra_proveedor_idx` (`fk_proveedor`),
+  CONSTRAINT `compra_mp` FOREIGN KEY (`fk_medio_pago`) REFERENCES `cmn_medio_pago` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `compra_proveedor` FOREIGN KEY (`fk_proveedor`) REFERENCES `art_proveedor` (`fk_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Compra de articulos';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `compra_articulo`
+-- Table structure for table `art_compra_articulo`
 --
 
-DROP TABLE IF EXISTS `compra_articulo`;
+DROP TABLE IF EXISTS `art_compra_articulo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `compra_articulo` (
+CREATE TABLE `art_compra_articulo` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `fk_articulo` bigint(20) unsigned zerofill NOT NULL,
   `fk_compra` bigint(20) unsigned zerofill NOT NULL,
   `cantidad` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
+  UNIQUE KEY `id_uk_idx` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -238,8 +280,7 @@ CREATE TABLE `compra_articulo` (
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_nueva_compra
    AFTER INSERT
-   ON sgs_proeza_db.compra_articulo
-   FOR EACH ROW
+   ON `art_compra_articulo` FOR EACH ROW
 BEGIN
    CALL sp_quitar_del_stock(NEW.fk_articulo, - NEW.cantidad);
 END */;;
@@ -259,8 +300,7 @@ DELIMITER ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_compra_modificada
    AFTER UPDATE
-   ON sgs_proeza_db.compra_articulo
-   FOR EACH ROW
+   ON `art_compra_articulo` FOR EACH ROW
 BEGIN
    CALL sp_quitar_del_stock(NEW.fk_articulo,  OLD.cantidad - NEW.cantidad);
 END */;;
@@ -280,8 +320,7 @@ DELIMITER ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_compra_anulada
    AFTER DELETE
-   ON sgs_proeza_db.compra_articulo
-   FOR EACH ROW
+   ON `art_compra_articulo` FOR EACH ROW
 BEGIN
    CALL sp_quitar_del_stock(OLD.fk_articulo, OLD.cantidad);
 END */;;
@@ -292,48 +331,242 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Table structure for table `email`
+-- Table structure for table `art_marca`
 --
 
-DROP TABLE IF EXISTS `email`;
+DROP TABLE IF EXISTS `art_marca`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `email` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
-  `direccion` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Direccion de correo electronico',
-  `fk_persona` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla persona',
-  PRIMARY KEY (`id`),
-  KEY `email_persona` (`fk_persona`),
-  CONSTRAINT `email_persona` FOREIGN KEY (`fk_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene los emails ';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `marca`
---
-
-DROP TABLE IF EXISTS `marca`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `marca` (
+CREATE TABLE `art_marca` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `codigo` (`codigo`),
-  UNIQUE KEY `id_uk` (`id`)
+  UNIQUE KEY `codigo_idx` (`codigo`),
+  UNIQUE KEY `id_uk_idx` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `art_movimiento`
+--
+
+DROP TABLE IF EXISTS `art_movimiento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `art_movimiento` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_tipo` bigint(20) unsigned zerofill NOT NULL,
+  `fk_articulo` bigint(20) unsigned zerofill NOT NULL,
+  `f_movimiento` date NOT NULL,
+  `valor` varchar(100) COLLATE utf8_spanish_ci NOT NULL DEFAULT '""',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  KEY `tipo` (`fk_tipo`),
+  KEY `articulo` (`fk_articulo`),
+  CONSTRAINT `movimiento_articulo` FOREIGN KEY (`fk_articulo`) REFERENCES `art_articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `movimiento_tipo` FOREIGN KEY (`fk_tipo`) REFERENCES `art_tipo_movimiento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `medio_pago`
+-- Table structure for table `art_proveedor`
 --
 
-DROP TABLE IF EXISTS `medio_pago`;
+DROP TABLE IF EXISTS `art_proveedor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `medio_pago` (
+CREATE TABLE `art_proveedor` (
+  `fk_persona` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK de la tabla persona. Guarda relacion de herencia.',
+  KEY `proveedor_persona` (`fk_persona`),
+  CONSTRAINT `proveedor_persona` FOREIGN KEY (`fk_persona`) REFERENCES `cmn_persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene datos de los proveedores del usuario';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `art_rubro`
+--
+
+DROP TABLE IF EXISTS `art_rubro`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `art_rubro` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk_idx` (`id`),
+  UNIQUE KEY `codigo_idx` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `art_tipo`
+--
+
+DROP TABLE IF EXISTS `art_tipo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `art_tipo` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk_idx` (`id`),
+  UNIQUE KEY `codigo_idx` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Clasificacion dentro de clase. Indica para determinada clase de articulos, de que tipo son. Ejemplo: Rubro Vahiculo, clase automovil, tipo camioneta.';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `art_tipo_movimiento`
+--
+
+DROP TABLE IF EXISTS `art_tipo_movimiento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `art_tipo_movimiento` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  UNIQUE KEY `codigo` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `art_venta`
+--
+
+DROP TABLE IF EXISTS `art_venta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `art_venta` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'Pk de la tabla',
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Codigo clave subrrogada unica',
+  `fecha` date NOT NULL COMMENT 'Fecha de la compra',
+  `importe` double(10,2) NOT NULL COMMENT 'Importe total de la venta',
+  `fk_medio_pago` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla de medio de pagos',
+  `fk_cliente` bigint(20) unsigned zerofill DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk_idx` (`id`),
+  KEY `venta_mp_idx` (`fk_medio_pago`),
+  KEY `venta_cliente_idx` (`fk_cliente`),
+  CONSTRAINT `venta_cliente` FOREIGN KEY (`fk_cliente`) REFERENCES `art_cliente` (`fk_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `venta_mp` FOREIGN KEY (`fk_medio_pago`) REFERENCES `cmn_medio_pago` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `art_venta_articulo`
+--
+
+DROP TABLE IF EXISTS `art_venta_articulo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `art_venta_articulo` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_venta` bigint(20) unsigned zerofill NOT NULL,
+  `fk_articulo` bigint(20) unsigned zerofill NOT NULL,
+  `cantidad` int(10) unsigned NOT NULL COMMENT 'Cantidad de articulos de un tipo en la venta',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk_idx` (`id`),
+  KEY `venta_idx` (`fk_venta`),
+  KEY `articulo_idx` (`fk_articulo`),
+  CONSTRAINT `va_articulo` FOREIGN KEY (`fk_articulo`) REFERENCES `art_articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `va_venta` FOREIGN KEY (`fk_venta`) REFERENCES `art_venta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_nueva_venta
+   AFTER INSERT
+   ON `art_venta_articulo` FOR EACH ROW
+BEGIN
+	Call sp_quitar_del_stock(NEW.fk_articulo, NEW.cantidad);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_venta_modificada
+   AFTER UPDATE
+   ON `art_venta_articulo` FOR EACH ROW
+BEGIN
+	Call sp_quitar_del_stock(NEW.fk_articulo, NEW.cantidad - OLD.cantidad);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_venta_anulada
+   AFTER DELETE 
+   ON `art_venta_articulo` FOR EACH ROW
+BEGIN
+	Call sp_quitar_del_stock(OLD.fk_articulo, - OLD.cantidad);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `cmn_email`
+--
+
+DROP TABLE IF EXISTS `cmn_email`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cmn_email` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
+  `direccion` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Direccion de correo electronico',
+  `fk_persona` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla persona',
+  PRIMARY KEY (`id`),
+  KEY `email_persona` (`fk_persona`),
+  CONSTRAINT `email_persona` FOREIGN KEY (`fk_persona`) REFERENCES `cmn_persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene los emails ';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cmn_medio_pago`
+--
+
+DROP TABLE IF EXISTS `cmn_medio_pago`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cmn_medio_pago` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
   `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Codigo clave subrrogada unica',
   `nombre` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del medio de pago',
@@ -344,73 +577,59 @@ CREATE TABLE `medio_pago` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `movimiento`
+-- Table structure for table `cmn_persona`
 --
 
-DROP TABLE IF EXISTS `movimiento`;
+DROP TABLE IF EXISTS `cmn_persona`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `movimiento` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `fk_tipo` bigint(20) unsigned zerofill NOT NULL,
-  `fk_articulo` bigint(20) unsigned zerofill NOT NULL,
-  `f_movimiento` date NOT NULL,
-  `valor` varchar(100) COLLATE utf8_spanish_ci NOT NULL DEFAULT '""',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  KEY `tipo` (`fk_tipo`),
-  KEY `articulo` (`fk_articulo`),
-  CONSTRAINT `movimiento_articulo` FOREIGN KEY (`fk_articulo`) REFERENCES `articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `movimiento_tipo` FOREIGN KEY (`fk_tipo`) REFERENCES `tipo_movimiento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `persona`
---
-
-DROP TABLE IF EXISTS `persona`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `persona` (
+CREATE TABLE `cmn_persona` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
   `nombre` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre de la persona',
   `apellido` varchar(50) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Apellido de la persona',
   `sexo` varchar(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'M' COMMENT 'Sexo de la persona',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que representa persona de manera asbtracta. ';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que representa persona de manera asbtracta. ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `proveedor`
+-- Table structure for table `cmn_telefono`
 --
 
-DROP TABLE IF EXISTS `proveedor`;
+DROP TABLE IF EXISTS `cmn_telefono`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `proveedor` (
-  `fk_persona` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK de la tabla persona. Guarda relacion de herencia.',
-  KEY `proveedor_persona` (`fk_persona`),
-  CONSTRAINT `proveedor_persona` FOREIGN KEY (`fk_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene datos de los proveedores del usuario';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `rubro`
---
-
-DROP TABLE IF EXISTS `rubro`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rubro` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+CREATE TABLE `cmn_telefono` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
+  `pref_internacional` varchar(3) COLLATE utf8_spanish_ci NOT NULL DEFAULT '+54' COMMENT 'Prefijo internacional del numero telefonico',
+  `pref_area` varchar(3) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Prefijo de area del numero telefonico',
+  `numero` varchar(10) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Numero telefonico',
+  `fk_tipo` bigint(20) unsigned zerofill NOT NULL,
+  `fk_persona` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla persona',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  UNIQUE KEY `codigo` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  KEY `telefono_persona_idx` (`fk_persona`),
+  KEY `telefono_tt_idx` (`fk_tipo`),
+  CONSTRAINT `telefono_persona` FOREIGN KEY (`fk_persona`) REFERENCES `cmn_persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `telefono_tt` FOREIGN KEY (`fk_tipo`) REFERENCES `cmn_telefono_tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que define telefono';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cmn_telefono_tipo`
+--
+
+DROP TABLE IF EXISTS `cmn_telefono_tipo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cmn_telefono_tipo` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -545,165 +764,6 @@ CREATE TABLE `sys_pagina_rol` (
   CONSTRAINT `pr_rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_proeza_db`.`rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Relaciona las paginas de la aplicacion con los roles de usuario. Permite saber que usuario puede acceder a que pagina.';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `telefono`
---
-
-DROP TABLE IF EXISTS `telefono`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `telefono` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'PK de la tabla',
-  `pref_internacional` varchar(3) COLLATE utf8_spanish_ci NOT NULL DEFAULT '+54' COMMENT 'Prefijo internacional del numero telefonico',
-  `pref_area` varchar(3) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Prefijo de area del numero telefonico',
-  `numero` varchar(10) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Numero telefonico',
-  `fk_persona` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla persona',
-  PRIMARY KEY (`id`),
-  KEY `telefono_persona` (`fk_persona`),
-  CONSTRAINT `telefono_persona` FOREIGN KEY (`fk_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que define telefono';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `tipo`
---
-
-DROP TABLE IF EXISTS `tipo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tipo` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  UNIQUE KEY `codigo` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Clasificacion dentro de clase. Indica para determinada clase de articulos, de que tipo son. Ejemplo: Rubro Vahiculo, clase automovil, tipo camioneta.';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `tipo_movimiento`
---
-
-DROP TABLE IF EXISTS `tipo_movimiento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tipo_movimiento` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  UNIQUE KEY `codigo` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `venta`
---
-
-DROP TABLE IF EXISTS `venta`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `venta` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'Pk de la tabla',
-  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Codigo clave subrrogada unica',
-  `fecha` date NOT NULL COMMENT 'Fecha de la compra',
-  `importe` double(10,2) NOT NULL COMMENT 'Importe total de la venta',
-  `fk_medio_pago` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla de medio de pagos',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  KEY `venta_mp_idx` (`fk_medio_pago`),
-  CONSTRAINT `venta_mp` FOREIGN KEY (`fk_medio_pago`) REFERENCES `medio_pago` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `venta_articulo`
---
-
-DROP TABLE IF EXISTS `venta_articulo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `venta_articulo` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `fk_venta` bigint(20) unsigned zerofill NOT NULL,
-  `fk_articulo` bigint(20) unsigned zerofill NOT NULL,
-  `cantidad` int(10) unsigned NOT NULL COMMENT 'Cantidad de articulos de un tipo en la venta',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  KEY `venta` (`fk_venta`),
-  KEY `articulo` (`fk_articulo`),
-  CONSTRAINT `va_articulo` FOREIGN KEY (`fk_articulo`) REFERENCES `articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `va_venta` FOREIGN KEY (`fk_venta`) REFERENCES `venta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_nueva_venta
-   AFTER INSERT
-   ON sgs_proeza_db.venta_articulo
-   FOR EACH ROW
-BEGIN
-	Call sp_quitar_del_stock(NEW.fk_articulo, NEW.cantidad);
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_venta_modificada
-   AFTER UPDATE
-   ON sgs_proeza_db.venta_articulo
-   FOR EACH ROW
-BEGIN
-	Call sp_quitar_del_stock(NEW.fk_articulo, NEW.cantidad - OLD.cantidad);
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER sgs_proeza_db.tr_actualizar_stock_por_venta_anulada
-   AFTER DELETE 
-   ON sgs_proeza_db.venta_articulo
-   FOR EACH ROW
-BEGIN
-	Call sp_quitar_del_stock(OLD.fk_articulo, - OLD.cantidad);
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -714,4 +774,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-12 13:30:08
+-- Dump completed on 2015-01-13  8:38:40

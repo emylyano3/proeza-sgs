@@ -23,7 +23,7 @@ import static javax.persistence.GenerationType.*;
 @Entity
 @Table(
 	catalog = "sgs_proeza_db",
-	name = "tipo",
+	name = "art_tipo",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class Tipo implements Serializable {
 

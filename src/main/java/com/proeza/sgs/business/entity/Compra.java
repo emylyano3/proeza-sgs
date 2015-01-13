@@ -28,7 +28,7 @@ import static javax.persistence.GenerationType.*;
 @Entity
 @Table(
 	catalog = "sgs_proeza_db",
-	name = "compra",
+	name = "art_compra",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class Compra implements Serializable {
 
@@ -39,6 +39,7 @@ public class Compra implements Serializable {
 	private MedioPago			medioPago;
 	private Date				fecha;
 	private double				importe;
+	private Proveedor			proveedor;
 
 	private Set<CompraArticulo>	articulos			= new HashSet<CompraArticulo>(0);
 
@@ -101,5 +102,15 @@ public class Compra implements Serializable {
 
 	public void setArticulos (Set<CompraArticulo> articulos) {
 		this.articulos = articulos;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_proveedor", nullable = true)
+	public Proveedor getProveedor () {
+		return this.proveedor;
+	}
+
+	public void setProveedor (Proveedor proveedor) {
+		this.proveedor = proveedor;
 	}
 }

@@ -3,22 +3,28 @@ package com.proeza.sgs.business.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import static javax.persistence.GenerationType.*;
+
 @Entity
-@Table(schema = "sgs_proeza_db", name = "telefono")
+@Table(schema = "sgs_proeza_db", name = "cmn_telefono")
 public class Telefono {
 
-	private long	id;
-	private String	prefInternacional;
-	private String	prefArea;
-	private String	numero;
-	private Persona	persona;
+	private long			id;
+	private String			prefInternacional;
+	private String			prefArea;
+	private String			numero;
+	private Persona			persona;
+	private TelefonoTipo	tipo;
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
 	public long getId () {
 		return this.id;
@@ -63,5 +69,15 @@ public class Telefono {
 
 	public void setPersona (Persona persona) {
 		this.persona = persona;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_tipo", nullable = false, referencedColumnName = "id")
+	public TelefonoTipo getTipo () {
+		return this.tipo;
+	}
+
+	public void setTipo (TelefonoTipo tipo) {
+		this.tipo = tipo;
 	}
 }

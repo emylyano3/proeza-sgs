@@ -47,6 +47,8 @@ public class NegocioDalTest extends DalTest {
 		assertNotNull(art.getRubro());
 		assertNotNull(art.getClase());
 		assertNotNull(art.getTipo());
+		assertNotNull(art.getProveedores());
+		assertFalse(art.getProveedores().isEmpty());
 		assertNotNull(art.getRubro().getClases());
 		assertFalse(art.getRubro().getClases().isEmpty());
 		Clase clase = art.getRubro().getClases().iterator().next();

@@ -27,7 +27,7 @@ import static javax.persistence.GenerationType.*;
 @Entity
 @Table(
 	catalog = "sgs_proeza_db",
-	name = "clase",
+	name = "art_clase",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class Clase implements Serializable {
 
@@ -65,7 +65,7 @@ public class Clase implements Serializable {
 		this.codigo = codigo;
 	}
 
-	@Column(name = "nombre", nullable = false, length = 45)
+	@Column(name = "nombre", nullable = false, length = 50)
 	public String getNombre () {
 		return this.nombre;
 	}
@@ -105,7 +105,7 @@ public class Clase implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 		catalog = "sgs_proeza_db",
-		name = "clase_tipo",
+		name = "art_clase_tipo",
 		joinColumns = {@JoinColumn(name = "fk_clase", nullable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "fk_tipo", nullable = false)})
 	public Set<Tipo> getTipos () {

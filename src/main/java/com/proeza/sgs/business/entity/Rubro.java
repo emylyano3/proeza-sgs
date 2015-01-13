@@ -21,8 +21,8 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(
-	name = "rubro",
 	catalog = "sgs_proeza_db",
+	name = "art_rubro",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class Rubro implements java.io.Serializable {
 

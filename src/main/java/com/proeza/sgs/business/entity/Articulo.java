@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,7 +28,7 @@ import static javax.persistence.GenerationType.*;
 @Entity
 @Table(
 	catalog = "sgs_proeza_db",
-	name = "articulo",
+	name = "art_articulo",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class Articulo implements Serializable {
 
@@ -44,6 +46,7 @@ public class Articulo implements Serializable {
 	private BigDecimal			precio;
 	private int					cantidad;
 
+	private Set<Proveedor>		proveedores			= new HashSet<>(0);
 	private Set<Movimiento>		movimientos			= new HashSet<>(0);
 
 	public Articulo () {
@@ -60,7 +63,7 @@ public class Articulo implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "codigo", unique = true, nullable = false, length = 10)
+	@Column(name = "codigo", unique = true, nullable = false, length = 20)
 	public String getCodigo () {
 		return this.codigo;
 	}
@@ -152,6 +155,20 @@ public class Articulo implements Serializable {
 
 	public void setCantidad (int cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+		catalog = "sgs_proeza_db",
+		name = "art_articulo_proveedor",
+		joinColumns = {@JoinColumn(name = "fk_articulo", nullable = false)},
+		inverseJoinColumns = {@JoinColumn(name = "fk_proveedor", nullable = false)})
+	public Set<Proveedor> getProveedores () {
+		return this.proveedores;
+	}
+
+	public void setProveedores (Set<Proveedor> proveedores) {
+		this.proveedores = proveedores;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "articulo")

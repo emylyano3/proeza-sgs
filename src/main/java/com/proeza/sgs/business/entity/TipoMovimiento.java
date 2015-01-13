@@ -19,7 +19,7 @@ import static javax.persistence.GenerationType.*;
 @Entity
 @Table(
 	catalog = "sgs_proeza_db",
-	name = "tipo_movimiento",
+	name = "art_tipo_movimiento",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class TipoMovimiento implements Serializable {
 

@@ -1,22 +1,52 @@
-/* Rubro */
-insert into sgs_proeza_db.rubro (codigo, nombre, descripcion) values ('PESCA','Pesca','Pesca');
+/* Maestros */
+	/* Telefono Tipo */
+	insert into sgs_proeza_db.cmn_telefono_tipo (codigo, nombre, descripcion) values ('MPERSONAL','Movil Personal','Celular personal');
+	insert into sgs_proeza_db.cmn_telefono_tipo (codigo, nombre, descripcion) values ('MTRABAJO','Movil de Trabajo','Celular trabajo');
+	insert into sgs_proeza_db.cmn_telefono_tipo (codigo, nombre, descripcion) values ('FPERSONAL','Personal','Telefono fijo personal');
+	insert into sgs_proeza_db.cmn_telefono_tipo (codigo, nombre, descripcion) values ('FTRABAJO','Trabajo','Telefono fijo de trabajo');
 
-/* Clase */
-insert into sgs_proeza_db.clase (codigo, nombre, descripcion, fk_rubro) values ('REEL','Reel','Clase que abarca a todos los reeles', 1);
-insert into sgs_proeza_db.clase (codigo, nombre, descripcion, fk_rubro) values ('CANIA','Caña','Clase que abarca a todas las cañas', 1);
+	/* Rubro */
+	insert into sgs_proeza_db.art_rubro (codigo, nombre, descripcion) values ('PESCA','Pesca','Pesca');
+	
+	/* Clase */
+	insert into sgs_proeza_db.art_clase (codigo, nombre, descripcion, fk_rubro) values ('REEL','Reel','Clase que abarca a todos los reeles', 1);
+	insert into sgs_proeza_db.art_clase (codigo, nombre, descripcion, fk_rubro) values ('CANIA','Caña','Clase que abarca a todas las cañas', 1);
+	
+	/* Tipo */
+	insert into sgs_proeza_db.art_tipo (codigo, nombre, descripcion) values ('EMBARCADO','Embarcado','Embarcado');
+	insert into sgs_proeza_db.art_tipo (codigo, nombre, descripcion) values ('ROTATIVO','Rotativo','Rotativo');
+	
+	/* Clase - Tipo */
+	insert into sgs_proeza_db.art_clase_tipo (fk_clase, fk_tipo) values (1, 1);
+	insert into sgs_proeza_db.art_clase_tipo (fk_clase, fk_tipo) values (2, 1);
+	
+	/* Marca */
+	insert into sgs_proeza_db.art_marca (codigo, nombre, descripcion) values ('SURFISH','Surfish','Surfish');
 
-/* Tipo */
-insert into sgs_proeza_db.tipo (codigo, nombre, descripcion) values ('EMBARCADO','Embarcado','Embarcado');
-insert into sgs_proeza_db.tipo (codigo, nombre, descripcion) values ('ROTATIVO','Rotativo','Rotativo');
+/* Data de negocio */
+	/* Articulos */
+	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PRRS000001', 1, 1, 2, 1, 'Ocean 1005', '3 rulemanes; antireverse instantaneo; devanador', 200, 250, 2);
+	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PCES000002', 1, 2, 1, 1, 'Energhia 195', 'Pasahilo silicio; Puntero con roldana', 100, 150, 3);
+	
+	/* Persona */
+	insert into sgs_proeza_db.cmn_persona (id, nombre, apellido, sexo) values (1, 'Dario','Romero','M');
+	insert into sgs_proeza_db.cmn_persona (id, nombre, apellido, sexo) values (2, 'Paula','Silveyra','F');
+	
+	/* Proveedor */
+	insert into sgs_proeza_db.art_proveedor (fk_persona) values (1);
+	
+	/* Cliente */
+	insert into sgs_proeza_db.art_cliente (fk_persona) values (2);
+	
+	/* Email */
+	insert into sgs_proeza_db.cmn_email (direccion, fk_persona) values ('lalocat_25@hotmail.com', 1); 
 
-/* Clase - Tipo */
-insert into sgs_proeza_db.clase_tipo (fk_clase, fk_tipo) values (1, 1);
-insert into sgs_proeza_db.clase_tipo (fk_clase, fk_tipo) values (2, 1);
-
-/* Marca */
-insert into sgs_proeza_db.marca (codigo, nombre, descripcion) values ('SURFISH','Surfish','Surfish');
-
-/* Articulos */
-insert into sgs_proeza_db.articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PRRS000001', 1, 1, 2, 1, 'Ocean 1005', '3 rulemanes; antireverse instantaneo; devanador', 200, 250, 2);
-
-insert into sgs_proeza_db.articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PCES000002', 1, 2, 1, 1, 'Energhia 195', 'Pasahilo silicio; Puntero con roldana', 100, 150, 3);
+	/* Telefono */
+	insert into sgs_proeza_db.cmn_telefono (pref_internacional, pref_area, numero, fk_tipo, fk_persona) values ('+54', '011', '2323000', 1, 1); 
+	
+	/* Articulo - Proveedor */
+	insert into sgs_proeza_db.art_articulo_proveedor(id, fk_articulo, fk_proveedor) values (1, 1, 1);
+	insert into sgs_proeza_db.art_articulo_proveedor(id, fk_articulo, fk_proveedor) values (2, 2, 1);
+	
+	/* Articulo - Cliente */
+	insert into sgs_proeza_db.art_articulo_cliente(id, fk_articulo, fk_cliente) values (1, 1, 2);

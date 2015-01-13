@@ -1,31 +1,37 @@
 package com.proeza.sgs.business.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import static javax.persistence.GenerationType.*;
+
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "persona")
+@Table(catalog = "sgs_proeza_db", name = "cmn_persona")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Persona {
+public class Persona implements Serializable {
+	private static final long	serialVersionUID	= 1L;
 
-	private long			id;
-	private String			nombre;
-	private String			apellido;
-	private String			sexo		= "M";
+	private long				id;
+	private String				nombre;
+	private String				apellido;
+	private String				sexo				= "M";
 
-	private Set<Email>		emails		= new HashSet<>(0);
-	private Set<Telefono>	telefonos	= new HashSet<>(0);
+	private Set<Email>			emails				= new HashSet<>(0);
+	private Set<Telefono>		telefonos			= new HashSet<>(0);
 
 	@Id
+	@GeneratedValue(strategy = AUTO)
 	@Column(name = "id", nullable = false, unique = true)
 	public long getId () {
 		return this.id;
