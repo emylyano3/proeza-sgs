@@ -43,7 +43,7 @@ import com.proeza.core.resources.MessageResolver;
 	SecurityConfig.class
 })
 @ComponentScan(
-	basePackages = {"com.proeza.**.service"},
+	basePackages = {"com.proeza.**.service", "com.proeza.**.mail"},
 	basePackageClasses = {Settings.class},
 	excludeFilters = {
 		@Filter(Configuration.class),

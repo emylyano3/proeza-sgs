@@ -106,10 +106,12 @@ public class Usuario implements Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "usuario_rol", catalog = "seg_proeza_db", joinColumns = {
-		@JoinColumn(name = "fk_usuario", nullable = false, updatable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "fk_rol",
-		nullable = false, updatable = false)})
+	@JoinTable(
+		catalog = "seg_proeza_db",
+		name = "usuario_rol",
+		joinColumns = {@JoinColumn(name = "fk_usuario", nullable = false, updatable = false)},
+		inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false, updatable = false)
+		})
 	public Set<Rol> getRoles () {
 		return this.roles;
 	}

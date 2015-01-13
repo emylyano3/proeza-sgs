@@ -10,7 +10,7 @@
 		<sql-type jdbc-type="BIGINT" hibernate-type="long" not-null="true"></sql-type>
 	</type-mapping>
 	<table-filter match-catalog="sgs_proeza_db" match-name="articulo" />
-	<table-filter match-catalog="sgs_proeza_db" match-name="categoria" />
+	<table-filter match-catalog="sgs_proeza_db" match-name="tipo" />
 	<table-filter match-catalog="sgs_proeza_db" match-name="clase" />
 	<table-filter match-catalog="sgs_proeza_db" match-name="marca" />
 	<table-filter match-catalog="sgs_proeza_db" match-name="movimiento" />
@@ -29,7 +29,7 @@
 		<column name="f_actualizacion" property="fechaActualizacion"></column>
 		<column name="cantidad"></column>
 	</table>
-	<table catalog="sgs_proeza_db" name="categoria">
+	<table catalog="sgs_proeza_db" name="tipo">
 		<column name="id"></column>
 		<column name="codigo"></column>
 		<column name="nombre"></column>
@@ -58,7 +58,7 @@
 		<column name="id"></column>
 		<column name="descripcion"></column>
 		<column name="fk_clase" property="clase"></column>
-		<column name="fk_categoria" property="categoria"></column>
+		<column name="fk_tipo" property="tipo"></column>
 		<column name="fk_marca" property="marca"></column>
 		<column name="fk_rubro" property="rubro"></column>
 		<column name="costo"></column>
@@ -88,22 +88,22 @@
 		<column name="nombre"></column>
 		<column name="descripcion"></column>
 	</table>
-	<table catalog="sgs_proeza_db" name="vw_rubro_categoria">
+	<table catalog="sgs_proeza_db" name="vw_rubro_clase">
 		<column name="Id Rubro"></column>
 		<column name="Codigo Rubro"></column>
 		<column name="Nombre Rubro"></column>
 		<column name="Descipcion Rubro"></column>
-		<column name="Id Categoria"></column>
-		<column name="Codigo Categoria"></column>
-		<column name="Nombre Categoria"></column>
-		<column name="Descripcion Categoria"></column>
+		<column name="Id Clase"></column>
+		<column name="Codigo Clase"></column>
+		<column name="Nombre Clase"></column>
+		<column name="Descripcion Clase"></column>
 	</table>
 	<table catalog="sgs_proeza_db" name="vw_detalle_ventas">
 		<column name="Venta"></column>
 		<column name="Articulo"></column>
 		<column name="Rubro"></column>
-		<column name="Categoria"></column>
 		<column name="Clase"></column>
+		<column name="Tipo"></column>
 		<column name="Cantidad"></column>
 		<column name="Fecha"></column>
 		<column name="Medio de Pago"></column>
@@ -118,15 +118,15 @@
 		<column name="Compra"></column>
 		<column name="Articulo"></column>
 		<column name="Rubro"></column>
-		<column name="Categoria"></column>
 		<column name="Clase"></column>
+		<column name="Tipo"></column>
 		<column name="Cantidad"></column>
 		<column name="Fecha"></column>
 		<column name="Medio de Pago"></column>
 	</table>
-	<table catalog="sgs_proeza_db" name="rubro_categoria">
+	<table catalog="sgs_proeza_db" name="rubro_clase">
 		<column name="id"></column>
-		<column name="fk_categoria" property="categoria"></column>
+		<column name="fk_clase" property="clase"></column>
 		<column name="fk_rubro" property="rubro"></column>
 	</table>
 	<table catalog="sgs_proeza_db" name="venta_articulo">
@@ -154,10 +154,10 @@
 		<column name="Cantidad"></column>
 		<column name="Fecha Modificacion"></column>
 	</table>
-	<table catalog="sgs_proeza_db" name="categoria_clase">
+	<table catalog="sgs_proeza_db" name="clase_tipo">
 		<column name="id"></column>
-		<column name="fk_categoria" property="categoria"></column>
 		<column name="fk_clase" property="clase"></column>
+		<column name="fk_tipo" property="tipo"></column>
 	</table>
 	<table catalog="sgs_proeza_db" name="vw_historial_precio">
 		<column name="Id Articulo"></column>

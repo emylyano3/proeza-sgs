@@ -6,7 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class EncriptarPassword {
 
-	private static final String	PASSWORD	= "user";
+	private static final String	PASSWORD	= "proezasgs1234";
 
 	@Test
 	public void encodePass () {

@@ -18,7 +18,7 @@
 		<mapping class="com.proeza.security.entity.UsuarioRol"/>
 		
 		<mapping class="com.proeza.sgs.business.entity.Articulo"/>
-		<mapping class="com.proeza.sgs.business.entity.Categoria"/>
+		<mapping class="com.proeza.sgs.business.entity.Tipo"/>
 		<mapping class="com.proeza.sgs.business.entity.Clase"/>
 		<mapping class="com.proeza.sgs.business.entity.Compra"/>
 		<mapping class="com.proeza.sgs.business.entity.CompraArticulo"/>

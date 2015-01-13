@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Template de envio de email de contacto</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{mail.susc.greeting(${username})}">
+            Hola, Usuario!
+        </p>
+        <p>
+        	<span th:text="#{mail.susc.congrats.1}">Felicitaciones, te suscribiste exitosamente a</span>
+        	<b><span th:text="#{mail.susc.congrats.2}">Proeza SGS</span></b>
+        </p>
+        <p th:text="#{mail.susc.data}">Tu usuario es:</p>
+        <ul>
+        	<li th:text="${alias}">Pepe!</li>
+        </ul>
+        <p>
+            <span th:text="#{mail.susc.regards.1}">Saludos!, </span><br/>&emsp; <em><span th:text="#{mail.susc.congrats.2}">Proeza SGS</span></em>
+        </p>
+    </body>
+</html>

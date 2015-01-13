@@ -31,13 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService	userDetailsService;
 
 	@Autowired
-	private IPageDao				pageDao;
+	private IPageDao			pageDao;
 
 	@Override
 	public void configure (WebSecurity web) throws Exception {
 		web
-		.ignoring()
-		.antMatchers("/resources/**");
+			.ignoring()
+			.antMatchers("/resources/**");
 	}
 
 	@Override

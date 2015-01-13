@@ -25,11 +25,12 @@ DROP TABLE IF EXISTS `articulo`;
 CREATE TABLE `articulo` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Codigo clave subrrogada unica de artículo',
+  `modelo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
-  `fk_clase` bigint(20) unsigned zerofill NOT NULL,
-  `fk_categoria` bigint(20) unsigned zerofill NOT NULL,
-  `fk_marca` bigint(20) unsigned zerofill NOT NULL,
   `fk_rubro` bigint(20) unsigned zerofill NOT NULL,
+  `fk_clase` bigint(20) unsigned zerofill NOT NULL,
+  `fk_tipo` bigint(20) unsigned zerofill NOT NULL,
+  `fk_marca` bigint(20) unsigned zerofill NOT NULL,
   `costo` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT 'Valor de compra del articulo',
   `precio` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT 'Valor de venta del articulo\r',
   `cantidad` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Representa el stock actual del articulo',
@@ -37,13 +38,13 @@ CREATE TABLE `articulo` (
   UNIQUE KEY `id_uk` (`id`),
   UNIQUE KEY `codigo_uk` (`codigo`),
   KEY `clase` (`fk_clase`),
-  KEY `categoria` (`fk_categoria`),
   KEY `rubro` (`fk_rubro`),
   KEY `marca` (`fk_marca`),
-  CONSTRAINT `articulo_categoria` FOREIGN KEY (`fk_categoria`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `tipo` (`fk_tipo`),
   CONSTRAINT `articulo_clase` FOREIGN KEY (`fk_clase`) REFERENCES `clase` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `articulo_marca` FOREIGN KEY (`fk_marca`) REFERENCES `marca` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `articulo_rubro` FOREIGN KEY (`fk_rubro`) REFERENCES `rubro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `articulo_rubro` FOREIGN KEY (`fk_rubro`) REFERENCES `rubro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `articulo_tipo` FOREIGN KEY (`fk_tipo`) REFERENCES `tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -136,44 +137,6 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Table structure for table `categoria`
---
-
-DROP TABLE IF EXISTS `categoria`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `categoria` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  UNIQUE KEY `codigo` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `categoria_clase`
---
-
-DROP TABLE IF EXISTS `categoria_clase`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `categoria_clase` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `fk_categoria` bigint(20) unsigned zerofill NOT NULL,
-  `fk_clase` bigint(20) unsigned zerofill NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  KEY `cc_categoria` (`fk_categoria`),
-  KEY `cc_clase` (`fk_clase`),
-  CONSTRAINT `cc_categoria` FOREIGN KEY (`fk_categoria`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `cc_clase` FOREIGN KEY (`fk_clase`) REFERENCES `clase` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `clase`
 --
 
@@ -185,10 +148,33 @@ CREATE TABLE `clase` (
   `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+  `fk_rubro` bigint(20) unsigned zerofill DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_uk` (`id`),
-  UNIQUE KEY `codigo` (`codigo`)
+  UNIQUE KEY `codigo` (`codigo`),
+  KEY `clase_rubro_idx` (`fk_rubro`),
+  CONSTRAINT `clase_rubro` FOREIGN KEY (`fk_rubro`) REFERENCES `rubro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `clase_tipo`
+--
+
+DROP TABLE IF EXISTS `clase_tipo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clase_tipo` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_clase` bigint(20) unsigned zerofill NOT NULL,
+  `fk_tipo` bigint(20) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  KEY `ct_clase` (`fk_clase`),
+  KEY `ct_tipo` (`fk_tipo`),
+  CONSTRAINT `ct_clase` FOREIGN KEY (`fk_clase`) REFERENCES `clase` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `ct_tipo` FOREIGN KEY (`fk_tipo`) REFERENCES `tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Asociacion de tablas clase y tipo. [Clase Reel, Tipo Embarcado] [Clase Caña, Tipo Embarcado]';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -428,26 +414,6 @@ CREATE TABLE `rubro` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rubro_categoria`
---
-
-DROP TABLE IF EXISTS `rubro_categoria`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rubro_categoria` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `fk_categoria` bigint(20) unsigned zerofill NOT NULL,
-  `fk_rubro` bigint(20) unsigned zerofill NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_uk` (`id`),
-  KEY `categoria` (`fk_categoria`),
-  KEY `rubro` (`fk_rubro`),
-  CONSTRAINT `rc_categoria` FOREIGN KEY (`fk_categoria`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `rc_rubro` FOREIGN KEY (`fk_rubro`) REFERENCES `rubro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `sys_item`
 --
 
@@ -538,7 +504,7 @@ CREATE TABLE `sys_pagina` (
   `descripcion` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion de la pagina',
   PRIMARY KEY (`id`),
   UNIQUE KEY `pagina_uk` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene todas las paginas que componen la aplicacion.';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene todas las paginas que componen la aplicacion.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -577,7 +543,7 @@ CREATE TABLE `sys_pagina_rol` (
   KEY `pr_rol_idx` (`fk_rol`),
   CONSTRAINT `pr_pagina` FOREIGN KEY (`fk_pagina`) REFERENCES `sys_pagina` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `pr_rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_proeza_db`.`rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Relaciona las paginas de la aplicacion con los roles de usuario. Permite saber que usuario puede acceder a que pagina.';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Relaciona las paginas de la aplicacion con los roles de usuario. Permite saber que usuario puede acceder a que pagina.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -597,6 +563,24 @@ CREATE TABLE `telefono` (
   KEY `telefono_persona` (`fk_persona`),
   CONSTRAINT `telefono_persona` FOREIGN KEY (`fk_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que define telefono';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tipo`
+--
+
+DROP TABLE IF EXISTS `tipo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipo` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT 'N/A',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  UNIQUE KEY `codigo` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Clasificacion dentro de clase. Indica para determinada clase de articulos, de que tipo son. Ejemplo: Rubro Vahiculo, clase automovil, tipo camioneta.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -730,4 +714,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-08 12:56:43
+-- Dump completed on 2015-01-12 13:30:08

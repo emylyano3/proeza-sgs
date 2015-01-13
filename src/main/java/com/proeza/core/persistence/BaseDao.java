@@ -2,6 +2,7 @@ package com.proeza.core.persistence;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,6 +29,15 @@ public abstract class BaseDao<Entity> implements Dao<Entity> {
 	@Override
 	public Entity find (Object id) {
 		return this.entityManager.find(getEntityClass(), id);
+	}
+
+	@Override
+	public List<Entity> findAll () {
+		@SuppressWarnings("unchecked")
+		final List<Entity> resultList = this.entityManager
+			.createQuery(" select x from " + getEntityClass().getName() + " x")
+			.getResultList();
+		return resultList;
 	}
 
 	@Override
