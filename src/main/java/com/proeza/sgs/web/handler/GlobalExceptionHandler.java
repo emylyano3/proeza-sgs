@@ -26,6 +26,7 @@ public class GlobalExceptionHandler {
 		model.addObject("gotoText", "Ir a Inicio");
 		model.addObject("errorCode", "500");
 		model.addObject("errorMessage", e.getMessage());
+		model.addObject("exception", e);
 		model.addObject("errorDescription", "Ocurrio un error al cargar la pagina.");
 		model.setViewName(ERROR_PAGE_CODE);
 		log.error("Exception handled by " + GlobalExceptionHandler.class.getSimpleName(), e);
