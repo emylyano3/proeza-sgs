@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.proeza.security.dao.UsuarioDao;
 import com.proeza.security.entity.Usuario;
+import com.proeza.security.form.UsuarioForm;
 
 @Transactional
 @Service("userService")
@@ -22,12 +23,9 @@ public class UserService implements IUserService {
 
 	private UsuarioDao	userDao;
 
-	/* (non-Javadoc)
-	 * @see com.proeza.security.service.IUserService#create(com.proeza.security.entity.Usuario)
-	 */
 	@Override
-	public Usuario create (Usuario user) {
-		this.userDao.persist(user);
-		return user;
+	public UsuarioForm create (UsuarioForm user) {
+		Usuario created = this.userDao.persist(user.getUsuario());
+		return new UsuarioForm(created);
 	}
 }

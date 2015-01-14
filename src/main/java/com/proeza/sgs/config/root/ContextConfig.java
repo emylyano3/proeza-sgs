@@ -19,6 +19,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
@@ -47,7 +48,8 @@ import com.proeza.core.resources.MessageResolver;
 	basePackageClasses = {Settings.class},
 	excludeFilters = {
 		@Filter(Configuration.class),
-		@Filter(Controller.class)
+		@Filter(Controller.class),
+		@Filter(RestController.class)
 	})
 @EnableAsync
 @EnableScheduling

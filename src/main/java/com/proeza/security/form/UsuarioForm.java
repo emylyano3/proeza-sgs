@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 import com.proeza.security.entity.Usuario;
+import com.proeza.security.entity.builder.UsuarioBuilder;
 
 public class UsuarioForm {
 
@@ -24,19 +25,33 @@ public class UsuarioForm {
 	private String	email;
 
 	@NotNull
-	@Length(min = 5, max = 15, message="{form.error.password}")
+	@Length(min = 5, max = 15, message = "{form.error.password}")
 	private String	password;
 
 	private String	passwordConfirm;
 
+	public UsuarioForm () {
+	}
+
+	public UsuarioForm (Usuario usuario) {
+		if (usuario != null) {
+			this.alias = usuario.getAlias();
+			this.apellido = usuario.getApellido();
+			this.nombre = usuario.getNombre();
+			this.email = usuario.getEmail();
+			this.password = usuario.getPassword();
+			this.passwordConfirm = usuario.getPassword();
+		}
+	}
+
 	public Usuario getUsuario () {
-		Usuario usuario = new Usuario();
-		usuario.setAlias(this.alias);
-		usuario.setNombre(this.nombre);
-		usuario.setApellido(this.apellido);
-		usuario.setEmail(this.email);
-		usuario.setPassword(this.password);
-		return usuario;
+		return new UsuarioBuilder()
+			.withAlias(this.alias)
+			.withNombre(this.nombre)
+			.withApellido(this.apellido)
+			.withEmail(this.email)
+			.withPassword(this.password)
+			.build();
 	}
 
 	public String getAlias () {

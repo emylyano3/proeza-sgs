@@ -1,9 +1,9 @@
 package com.proeza.security.service;
 
-import com.proeza.security.entity.Usuario;
+import com.proeza.security.form.UsuarioForm;
 
 public interface IUserService {
 
-	public abstract Usuario create (Usuario user);
+	UsuarioForm create (UsuarioForm user);
 
 }

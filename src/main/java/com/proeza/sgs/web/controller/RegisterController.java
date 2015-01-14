@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.LocaleResolver;
 
-import com.proeza.security.entity.Usuario;
 import com.proeza.security.form.UsuarioForm;
 import com.proeza.security.service.IUserService;
 import com.proeza.sgs.system.mail.IMailManager;
@@ -58,14 +57,14 @@ public class RegisterController {
 	@RequestMapping(value = "/" + PAGE_NAME, params = {"save"}, method = RequestMethod.POST)
 	public String register (
 		final ModelMap model,
-		@ModelAttribute("userForm") @Valid final UsuarioForm userForm,
+		@ModelAttribute("userForm") @Valid UsuarioForm userForm,
 		final BindingResult result,
 		HttpServletRequest request) throws MessagingException {
 		if (result.hasErrors()) {
 			return PAGE_NAME;
 		} else {
-			Usuario user = this.userService.create(userForm.getUsuario());
-			this.mailManager.sendRegisterEmail(user, this.localeResolver.resolveLocale(request));
+			userForm = this.userService.create(userForm);
+			this.mailManager.sendRegisterEmail(userForm.getUsuario(), this.localeResolver.resolveLocale(request));
 			return "redirect:/" + HomeController.PAGE_NAME;
 		}
 	}
