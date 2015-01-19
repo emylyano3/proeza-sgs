@@ -93,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	private String getPageCodePattern (Page page) {
-		String pageCode = page.getName();
+		String pageCode = page.getCode();
 		return "/" + pageCode + "/**";
 	}
 }

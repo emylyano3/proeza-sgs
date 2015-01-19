@@ -1,11 +1,11 @@
 /* Sistema */
 	
 	/* Pagina */
-	insert into sgs_proeza_db.sys_pagina (codigo, nombre, descripcion) values ('usuario','Página Usuario','Página con la que se realiza la adminsitración de usuarios');
-	insert into sgs_proeza_db.sys_pagina (codigo, nombre, descripcion) values ('home','Página Inicio','Inicio de la aplicación');
-	insert into sgs_proeza_db.sys_pagina (codigo, nombre, descripcion) values ('register','Página de Registro', '');
-	insert into sgs_proeza_db.sys_pagina (codigo, nombre, descripcion) values ('login','Página de Ingreso', '');
-	insert into sgs_proeza_db.sys_pagina (codigo, nombre, descripcion) values ('logout','Página de Salida', '');
+	insert into sgs_proeza_db.sys_pagina (codigo, nombre, descripcion) values ('usuario','PÃ¡gina Usuario','PÃ¡gina con la que se realiza la adminsitraciÃ³n de usuarios');
+	insert into sgs_proeza_db.sys_pagina (codigo, nombre, descripcion) values ('home','PÃ¡gina Inicio','Inicio de la aplicaciÃ³n');
+	insert into sgs_proeza_db.sys_pagina (codigo, nombre, descripcion) values ('register','PÃ¡gina de Registro', '');
+	insert into sgs_proeza_db.sys_pagina (codigo, nombre, descripcion) values ('login','PÃ¡gina de Ingreso', '');
+	insert into sgs_proeza_db.sys_pagina (codigo, nombre, descripcion) values ('logout','PÃ¡gina de Salida', '');
 
 	/* Pagina - Rol */
 	insert into sgs_proeza_db.sys_pagina_rol (id, fk_pagina, fk_rol) values (1, 1, 11);
@@ -13,7 +13,7 @@
 	insert into sgs_proeza_db.sys_pagina_rol (id, fk_pagina, fk_rol) values (3, 1, 13);
 
 	/* Menu*/
-	insert into sgs_proeza_db.sys_menu(codigo, texto, tooltip, tipo, icono) values ('M_LEFT_MAIN','Menú Principal', 'Para acceder al inicio de la aplicación','SIDE_MENU_LEFT', null);
+	insert into sgs_proeza_db.sys_menu(codigo, texto, tooltip, tipo, icono) values ('M_LEFT_MAIN','MenÃº Principal', 'Para acceder al inicio de la aplicaciÃ³n','SIDE_MENU_LEFT', null);
 	
 	/* Asociacion pagina - menu*/
 	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (1, 1, 1);
@@ -21,7 +21,7 @@
 	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (3, 3, 1);
 
 	/* Item de Menu */
-	insert into sgs_proeza_db.sys_item(codigo, texto, tooltip, link, icono) values ('MI_HOME', 'Inicio', 'Para acceder al inicio de la aplicación', 'home', 'icon-home');
+	insert into sgs_proeza_db.sys_item(codigo, texto, tooltip, link, icono) values ('MI_HOME', 'Inicio', 'Para acceder al inicio de la aplicaciÃ³n', 'home', 'icon-home');
 	insert into sgs_proeza_db.sys_item(codigo, texto, tooltip, link, icono) values ('MI_USUARIO', 'Usuarios', 'Para acceder a la gestion de usuarios','usuario', 'icon icon-users');
 	
 	/* Menu - Item de Menu */

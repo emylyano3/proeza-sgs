@@ -11,13 +11,13 @@
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (4,'ROLE_ESTAD_COMPR','Estadista de compras','');
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (5,'ROLE_ADMIN_STOCK','Administrador de stock','');
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (6,'ROLE_ADMIN_PRODU','Administrador de productos','');
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (7,'ROLE_CATAL_PRODU','Cat·logo de productos','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (7,'ROLE_CATAL_PRODU','Cat√°logo de productos','');
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (8,'ROLE_ESTAD_PRODU','Estadista de productos','');
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (9,'ROLE_ADMIN_CLIEN','Administrador de clientes','');
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (10,'ROLE_ESTAD_CLIEN','Estadista de clientes','');
 	/* Roles funcionalidad usuarios */
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (11,'ROLE_VISTA_USUAR','Listado de usuarios','Permite acceder a la pantalla de usuarios en modo vista');
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (12,'ROLE_ADMIN_SEGUR','Administrador de seguridad','Permite realizar cambios sobre el esquema de seguridad de la aplicaciÛn. ABM de roles y usuarios y asociaciÛn entre ellos.');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (12,'ROLE_ADMIN_SEGUR','Administrador de seguridad','Permite realizar cambios sobre el esquema de seguridad de la aplicaci√≥n. ABM de roles y usuarios y asociaci√≥n entre ellos.');
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (13,'ROLE_ESTAD_USUAR','Estadista de usuarios','');
 	
 	/* Asociacion de Usuarios y roles */
