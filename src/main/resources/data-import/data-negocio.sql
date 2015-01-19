@@ -10,7 +10,7 @@
 	
 	/* Clase */
 	insert into sgs_proeza_db.art_clase (codigo, nombre, descripcion, fk_rubro) values ('REEL','Reel','Clase que abarca a todos los reeles', 1);
-	insert into sgs_proeza_db.art_clase (codigo, nombre, descripcion, fk_rubro) values ('CANIA','Caña','Clase que abarca a todas las cañas', 1);
+	insert into sgs_proeza_db.art_clase (codigo, nombre, descripcion, fk_rubro) values ('CANIA','CaÃ±a','Clase que abarca a todas las caÃ±as', 1);
 	
 	/* Tipo */
 	insert into sgs_proeza_db.art_tipo (codigo, nombre, descripcion) values ('EMBARCADO','Embarcado','Embarcado');

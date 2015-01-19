@@ -36,9 +36,9 @@ $(document).ready(
 	        columnsResize: true,
 	        columns: [
 	          { text: 'Id', dataField: 'id', width: 80 },
-	          { text: 'Código', dataField: 'codigo', width: 80 },
+	          { text: 'CÃ³digo', dataField: 'codigo', width: 80 },
 	          { text: 'Modelo', dataField: 'modelo', width: 150 },
-	          { text: 'Descripción', dataField: 'descripcion', width: 230 },
+	          { text: 'DescripciÃ³n', dataField: 'descripcion', width: 230 },
 	          { text: 'Rubro', dataField: 'rubro', width: 80 },
 	          { text: 'Clase', dataField: 'clase', width: 80 },
 	          { text: 'Tipo', dataField: 'tipo', width: 80 },
