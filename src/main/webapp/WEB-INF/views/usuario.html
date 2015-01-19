@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	layout:decorator="layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout">
 <body>
-
 	<div id="content" layout:fragment="contenido">
-		<div th:if="${usuario != null and usuario.nombre == 'admin'}">
-			<p th:text="'Roles usuario admin: ' + ${usuario.rolesUsuario}">El Usuario es admin</p>
-		</div>
+		<body class='default'>
+			<div id="dataTable"></div>
+		</body>
 	</div>
 </body>
 </html>
