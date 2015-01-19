@@ -2,7 +2,7 @@
 $(document).ready(
 	function(){
 
-	    var url = "http://localhost:8080/proeza-sgs/listarticulos";
+	    var url = "http://localhost:8080/proeza-sgs/rest/listarticulos";
 
 	    // prepare the data
 	    var source =

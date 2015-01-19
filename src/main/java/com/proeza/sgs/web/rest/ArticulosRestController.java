@@ -15,7 +15,7 @@ public class ArticulosRestController {
 	@Autowired
 	private IProductService	productService;
 
-	@RequestMapping(value = "/listarticulos")
+	@RequestMapping(value = "/rest/listarticulos")
 	public List<ArticuloDTO> aticulos () {
 		return this.productService.findAll();
 	}
