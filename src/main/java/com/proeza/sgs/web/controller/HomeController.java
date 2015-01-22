@@ -14,6 +14,7 @@ import com.proeza.sgs.web.menu.ViewMenuManager;
 @Controller
 public class HomeController {
 
+	public static final String	PAGE_GROUP	= "root";
 	public static final String	PAGE_NAME	= "home";
 
 	@Autowired
@@ -21,12 +22,12 @@ public class HomeController {
 
 	@ModelAttribute
 	public void menues (final ModelMap model, final Principal principal) {
-		model.addAllAttributes(this.menuManager.getMenus(PAGE_NAME, principal));
+		model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, PAGE_NAME, principal));
 	}
 
-	@RequestMapping({"/", "/" + PAGE_NAME})
+	@RequestMapping({"/", "index", "/home"})
 	public ModelAndView home (ModelAndView model, Principal principal) {
-		model.setViewName(PAGE_NAME);
+		model.setViewName(PAGE_GROUP + "/" + PAGE_NAME + ".html");
 		return model;
 	}
 }

@@ -74,11 +74,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authRegister = http.authorizeRequests();
 		List<Page> pages = this.pageDao.findAll();
 		for (Page page : pages) {
-			String pageCode = getPageCodePattern(page);
+			String pagePath = getPagePathPattern(page);
 			Set<Rol> roles = page.getRoles();
 			for (Rol rol : roles) {
 				String roleCode = getRoleCode(rol);
-				authRegister.antMatchers(pageCode).hasRole(roleCode);
+				authRegister.antMatchers(pagePath).hasRole(roleCode);
 			}
 		}
 		authRegister.antMatchers("/**").permitAll();
@@ -92,8 +92,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return roleCode;
 	}
 
-	private String getPageCodePattern (Page page) {
-		String pageCode = page.getCode();
-		return "/" + pageCode + "/**";
+	private String getPagePathPattern (Page page) {
+		StringBuilder pagePath = new StringBuilder();
+		pagePath
+			.append("/")
+			.append(page.getGroup())
+			.append("/")
+			.append(page.getName());
+		return pagePath.toString();
 	}
 }

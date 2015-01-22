@@ -110,4 +110,9 @@ public class Rol implements java.io.Serializable {
 		}
 		return true;
 	}
+
+	@Override
+	public String toString () {
+		return "Rol [id=" + this.id + ", codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
+	}
 }

@@ -13,7 +13,9 @@ import com.proeza.core.service.IMailService;
 import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.service.IUserService;
 import com.proeza.security.service.UserService;
+import com.proeza.sgs.business.service.IProductService;
 import com.proeza.sgs.system.dao.IPageDao;
+import com.proeza.sgs.system.mail.IMailManager;
 
 @Configuration
 public class TestContext {
@@ -36,6 +38,16 @@ public class TestContext {
 	@Bean
 	public IMailService mailService () {
 		return Mockito.mock(IMailService.class);
+	}
+
+	@Bean
+	public IProductService productService  () {
+		return Mockito.mock(IProductService.class);
+	}
+
+	@Bean
+	public IMailManager mailManager () {
+		return Mockito.mock(IMailManager.class);
 	}
 
 	@Bean

@@ -2,7 +2,7 @@
 <html 
 	xmlns:th="http://www.thymeleaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	layout:decorator="layout">
+	layout:decorator="layout.html">
 <body>
 
 	<div id="content" layout:fragment="contenido">
@@ -22,11 +22,11 @@
 					<label for="email" th:text="#{form.register.email}">Email</label>
 					<input id="email" type="email" th:field="*{email}" placeholder="mail@email.com" required="required"/>
 					<p/>
-					<label for="pass" th:text="#{form.register.password}">Contraseña</label>
+					<label for="pass" th:text="#{form.register.password}">Contraseï¿½a</label>
 					<input id="pass" type="password" th:field="*{password}" pattern="[\w\d-_]{5,15}" required="required" th:title="#{form.error.password}"/>
 					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error en el dato ingresado</p>
 					<p/>
-					<label for="passConfirm" th:text="#{form.register.passwordconfirm}">Confirmar contraseña</label>
+					<label for="passConfirm" th:text="#{form.register.passwordconfirm}">Confirmar contraseï¿½a</label>
 					<input id="passConfirm" type="password" th:field="*{passwordConfirm}" pattern="[\w\d-_]{5,15}" required="required" th:title="#{form.error.password}" />
 					<p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Error en el dato ingresado</p>
 					<p/>

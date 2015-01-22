@@ -9,7 +9,7 @@ import com.proeza.sgs.system.entity.Page;
 public class PageBuilder {
 
 	private long		id;
-	private String		code;
+	private String		group;
 	private String		name;
 	private String		description;
 
@@ -20,8 +20,8 @@ public class PageBuilder {
 		return this;
 	}
 
-	public PageBuilder withCode (String code) {
-		this.code = code;
+	public PageBuilder withGroup (String group) {
+		this.group = group;
 		return this;
 	}
 
@@ -43,7 +43,7 @@ public class PageBuilder {
 	public Page build () {
 		Page page = new Page();
 		page.setId(this.id);
-		page.setCode(this.code);
+		page.setGroup(this.group);
 		page.setName(this.name);
 		page.setDescription(this.description);
 		page.setMenues(this.menues);

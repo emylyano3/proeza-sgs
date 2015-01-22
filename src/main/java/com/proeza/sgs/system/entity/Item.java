@@ -107,4 +107,9 @@ public class Item implements Serializable {
 	public void setRoles (Set<Rol> roles) {
 		this.roles = roles;
 	}
+
+	@Override
+	public String toString () {
+		return "Item [id=" + this.id + ", code=" + this.code + ", text=" + this.text + ", tooltip=" + this.tooltip + ", link=" + this.link + ", icon=" + this.icon + ", roles=" + this.roles + "]";
+	}
 }

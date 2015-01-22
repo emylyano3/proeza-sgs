@@ -30,8 +30,8 @@ public class ViewMenuManager implements IViewMenuManager {
 	private IUsuarioDao	userDao;
 
 	@Transactional
-	public Map<String, ViewMenu> getMenus (String pageCode, Principal principal) {
-		Page page = this.pageDao.findByCode(pageCode);
+	public Map<String, ViewMenu> getMenus (String pageGroup, String pageName, Principal principal) {
+		Page page = this.pageDao.findByGroupAndName(pageGroup, pageName);
 		Set<Menu> menues = page.getMenues();
 		Map<String, ViewMenu> result = new HashMap<>(menues.size());
 		for (Menu menu : menues) {

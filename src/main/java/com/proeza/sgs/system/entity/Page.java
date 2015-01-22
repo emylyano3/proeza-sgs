@@ -26,13 +26,14 @@ import static javax.persistence.GenerationType.*;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 
 @NamedQueries(value = {
-	@NamedQuery(name = "pageWithMenuFiltered", query = "select p from Page p join p.menues m where p.code = :code and m.type = :type")
+	@NamedQuery(name = "findByGroupAndName", query = "from Page p where p.group = :group and p.name = :name"),
+	@NamedQuery(name = "findByName", query = "from Page p where p.name = :name")
 })
 @Entity
 @Table(
 	catalog = "sgs_proeza_db",
 	name = "sys_pagina",
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})
+	uniqueConstraints = {@UniqueConstraint(columnNames = {"grupo", "nombre"})
 	})
 @Cache(usage = READ_ONLY)
 public class Page implements Serializable {
@@ -40,7 +41,7 @@ public class Page implements Serializable {
 	private static final long	serialVersionUID	= 1L;
 
 	private long				id;
-	private String				code;
+	private String				group;
 	private String				name;
 	private String				description;
 
@@ -58,13 +59,13 @@ public class Page implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "codigo", nullable = false, unique = true)
-	public String getCode () {
-		return this.code;
+	@Column(name = "grupo", nullable = false)
+	public String getGroup () {
+		return this.group;
 	}
 
-	public void setCode (String code) {
-		this.code = code;
+	public void setGroup (String group) {
+		this.group = group;
 	}
 
 	@Column(name = "nombre", nullable = false)
@@ -112,5 +113,10 @@ public class Page implements Serializable {
 
 	public void setRoles (Set<Rol> roles) {
 		this.roles = roles;
+	}
+
+	@Override
+	public String toString () {
+		return "Page [id=" + this.id + ", group=" + this.group + ", name=" + this.name + ", description=" + this.description + ", menues=" + this.menues + ", roles=" + this.roles + "]";
 	}
 }

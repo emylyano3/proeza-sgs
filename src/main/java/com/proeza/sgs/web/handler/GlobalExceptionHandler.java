@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-	public static final String	ERROR_PAGE_CODE	= "error";
+	public static final String	ERROR_PAGE_NAME	= "/root/error.html";
 
 	private static final Logger	log				= Logger.getLogger(GlobalExceptionHandler.class);
 
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 		model.addObject("errorMessage", e.getMessage());
 		model.addObject("exception", e);
 		model.addObject("errorDescription", "Ocurrio un error al cargar la pagina.");
-		model.setViewName(ERROR_PAGE_CODE);
+		model.setViewName(ERROR_PAGE_NAME);
 		log.error("Exception handled by " + GlobalExceptionHandler.class.getSimpleName(), e);
 		return model;
 	}

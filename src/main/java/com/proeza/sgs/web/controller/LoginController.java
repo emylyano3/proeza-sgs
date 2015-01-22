@@ -16,19 +16,20 @@ import com.proeza.core.resources.IMessageResolver;
 @Controller
 public class LoginController {
 
+	public static final String	PAGE_GROUP	= "root";
 	public static final String	PAGE_NAME	= "login";
 
 	@Autowired
 	private IMessageResolver		messageResolver;
 
-	@RequestMapping(value = "/" + PAGE_NAME, method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login (
 		ModelAndView model,
 		@RequestParam(value = "error", required = false) String error,
 		@RequestParam(value = "logout", required = false) String logout,
 		HttpServletRequest request)
 	{
-		model.setViewName(PAGE_NAME);
+		model.setViewName(PAGE_GROUP + "/" + PAGE_NAME + ".html");
 		if (error != null) {
 			model.addObject("errorMsg", getLoginErrorMessage(request));
 		}

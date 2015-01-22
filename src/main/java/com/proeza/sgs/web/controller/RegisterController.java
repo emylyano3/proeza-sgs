@@ -24,6 +24,7 @@ import com.proeza.sgs.web.menu.ViewMenuManager;
 public class RegisterController {
 
 	public static final String	PAGE_NAME	= "register";
+	public static final String	PAGE_GROUP	= "root";
 
 	@Autowired
 	private IUserService		userService;
@@ -39,10 +40,10 @@ public class RegisterController {
 
 	@ModelAttribute
 	public void menues (final ModelMap model, final Principal principal) {
-		model.addAllAttributes(this.menuManager.getMenus(PAGE_NAME, principal));
+		model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, PAGE_NAME, principal));
 	}
 
-	@RequestMapping(value = "/" + PAGE_NAME, method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String getForm (final ModelMap model, final UsuarioForm usuarioForm) {
 		usuarioForm.setAlias("Emy");
 		usuarioForm.setNombre("Emiliano");
@@ -51,21 +52,21 @@ public class RegisterController {
 		usuarioForm.setPassword("aaaaa");
 		usuarioForm.setPasswordConfirm("aaaaa");
 		model.addAttribute("userForm", usuarioForm);
-		return PAGE_NAME;
+		return PAGE_GROUP + "/" + PAGE_NAME + ".html";
 	}
 
-	@RequestMapping(value = "/" + PAGE_NAME, params = {"save"}, method = RequestMethod.POST)
+	@RequestMapping(value = "/register", params = {"save"}, method = RequestMethod.POST)
 	public String register (
 		final ModelMap model,
 		@ModelAttribute("userForm") @Valid UsuarioForm userForm,
 		final BindingResult result,
 		HttpServletRequest request) throws MessagingException {
 		if (result.hasErrors()) {
-			return PAGE_NAME;
+			return PAGE_NAME + ".html";
 		} else {
 			userForm = this.userService.create(userForm);
 			this.mailManager.sendRegisterEmail(userForm.getUsuario(), this.localeResolver.resolveLocale(request));
-			return "redirect:/" + HomeController.PAGE_NAME;
+			return "redirect:/" +  HomeController.PAGE_NAME;
 		}
 	}
 }

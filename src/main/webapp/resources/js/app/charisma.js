@@ -1,156 +1,112 @@
-// Widgets BEGIN
 $(document).ready(
 	function(){
-
-	    var url = "http://localhost:8080/proeza-sgs/rest/listarticulos";
-
-	    // prepare the data
-	    var source =
-	    {
-	        dataType: "json",
-	        dataFields: [
-	            { name: 'id', type: 'long' },
-	            { name: 'codigo', type: 'string' },
-	            { name: 'modelo', type: 'string' },
-	            { name: 'descripcion', type: 'string' },
-	            { name: 'rubro', type: 'string' },
-	            { name: 'clase', type: 'string' },
-	            { name: 'tipo', type: 'string' },
-	            { name: 'marca', type: 'string' },
-	            { name: 'costo', type: 'float' },
-	            { name: 'precio', type: 'float' },
-	            { name: 'cantidad', type: 'int' }
-	        ],
-	        id: 'id',
-	        url: url
-	    };
-
-	    var dataAdapter = new $.jqx.dataAdapter(source);
-
-	    $("#dataTable").jqxDataTable(
-	    {
-	        width: 1050,
-	        pageable: true,
-	        pagerButtonsCount: 10,
-	        source: dataAdapter,
-	        columnsResize: true,
-	        columns: [
-	          { text: 'Id', dataField: 'id', width: 80 },
-	          { text: 'Código', dataField: 'codigo', width: 80 },
-	          { text: 'Modelo', dataField: 'modelo', width: 150 },
-	          { text: 'Descripción', dataField: 'descripcion', width: 230 },
-	          { text: 'Rubro', dataField: 'rubro', width: 80 },
-	          { text: 'Clase', dataField: 'clase', width: 80 },
-	          { text: 'Tipo', dataField: 'tipo', width: 80 },
-	          { text: 'Marca', dataField: 'marca', width: 80 },
-	          { text: 'Precio', dataField: 'costo', width: 70 },
-	          { text: 'Costo', dataField: 'precio', width: 70 },
-	          { text: 'Cantidad', dataField: 'cantidad' }
-	      ]
-	    });
-	}		
-);
-// Widgets END
-
-$(document).ready(
-	function(){
-		//themes, change CSS with JS
-		//default theme(CSS) is journal, change it if needed
-		var current_theme = 'journal';
-	//	var current_theme = $.cookie('current_theme')==null ? 'cerulean' :$.cookie('current_theme');
-		switch_theme(current_theme);
-		
-		$('#themes a[data-value="'+current_theme+'"]').find('i').addClass('icon-ok');
-					 
-		$('#themes a').click(function(e){
-			e.preventDefault();
-			current_theme=$(this).attr('data-value');
-			$.cookie('current_theme',current_theme,{expires:365});
-			switch_theme(current_theme);
-			$('#themes i').removeClass('icon-ok');
-			$(this).find('i').addClass('icon-ok');
-		});
-		
-		
-		function switch_theme(theme_name)
-		{
-			$('#bs-css').attr('href','resources/css/bootstrap-'+theme_name+'.css');
-		}
-		
-		//ajax menu checkbox
-		$('#is-ajax').click(function(e){
-			$.cookie('is-ajax',$(this).prop('checked'),{expires:365});
-		});
-		$('#is-ajax').prop('checked',$.cookie('is-ajax')==='true' ? true : false);
-		
-		//disbaling some functions for Internet Explorer
-		if($.browser.msie)
-		{
-			$('#is-ajax').prop('checked',false);
-			$('#for-is-ajax').hide();
-			$('#toggle-fullscreen').hide();
-			$('.login-box').find('.input-large').removeClass('span10');
-		}
-		
-		//highlight current / active link
-		$('ul.main-menu li a').each(function(){
-			if($($(this))[0].href==String(window.location))
-				$(this).parent().addClass('active');
-		});
-		
-		//establish history variables
-		var
-			History = window.History, // Note: We are using a capital H instead of a lower h
-			State = History.getState(),
-			$log = $('#log');
-	
-		//bind to State Change
-		History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
-			var State = History.getState(); // Note: We are using History.getState() instead of event.state
-			$.ajax({
-				url:State.url,
-				success:function(msg){
-					$('#content').html($(msg).find('#content').html());
-					$('#loading').remove();
-					$('#content').fadeIn();
-					var newTitle = $(msg).filter('title').text();
-					$('title').text(newTitle);
-					docReady();
-				}
-			});
-		});
-		
-		//ajaxify menus
-		$('a.ajax-link').click(function(e){
-			if($.browser.msie) e.which=1;
-			if(e.which!=1 || !$('#is-ajax').prop('checked') || $(this).parent().hasClass('active')) return;
-			e.preventDefault();
-			if($('.btn-navbar').is(':visible'))
-			{
-				$('.btn-navbar').click();
-			}
-			$('#loading').remove();
-			$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
-			var $clink=$(this);
-			History.pushState(null, null, $clink.attr('href'));
-			$('ul.main-menu li.active').removeClass('active');
-			$clink.parent('li').addClass('active');	
-		});
-		
-		//animating menus on hover
-		$('ul.main-menu li:not(.nav-header)').hover(function(){
-			$(this).animate({'margin-left':'+=5'},300);
-		},
-		function(){
-			$(this).animate({'margin-left':'-=5'},300);
-		});
-		
-		//other things to do on document ready, seperated for ajax calls
-		docReady();
+		try {
+			init();
+		} catch (e) {}
+		try {
+			//other things to do on document ready, seperated for ajax calls
+			docReady();
+		} catch (e) {}
+		try {
+			loadGridsData();
+		} catch (e) {}
 	}
 );
 		
-		
+function init() {
+	/*
+	//themes, change CSS with JS
+	//default theme(CSS) is journal, change it if needed
+	var current_theme = 'journal';
+	//	var current_theme = $.cookie('current_theme')==null ? 'cerulean' :$.cookie('current_theme');
+	switch_theme(current_theme);
+	
+	$('#themes a[data-value="'+current_theme+'"]').find('i').addClass('icon-ok');
+				 
+	$('#themes a').click(function(e){
+		e.preventDefault();
+		current_theme=$(this).attr('data-value');
+		$.cookie('current_theme',current_theme,{expires:365});
+		switch_theme(current_theme);
+		$('#themes i').removeClass('icon-ok');
+		$(this).find('i').addClass('icon-ok');
+	});
+	function switch_theme(theme_name)
+	{
+		$('#bs-css').attr('href','proeza-sgs/resources/css/bootstrap-'+theme_name+'.css');
+	}
+	*/
+	
+	//ajax menu checkbox
+//	$('#is-ajax').click(function(e){
+//		$.cookie('is-ajax',$(this).prop('checked'),{expires:365});
+//	});
+//	$('#is-ajax').prop('checked',$.cookie('is-ajax')==='true' ? true : false);
+	$('#is-ajax').prop('checked',true);
+	
+	//disbaling some functions for Internet Explorer
+	if($.browser.msie)
+	{
+		$('#is-ajax').prop('checked',false);
+		$('#for-is-ajax').hide();
+		$('#toggle-fullscreen').hide();
+		$('.login-box').find('.input-large').removeClass('span10');
+	}
+	
+	//highlight current / active link
+	$('ul.main-menu li a').each(function(){
+		if($($(this))[0].href==String(window.location))
+			$(this).parent().addClass('active');
+	});
+	
+	//establish history variables
+	var
+		History = window.History, // Note: We are using a capital H instead of a lower h
+		State = History.getState(),
+		$log = $('#log');
+
+	//bind to State Change
+	History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+		var State = History.getState(); // Note: We are using History.getState() instead of event.state
+		$.ajax({
+			url:State.url,
+			success:function(msg){
+				$('#content').html($(msg).find('#content').html());
+				$('#loading').remove();
+				$('#content').fadeIn();
+				var newTitle = $(msg).filter('title').text();
+				$('title').text(newTitle);
+				docReady();
+			}
+		});
+	});
+	
+	//ajaxify menus
+	$('a.ajax-link').click(function(e){
+		if($.browser.msie) e.which=1;
+		if(e.which!=1 || !$('#is-ajax').prop('checked') || $(this).parent().hasClass('active')) return;
+		e.preventDefault();
+		if($('.btn-navbar').is(':visible'))
+		{
+			$('.btn-navbar').click();
+		}
+		$('#loading').remove();
+		$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
+		var $clink=$(this);
+		History.pushState(null, null, $clink.attr('href'));
+		$('ul.main-menu li.active').removeClass('active');
+		$clink.parent('li').addClass('active');	
+	});
+	
+	//animating menus on hover
+	$('ul.main-menu li:not(.nav-header)').hover(function(){
+		$(this).animate({'margin-left':'+=5'},300);
+	},
+	function(){
+		$(this).animate({'margin-left':'-=5'},300);
+	});
+}
+
 function docReady(){
 	//prevent # links from moving to top
 	$('a[href="#"][data-top!=true]').click(function(e){
@@ -453,8 +409,6 @@ function docReady(){
 					previousPoint = null;
 				}
 		});
-		
-
 
 		$("#sincos").bind("plotclick", function (event, pos, item) {
 			if (item) {

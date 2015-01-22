@@ -100,4 +100,9 @@ public class Menu implements Serializable {
 	public void setItems (Set<MenuItem> items) {
 		this.menuItems = items;
 	}
+
+	@Override
+	public String toString () {
+		return "Menu [id=" + this.id + ", code=" + this.code + ", text=" + this.text + ", tooltip=" + this.tooltip + ", type=" + this.type + ", icon=" + this.icon + ", menuItems=" + this.menuItems + "]";
+	}
 }

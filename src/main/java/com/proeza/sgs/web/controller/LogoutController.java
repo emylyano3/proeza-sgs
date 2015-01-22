@@ -13,16 +13,17 @@ import com.proeza.core.resources.IMessageResolver;
 @Controller
 public class LogoutController {
 
+	public static final String	PAGE_GROUP	= "root";
 	public static final String	PAGE_NAME	= "logout";
 
 	@Autowired
 	private IMessageResolver	messageResolver;
 
-	@RequestMapping(value = "/" + PAGE_NAME, method = RequestMethod.GET)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logout (ModelAndView model, HttpServletRequest request) {
 		String logoutMsg = this.messageResolver.getMessage("sec.logoutsuccess", request);
 		model.addObject("logoutMsg", logoutMsg);
-		model.setViewName(PAGE_NAME);
+		model.setViewName(PAGE_GROUP + "/" + PAGE_NAME + ".html");
 		return model;
 	}
 }

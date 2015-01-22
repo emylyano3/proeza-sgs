@@ -1,5 +1,7 @@
 package com.proeza.sgs.system.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.proeza.core.persistence.BaseDao;
@@ -10,14 +12,25 @@ import com.proeza.sgs.system.entity.Page;
 public class PageDao extends BaseDao<Page> implements IPageDao {
 
 	@Override
-	public Page findByCode (String code) {
-		return this.entityManager.createQuery("select p from " + Page.class.getSimpleName() + " p where code = :code", Page.class)
-			.setParameter("code", code)
+	@SuppressWarnings("unchecked")
+	public List<Page> findByName (String name) {
+		return this.entityManager
+			.createNamedQuery("findByName")
+			.setParameter("name", name)
+			.getResultList();
+	}
+
+	@Override
+	public Page findByGroupAndName (String group, String name) {
+		return (Page) this.entityManager
+			.createNamedQuery("findByGroupAndName")
+			.setParameter("group", group)
+			.setParameter("name", name)
 			.getSingleResult();
 	}
 
 	@Override
-	public Page findByCodeAndMenuType (String code, MenuType type) {
+	public Page findByNameAndMenuType (String code, MenuType type) {
 		return this.entityManager
 			.createNamedQuery("pageWithMenuFiltered", Page.class)
 			.setParameter("code", code)

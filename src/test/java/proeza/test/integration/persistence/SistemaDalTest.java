@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.proeza.sgs.system.dao.PageDao;
-import com.proeza.sgs.system.entity.MenuType;
 import com.proeza.sgs.system.entity.Page;
 import com.proeza.sgs.web.controller.HomeController;
 
@@ -41,22 +40,9 @@ public class SistemaDalTest extends DalTest {
 
 	@Test
 	@Transactional
-	public void page_FIND_BY_CODE () {
+	public void page_FIND_BY_GROUP_NAME () {
 		log.info("Inicia page_FIND_BY_ID");
-		final Page page = this.pageDao.findByCode(HomeController.PAGE_NAME);
-		assertNotNull("La pagina con id 1 debe existir", page);
-		assertNotNull("La pagina debe tener menues asociados", page.getMenues());
-		assertFalse("La pagina debe tener al menos un menu item", page.getMenues().isEmpty());
-		assertNotNull("El item de menu no debe ser nulo", page.getMenues().iterator().next());
-		assertNotNull("Los items del menu no deben ser null", page.getMenues().iterator().next().getItems());
-		assertFalse("El menu debe tener items", page.getMenues().iterator().next().getItems().isEmpty());
-	}
-
-	@Test
-	@Transactional
-	public void page_FIND_BY_CODE_TYPE () {
-		log.info("Inicia page_FIND_BY_ID");
-		final Page page = this.pageDao.findByCodeAndMenuType(HomeController.PAGE_NAME, MenuType.SIDE_MENU_LEFT);
+		final Page page = this.pageDao.findByGroupAndName(HomeController.PAGE_GROUP, HomeController.PAGE_NAME);
 		assertNotNull("La pagina con id 1 debe existir", page);
 		assertNotNull("La pagina debe tener menues asociados", page.getMenues());
 		assertFalse("La pagina debe tener al menos un menu item", page.getMenues().isEmpty());

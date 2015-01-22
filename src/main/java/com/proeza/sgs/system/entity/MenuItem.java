@@ -71,4 +71,9 @@ public class MenuItem implements Serializable, Comparable<MenuItem> {
 		}
 		return this.getIndex() - o.getIndex();
 	}
+
+	@Override
+	public String toString () {
+		return "MenuItem [id=" + this.id + ", item=" + this.item + ", index=" + this.index + "]";
+	}
 }

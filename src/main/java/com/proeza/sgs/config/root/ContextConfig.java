@@ -111,7 +111,7 @@ public class ContextConfig {
 	public TemplateResolver webTemplateResolver () {
 		final TemplateResolver templateResolver = new ServletContextTemplateResolver();
 		templateResolver.setPrefix("/WEB-INF/views/");
-		templateResolver.setSuffix(".html");
+//		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
 		templateResolver.setOrder(2);
 		return templateResolver;
