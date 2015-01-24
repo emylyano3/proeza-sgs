@@ -1,0 +1,43 @@
+Producto /
+	ABM									ROLE_ADMIN_PRODU
+	Catalogo de precios					ROLE_CATAL_PRODU, ROLE_ESTAD_PRODU, ROLE_ADMIN_PRODU
+	Estadisticas						ROLE_ESTAD_PRODU, ROLE_ADMIN_PRODU
+		- Historial de precios / costos
+			
+Cliente /
+	ABM Cliente							ROLE_ADMIN_CLIEN
+	Estadisticas						ROLE_ESTAD_CLIEN
+		- Historial de compras de cliente
+		- Historial de reclamos / reparaciones
+		
+Ventas /
+	ABM ventas							ROLE_ADMIN_VENTA
+	Estadisticas 						ROLE_ESTAD_VENTA, ROLE_ADMIN_VENTA
+		- Tendencia de venta por temporada
+		- Tendencia de venta por temporada para un producto en particular
+		- Tendencia de venta x usuario
+		- Estimacion de ganancia bruta por periodo de tiempo
+	
+Compras
+	ABM compras							ROLE_ADMIN_COMPR
+	Estadisticas						ROLE_ESTAD_COMPR
+		- Tendencia de compra por temporada
+		- Tendencia de compra por temporada por proveedor
+		- Comparacion de precios de productos entre proveedores
+		
+Stock							
+	Alertas de stock por articulo
+	Manejo de stock teorico y real
+	Sujerencias de reposicion
+	Admin de preferencias				ROLE_ADMIN_STOCK
+	
+Seguridad
+	Listado usuarios					ROLE_VISTA_USUAR
+	AMB Usuario							ROLE_ADMIN_SEGUR
+	AMB Rol								ROLE_ADMIN_SEGUR
+	Estadisticas de Actividad			ROLE_ESTAD_USUAR
+		- Fechas de logueo y NO logueo
+		- Tiempo acumulado de loqueo en un peridodo de tiempo
+		- Actividad en un peridodo de tiempo
+		- Factor Actividad/Tiempo 
+		
