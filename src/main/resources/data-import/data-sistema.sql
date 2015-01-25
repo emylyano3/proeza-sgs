@@ -28,8 +28,8 @@
 	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (6, 6, 1);
 
 	/* Item de Menu */
-	insert into sgs_proeza_db.sys_item(codigo, texto, tooltip, link, icono) values ('MI_HOME', 'Inicio', 'Para acceder al inicio de la aplicación', '/home', 'icon-home');
-	insert into sgs_proeza_db.sys_item(codigo, texto, tooltip, link, icono) values ('MI_USUARIO', 'Usuarios', 'Para acceder a la gestion de usuarios','/usuario/home', 'icon icon-users');
+	insert into sgs_proeza_db.sys_item(codigo, texto, tooltip, link, icono) values ('MI_HOME', 'Inicio', 'Para acceder al inicio de la aplicación', '/home', 'fa fa-home');
+	insert into sgs_proeza_db.sys_item(codigo, texto, tooltip, link, icono) values ('MI_USUARIO', 'Usuarios', 'Para acceder a la gestion de usuarios','/usuario/home', 'fa fa-users');
 	
 	/* Menu - Item de Menu */
 	insert into sgs_proeza_db.sys_menu_item(fk_menu, fk_item, indice) values (1, 1, 0);

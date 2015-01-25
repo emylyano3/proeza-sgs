@@ -1,188 +1,76 @@
 <!DOCTYPE html>
-<html lang="es" 
-	xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en">
+
 <head>
-<!--
-		Charisma v1.0.0
 
-		Copyright 2012 Muhammad Usman
-		Licensed under the Apache License v2.0
-		http://www.apache.org/licenses/LICENSE-2.0
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
 
-		http://usman.it
-		http://twitter.com/halalit_usman
-	-->
-<meta charset="utf-8" />
-<title th:text="#{app.title}">Sistema de Gestión de Stock para Comercios</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" th:content="#{app.description}" content="SGS Sistema de gestión de stock" />
-<meta name="author" th:content="#{app.author}" content="Emiliano Schiano" />
+    <title th:text="#{user.msg.welcome}">Login a SGS</title>
 
-<!-- The styles -->
-<link id="bs-css" href="../../resources/css/bootstrap-journal.css" th:href="@{resources/css/bootstrap-journal.css}" rel="stylesheet"/>
-<style type="text/css">
-body {
-	padding-bottom: 40px;
-}
+    <!-- Bootstrap Core CSS -->
+    <link href="../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
 
-.sidebar-nav {
-	padding: 9px 0;
-}
-</style>
-<link href="../../resources/css/bootstrap-responsive.css" th:href="@{resources/css/bootstrap-responsive.css}" rel="stylesheet"/>
-<link href="../../resources/css/charisma-app.css" th:href="@{resources/css/charisma-app.css}" rel="stylesheet"/>
-<link href="../../resources/css/jquery-ui-1.8.21.custom.css" th:href="@{resources/css/jquery-ui-1.8.21.custom.css}" rel="stylesheet"/>
-<link href="../../resources/css/fullcalendar.css" th:href="@{resources/css/fullcalendar.css}" rel="stylesheet"/>
-<link href="../../resources/css/fullcalendar.print.css" th:href="@{resources/css/fullcalendar.print.css}" rel="stylesheet" media="print"/>
-<link href="../../resources/css/chosen.css" th:href="@{resources/css/chosen.css}" rel="stylesheet"/>
-<link href="../../resources/css/uniform.default.css" th:href="@{resources/css/uniform.default.css}" rel="stylesheet"/>
-<link href="../../resources/css/colorbox.css" th:href="@{resources/css/colorbox.css}" rel="stylesheet"/>
-<link href="../../resources/css/jquery.cleditor.css" th:href="@{resources/css/jquery.cleditor.css}" rel="stylesheet"/>
-<link href="../../resources/css/jquery.noty.css" th:href="@{resources/css/jquery.noty.css}" rel="stylesheet"/>
-<link href="../../resources/css/noty_theme_default.css" th:href="@{resources/css/noty_theme_default.css}" rel="stylesheet"/>
-<link href="../../resources/css/elfinder.min.css" th:href="@{resources/css/elfinder.min.css}" rel="stylesheet"/>
-<link href="../../resources/css/elfinder.theme.css" th:href="@{resources/css/elfinder.theme.css}" rel="stylesheet"/>
-<link href="../../resources/css/jquery.iphone.toggle.css" th:href="@{resources/css/jquery.iphone.toggle.css}" rel="stylesheet"/>
-<link href="../../resources/css/opa-icons.css" th:href="@{resources/css/opa-icons.css}" rel="stylesheet"/>
-<link href="../../resources/css/uploadify.css" th:href="@{resources/css/uploadify.css}" rel="stylesheet"/>
+    <!-- MetisMenu CSS -->
+    <link href="../../resources/metismenu/css/metisMenu.css" th:href="@{/resources/metismenu/css/metisMenu.css}" rel="stylesheet"/>
 
-<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-	  <script src="../../resources/http://html5shim.googlecode.com/svn/trunk/html5.js"/>
-	<![endif]-->
+    <!-- Custom CSS -->
+    <link href="../../resources/app/css/proeza-sgs.css" th:href="@{/resources/app/css/proeza-sgs.css}" rel="stylesheet"/>
 
-<!-- The fav icon -->
-<link rel="shortcut icon" href="../../resources/img/favicon.ico" th:href="@{resources/img/favicon.ico}"/>
+    <!-- Custom Fonts -->
+    <link href="../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css"/>
 
+	<link rel="shortcut icon" href="../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" />
 </head>
 
 <body>
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="row-fluid">
-				<div class="span12 center login-header">
-					<h2 th:text="#{user.msg.welcome}" >Bienvenido a SGS</h2>
-				</div>
-				<!--/span-->
-			</div>
-			<!--/row-->
-			<div class="row-fluid">
-				<div class="well span5 center login-box">
-					<div th:if="${errorMsg != null}" class="alert error-info" th:text="${errorMsg}">Error en el ingreso</div>
-					<div class="alert alert-info" th:text="#{sec.pleaselogin}">Por favor ingrese con su usuario y contraseña</div>
-					<form class="form-horizontal" action="#" th:action="@{login/authenticate}" method="post">
-						<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-						<fieldset>
-							<div class="input-prepend" title="Username" data-rel="tooltip">
-								<span class="add-on">
-									<i class="icon-user"/>
-								</span>
-								<input autofocus="autofocus" class="input-large span10" name="username" id="username" type="text" value="admin" />
-							</div>
-							<div class="clearfix"></div>
-							<div class="input-prepend" title="Password" data-rel="tooltip">
-								<span class="add-on">
-									<i class="icon-lock"/>
-								</span>
-								<input class="input-large span10" name="password" id="password" type="password" value="admin123456" />
-							</div>
-							<div class="clearfix"></div>
-							<div class="input-prepend">
-								<label class="remember" for="remember">
-									<input type="checkbox" id="remember" th:text="#{control.rememberme}" text="Recordarme"/>
-								</label>
-							</div>
-							<div class="clearfix"></div>
-
-							<p class="center span5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+					<div class="panel-heading">
+                        <h3 class="panel-title" th:text="#{sec.pleaselogin}">Ingrese con su usuario y contraseña</h3>
+                    </div>
+	               	<div class="alert alert-danger" th:if="${errorMsg != null}" th:text="${errorMsg}">Error en el ingreso</div>
+                    <div class="panel-body">
+	                    <form action="#" th:action="@{/login/authenticate}" method="post">
+							<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+							<fieldset>
+								<div class="form-group" title="Username">
+									<input class="form-control" name="username" id="username" type="text" value="" autofocus="autofocus" th:placeholder="#{control.unsername}"/>
+								</div>
+								<div class="form-group" title="Password">
+									<input class="form-control" name="password" id="password" type="password" value="" th:placeholder="#{control.password}" />
+								</div>
+								<div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" text="Recordarme" th:text="#{control.rememberme}" />
+                                    </label>
+                                </div>
 								<button type="submit" class="btn btn-primary" th:text="#{control.login}">Ingresar</button>
-							</p>
-						</fieldset>
-					</form>
-				</div>
-				<!--/span-->
-			</div>
-			<!--/row-->
-		</div>
-		<!--/fluid-row-->
+							</fieldset>
+						</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	</div>
-	<!--/.fluid-container-->
+    <!-- jQuery -->
+    <script src="../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}"/>
 
-	<!-- external javascript
-	================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}"/>
 
-	<!-- jQuery -->
-	<script src="../../resources/js/jquery-1.7.2.min.js" th:src="@{resources/js/jquery-1.7.2.min.js}"/>
-	<!-- jQuery UI -->
-	<script src="../../resources/js/jquery-ui-1.8.21.custom.min.js" th:src="@{resources/js/jquery-ui-1.8.21.custom.min.js}"/>
-	<!-- transition / effect library -->
-	<script src="../../resources/js/bootstrap-transition.js" th:src="@{resources/js/bootstrap-transition.js}"/>
-	<!-- alert enhancer library -->
-	<script src="../../resources/js/bootstrap-alert.js" th:src="@{resources/js/bootstrap-alert.js}"/>
-	<!-- modal / dialog library -->
-	<script src="../../resources/js/bootstrap-modal.js" th:src="@{resources/js/bootstrap-modal.js}"/>
-	<!-- custom dropdown library -->
-	<script src="../../resources/js/bootstrap-dropdown.js" th:src="@{resources/js/bootstrap-dropdown.js}"/>
-	<!-- scrolspy library -->
-	<script src="../../resources/js/bootstrap-scrollspy.js" th:src="@{resources/js/bootstrap-scrollspy.js}"/>
-	<!-- library for creating tabs -->
-	<script src="../../resources/js/bootstrap-tab.js" th:src="@{resources/js/bootstrap-tab.js}"/>
-	<!-- library for advanced tooltip -->
-	<script src="../../resources/js/bootstrap-tooltip.js" th:src="@{resources/js/bootstrap-tooltip.js}"/>
-	<!-- popover effect library -->
-	<script src="../../resources/js/bootstrap-popover.js" th:src="@{resources/js/bootstrap-popover.js}"/>
-	<!-- button enhancer library -->
-	<script src="../../resources/js/bootstrap-button.js" th:src="@{resources/js/bootstrap-button.js}"/>
-	<!-- accordion library (optional, not used in demo) -->
-	<script src="../../resources/js/bootstrap-collapse.js" th:src="@{resources/js/bootstrap-collapse.js}"/>
-	<!-- carousel slideshow library (optional, not used in demo) -->
-	<script src="../../resources/js/bootstrap-carousel.js" th:src="@{resources/js/bootstrap-carousel.js}"/>
-	<!-- autocomplete library -->
-	<script src="../../resources/js/bootstrap-typeahead.js" th:src="@{resources/js/bootstrap-typeahead.js}"/>
-	<!-- tour library -->
-	<script src="../../resources/js/bootstrap-tour.js" th:src="@{resources/js/bootstrap-tour.js}"/>
-	<!-- library for cookie management -->
-	<script src="../../resources/js/jquery.cookie.js" th:src="@{resources/js/jquery.cookie.js}"/>
-	<!-- calander plugin -->
-	<script src="../../resources/js/fullcalendar.min.js" th:src="@{resources/js/fullcalendar.min.js}"/>
-	<!-- data table plugin -->
-	<script src="../../resources/js/jquery.dataTables.min.js" th:src="@{resources/js/jquery.dataTables.min.js}"/>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../../resources/metismenu/js/metisMenu.js" th:src="@{/resources/metismenu/js/metisMenu.js}"/>
 
-	<!-- chart libraries start -->
-	<script src="../../resources/js/excanvas.js" th:src="@{resources/js/excanvas.js}"/>
-	<script src="../../resources/js/jquery.flot.min.js" th:src="@{resources/js/jquery.flot.min.js}"/>
-	<script src="../../resources/js/jquery.flot.pie.min.js" th:src="@{resources/js/jquery.flot.pie.min.js}"/>
-	<script src="../../resources/js/jquery.flot.stack.js" th:src="@{resources/js/jquery.flot.stack.js}"/>
-	<script src="../../resources/js/jquery.flot.resize.min.js" th:src="@{resources/js/jquery.flot.resize.min.js}"/>
-	<!-- chart libraries end -->
-
-	<!-- select or dropdown enhancer -->
-	<script src="../../resources/js/jquery.chosen.min.js" th:src="@{resources/js/jquery.chosen.min.js}"/>
-	<!-- checkbox, radio, and file input styler -->
-	<script src="../../resources/js/jquery.uniform.min.js" th:src="@{resources/js/jquery.uniform.min.js}"/>
-	<!-- plugin for gallery image view -->
-	<script src="../../resources/js/jquery.colorbox.min.js" th:src="@{resources/js/jquery.colorbox.min.js}"/>
-	<!-- rich text editor library -->
-	<script src="../../resources/js/jquery.cleditor.min.js" th:src="@{resources/js/jquery.cleditor.min.js}"/>
-	<!-- notification plugin -->
-	<script src="../../resources/js/jquery.noty.js" th:src="@{resources/js/jquery.noty.js}"/>
-	<!-- file manager library -->
-	<script src="../../resources/js/jquery.elfinder.min.js" th:src="@{resources/js/jquery.elfinder.min.js}"/>
-	<!-- star rating plugin -->
-	<script src="../../resources/js/jquery.raty.min.js" th:src="@{resources/js/jquery.raty.min.js}"/>
-	<!-- for iOS style toggle switch -->
-	<script src="../../resources/js/jquery.iphone.toggle.js" th:src="@{resources/js/jquery.iphone.toggle.js}"/>
-	<!-- autogrowing textarea plugin -->
-	<script src="../../resources/js/jquery.autogrow-textarea.js" th:src="@{resources/js/jquery.autogrow-textarea.js}"/>
-	<!-- multiple file upload plugin -->
-	<script src="../../resources/js/jquery.uploadify-3.1.min.js" th:src="@{resources/js/jquery.uploadify-3.1.min.js}"/>
-	<!-- history.js for cross-browser state change on ajax -->
-	<script src="../../resources/js/jquery.history.js" th:src="@{resources/js/jquery.history.js}"/>
-	<!-- application script for Charisma demo -->
-	<script src="../../resources/js/charisma.js" th:src="@{resources/js/charisma.js}"/>
+    <!-- Custom Theme JavaScript -->
+    <script src="../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}"/>
 
 </body>
+
 </html>
