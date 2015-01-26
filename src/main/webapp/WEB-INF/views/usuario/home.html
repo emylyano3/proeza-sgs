@@ -6,68 +6,51 @@
 <body>
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="/proeza-sgs/resources/jqx/css/jqx.base.css" type="text/css" />
-	    <div id="jqxWidget" >
-	        <div id="jqxgrid"></div>
+	    <div id="jqxWidget" style="font-size: 13px; font-family: Verdana; float: left;">
+	        <div id="articulos"></div>
 	    </div>
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxcore.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdata.js"></script> 
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxbuttons.js"></script>
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxscrollbar.js"></script>
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxmenu.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxcheckbox.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxlistbox.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdropdownlist.js"></script>
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.sort.js"></script> 
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.pager.js"></script> 
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.selection.js"></script> 
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.edit.js"></script> 
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.columnsresize.js"></script> 
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdata.js"></script> 
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/demos.js"></script>
 	    <script type="text/javascript">
 	        $(document).ready(function () {
-	            var url = "/proeza-sgs/resources/products.xml";
+	        	var url = "http://localhost:8080/proeza-sgs/rest/listarticulos";
 	            // prepare the data
 	            var source =
 	            {
-	                datatype: "xml",
-	                datafields: [
-	                    { name: 'ProductName', type: 'string' },
-	                    { name: 'QuantityPerUnit', type: 'int' },
-	                    { name: 'UnitPrice', type: 'float' },
-	                    { name: 'UnitsInStock', type: 'float' },
-	                    { name: 'Discontinued', type: 'bool' }
+	                datatype: "json",
+	                dataFields: [
+	     	                    { name: 'modelo', type: 'string' },
+	     	                    { name: 'descripcion', type: 'string' },
+	     	                    { name: 'clase', type: 'string' },
+	     	                    { name: 'tipo', type: 'string' },
+	     	                    { name: 'marca', type: 'string' },
+	     	                    { name: 'precio', type: 'float' },
 	                ],
-	                root: "Products",
-	                record: "Product",
-	                id: 'ProductID',
+	                id: "id",
 	                url: url
 	            };
-	            var dataAdapter = new $.jqx.dataAdapter(source, {
-	                downloadComplete: function (data, status, xhr) { },
-	                loadComplete: function (data) { },
-	                loadError: function (xhr, status, error) { }
-	            });
-	            // initialize jqxGrid
-	            $("#jqxgrid").jqxGrid(
+	            var dataAdapter = new $.jqx.dataAdapter(source);
+	            
+	            // initializa la grilla de articulos
+	            $("#articulos").jqxGrid(
 	            {
 	                width: 850,
-	                source: dataAdapter,                
-	                pageable: true,
-	                autoheight: false,
-	                sortable: true,
-	                altrows: true,
-	                enabletooltips: true,
-	                editable: true,
-	                selectionmode: 'multiplecellsadvanced',
+	                source: dataAdapter,
+	                columnsresize: true,
 	                columns: [
-	                  { text: 'Product Name', datafield: 'ProductName', width: 250 },
-	                  { text: 'Quantity per Unit', datafield: 'QuantityPerUnit', width: 200 },
-	                  { text: 'Unit Price', datafield: 'UnitPrice', width: 200 },
-	                  { text: 'Units In Stock', datafield: 'UnitsInStock', width: 100 },
-	                  { text: 'Discontinued', datafield: 'Discontinued', columntype: 'checkbox'}
-	                ],
-	                columngroups: [
-	                    { text: 'Product Details', align: 'center', name: 'ProductDetails' }
+						{ text: 'Modelo', dataField: 'modelo', width: 150 },
+						{ text: 'Descripción', dataField: 'descripcion', width: 230 },
+						{ text: 'Clase', dataField: 'clase', width: 80 },
+						{ text: 'Tipo', dataField: 'tipo', width: 80 },
+						{ text: 'Marca', dataField: 'marca', width: 80 },
+						{ text: 'Precio', dataField: 'costo', minwidth: 70 }
 	                ]
 	            });
 	        });
