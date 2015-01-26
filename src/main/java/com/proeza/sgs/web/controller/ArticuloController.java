@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.proeza.sgs.web.menu.ViewMenuManager;
 
 @Controller
-public class UsuarioController {
+public class ArticuloController {
 
-	public static final String	PAGE_GROUP	= "usuario";
+	public static final String	PAGE_GROUP	= "articulo";
 
 	@Autowired
 	private ViewMenuManager		menuManager;
 
-	@RequestMapping({"/usuario/{page}"})
-	public String home (ModelMap model, Principal principal, @PathVariable("page") String pageName) {
-		model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, pageName, principal));
-		return PAGE_GROUP + "/" + pageName + ".html";
+	@RequestMapping({"/articulo/{page}"})
+	public String home (ModelMap model, Principal principal, @PathVariable("page") String page) {
+		model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, page, principal));
+		return PAGE_GROUP + "/" + page + ".html";
 	}
 }

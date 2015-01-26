@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorator="layout.html">
+<body>
+	<div id="content" layout:fragment="contenido">
+		<link rel="stylesheet" href="/proeza-sgs/resources/jqx/css/jqx.base.css" type="text/css" />
+	    <div id="jqxWidget" style="font-size: 13px; font-family: Verdana; float: left;">
+	        <div id="articulos"></div>
+	    </div>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxcore.js"></script>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxbuttons.js"></script>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxscrollbar.js"></script>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxmenu.js"></script>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.js"></script>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.selection.js"></script> 
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.columnsresize.js"></script> 
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdata.js"></script> 
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/demos.js"></script>
+	    <script type="text/javascript">
+	        $(document).ready(function () {
+	        	var url = "http://localhost:8080/proeza-sgs/rest/listarticulos";
+	            // prepare the data
+	            var source =
+	            {
+	                datatype: "json",
+	                dataFields: [
+	     	                    { name: 'modelo', type: 'string' },
+	     	                    { name: 'descripcion', type: 'string' },
+	     	                    { name: 'clase', type: 'string' },
+	     	                    { name: 'tipo', type: 'string' },
+	     	                    { name: 'marca', type: 'string' },
+	     	                    { name: 'precio', type: 'float' },
+	                ],
+	                id: "id",
+	                url: url
+	            };
+	            var dataAdapter = new $.jqx.dataAdapter(source);
+	            
+	            // initializa la grilla de articulos
+	            $("#articulos").jqxGrid(
+	            {
+	                width: 850,
+	                source: dataAdapter,
+	                columnsresize: true,
+	                columns: [
+						{ text: 'Modelo', dataField: 'modelo', width: 150 },
+						{ text: 'Descripción', dataField: 'descripcion', width: 230 },
+						{ text: 'Clase', dataField: 'clase', width: 80 },
+						{ text: 'Tipo', dataField: 'tipo', width: 80 },
+						{ text: 'Marca', dataField: 'marca', width: 80 },
+						{ text: 'Precio', dataField: 'costo', minwidth: 70 }
+	                ]
+	            });
+	        });
+	    </script>
+	</div>
+</body>
+</html>
