@@ -34,7 +34,3 @@ $(function() {
         element.addClass('active');
     }
 });
-
-$(function() {
-	loadGridsData ();
-});
