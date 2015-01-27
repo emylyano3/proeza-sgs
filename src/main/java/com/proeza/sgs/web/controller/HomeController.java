@@ -25,7 +25,7 @@ public class HomeController {
 		model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, PAGE_NAME, principal));
 	}
 
-	@RequestMapping({"/", "index", "/home"})
+	@RequestMapping({"/", "/index", "/home"})
 	public ModelAndView home (ModelAndView model, Principal principal) {
 		model.setViewName(PAGE_GROUP + "/" + PAGE_NAME + ".html");
 		return model;

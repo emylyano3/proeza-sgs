@@ -45,7 +45,7 @@ public class SeguridadDalTest extends DalTest {
 	@Test
 	public void usuario_FIND_BY_ID () {
 		log.info("Inicia usuario_FIND_BY_ID");
-		final Usuario usuario = this.userDao.find(1L);
+		final Usuario usuario = this.userDao.find(100L);
 		assertNotNull(usuario);
 		assertEquals("user_admin", usuario.getAlias());
 	}

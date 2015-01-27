@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" 
-	xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
 
@@ -15,15 +15,15 @@
     <title>Proeza SGS</title>
 
     <!-- jQuery -->
-	<!-- 
-	    En general los JS files son importados al pie para hacer la carga de la pagina más rapida. 
-	    Como excepcion, la libreria JQuery es importada en la cabecera debido al modelo de plantilla 
-	    que utiliza la aplicacion a traves de Thymeleaf. 
-	    En caso de que paginas "contenido" que sean inyectadas dentro de este layout general tengan 
-	    codigo javascript embebido que necesiten de la libreria, si esta fuera importada al pie 
-	    fallaría la ejecucion.  
+    <!-- 
+        En general los JS files son importados al pie para hacer la carga de la pagina más rapida. 
+        Como excepcion, la libreria JQuery es importada en la cabecera debido al modelo de plantilla 
+        que utiliza la aplicacion a traves de Thymeleaf. 
+        En caso de que paginas "contenido" que sean inyectadas dentro de este layout general tengan 
+        codigo javascript embebido que necesiten de la libreria, si esta fuera importada al pie 
+        fallaría la ejecucion.  
      -->
-	<script src="../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}"/>
+    <script src="../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}"/>
     
     <!-- Bootstrap Core CSS -->
     <link href="../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
@@ -43,7 +43,7 @@
     <!-- Custom Fonts -->
     <link href="../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css"/>
 
-	<link rel="shortcut icon" href="../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" />
+    <link rel="shortcut icon" href="../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" />
 </head>
 
 <body>
@@ -261,22 +261,22 @@
                     </a>
                     <ul sec:authorize="isAnonymous()" class="dropdown-menu dropdown-user">
                         <li>
-                        	<a href="#" th:href="@{/login}" th:text="#{control.login}"><i class="fa fa-sign-in fa-fw"></i>Ingresar</a>
+                            <a href="#" th:href="@{/login}" th:text="#{control.login}"><i class="fa fa-sign-in fa-fw"></i>Ingresar</a>
                         </li>
                         <li>
-                        	<a href="#" th:href="@{/register}" th:text="#{control.register}"><i class="fa fa-user fa-fw"></i>Registrarse</a>
+                            <a href="#" th:href="@{/register}" th:text="#{control.register}"><i class="fa fa-user fa-fw"></i>Registrarse</a>
                         </li>
-					</ul>
+                    </ul>
                     <ul sec:authorize="isAuthenticated()" class="dropdown-menu dropdown-user">
                         <li>
-                        	<a href="#" sec:authentication="name">Usuario</a>
+                            <a href="#" sec:authentication="name">Usuario</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                        	<a href="#" th:href="@{/profile}" th:text="#{control.profile}"><i class="fa fa-user fa-fw"></i>Perfil</a>
+                            <a href="#" th:href="@{/profile}" th:text="#{control.profile}"><i class="fa fa-user fa-fw"></i>Perfil</a>
                         </li>
                         <li>
-                        	<a href="#" th:href="@{/doLogout}" th:text="#{control.logout}"><i class="fa fa-sign-out fa-fw"></i>Salir</a>
+                            <a href="#" th:href="@{/doLogout}" th:text="#{control.logout}"><i class="fa fa-sign-out fa-fw"></i>Salir</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -292,37 +292,42 @@
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search..."/>
                                 <span class="input-group-btn">
-	                                <button class="btn btn-default" type="button">
-	                                    <i class="fa fa-search"></i>
-	                                </button>
-                            	</span>
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
                             </div>
                             <!-- /input-group -->
                         </li>
-                       	<li th:each="item : ${SIDE_MENU_LEFT.items}">
-							<a href="#" th:href="@{${item.href}}">
-								<i class="fa fa-info" th:class="${item.icon}"/>
-								<span th:text="${item.text}"/>
-							</a>
-						</li>
-						<li sec:authorize="isAnonymous()">
-							<a href="#" th:href="@{/login}">
-								<i class="fa fa-sign-in"/>
-								<span th:text="#{menu.login}"/>
-							</a>
-						</li>
-						<li sec:authorize="isAnonymous()">
-							<a href="#" th:href="@{/register}">
-								<i class="fa fa-user"/>
-								<span th:text="#{menu.register}"/>
-							</a>
-						</li>
-						<li sec:authorize="isAuthenticated()">
-							<a href="#" th:href="@{/doLogout}">
-								<i class="fa fa-sign-out"/>
-								<span th:text="#{menu.logout}"/>
-							</a>
-						</li>
+                           <li th:each="item : ${SIDE_MENU_LEFT.items}">
+                            <a href="#" th:href="@{${item.href}}">
+                                <i class="fa fa-info" th:class="${item.icon}"/>
+                                <span th:text="${item.text}"/>
+                            </a>
+                            <ul th:if="${!item.subitems.isEmpty()}" class="nav nav-second-level">
+                                <li th:each="subitem : ${item.subitems}" >
+                                    <a href="#" th:href="@{${subitem.href}}" th:text="${subitem.text}"/>
+                                </li>
+                            </ul>
+                        </li>
+                        <li sec:authorize="isAnonymous()">
+                            <a href="#" th:href="@{/login}">
+                                <i class="fa fa-sign-in"/>
+                                <span th:text="#{menu.login}"/>
+                            </a>
+                        </li>
+                        <li sec:authorize="isAnonymous()">
+                            <a href="#" th:href="@{/register}">
+                                <i class="fa fa-user"/>
+                                <span th:text="#{menu.register}"/>
+                            </a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="#" th:href="@{/doLogout}">
+                                <i class="fa fa-sign-out"/>
+                                <span th:text="#{menu.logout}"/>
+                            </a>
+                        </li>
                     </ul>
                     <!-- /side menu -->
                 </div>
@@ -330,11 +335,11 @@
             </div>
             <!-- /."navbar-default sidebar -->
         </nav>
-		
-		<div id="page-wrapper">
-			<div id="content" layout:fragment="contenido">Contenido</div>
-		</div>
-	</div>
+        
+        <div id="page-wrapper">
+            <div id="content" layout:fragment="contenido">Contenido</div>
+        </div>
+    </div>
     <!-- /#wrapper -->
 
     <!-- Bootstrap Core JavaScript -->

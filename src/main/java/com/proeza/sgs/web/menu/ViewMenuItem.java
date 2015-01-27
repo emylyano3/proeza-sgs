@@ -1,25 +1,18 @@
 package com.proeza.sgs.web.menu;
 
-import com.proeza.sgs.system.entity.MenuItem;
+import java.util.List;
 
 public class ViewMenuItem implements Comparable<ViewMenuItem> {
 
 	public ViewMenuItem () {
 	}
 
-	public ViewMenuItem (MenuItem menuItem) {
-		this.text = menuItem.getItem().getText();
-		this.code = menuItem.getItem().getCode();
-		this.href = menuItem.getItem().getLink();
-		this.icon = menuItem.getItem().getIcon();
-		this.index = menuItem.getIndex();
-	}
-
-	private String	text;
-	private String	code;
-	private String	href;
-	private String	icon;
-	private int		index;
+	private String				text;
+	private String				code;
+	private String				href;
+	private String				icon;
+	private int					index;
+	private List<ViewMenuItem>	subitems;
 
 	public String getText () {
 		return this.text;
@@ -59,6 +52,14 @@ public class ViewMenuItem implements Comparable<ViewMenuItem> {
 
 	public void setIndex (int index) {
 		this.index = index;
+	}
+
+	public List<ViewMenuItem> getSubitems () {
+		return this.subitems;
+	}
+
+	public void setSubitems (List<ViewMenuItem> subitems) {
+		this.subitems = subitems;
 	}
 
 	@Override

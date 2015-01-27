@@ -33,7 +33,7 @@ public class Menu implements Serializable {
 	private String				type;
 	private String				icon;
 
-	private Set<MenuItem>		menuItems			= new TreeSet<MenuItem>();
+	private Set<MenuItem>		menuItems			= new TreeSet<>();
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

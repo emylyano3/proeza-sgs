@@ -14,14 +14,14 @@ import javax.persistence.Table;
 import static javax.persistence.GenerationType.*;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "sys_menu_item")
-public class MenuItem implements Serializable, Comparable<MenuItem> {
+@Table(catalog = "sgs_proeza_db", name = "sys_item_subitem")
+public class ItemSubitem implements Serializable, Comparable<ItemSubitem> {
 
 	private static final long	serialVersionUID	= 1L;
 
 	private long				id;
 	private Item				item;
-	private Menu				menu;
+	private Item				subitem;
 	private int					index				= 0;
 
 	@Id
@@ -36,16 +36,6 @@ public class MenuItem implements Serializable, Comparable<MenuItem> {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_menu", nullable = false)
-	public Menu getMenu () {
-		return this.menu;
-	}
-
-	public void setMenu (Menu menu) {
-		this.menu = menu;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_item", nullable = false)
 	public Item getItem () {
 		return this.item;
@@ -53,6 +43,16 @@ public class MenuItem implements Serializable, Comparable<MenuItem> {
 
 	public void setItem (Item item) {
 		this.item = item;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_subitem", nullable = false)
+	public Item getSubitem () {
+		return this.subitem;
+	}
+
+	public void setSubitem (Item subitem) {
+		this.subitem = subitem;
 	}
 
 	@Column(name = "indice", nullable = false)
@@ -65,7 +65,7 @@ public class MenuItem implements Serializable, Comparable<MenuItem> {
 	}
 
 	@Override
-	public int compareTo (MenuItem o) {
+	public int compareTo (ItemSubitem o) {
 		if (o == null) {
 			return -1;
 		}
@@ -74,6 +74,6 @@ public class MenuItem implements Serializable, Comparable<MenuItem> {
 
 	@Override
 	public String toString () {
-		return "MenuItem [id=" + this.id + ", item=" + this.item + ", index=" + this.index + "]";
+		return "ItemSubitem [id=" + this.id + ", item=" + this.item + ", subitem=" + this.subitem + ", index=" + this.index + "]";
 	}
 }

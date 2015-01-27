@@ -77,7 +77,7 @@ public class HomeControllerTest extends WebMvcTest {
 
 		this.mockMvc.perform(get("/"))
 			.andExpect(status().isOk())
-			.andExpect(view().name("home"))
+			.andExpect(view().name("root/home.html"))
 			.andExpect(model().attribute(SIDE_MENU_LEFT.name(), hasProperty("name", is("M_LEFT_MAIN"))));
 		verify(this.pageDao, times(1)).findByGroupAndName(PAGE_GROUP, PAGE_NAME);
 		verifyNoMoreInteractions(this.pageDao);

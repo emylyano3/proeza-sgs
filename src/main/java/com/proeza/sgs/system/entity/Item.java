@@ -3,6 +3,7 @@ package com.proeza.sgs.system.entity;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -35,7 +37,8 @@ public class Item implements Serializable {
 	private String				tooltip;
 	private String				link;
 	private String				icon;
-	private Set<Rol>			roles				= new HashSet<>();
+	private Set<Rol>			roles				= new HashSet<>(0);
+	private Set<ItemSubitem>	subitems			= new TreeSet<>();
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -108,6 +111,14 @@ public class Item implements Serializable {
 		this.roles = roles;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
+	public Set<ItemSubitem> getSubitems () {
+		return this.subitems;
+	}
+
+	public void setSubitems (Set<ItemSubitem> subitems) {
+		this.subitems = subitems;
+	}
 	@Override
 	public String toString () {
 		return "Item [id=" + this.id + ", code=" + this.code + ", text=" + this.text + ", tooltip=" + this.tooltip + ", link=" + this.link + ", icon=" + this.icon + ", roles=" + this.roles + "]";

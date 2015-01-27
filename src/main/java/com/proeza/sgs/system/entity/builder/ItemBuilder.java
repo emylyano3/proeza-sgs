@@ -2,20 +2,22 @@ package com.proeza.sgs.system.entity.builder;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.proeza.security.entity.Rol;
 import com.proeza.sgs.system.entity.Item;
+import com.proeza.sgs.system.entity.ItemSubitem;
 
 public class ItemBuilder {
 
-	private long		id;
-	private String		text;
-	private String		code;
-	private String		link;
-	private String		icon;
-	private String		tooltip;
-
-	private Set<Rol>	roles	= new HashSet<>();
+	private long				id;
+	private String				text;
+	private String				code;
+	private String				link;
+	private String				icon;
+	private String				tooltip;
+	private Set<ItemSubitem>	subitems	= new TreeSet<>();
+	private Set<Rol>			roles		= new HashSet<>();
 
 	public ItemBuilder () {
 	}
@@ -55,6 +57,11 @@ public class ItemBuilder {
 		return this;
 	}
 
+	public ItemBuilder withSubitems(Set<ItemSubitem> subitems) {
+		this.subitems = subitems;
+		return this;
+	}
+
 	public Item build () {
 		Item item = new Item();
 		item.setId(this.id);
@@ -64,6 +71,7 @@ public class ItemBuilder {
 		item.setText(this.text);
 		item.setTooltip(this.tooltip);
 		item.setRoles(this.roles);
+		item.setSubitems(this.subitems);
 		return item;
 	}
 }

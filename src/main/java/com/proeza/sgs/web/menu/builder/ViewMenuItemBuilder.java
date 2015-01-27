@@ -1,14 +1,17 @@
 package com.proeza.sgs.web.menu.builder;
 
+import java.util.List;
+
 import com.proeza.sgs.web.menu.ViewMenuItem;
 
 public class ViewMenuItemBuilder {
 
-	private String	text;
-	private String	code;
-	private String	href;
-	private String	icon;
-	private int		index;
+	private String				text;
+	private String				code;
+	private String				href;
+	private String				icon;
+	private int					index;
+	private List<ViewMenuItem>	subitems;
 
 	public ViewMenuItemBuilder () {
 	}
@@ -29,12 +32,17 @@ public class ViewMenuItemBuilder {
 	}
 
 	public ViewMenuItemBuilder withIcon (String icon) {
-		this.text = icon;
+		this.icon = icon;
 		return this;
 	}
 
 	public ViewMenuItemBuilder withIndex (int index) {
 		this.index = index;
+		return this;
+	}
+
+	public ViewMenuItemBuilder withSubitems (List<ViewMenuItem> subitems) {
+		this.subitems = subitems;
 		return this;
 	}
 
@@ -45,6 +53,7 @@ public class ViewMenuItemBuilder {
 		item.setIcon(this.icon);
 		item.setIndex(this.index);
 		item.setText(this.text);
+		item.setSubitems(this.subitems);
 		return item;
 	}
 }
