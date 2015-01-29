@@ -2,6 +2,7 @@ package com.proeza.sgs.business.entity;
 
 // Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import static javax.persistence.GenerationType.*;
 
 /**
@@ -24,7 +28,8 @@ import static javax.persistence.GenerationType.*;
 	catalog = "sgs_proeza_db",
 	name = "art_rubro",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
-public class Rubro implements java.io.Serializable {
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public class Rubro implements Serializable, Identifiable {
 
 	private static final long	serialVersionUID	= 1L;
 
@@ -39,6 +44,7 @@ public class Rubro implements java.io.Serializable {
 	public Rubro () {
 	}
 
+	@Override
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
@@ -93,5 +99,10 @@ public class Rubro implements java.io.Serializable {
 
 	public void setArticulos (Set<Articulo> articulos) {
 		this.articulos = articulos;
+	}
+
+	@Override
+	public String toString () {
+		return "Rubro [id=" + this.id + ", codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
 	}
 }

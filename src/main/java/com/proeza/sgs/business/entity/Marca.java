@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import static javax.persistence.GenerationType.*;
 
 /**
@@ -25,7 +28,8 @@ import static javax.persistence.GenerationType.*;
 	catalog = "sgs_proeza_db",
 	name = "art_marca",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
-public class Marca implements Serializable {
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public class Marca implements Serializable, Identifiable {
 
 	private static final long	serialVersionUID	= 1L;
 
@@ -40,6 +44,7 @@ public class Marca implements Serializable {
 	}
 
 	@Id
+	@Override
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public long getId () {
@@ -84,5 +89,10 @@ public class Marca implements Serializable {
 
 	public void setArticulos (Set<Articulo> articulos) {
 		this.articulos = articulos;
+	}
+
+	@Override
+	public String toString () {
+		return "Marca [id=" + this.id + ", nombre=" + this.nombre + ", codigo=" + this.codigo + "]";
 	}
 }

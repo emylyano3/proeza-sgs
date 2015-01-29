@@ -23,7 +23,7 @@ import static org.hibernate.cfg.AvailableSettings.*;
 @Configuration
 @ComponentScan(
 	basePackages = {
-		"com.proeza.**.dao"
+		"com.proeza.**.dao.**"
 	})
 @EnableTransactionManagement
 public class JpaConfig {

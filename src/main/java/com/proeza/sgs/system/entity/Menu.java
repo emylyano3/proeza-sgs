@@ -13,15 +13,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
 import org.springframework.transaction.annotation.Transactional;
 
 import static javax.persistence.GenerationType.*;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 
 @Entity
 @Table(
 	catalog = "sgs_proeza_db",
 	name = "sys_menu",
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})})
+@Cache(usage = READ_ONLY)
 public class Menu implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;

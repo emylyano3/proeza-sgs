@@ -54,6 +54,10 @@ public abstract class BaseDao<Entity> implements Dao<Entity> {
 		return entities;
 	}
 
+	public EntityManager getEntityManager () {
+		return this.entityManager;
+	}
+
 	@Override
 	public void delete (Entity entity) {
 		this.entityManager.remove(entity);

@@ -144,6 +144,11 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate-validator-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>${hibernate-version}</version>
+		</dependency>
 
 		<!-- Eh Cache -->
 		<dependency>
@@ -291,6 +296,9 @@
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
+					<compilerArguments>
+						<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+					</compilerArguments>
 				</configuration>
 			</plugin>
 			<plugin>

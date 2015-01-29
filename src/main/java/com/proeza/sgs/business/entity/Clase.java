@@ -19,6 +19,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import static javax.persistence.GenerationType.*;
 
 /**
@@ -29,7 +32,8 @@ import static javax.persistence.GenerationType.*;
 	catalog = "sgs_proeza_db",
 	name = "art_clase",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
-public class Clase implements Serializable {
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public class Clase implements Serializable, Identifiable {
 
 	private static final long	serialVersionUID	= 1L;
 
@@ -45,6 +49,7 @@ public class Clase implements Serializable {
 	public Clase () {
 	}
 
+	@Override
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
@@ -114,5 +119,10 @@ public class Clase implements Serializable {
 
 	public void setTipos (Set<Tipo> tipos) {
 		this.tipos = tipos;
+	}
+
+	@Override
+	public String toString () {
+		return "Clase [id=" + this.id + ", codigo=" + this.codigo + ", nombre=" + this.nombre + ", rubro=" + this.rubro + "]";
 	}
 }

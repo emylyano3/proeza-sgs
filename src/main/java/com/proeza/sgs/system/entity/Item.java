@@ -18,15 +18,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+
 import com.proeza.security.entity.Rol;
 
 import static javax.persistence.GenerationType.*;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 
 @Entity
 @Table(
 	catalog = "sgs_proeza_db",
 	name = "sys_item",
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})})
+@Cache(usage = READ_ONLY)
 public class Item implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;

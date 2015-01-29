@@ -8,4 +8,5 @@ import com.proeza.sgs.business.entity.Clase;
 @Repository
 public class ClaseDao extends BaseDao<Clase> {
 
+
 }

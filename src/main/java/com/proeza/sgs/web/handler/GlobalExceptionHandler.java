@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 			throw e;
 		}
 		ModelAndView model = new ModelAndView();
-		model.addObject("goto", "home");
+		model.addObject("goto", "/home");
 		model.addObject("gotoText", "Ir a Inicio");
 		model.addObject("errorCode", "500");
 		model.addObject("errorMessage", e.getMessage());

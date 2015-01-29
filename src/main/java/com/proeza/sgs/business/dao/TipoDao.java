@@ -3,9 +3,10 @@ package com.proeza.sgs.business.dao;
 import org.springframework.stereotype.Repository;
 
 import com.proeza.core.persistence.BaseDao;
-import com.proeza.sgs.business.entity.Articulo;
+import com.proeza.sgs.business.entity.Tipo;
 
 @Repository
-public class ArticuloDao extends BaseDao<Articulo> {
+public class TipoDao extends BaseDao<Tipo> {
+
 
 }

@@ -22,6 +22,18 @@
     maxBytesLocalHeap="524288"
     eternal="true"
     statistics="true" />
+    
+<cache
+    name="com.proeza.sgs.system.entity.Menu"
+    maxElementsInMemory="20"
+    eternal="true"
+    statistics="true" />
+    
+<cache
+    name="com.proeza.sgs.system.entity.Item"
+    maxElementsInMemory="500"
+    eternal="true"
+    statistics="true" />
 
 <cache 
 	name="org.hibernate.cache.internal.StandardQueryCache"
