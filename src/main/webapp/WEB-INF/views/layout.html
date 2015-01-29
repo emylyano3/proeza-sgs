@@ -299,7 +299,7 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-                           <li th:each="item : ${SIDE_MENU_LEFT.items}">
+                        <li th:each="item : ${SIDE_MENU_LEFT.items}">
                             <a href="#" th:href="@{${item.href}}">
                                 <i class="fa fa-info" th:class="${item.icon}"/>
                                 <span th:text="${item.text}"/>
