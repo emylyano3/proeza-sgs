@@ -1,4 +1,4 @@
-CREATE OR REPLACE
+CREATE 
     ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
@@ -15,8 +15,8 @@ VIEW `vw_detalle_articulos` AS
         `a`.`precio` AS `Precio`,
         `a`.`cantidad` AS `Cantidad`
     FROM
-        ((((`articulo` `a`
-        JOIN `rubro` `r` ON ((`r`.`id` = `a`.`fk_rubro`)))
-        JOIN `clase` `c` ON ((`c`.`id` = `a`.`fk_clase`)))
-        JOIN `tipo` `t` ON ((`t`.`id` = `a`.`fk_tipo`)))
-        LEFT JOIN `marca` `m` ON ((`m`.`id` = `a`.`fk_marca`)))
+        ((((`art_articulo` `a`
+        JOIN `art_rubro` `r` ON ((`r`.`id` = `a`.`fk_rubro`)))
+        JOIN `art_clase` `c` ON ((`c`.`id` = `a`.`fk_clase`)))
+        LEFT JOIN `art_tipo` `t` ON ((`t`.`id` = `a`.`fk_tipo`)))
+        LEFT JOIN `art_marca` `m` ON ((`m`.`id` = `a`.`fk_marca`)))
