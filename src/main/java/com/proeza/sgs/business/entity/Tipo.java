@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -27,8 +29,8 @@ import static javax.persistence.GenerationType.*;
 @Table(
 	catalog = "sgs_proeza_db",
 	name = "art_tipo",
-	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
-@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo", "fk_clase"})})
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Tipo implements Serializable, Identifiable {
 
 	private static final long	serialVersionUID	= 1L;
@@ -38,6 +40,7 @@ public class Tipo implements Serializable, Identifiable {
 	private String				nombre;
 	private String				descripcion;
 
+	private Clase				clase;
 	private Set<Articulo>		articulos			= new HashSet<>(0);
 
 	public Tipo () {
@@ -47,7 +50,7 @@ public class Tipo implements Serializable, Identifiable {
 	@Override
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId () {
+	public Long getId () {
 		return this.id;
 	}
 
@@ -80,6 +83,16 @@ public class Tipo implements Serializable, Identifiable {
 
 	public void setDescripcion (String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_clase", nullable = false)
+	public Clase getClase () {
+		return this.clase;
+	}
+
+	public void setClase (Clase clase) {
+		this.clase = clase;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipo")

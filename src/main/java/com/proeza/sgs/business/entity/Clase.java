@@ -12,8 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,8 +29,8 @@ import static javax.persistence.GenerationType.*;
 @Table(
 	catalog = "sgs_proeza_db",
 	name = "art_clase",
-	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
-@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+	uniqueConstraints = @UniqueConstraint(columnNames = {"codigo", "fk_rubro"}))
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Clase implements Serializable, Identifiable {
 
 	private static final long	serialVersionUID	= 1L;
@@ -53,7 +51,7 @@ public class Clase implements Serializable, Identifiable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId () {
+	public Long getId () {
 		return this.id;
 	}
 
@@ -89,7 +87,8 @@ public class Clase implements Serializable, Identifiable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_rubro", nullable = false)
+	@JoinColumn(name = "fk_rubro")
+//	@JoinColumn(name = "fk_rubro", nullable = false)
 	public Rubro getRubro () {
 		return this.rubro;
 	}
@@ -98,7 +97,7 @@ public class Clase implements Serializable, Identifiable {
 		this.rubro = rubro;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipo")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "clase")
 	public Set<Articulo> getArticulos () {
 		return this.articulos;
 	}
@@ -107,12 +106,7 @@ public class Clase implements Serializable, Identifiable {
 		this.articulos = articulos;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-		catalog = "sgs_proeza_db",
-		name = "art_clase_tipo",
-		joinColumns = {@JoinColumn(name = "fk_clase", nullable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "fk_tipo", nullable = false)})
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "clase")
 	public Set<Tipo> getTipos () {
 		return this.tipos;
 	}

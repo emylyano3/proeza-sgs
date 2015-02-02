@@ -18,34 +18,72 @@
     statistics="true"/>
     
 <cache
+    name="com.proeza.security.entity.Usuario"
+    maxElementsInMemory="500"
+    eternal="true"
+    statistics="true" />
+    
+    
+<cache
     name="com.proeza.sgs.system.entity.Page"
-    maxBytesLocalHeap="524288"
+    maxElementsInMemory="300"
     eternal="true"
     statistics="true" />
     
 <cache
     name="com.proeza.sgs.system.entity.Menu"
-    maxElementsInMemory="20"
+    maxElementsInMemory="100"
     eternal="true"
     statistics="true" />
     
 <cache
     name="com.proeza.sgs.system.entity.Item"
+    maxElementsInMemory="1000"
+    eternal="true"
+    statistics="true" />
+    
+<cache
+    name="com.proeza.sgs.business.entity.Rubro"
+    maxElementsInMemory="50"
+    eternal="true"
+    statistics="true" />
+    
+<cache
+    name="com.proeza.sgs.business.entity.Clase"
     maxElementsInMemory="500"
     eternal="true"
     statistics="true" />
+    
+<cache
+    name="com.proeza.sgs.business.entity.Marca"
+    maxElementsInMemory="500"
+    eternal="true"
+    statistics="true" />
+    
+<cache
+    name="com.proeza.sgs.business.entity.Tipo"
+    maxElementsInMemory="500"
+    eternal="true"
+    statistics="true" />
+    
+<cache
+    name="com.proeza.sgs.business.entity.Articulo"
+    maxElementsInMemory="1000"
+    eternal="false"
+    statistics="true" 
+    memoryStoreEvictionPolicy="LRU"/>
 
 <cache 
 	name="org.hibernate.cache.internal.StandardQueryCache"
-    maxEntriesLocalHeap="5" 
+    maxEntriesLocalHeap="20" 
     eternal="false" 
-    timeToLiveSeconds="120"
+    timeToLiveSeconds="60"
     statistics="true"/>
 
 <cache 
 	name="org.hibernate.cache.spi.UpdateTimestampsCache"
     maxEntriesLocalHeap="5000" 
     eternal="true"
-    statistics="true"/>
+    statistics="false"/>
 
 </ehcache>

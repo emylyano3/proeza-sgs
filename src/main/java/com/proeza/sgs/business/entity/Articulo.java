@@ -20,6 +20,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import static javax.persistence.GenerationType.*;
 
 /**
@@ -30,6 +33,7 @@ import static javax.persistence.GenerationType.*;
 	catalog = "sgs_proeza_db",
 	name = "art_articulo",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Articulo implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
@@ -178,5 +182,10 @@ public class Articulo implements Serializable {
 
 	public void setMovimientos (Set<Movimiento> movimientos) {
 		this.movimientos = movimientos;
+	}
+
+	@Override
+	public String toString () {
+		return "Articulo [id=" + this.id + ", codigo=" + this.codigo + ", modelo=" + this.modelo + ", descripcion=" + this.descripcion + ", rubro=" + this.rubro + ", clase=" + this.clase + ", tipo=" + this.tipo + ", marca=" + this.marca + ", costo=" + this.costo + ", precio=" + this.precio + ", cantidad=" + this.cantidad + "]";
 	}
 }

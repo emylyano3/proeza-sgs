@@ -47,7 +47,7 @@ public class Marca implements Serializable, Identifiable {
 	@Override
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId () {
+	public Long getId () {
 		return this.id;
 	}
 

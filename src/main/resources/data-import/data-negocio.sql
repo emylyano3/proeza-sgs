@@ -13,12 +13,8 @@
 	insert into sgs_proeza_db.art_clase (codigo, nombre, descripcion, fk_rubro) values ('CANIA','Caña','Clase que abarca a todas las cañas', 1);
 	
 	/* Tipo */
-	insert into sgs_proeza_db.art_tipo (codigo, nombre, descripcion) values ('EMBARCADO','Embarcado','Embarcado');
-	insert into sgs_proeza_db.art_tipo (codigo, nombre, descripcion) values ('ROTATIVO','Rotativo','Rotativo');
-	
-	/* Clase - Tipo */
-	insert into sgs_proeza_db.art_clase_tipo (fk_clase, fk_tipo) values (1, 1);
-	insert into sgs_proeza_db.art_clase_tipo (fk_clase, fk_tipo) values (2, 1);
+	insert into sgs_proeza_db.art_tipo (codigo, nombre, descripcion, fk_clase) values ('ROTATIVO','Rotativo','Rotativo', 1);
+	insert into sgs_proeza_db.art_tipo (codigo, nombre, descripcion, fk_clase) values ('EMBARCADO','Embarcado','Embarcado', 2);
 	
 	/* Marca */
 	insert into sgs_proeza_db.art_marca (codigo, nombre, descripcion) values ('SURFISH','Surfish','Surfish');

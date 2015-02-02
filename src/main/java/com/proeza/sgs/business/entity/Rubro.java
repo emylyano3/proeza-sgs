@@ -48,7 +48,7 @@ public class Rubro implements Serializable, Identifiable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId () {
+	public Long getId () {
 		return this.id;
 	}
 
