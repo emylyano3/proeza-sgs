@@ -63,12 +63,21 @@ public class NegocioDalTest extends DalTest {
 
 	@Test
 	@Transactional
-	public void articulo_FIND_BY_FILTER_MULTIPLE () {
+	public void articulo_FIND_BY_FILTER_NONE () {
 		log.info("Inicia articulo_FIND_BY_FILTER");
-		final List<Articulo> result = this.filterFactory.create("re,ca").doFilter();
+		final List<Articulo> result = this.filterFactory.create("re,cad").doFilter();
+		assertNotNull(result);
+		assertTrue(result.isEmpty());
+	}
+
+	@Test
+	@Transactional
+	public void articulo_FIND_BY_FILTER_SINGLE () {
+		log.info("Inicia articulo_FIND_BY_FILTER");
+		final List<Articulo> result = this.filterFactory.create("sur, REE ").doFilter();
 		assertNotNull(result);
 		assertFalse(result.isEmpty());
-		assertEquals(2, result.size());
+		assertEquals(1, result.size());
 		Articulo art = result.iterator().next();
 		assertNotNull(art);
 		assertNotNull(art.getMarca());
@@ -87,12 +96,12 @@ public class NegocioDalTest extends DalTest {
 
 	@Test
 	@Transactional
-	public void articulo_FIND_BY_FILTER_SINGLE () {
+	public void articulo_FIND_BY_FILTER_SINGLE_2 () {
 		log.info("Inicia articulo_FIND_BY_FILTER");
-		final List<Articulo> result = this.filterFactory.create("rE, sAh ").doFilter();
+		final List<Articulo> result = this.filterFactory.create("sur, EnE ").doFilter();
 		assertNotNull(result);
 		assertFalse(result.isEmpty());
-		assertEquals(2, result.size());
+		assertEquals(1, result.size());
 		Articulo art = result.iterator().next();
 		assertNotNull(art);
 		assertNotNull(art.getMarca());
