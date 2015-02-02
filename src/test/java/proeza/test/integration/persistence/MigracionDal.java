@@ -132,4 +132,42 @@ public class MigracionDal extends DalTest {
 			articulo.setTipo(tipo);
 		}
 	}
+
+	@Test
+	public void asociarRubroClases () {
+		List<Clase> clases = this.claseDao.findAll();
+		for (Clase clase : clases) {
+			Set<Articulo> articulos = clase.getArticulos();
+			if (!articulos.isEmpty()) {
+				Rubro rubro = articulos.iterator().next().getRubro();
+				clase.setRubro(rubro);
+			}
+		}
+		Rubro pesca = (Rubro) this.rubroDao.getEntityManager().createQuery("select r from Rubro r where r.codigo like 'PESCA'").getSingleResult();
+		for (Clase clase : clases) {
+			if (clase.getRubro() == null) {
+				clase.setRubro(pesca);
+			}
+		}
+		this.claseDao.persist(clases);
+	}
+
+	@Test
+	public void asociarClaseTipos () {
+		List<Clase> clases = this.claseDao.findAll();
+		for (Clase clase : clases) {
+			Set<Articulo> articulos = clase.getArticulos();
+			if (!articulos.isEmpty()) {
+				Rubro rubro = articulos.iterator().next().getRubro();
+				clase.setRubro(rubro);
+			}
+		}
+		Rubro pesca = (Rubro) this.rubroDao.getEntityManager().createQuery("select r from Rubro r where r.codigo like 'PESCA'").getSingleResult();
+		for (Clase clase : clases) {
+			if (clase.getRubro() == null) {
+				clase.setRubro(pesca);
+			}
+		}
+		this.claseDao.persist(clases);
+	}
 }

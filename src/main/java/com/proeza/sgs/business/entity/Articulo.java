@@ -34,7 +34,7 @@ import static javax.persistence.GenerationType.*;
 	name = "art_articulo",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Articulo implements Serializable {
+public class Articulo implements Serializable, Comparable<Articulo> {
 
 	private static final long	serialVersionUID	= 1L;
 
@@ -188,4 +188,13 @@ public class Articulo implements Serializable {
 	public String toString () {
 		return "Articulo [id=" + this.id + ", codigo=" + this.codigo + ", modelo=" + this.modelo + ", descripcion=" + this.descripcion + ", rubro=" + this.rubro + ", clase=" + this.clase + ", tipo=" + this.tipo + ", marca=" + this.marca + ", costo=" + this.costo + ", precio=" + this.precio + ", cantidad=" + this.cantidad + "]";
 	}
+
+	@Override
+	public int compareTo (Articulo a) {
+		if (a== null) {
+			return 1;
+		}
+		return a.getModelo().compareTo(getModelo());
+	}
+
 }
