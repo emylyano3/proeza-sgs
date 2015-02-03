@@ -30,6 +30,14 @@
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdata.js"></script> 
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/demos.js"></script>
 	    <script type="text/javascript">
+
+			function replaceAll(text, busca, reemplaza ){
+				while (text.toString().indexOf(busca) != -1) {
+					text = text.toString().replace(busca,reemplaza);
+				}
+				return text;
+			}
+
 	        $(document).ready(function () {
 	            // prepare the data
 	            var source =
@@ -67,7 +75,7 @@
 	            $("#clear").jqxButton({ theme: theme });
 	            $('#filter').on('input', function() {
 	                var filter = $(this).val();
-	                var params = "filter=" + filter.trim().replace(' ',',');
+	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
 	                source.url = "/proeza-sgs/rest/articulos/search?" + params;
 					// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas en igual a la anterior
 	                $("#articulos").jqxGrid('updatebounddata', 'cells');

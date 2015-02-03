@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -51,11 +52,6 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
 	public ArticuloFilter () {
 	}
 
-	/*
-	 * select a from Articulo a where lower(a.clase.nombre) like '' or lower(a.tipo.nombre) like '' or
-	 * lower(a.marca.nombre) like '' or lower(a.modelo) like '' or lower(a.descripcion) like ''
-	 */
-
 	@Override
 	public List<Articulo> doFilter () {
 		if (initFilters()) {
@@ -65,7 +61,7 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
 			criteria.select(root);
 			Join<Articulo, Clase> joinClase = root.join(Articulo_.clase);
 			Join<Articulo, Marca> joinMarca = root.join(Articulo_.marca);
-			Join<Articulo, Tipo> joinTipo = root.join(Articulo_.tipo);
+			Join<Articulo, Tipo> joinTipo = root.join(Articulo_.tipo, JoinType.LEFT);
 
 			Expression<String> nombreClase = joinClase.get(Clase_.nombre);
 			Expression<String> nombreMarca = joinMarca.get(Marca_.nombre);
@@ -104,7 +100,7 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
 				if (articulo.getMarca().getNombre().toLowerCase().contains(filter)) {
 					matched.add(filter);
 				}
-				if (articulo.getTipo().getNombre().toLowerCase().contains(filter)) {
+				if (articulo.getTipo() != null && articulo.getTipo().getNombre().toLowerCase().contains(filter)) {
 					matched.add(filter);
 				}
 				if (articulo.getClase().getNombre().toLowerCase().contains(filter)) {
@@ -136,18 +132,23 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
 	private boolean initFilters () {
 		if (this.rawFilter != null && !this.rawFilter.isEmpty()) {
 			String[] aux = this.rawFilter.trim().split(",");
-			List<String> auxList = new ArrayList<>(0);
+			List<String> noList = new ArrayList<>(0);
+			List<String> yesList= new ArrayList<>(0);
 			for (String filter : aux) {
 				if (filter.trim().length() >= MIN_FILTER_LENGTH) {
-					auxList.add(filter.toLowerCase());
+					yesList.add(filter.toLowerCase());
+				} else {
+					noList.add(filter.toLowerCase());
 				}
 			}
-			if (!auxList.isEmpty()) {
+			if (!yesList.isEmpty()) {
+				// Si hay al menos un filtro que cumple el requisito de tamaño, uso todos para filtrar
+				yesList.addAll(noList);
 				this.builder = this.articuloDao.getEntityManager().getCriteriaBuilder();
-				this.rawFilterSplitted = new String[auxList.size()];
-				this.widedFilter = new String[auxList.size()];
-				for (int i = 0; i < auxList.size(); i++) {
-					String filter = auxList.get(i);
+				this.rawFilterSplitted = new String[yesList.size()];
+				this.widedFilter = new String[yesList.size()];
+				for (int i = 0; i < yesList.size(); i++) {
+					String filter = yesList.get(i);
 					this.rawFilterSplitted[i] = filter;
 					this.widedFilter[i] = "%" + filter + "%";
 				}
