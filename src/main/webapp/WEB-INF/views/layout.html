@@ -303,6 +303,7 @@
                             <a href="#" th:href="@{${item.href}}">
                                 <i class="fa fa-info" th:class="${item.icon}"/>
                                 <span th:text="${item.text}"/>
+                            	<span th:if="${!item.subitems.isEmpty()}" class="fa arrow"></span>
                             </a>
                             <ul th:if="${!item.subitems.isEmpty()}" class="nav nav-second-level">
                                 <li th:each="subitem : ${item.subitems}" >
