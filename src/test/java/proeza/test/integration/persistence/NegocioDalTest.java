@@ -65,7 +65,7 @@ public class NegocioDalTest extends DalTest {
 	@Transactional
 	public void articulo_FIND_BY_FILTER_NONE () {
 		log.info("Inicia articulo_FIND_BY_FILTER");
-		final List<Articulo> result = this.filterFactory.create("re,cad").doFilter();
+		final List<Articulo> result = this.filterFactory.create("re,cax").doFilter();
 		assertNotNull(result);
 		assertTrue(result.isEmpty());
 	}

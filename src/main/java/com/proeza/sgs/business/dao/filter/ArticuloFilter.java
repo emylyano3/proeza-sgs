@@ -136,9 +136,9 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
 			List<String> yesList= new ArrayList<>(0);
 			for (String filter : aux) {
 				if (filter.trim().length() >= MIN_FILTER_LENGTH) {
-					yesList.add(filter.toLowerCase());
+					yesList.add(filter.trim().toLowerCase());
 				} else {
-					noList.add(filter.toLowerCase());
+					noList.add(filter.trim().toLowerCase());
 				}
 			}
 			if (!yesList.isEmpty()) {
