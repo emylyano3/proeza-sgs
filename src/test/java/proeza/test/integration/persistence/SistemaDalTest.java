@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import proeza.test.integration.IntegrationTest;
+
 import com.proeza.sgs.system.dao.PageDao;
 import com.proeza.sgs.system.entity.Item;
 import com.proeza.sgs.system.entity.ItemSubitem;
@@ -19,7 +21,7 @@ import com.proeza.sgs.web.controller.HomeController;
 
 import static org.junit.Assert.*;
 
-public class SistemaDalTest extends DalTest {
+public class SistemaDalTest extends IntegrationTest {
 	private static Logger	log	= Logger.getLogger(SistemaDalTest.class);
 
 	@Autowired

@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+
+import proeza.test.integration.IntegrationTest;
 
 import com.proeza.sgs.business.dao.ArticuloDao;
 import com.proeza.sgs.business.dao.ClaseDao;
@@ -34,7 +37,8 @@ import com.proeza.sgs.config.root.ContextConfig;
 @ActiveProfiles(profiles = "prod")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {com.proeza.sgs.config.env.Prod.class, ContextConfig.class}, loader = AnnotationConfigContextLoader.class)
-public class MigracionDal extends DalTest {
+@Ignore
+public class MigracionDal extends IntegrationTest {
 	private static Logger			log	= Logger.getLogger(MigracionDal.class);
 
 	@Autowired

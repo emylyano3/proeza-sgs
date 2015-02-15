@@ -47,11 +47,11 @@ public class MailSenderTest {
 	@Test
 	public void sendMail () throws MessagingException {
 		final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
-		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-		message.setFrom(FROM_ADDRESS);
-		message.setTo(TO_ADDRESS);
-		message.setSubject(SUBJECT);
-		message.setText(CONTENT, false);
-		this.mailSender.send(mimeMessage);
+		final MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+		messageHelper.setFrom(FROM_ADDRESS);
+		messageHelper.setTo(TO_ADDRESS);
+		messageHelper.setSubject(SUBJECT);
+		messageHelper.setText(CONTENT, false);
+		this.mailSender.send(messageHelper.getMimeMessage());
 	}
 }

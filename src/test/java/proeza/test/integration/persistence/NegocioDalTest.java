@@ -2,11 +2,11 @@ package proeza.test.integration.persistence;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import proeza.test.integration.IntegrationTest;
 
 import com.proeza.sgs.business.dao.ArticuloDao;
 import com.proeza.sgs.business.dao.ClaseDao;
@@ -16,7 +16,7 @@ import com.proeza.sgs.business.entity.Clase;
 
 import static org.junit.Assert.*;
 
-public class NegocioDalTest extends DalTest {
+public class NegocioDalTest extends IntegrationTest {
 	private static Logger			log	= Logger.getLogger(NegocioDalTest.class);
 
 	@Autowired
@@ -38,7 +38,7 @@ public class NegocioDalTest extends DalTest {
 	}
 
 	@Test
-	@Transactional
+
 	public void articulo_FIND_ALL () {
 		log.info("Inicia articulo_FIND_ALL");
 		final List<Articulo> result = this.articuloDao.findAll();
@@ -62,7 +62,7 @@ public class NegocioDalTest extends DalTest {
 	}
 
 	@Test
-	@Transactional
+
 	public void articulo_FIND_BY_FILTER_NONE () {
 		log.info("Inicia articulo_FIND_BY_FILTER");
 		final List<Articulo> result = this.filterFactory.create("re,cax").doFilter();
@@ -71,7 +71,7 @@ public class NegocioDalTest extends DalTest {
 	}
 
 	@Test
-	@Transactional
+
 	public void articulo_FIND_BY_FILTER_SINGLE () {
 		log.info("Inicia articulo_FIND_BY_FILTER");
 		final List<Articulo> result = this.filterFactory.create("sur, REE ").doFilter();
@@ -95,7 +95,7 @@ public class NegocioDalTest extends DalTest {
 	}
 
 	@Test
-	@Transactional
+
 	public void articulo_FIND_BY_FILTER_SINGLE_2 () {
 		log.info("Inicia articulo_FIND_BY_FILTER");
 		final List<Articulo> result = this.filterFactory.create("sur, EnE ").doFilter();

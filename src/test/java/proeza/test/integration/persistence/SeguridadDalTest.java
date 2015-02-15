@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.EntityManagerFactoryInfo;
 import org.springframework.transaction.annotation.Transactional;
 
+import proeza.test.integration.IntegrationTest;
+
 import com.proeza.security.dao.UsuarioDao;
 import com.proeza.security.entity.Usuario;
 import com.proeza.sgs.business.dao.ClaseDao;
@@ -24,7 +26,7 @@ import com.proeza.sgs.system.entity.Page;
 
 import static org.junit.Assert.*;
 
-public class SeguridadDalTest extends DalTest {
+public class SeguridadDalTest extends IntegrationTest {
 	private static Logger	log	= Logger.getLogger(SeguridadDalTest.class);
 
 	@Autowired
