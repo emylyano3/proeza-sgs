@@ -40,9 +40,20 @@
 	/* Telefono */
 	insert into sgs_proeza_db.cmn_telefono (pref_internacional, pref_area, numero, fk_tipo, fk_persona) values ('+54', '011', '2323000', 1, 1); 
 	
+	/* Medio de pago */
+	insert into sgs_proeza_db.cmn_medio_pago (id, codigo, nombre, descripcion) values (1, 'EFT', 'Efectivo', 'Efectivo');
+	insert into sgs_proeza_db.cmn_medio_pago (id, codigo, nombre, descripcion) values (2, 'TCR', 'Crédito', 'Tarjeta de crédito');
+	insert into sgs_proeza_db.cmn_medio_pago (id, codigo, nombre, descripcion) values (3, 'TDE', 'Débito', 'Tarjeta de débito');
+	
 	/* Articulo - Proveedor */
 	insert into sgs_proeza_db.art_articulo_proveedor(id, fk_articulo, fk_proveedor) values (1, 1, 1);
 	insert into sgs_proeza_db.art_articulo_proveedor(id, fk_articulo, fk_proveedor) values (2, 2, 1);
 	
 	/* Articulo - Cliente */
 	insert into sgs_proeza_db.art_articulo_cliente(id, fk_articulo, fk_cliente) values (1, 1, 2);
+	
+	/* Venta */
+	insert into sgs_proeza_db.art_venta (id, codigo, fecha, importe, fk_medio_pago, fk_cliente) values (1,'EFT20150215', '02/15/2015', 1500, 1, 2);
+	
+	/* Asociacion de venta con articulo */
+	insert into sgs_proeza_db.art_venta_articulo (id, fk_venta, fk_articulo, cantidad) values (1, 1, 1, 1);

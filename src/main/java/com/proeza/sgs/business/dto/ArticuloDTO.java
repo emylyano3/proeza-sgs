@@ -1,7 +1,5 @@
 package com.proeza.sgs.business.dto;
 
-import java.math.BigDecimal;
-
 import com.proeza.sgs.business.entity.Articulo;
 
 /**
@@ -9,17 +7,17 @@ import com.proeza.sgs.business.entity.Articulo;
  * href="http://stackoverflow.com/questions/27944951/invoking-spring-4-x-rest-service">Post</a>
  */
 public class ArticuloDTO {
-	private long		id;
-	private String		codigo;
-	private String		modelo;
-	private String		descripcion;
-	private String		rubro;
-	private String		clase;
-	private String		tipo;
-	private String		marca;
-	private BigDecimal	costo;
-	private BigDecimal	precio;
-	private int			cantidad;
+	private long	id;
+	private String	codigo;
+	private String	modelo;
+	private String	descripcion;
+	private String	rubro;
+	private String	clase;
+	private String	tipo;
+	private String	marca;
+	private Double	costo;
+	private Double	precio;
+	private int		cantidad;
 
 	public ArticuloDTO (Articulo art) {
 		this.id = art.getId();
@@ -31,8 +29,8 @@ public class ArticuloDTO {
 		this.clase = art.getClase() != null ? art.getClase().getNombre() : null;
 		this.tipo = art.getTipo() != null ? art.getTipo().getNombre() : null;
 		this.cantidad = art.getCantidad();
-		this.costo = art.getCosto();
-		this.precio = art.getPrecio();
+		this.costo = art.getCosto() != null ? art.getCosto().doubleValue() : 0;
+		this.precio = art.getPrecio() != null ? art.getPrecio().doubleValue() : 0;
 	}
 
 	public long getId () {
@@ -99,19 +97,19 @@ public class ArticuloDTO {
 		this.marca = marca;
 	}
 
-	public BigDecimal getCosto () {
+	public Double getCosto () {
 		return this.costo;
 	}
 
-	public void setCosto (BigDecimal costo) {
+	public void setCosto (Double costo) {
 		this.costo = costo;
 	}
 
-	public BigDecimal getPrecio () {
+	public Double getPrecio () {
 		return this.precio;
 	}
 
-	public void setPrecio (BigDecimal precio) {
+	public void setPrecio (Double precio) {
 		this.precio = precio;
 	}
 

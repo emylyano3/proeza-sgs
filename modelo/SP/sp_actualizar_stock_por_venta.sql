@@ -29,11 +29,19 @@
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_quitar_del_stock`(
-   IN id_articulo   INT(10),
-   IN cantidad      INT(6))
+   IN id_articulo   BIGINT(20),
+   IN cantidad      BIGINT)
 BEGIN
-      UPDATE articulo ar
-         SET ar.cantidad = (ar.cantidad - cantidad)
+      DECLARE stock BIGINT;
+      
+      SELECT ar.cantidad FROM art_articulo ar WHERE ar.id = id_articulo INTO stock;
+      SET stock = stock - cantidad;
+      
+      IF stock < 0 THEN SET stock = 0;
+      END IF;
+      
+      UPDATE art_articulo ar
+         SET ar.cantidad = stock
        WHERE ar.id = id_articulo;
    END ;;
 DELIMITER ;
@@ -51,4 +59,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-08 12:55:56
+-- Dump completed on 2015-02-15 19:14:11
