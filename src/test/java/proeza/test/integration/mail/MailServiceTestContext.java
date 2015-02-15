@@ -18,9 +18,10 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 import com.proeza.core.config.MailSettings;
 import com.proeza.core.config.Settings;
 import com.proeza.core.service.MailService;
+import com.proeza.sgs.system.mail.MailManager;
 
 @Configuration
-@ComponentScan(basePackageClasses = {Settings.class, MailService.class})
+@ComponentScan(basePackageClasses = {Settings.class, MailService.class, MailManager.class})
 public class MailServiceTestContext {
 
 	@Autowired

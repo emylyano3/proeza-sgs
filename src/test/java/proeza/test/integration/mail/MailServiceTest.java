@@ -5,17 +5,14 @@ import java.util.Locale;
 import javax.mail.MessagingException;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import proeza.test.integration.IntegrationTest;
 
 import com.proeza.security.entity.builder.UsuarioBuilder;
 import com.proeza.sgs.system.mail.IMailManager;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = MailServiceTestContext.class)
-public class MailServiceTest {
+public class MailServiceTest extends IntegrationTest {
 
 	@Autowired
 	private IMailManager	mailManager;
