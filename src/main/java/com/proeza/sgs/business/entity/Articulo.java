@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +34,7 @@ import static javax.persistence.GenerationType.*;
 	catalog = "sgs_proeza_db",
 	name = "art_articulo",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
-@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Articulo implements Serializable, Comparable<Articulo> {
 
 	private static final long	serialVersionUID	= 1L;
@@ -175,7 +176,7 @@ public class Articulo implements Serializable, Comparable<Articulo> {
 		this.proveedores = proveedores;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "articulo")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "idEntidad", cascade = CascadeType.ALL)
 	public Set<Movimiento> getMovimientos () {
 		return this.movimientos;
 	}
@@ -191,10 +192,9 @@ public class Articulo implements Serializable, Comparable<Articulo> {
 
 	@Override
 	public int compareTo (Articulo a) {
-		if (a== null) {
+		if (a == null) {
 			return 1;
 		}
 		return a.getModelo().compareTo(getModelo());
 	}
-
 }

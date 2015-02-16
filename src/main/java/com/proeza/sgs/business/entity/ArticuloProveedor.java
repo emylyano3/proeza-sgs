@@ -40,7 +40,7 @@ public class ArticuloProveedor implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_articulo", nullable = false, referencedColumnName = "id")
+	@JoinColumn(name = "fk_articulo", nullable = false)
 	public Articulo getArticulo () {
 		return this.articulo;
 	}

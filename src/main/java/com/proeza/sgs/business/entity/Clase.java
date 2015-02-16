@@ -47,8 +47,8 @@ public class Clase implements Serializable, Identifiable {
 	public Clase () {
 	}
 
-	@Override
 	@Id
+	@Override
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public Long getId () {
@@ -59,7 +59,7 @@ public class Clase implements Serializable, Identifiable {
 		this.id = id;
 	}
 
-	@Column(name = "codigo", unique = true, nullable = false, length = 20)
+	@Column(name = "codigo", nullable = false, length = 20)
 	public String getCodigo () {
 		return this.codigo;
 	}
@@ -87,8 +87,7 @@ public class Clase implements Serializable, Identifiable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_rubro")
-//	@JoinColumn(name = "fk_rubro", nullable = false)
+	@JoinColumn(name = "fk_rubro", nullable = false)
 	public Rubro getRubro () {
 		return this.rubro;
 	}

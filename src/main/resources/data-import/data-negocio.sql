@@ -57,3 +57,7 @@
 	
 	/* Asociacion de venta con articulo */
 	insert into sgs_proeza_db.art_venta_articulo (id, fk_venta, fk_articulo, cantidad) values (1, 1, 1, 1);
+	
+	/* Movimiento sobre articulos */ 	
+	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, f_movimiento, valor_ant, valor_post) values (1, 'MOD_PRECIO', 1, 'ARTICULO', '02/15/2015', '250', '270');
+	update sgs_proeza_db.art_articulo set precio = 270 where id = 1;

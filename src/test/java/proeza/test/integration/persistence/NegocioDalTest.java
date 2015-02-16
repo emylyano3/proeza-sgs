@@ -1,6 +1,7 @@
 package proeza.test.integration.persistence;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -13,7 +14,9 @@ import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
+import com.proeza.sgs.business.entity.Movimiento;
 
+import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 import static org.junit.Assert.*;
 
 public class NegocioDalTest extends IntegrationTest {
@@ -38,7 +41,6 @@ public class NegocioDalTest extends IntegrationTest {
 	}
 
 	@Test
-
 	public void articulo_FIND_ALL () {
 		log.info("Inicia articulo_FIND_ALL");
 		final List<Articulo> result = this.articuloDao.findAll();
@@ -59,10 +61,15 @@ public class NegocioDalTest extends IntegrationTest {
 		assertNotNull(clase);
 		assertNotNull(clase.getTipos());
 		assertFalse(clase.getTipos().isEmpty());
+		Set<Movimiento> movimientos = art.getMovimientos();
+		assertNotNull(movimientos);
+		assertFalse(movimientos.isEmpty());
+		Movimiento mov = movimientos.iterator().next();
+		assertNotNull(mov);
+		assertEquals(MOD_PRECIO.getCodigo(), mov.getTipoMov());
 	}
 
 	@Test
-
 	public void articulo_FIND_BY_FILTER_NONE () {
 		log.info("Inicia articulo_FIND_BY_FILTER");
 		final List<Articulo> result = this.filterFactory.create("re,cax").doFilter();
@@ -71,7 +78,6 @@ public class NegocioDalTest extends IntegrationTest {
 	}
 
 	@Test
-
 	public void articulo_FIND_BY_FILTER_SINGLE () {
 		log.info("Inicia articulo_FIND_BY_FILTER");
 		final List<Articulo> result = this.filterFactory.create("sur, REE ").doFilter();
@@ -95,7 +101,6 @@ public class NegocioDalTest extends IntegrationTest {
 	}
 
 	@Test
-
 	public void articulo_FIND_BY_FILTER_SINGLE_2 () {
 		log.info("Inicia articulo_FIND_BY_FILTER");
 		final List<Articulo> result = this.filterFactory.create("sur, EnE ").doFilter();

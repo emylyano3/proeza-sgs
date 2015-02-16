@@ -50,7 +50,7 @@ public class ArticuloCliente implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_cliente", nullable = false, referencedColumnName = "id")
+	@JoinColumn(name = "fk_cliente", nullable = false)
 	public Cliente getCliente () {
 		return this.cliente;
 	}
