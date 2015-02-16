@@ -20,6 +20,8 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.proeza.core.persistence.Identifiable;
+
 import static javax.persistence.GenerationType.*;
 
 /**

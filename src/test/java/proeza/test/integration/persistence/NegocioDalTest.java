@@ -1,5 +1,6 @@
 package proeza.test.integration.persistence;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -9,14 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import proeza.test.integration.IntegrationTest;
 
+import com.proeza.core.persistence.tracking.entity.Movimiento;
 import com.proeza.sgs.business.dao.ArticuloDao;
 import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
-import com.proeza.sgs.business.entity.Movimiento;
 
 import static com.proeza.sgs.business.entity.TipoMovimiento.*;
+
 import static org.junit.Assert.*;
 
 public class NegocioDalTest extends IntegrationTest {
@@ -121,5 +123,18 @@ public class NegocioDalTest extends IntegrationTest {
 		assertNotNull(clase);
 		assertNotNull(clase.getTipos());
 		assertFalse(clase.getTipos().isEmpty());
+	}
+
+	@Test
+	public void articulo_TRACKING () {
+		Articulo art = this.articuloDao.find(2L);
+		assertNotNull(art);
+		Set<Movimiento> movs = art.getMovimientos();
+		assertNotNull(movs);
+		assertTrue(movs.isEmpty());
+		art.setPrecio(BigDecimal.valueOf(120));
+		movs = art.getMovimientos();
+		assertNotNull(movs);
+		assertFalse(movs.isEmpty());
 	}
 }

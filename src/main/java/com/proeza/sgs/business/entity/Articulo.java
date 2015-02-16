@@ -19,11 +19,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.proeza.core.persistence.tracking.entity.Movimiento;
+import com.proeza.core.persistence.tracking.entity.Trackeable;
+
+import static com.proeza.sgs.business.entity.TipoEntidad.*;
+import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 import static javax.persistence.GenerationType.*;
 
 /**
@@ -35,7 +41,7 @@ import static javax.persistence.GenerationType.*;
 	name = "art_articulo",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Articulo implements Serializable, Comparable<Articulo> {
+public class Articulo extends Trackeable implements Serializable, Comparable<Articulo> {
 
 	private static final long	serialVersionUID	= 1L;
 
@@ -51,16 +57,17 @@ public class Articulo implements Serializable, Comparable<Articulo> {
 	private BigDecimal			precio;
 	private int					cantidad;
 
-	private Set<Proveedor>		proveedores			= new HashSet<>(0);
 	private Set<Movimiento>		movimientos			= new HashSet<>(0);
+	private Set<Proveedor>		proveedores			= new HashSet<>(0);
 
 	public Articulo () {
 	}
 
 	@Id
+	@Override
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId () {
+	public Long getId () {
 		return this.id;
 	}
 
@@ -150,6 +157,7 @@ public class Articulo implements Serializable, Comparable<Articulo> {
 	}
 
 	public void setPrecio (BigDecimal precio) {
+		track(MOD_PRECIO.getCodigo(), this.precio, precio);
 		this.precio = precio;
 	}
 
@@ -196,5 +204,21 @@ public class Articulo implements Serializable, Comparable<Articulo> {
 			return 1;
 		}
 		return a.getModelo().compareTo(getModelo());
+	}
+
+	@Override
+	protected void addMovimiento (Movimiento m) {
+		this.movimientos.add(m);
+	}
+
+	@Override
+	protected boolean removeMovimiento (Movimiento m) {
+		return this.movimientos.remove (m);
+	}
+
+	@Override
+	@Transient
+	protected String getTipoEntidad () {
+		return ARTICULO.getCodigo();
 	}
 }
