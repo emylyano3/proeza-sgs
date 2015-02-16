@@ -67,7 +67,7 @@ public class ViewMenuManager implements IViewMenuManager {
 			Set<ItemSubitem> itemSubitems = item.getSubitems();
 			for (ItemSubitem itemSubitem : itemSubitems) {
 				// El subitem debe tener roles en comun con el usuario logueado
-				roleInCommon = !CollectionUtils.intersection(user.getRoles(), itemSubitem.getItem().getRoles()).isEmpty();
+				roleInCommon = !CollectionUtils.intersection(user.getRoles(), itemSubitem.getSubitem().getRoles()).isEmpty();
 				if (roleInCommon) {
 					itemSubitemsFilt.add(itemSubitem);
 				}

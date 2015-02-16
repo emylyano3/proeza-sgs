@@ -3,6 +3,8 @@
 	/* Usuarios */
 	insert into seg_proeza_db.usuario (id, alias, nombre, apellido, email, password) values (100, 'user_admin','user_admin','user_admin', 'user_admin@proeza.com.ar', '$2a$10$oTBcDbxPZlyEhjK4/Q8.o.PCiqc.LwOg5IgF7e4VWAzkDMlVr0cvW');
 	insert into seg_proeza_db.usuario (id, alias, nombre, apellido, email, password) values (101, 'prod_admin','prod_admin','prod_admin', 'prod_admin@proeza.com.ar', '$2a$10$gstdn6.1OVcOmjSxx36kJuHoH9seRgbSNYQjVTNavTBVGGxcrT6VC');
+	insert into seg_proeza_db.usuario (id, alias, nombre, apellido, email, password) values (102, 'prod_viewer','prod_viewer','prod_viewer', 'prod_viewer@proeza.com.ar', '$2a$10$WwVnE7OeUpe1a892TJrbEOUEzTFKWiHLIM0w9WNKyxZmyGM8vmwk2');
+	insert into seg_proeza_db.usuario (id, alias, nombre, apellido, email, password) values (103, 'prod_stat','prod_stat','prod_stat', 'prod_stat@proeza.com.ar', '$2a$10$LGpaazPGhg3U8cqTEb5bq.65GKpqYlEoRG7xEBEtnJ0ZiNN5CFz/S');
 	
 	/* Roles */
 	/* Venta */
@@ -30,7 +32,11 @@
 	
 	/* prod_admin */
 	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (4, 101, 31);
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (5, 101, 32);
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (6, 101, 33);
+	
+	/* prod_stat */
+	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (9, 103, 33);
+	
+	/* prod_viewer */
+	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (10, 102, 32);
 	
 /* Seguridad */
