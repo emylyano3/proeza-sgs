@@ -1,5 +1,6 @@
 package com.proeza.sgs.config.root;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -76,20 +77,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		for (Page page : pages) {
 			String pagePath = getPagePathPattern(page);
 			Set<Rol> roles = page.getRoles();
-			for (Rol rol : roles) {
-				String roleCode = getRoleCode(rol);
-				authRegister.antMatchers(pagePath).hasRole(roleCode);
-			}
+			authRegister.antMatchers(pagePath).hasAnyRole(getRolesCodes(roles));
 		}
 		authRegister.antMatchers("/**").permitAll();
 	}
 
-	private String getRoleCode (Rol rol) {
-		String roleCode = rol.getCodigo();
-		if (roleCode.startsWith(ROLE_PREFIX)) {
-			return roleCode.substring(ROLE_PREFIX.length());
+	private String[] getRolesCodes (Set<Rol> roles) {
+		List<String> rolesCodes = new ArrayList<>(roles.size());
+		for (Rol rol : roles) {
+			String roleCode = rol.getCodigo();
+			if (roleCode.startsWith(ROLE_PREFIX)) {
+				roleCode = roleCode.substring(ROLE_PREFIX.length());
+			}
+			rolesCodes.add(roleCode);
 		}
-		return roleCode;
+		return rolesCodes.toArray(new String[rolesCodes.size()]);
 	}
 
 	private String getPagePathPattern (Page page) {

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorator="layout.html">
+<body>
+	<div id="content" layout:fragment="contenido">
+		<link rel="stylesheet" href="/proeza-sgs/resources/jqx/css/jqx.base.css" type="text/css" />
+		<div class="input-group custom-search-form">
+		   <input id="filter" type="text" class="form-control" placeholder="Buscar..." th:placeholder="#{control.search-articles}"/>
+		   <span class="input-group-btn">
+		       <button id="cleanFilter" class="btn btn-default" type="button">
+		           <i class="fa fa-search"></i>
+		       </button>
+		   </span>
+		</div>
+	    <div id="jqxWidget" style="font-size: 13px; font-family: Verdana; float: left;">
+	        <div id="articulos"></div>
+	        <div style="margin-top: 10px;">
+	            <input id="clear" type="button" value="Clear" />
+        	</div>
+	    </div>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxcore.js"></script>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxbuttons.js"></script>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxscrollbar.js"></script>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxmenu.js"></script>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.js"></script>
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.selection.js"></script> 
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.columnsresize.js"></script> 
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdata.js"></script> 
+	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/demos.js"></script>
+	    <script type="text/javascript">
+
+			function replaceAll(text, busca, reemplaza ){
+				while (text.toString().indexOf(busca) != -1) {
+					text = text.toString().replace(busca,reemplaza);
+				}
+				return text;
+			}
+
+	        $(document).ready(function () {
+	            // prepare the data
+	            var source =
+	            {
+	                datatype: "json",
+	                dataFields: [
+	     	                    { name: 'modelo', type: 'string' },
+	     	                    { name: 'descripcion', type: 'string' },
+	     	                    { name: 'clase', type: 'string' },
+	     	                    { name: 'tipo', type: 'string' },
+	     	                    { name: 'marca', type: 'string' },
+	     	                    { name: 'precio', type: 'double' },
+	                ],
+	                id: "id",
+	                url: "/proeza-sgs/rest/articulos/search?filter="
+	            };
+	            var dataAdapter = new $.jqx.dataAdapter(source);
+	            
+	            // initializa la grilla de articulos
+	            $("#articulos").jqxGrid(
+	            {
+	                width: 850,
+	                source: dataAdapter,
+	                columnsresize: true,
+	                columns: [
+						{ text: 'Modelo', dataField: 'modelo', width: 150 },
+						{ text: 'Descripción', dataField: 'descripcion', width: 230 },
+						{ text: 'Clase', dataField: 'clase', width: 80 },
+						{ text: 'Tipo', dataField: 'tipo', width: 80 },
+						{ text: 'Marca', dataField: 'marca', width: 80 },
+						{ text: 'Precio', dataField: 'precio', minwidth: 70 }
+	                ]
+	            });
+	            // Inicializa los botones de la grilla
+	            $("#clear").jqxButton({ theme: theme });
+	            $('#filter').on('input', function() {
+	                var filter = $(this).val();
+	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
+	                source.url = "/proeza-sgs/rest/articulos/search?" + params;
+					// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas en igual a la anterior
+	                $("#articulos").jqxGrid('updatebounddata', 'cells');
+	            });
+	            $("#clear").click(function () {
+	                $("#articulos").jqxGrid('clear');
+	            });
+	        });
+	    </script>
+	</div>
+</body>
+</html>
