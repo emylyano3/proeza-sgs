@@ -18,7 +18,6 @@ import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
 
 import static com.proeza.sgs.business.entity.TipoMovimiento.*;
-
 import static org.junit.Assert.*;
 
 public class NegocioDalTest extends IntegrationTest {
@@ -136,5 +135,8 @@ public class NegocioDalTest extends IntegrationTest {
 		movs = art.getMovimientos();
 		assertNotNull(movs);
 		assertFalse(movs.isEmpty());
+		Movimiento mov = movs.iterator().next();
+		assertNotNull(mov);
+		assertNotNull(mov.getId());
 	}
 }

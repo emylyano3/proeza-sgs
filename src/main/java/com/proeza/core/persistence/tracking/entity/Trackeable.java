@@ -20,8 +20,8 @@ public abstract class Trackeable implements Identifiable {
 	protected abstract boolean removeMovimiento (Movimiento m);
 
 	/**
-	 * La idea de track es que se persista un movimiento para dejar rastro de los cambios realizados sobre la entidad
-	 * trackeada entre transacciones. <br>
+	 * La idea de track es que se persista un movimiento para dejar rastro de los cambios realizados entre transacciones
+	 * sobre la entidad trackeada. <br>
 	 * Para evitar que se genere mas de un movimiento por transaccion, en caso de que se invoque N veces a este metodo,
 	 * lo que se hace es llevar cuenta de cuantos movimientos sin id (es decir id con valor cero) hay para cada tipo de
 	 * movimiento. En caso de encontrar uno previo, se lo elimina.
@@ -30,12 +30,13 @@ public abstract class Trackeable implements Identifiable {
 		if (getId() == null || valorAnte == null || valorAnte.equals(valorPoste)) {
 			return null;
 		}
-		Movimiento mov = crearNuevo(tipoMov);
+		Object valorAnteFinal = getValorAntePrevio(tipoMov, valorAnte);
+		Movimiento mov = new Movimiento();
 		mov.setFechaMovimiento(DateUtils.createNow().getTime());
 		mov.setIdEntidad(getId());
 		mov.setTipoMov(tipoMov);
 		mov.setTipoEntidad(getTipoEntidad());
-		mov.setValorAnte("" + valorAnte);
+		mov.setValorAnte("" + valorAnteFinal);
 		mov.setValorPost("" + valorPoste);
 		guardarNuevo(mov);
 		return mov;
@@ -52,16 +53,20 @@ public abstract class Trackeable implements Identifiable {
 	}
 
 	/**
-	 * Chequea si existe un movimiento con el tipo recibido, que no tenga id (id == 0). Si encuentra uno lo elimina y
-	 * finalmente devuelve una nueva instancia de {@link Movimiento} Final
+	 * Chequea si existe un movimiento con el tipo recibido, que no tenga id (que tenga id cero). Si lo encuentra
+	 * entonces se cambia el valor a ser tenido en cuenta como anterior, en vez de tomar el recibido, se toma el valor
+	 * anterior del movimiento previo.<br>
+	 * Finalmente se elimina el movimiento encontrado de los movimientos del articulo.
 	 */
-	private Movimiento crearNuevo (String tipoMov) {
+	private Object getValorAntePrevio (String tipoMov, Object valorAnte) {
 		Movimiento mov;
+		Object valorAnteFinal = valorAnte;
 		if ((mov = getPrevious(tipoMov)) != null) {
+			valorAnteFinal = mov.getValorAnte();
 			this.mapMovimientos.get(tipoMov).remove(mov);
 			removeMovimiento(mov);
 		}
-		return new Movimiento();
+		return valorAnteFinal;
 	}
 
 	/**
