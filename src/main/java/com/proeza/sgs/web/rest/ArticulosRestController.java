@@ -26,4 +26,9 @@ public class ArticulosRestController {
 	public List<ArticuloDTO> search (@RequestParam("filter") String filter) {
 		return this.productService.findByStringFilter(filter);
 	}
+
+	@RequestMapping(value = "/rest/articulos/update", method = RequestMethod.GET)
+	public void update () {
+		this.productService.update(202L, 855D);
+	}
 }

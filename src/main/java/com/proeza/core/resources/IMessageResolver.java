@@ -6,16 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface IMessageResolver {
 
-	public abstract String getMessage (String code);
+	String getMessage (String code);
 
-	public abstract String getMessage (String code, HttpServletRequest request);
+	String getMessage (String code, HttpServletRequest request);
 
-	public abstract String getMessage (String code, HttpServletRequest request, String... params);
+	String getMessage (String code, HttpServletRequest request, String... params);
 
-	public abstract String getMessage (String code, Locale locale);
+	String getMessage (String code, Locale locale);
 
-	public abstract String getMessage (String code, Locale locale, String... params);
+	String getMessage (String code, Locale locale, String... params);
 
-	public abstract String getMessage (String code, String... params);
+	String getMessage (String code, String... params);
 
 }

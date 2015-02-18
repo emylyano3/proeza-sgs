@@ -1,5 +1,6 @@
 package com.proeza.sgs.business.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,12 @@ public class ProductService implements IProductService {
 		long time = System.currentTimeMillis() - init;
 		log.info("findByStringFilter - Tiempo insumido: " + time + "ms.");
 		return data;
+	}
+
+	@Override
+	public void update (Long id, Double price) {
+		Articulo art = this.articuloDao.find(id);
+		art.setPrecio(BigDecimal.valueOf(price));
 	}
 
 	private List<ArticuloDTO> hideEntites (List<Articulo> articulos) {

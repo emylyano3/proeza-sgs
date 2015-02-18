@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.proeza.sgs.web.menu.ViewMenuManager;
+import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
 public class HomeController {
@@ -18,7 +18,7 @@ public class HomeController {
 	public static final String	PAGE_NAME	= "home";
 
 	@Autowired
-	private ViewMenuManager		menuManager;
+	private IViewMenuManager	menuManager;
 
 	@ModelAttribute
 	public void menues (final ModelMap model, final Principal principal) {

@@ -5,13 +5,13 @@ import java.util.List;
 
 public interface Dao<Entity> {
 
-	public abstract Entity find (Object id);
+	Entity find (Object id);
 
-	public abstract List<Entity> findAll ();
+	List<Entity> findAll ();
 
-	public abstract Entity persist (Entity entity);
+	Entity persist (Entity entity);
 
-	public abstract Collection<Entity> persist (Collection<Entity> entities);
+	Collection<Entity> persist (Collection<Entity> entities);
 
-	public abstract void delete (Entity entity);
+	void delete (Entity entity);
 }

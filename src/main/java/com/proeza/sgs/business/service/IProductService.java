@@ -9,4 +9,6 @@ public interface IProductService {
 	List<ArticuloDTO> findAll ();
 
 	List<ArticuloDTO> findByStringFilter (String filter);
+
+	void update (Long id, Double price);
 }

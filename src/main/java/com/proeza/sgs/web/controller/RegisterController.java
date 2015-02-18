@@ -18,7 +18,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import com.proeza.security.form.UsuarioForm;
 import com.proeza.security.service.IUserService;
 import com.proeza.sgs.system.mail.IMailManager;
-import com.proeza.sgs.web.menu.ViewMenuManager;
+import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
 public class RegisterController {
@@ -30,7 +30,7 @@ public class RegisterController {
 	private IUserService		userService;
 
 	@Autowired
-	private ViewMenuManager		menuManager;
+	private IViewMenuManager	menuManager;
 
 	@Autowired
 	private IMailManager		mailManager;
@@ -66,7 +66,7 @@ public class RegisterController {
 		} else {
 			userForm = this.userService.create(userForm);
 			this.mailManager.sendRegisterEmail(userForm.getUsuario(), this.localeResolver.resolveLocale(request));
-			return "redirect:/" +  HomeController.PAGE_NAME;
+			return "redirect:/" + HomeController.PAGE_NAME;
 		}
 	}
 }
