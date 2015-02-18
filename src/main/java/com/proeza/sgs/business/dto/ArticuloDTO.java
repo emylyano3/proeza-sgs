@@ -1,22 +1,48 @@
 package com.proeza.sgs.business.dto;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import com.proeza.sgs.business.entity.Articulo;
 
 /**
- * Creado para solucionar el problema de este <a
- * href="http://stackoverflow.com/questions/27944951/invoking-spring-4-x-rest-service">Post</a>
+ * Creado para solucionar este problema de este<br>
+ * <a href="http://stackoverflow.com/questions/27944951/invoking-spring-4-x-rest-service">Post</a>
  */
 public class ArticuloDTO {
+
 	private long	id;
+
 	private String	codigo;
+
+	@NotNull
 	private String	modelo;
+
 	private String	descripcion;
+
+	@NotNull
 	private String	rubro;
+
+	@NotNull
 	private String	clase;
+
+	@NotNull
 	private String	tipo;
+
+	@NotNull
 	private String	marca;
+
+	@Min(0)
+	@NotNull
+	@DecimalMin(value = "0")
 	private Double	costo;
+
+	@NotNull
+	@DecimalMin(value = "0")
 	private Double	precio;
+
+	@Min(0)
 	private int		cantidad;
 
 	public ArticuloDTO (Articulo art) {
