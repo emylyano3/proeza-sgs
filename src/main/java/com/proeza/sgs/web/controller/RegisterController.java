@@ -55,14 +55,14 @@ public class RegisterController {
 		return PAGE_GROUP + "/" + PAGE_NAME + ".html";
 	}
 
-	@RequestMapping(value = "/register", params = {"save"}, method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register (
 		final ModelMap model,
 		@ModelAttribute("userForm") @Valid UsuarioForm userForm,
 		final BindingResult result,
 		HttpServletRequest request) throws MessagingException {
 		if (result.hasErrors()) {
-			return PAGE_NAME + ".html";
+			return PAGE_GROUP + "/" + PAGE_NAME + ".html";
 		} else {
 			userForm = this.userService.create(userForm);
 			this.mailManager.sendRegisterEmail(userForm.getUsuario(), this.localeResolver.resolveLocale(request));
