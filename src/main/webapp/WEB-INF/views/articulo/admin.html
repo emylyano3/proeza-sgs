@@ -6,45 +6,7 @@
 <body>
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="/proeza-sgs/resources/jqx/css/jqx.base.css" type="text/css" />
-	    <div id="jqxWidget" style="font-size: 13px; font-family: Verdana; float: left;">
-			<div id="articulos"></div>
-		    <div style="margin-top: 30px;">
-			    <div id="cellbegineditevent"></div>
-			    <div style="margin-top: 10px;" id="cellendeditevent"></div>
-			</div>
-			<div id="popupWindow">
-				<div>Editar</div>
-				<div style="overflow: hidden;">
-				   <table>
-				       <tr>
-				           <td align="right">Modelo:</td>
-				           <td align="left"><input id="modelo" /></td>
-				       </tr>
-				       <tr>
-				           <td align="right">Clase:</td>
-				           <td align="left"><input id="clase" /></td>
-				       </tr>
-				       <tr>
-				           <td align="right">Tipo:</td>
-				           <td align="left"><input id="tipo" /></td>
-				       </tr>
-				       <tr>
-				           <td align="right">Marca:</td>
-				           <td align="left"><input id="marca" /></td>
-				       </tr>
-				       <tr>
-				           <td align="right">Precio:</td>
-				           <td align="left"><div id="precio"></div></td>
-				       </tr>
-				       <tr>
-				           <td align="right"></td>
-				           <td style="padding-top: 10px;" align="right"><input style="margin-right: 5px;" type="button" id="Guardar" value="Guardar" /><input id="Cancelar" type="button" value="Cancelar" /></td>
-				           </tr>
-				    </table>
-				</div>
-		   </div>
-		</div>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxcore.js"></script>
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxcore.js"></script>
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdata.js"></script> 
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxbuttons.js"></script>
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxscrollbar.js"></script>
@@ -168,6 +130,44 @@
 			    });
 			});
 		</script>
+	    <div id="jqxWidget" style="font-size: 13px; font-family: Verdana; float: left;">
+			<div id="articulos"></div>
+		    <div style="margin-top: 30px;">
+			    <div id="cellbegineditevent"></div>
+			    <div style="margin-top: 10px;" id="cellendeditevent"></div>
+			</div>
+			<div id="popupWindow">
+				<div>Editar</div>
+				<div style="overflow: hidden;">
+				   <table>
+				       <tr>
+				           <td align="right">Modelo:</td>
+				           <td align="left"><input id="modelo" /></td>
+				       </tr>
+				       <tr>
+				           <td align="right">Clase:</td>
+				           <td align="left"><input id="clase" /></td>
+				       </tr>
+				       <tr>
+				           <td align="right">Tipo:</td>
+				           <td align="left"><input id="tipo" /></td>
+				       </tr>
+				       <tr>
+				           <td align="right">Marca:</td>
+				           <td align="left"><input id="marca" /></td>
+				       </tr>
+				       <tr>
+				           <td align="right">Precio:</td>
+				           <td align="left"><div id="precio"></div></td>
+				       </tr>
+				       <tr>
+				           <td align="right"></td>
+				           <td style="padding-top: 10px;" align="right"><input style="margin-right: 5px;" type="button" id="Guardar" value="Guardar" /><input id="Cancelar" type="button" value="Cancelar" /></td>
+				           </tr>
+				    </table>
+				</div>
+		   </div>
+		</div>
 	</div>
 </body>
 </html>
