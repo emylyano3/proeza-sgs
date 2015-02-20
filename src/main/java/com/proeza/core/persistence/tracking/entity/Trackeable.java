@@ -31,15 +31,32 @@ public abstract class Trackeable implements Identifiable {
 			return null;
 		}
 		Object valorAnteFinal = getValorAntePrevio(tipoMov, valorAnte);
-		Movimiento mov = new Movimiento();
-		mov.setFechaMovimiento(DateUtils.createNow().getTime());
-		mov.setIdEntidad(getId());
-		mov.setTipoMov(tipoMov);
-		mov.setTipoEntidad(getTipoEntidad());
-		mov.setValorAnte("" + valorAnteFinal);
-		mov.setValorPost("" + valorPoste);
-		guardarNuevo(mov);
-		return mov;
+		if (!equivalentValue(valorPoste, valorAnteFinal)) {
+			Movimiento mov = new Movimiento();
+			mov.setFechaMovimiento(DateUtils.createNow().getTime());
+			mov.setIdEntidad(getId());
+			mov.setTipoMov(tipoMov);
+			mov.setTipoEntidad(getTipoEntidad());
+			mov.setValorAnte(("" + valorAnteFinal).trim());
+			mov.setValorPost(("" + valorPoste).trim());
+			guardarNuevo(mov);
+			return mov;
+		}
+		return null;
+	}
+
+	private boolean equivalentValue (Object valorPoste, Object valorAnteFinal) {
+		if (valorPoste == null) {
+			if (valorAnteFinal == null) {
+				return true;
+			}
+			return false;
+		} else {
+			if (valorAnteFinal == null) {
+				return false;
+			}
+			return valorAnteFinal.equals(valorPoste.toString());
+		}
 	}
 
 	private void guardarNuevo (Movimiento mov) {

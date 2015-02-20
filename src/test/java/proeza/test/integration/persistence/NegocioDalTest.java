@@ -168,21 +168,25 @@ public class NegocioDalTest extends IntegrationTest {
 			.withFecha(DateUtils.createNow().getTime())
 			.build();
 		Articulo art = this.articuloDao.find(1L);
+		assertEquals(art.getMovimientos().size(), 1);
 		// Agrego la venta de 2 unidades de un articulo, calculo el importe y verifico
 		venta.addArticulo(art, 2);
 		venta.calcularImporte();
 		assertNotNull(venta.getImporte());
 		assertEquals(venta.getImporte().doubleValue(), 540, 0);
 		assertEquals(Integer.valueOf(0), art.getStock());
+		assertEquals(art.getMovimientos().size(), 2);
 		// Actualizo a 1 la cantidad de unidades del articulo vendido y verifico
 		venta.updateArticulo(art, 1);
 		venta.calcularImporte();
 		assertEquals(venta.getImporte().doubleValue(), 270, 0);
 		assertEquals(Integer.valueOf(1), art.getStock());
+		assertEquals(art.getMovimientos().size(), 2);
 		// Quito el articulo vendido y verifico
 		venta.removeArticulo(art);
 		venta.calcularImporte();
 		assertEquals(venta.getImporte().doubleValue(), 0, 0);
 		assertEquals(Integer.valueOf(2), art.getStock());
+		assertEquals(art.getMovimientos().size(), 1);
 	}
 }

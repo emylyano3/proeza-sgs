@@ -7,7 +7,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import proeza.test.integration.IntegrationTest;
 
@@ -36,7 +35,6 @@ public class SistemaDalTest extends IntegrationTest {
 	}
 
 	@Test
-	@Transactional
 	public void page_FIND_BY_ID () {
 		log.info("Inicia page_FIND_BY_ID");
 		final Page page = this.pageDao.find(1L);
@@ -47,7 +45,6 @@ public class SistemaDalTest extends IntegrationTest {
 	}
 
 	@Test
-	@Transactional
 	public void page_MENU_ITEMS () {
 		log.info("Inicia page_MENU_ITEMS_SUBITEMS");
 		final Page page = this.pageDao.findByGroupAndName(HomeController.PAGE_GROUP, HomeController.PAGE_NAME);
@@ -61,7 +58,6 @@ public class SistemaDalTest extends IntegrationTest {
 	}
 
 	@Test
-	@Transactional
 	public void page_MENU_ITEM_SUBITEMS () {
 		log.info("Inicia item_SUBITEMS");
 		final Page page = this.pageDao.findByGroupAndName(HomeController.PAGE_GROUP, HomeController.PAGE_NAME);
@@ -73,6 +69,7 @@ public class SistemaDalTest extends IntegrationTest {
 		Set<MenuItem> items = menu.getItems();
 		assertNotNull("El menu de la pagina debe tener al menos un item", items);
 		assertFalse("El menu de la pagina debe tener al menos un item", items.isEmpty());
+		List<String> codSubitems = Arrays.asList(new String[] {"MI_ARTI_HOME", "MI_ARTI_LIST", "MI_ARTI_STATS", "MI_ARTI_ADMIN"});
 		for (MenuItem menuItem : items) {
 			assertNotNull("Un menu no debe tener items nulos", menuItem);
 			Item item = menuItem.getItem();
@@ -84,7 +81,6 @@ public class SistemaDalTest extends IntegrationTest {
 				assertNotNull("El item MI_ARTI no debe tener subitems nulos", itemSubitem);
 				Item subitem = itemSubitem.getSubitem();
 				assertNotNull("El item MI_ARTI no debe tener subitems nulos", subitem);
-				List<String> codSubitems = Arrays.asList(new String[] {"MI_ARTI_HOME", "MI_ARTI_LIST"});
 				assertTrue("El subitem debe tener alguno de los codigos: " + codSubitems, codSubitems.contains(subitem.getCode()));
 			}
 		}
