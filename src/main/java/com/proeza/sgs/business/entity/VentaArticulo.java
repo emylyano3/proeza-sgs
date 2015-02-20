@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.proeza.sgs.business.exception.StockNotEnoughException;
+import com.proeza.sgs.business.exception.StockNoDisponibleException;
 
 import static javax.persistence.GenerationType.*;
 
@@ -76,7 +76,7 @@ public class VentaArticulo implements Serializable {
 			int stock = this.articulo.getStock();
 			int newStock = stock + dif;
 			if (newStock < 0) {
-				throw new StockNotEnoughException();
+				throw new StockNoDisponibleException();
 			}
 			this.articulo.setStock(newStock);
 		}
