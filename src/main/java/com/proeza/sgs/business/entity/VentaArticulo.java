@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.proeza.sgs.business.exception.StockNotEnoughException;
+
 import static javax.persistence.GenerationType.*;
 
 /**
@@ -69,6 +71,53 @@ public class VentaArticulo implements Serializable {
 	}
 
 	public void setCantidad (int cantidad) {
+		if (this.articulo != null) {
+			int dif = this.cantidad - cantidad;
+			int stock = this.articulo.getStock();
+			int newStock = stock + dif;
+			if (newStock < 0) {
+				throw new StockNotEnoughException();
+			}
+			this.articulo.setStock(newStock);
+		}
 		this.cantidad = cantidad;
+	}
+
+	@Override
+	public int hashCode () {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (this.articulo == null ? 0 : this.articulo.hashCode());
+		result = prime * result + (this.venta == null ? 0 : this.venta.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals (Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		VentaArticulo other = (VentaArticulo) obj;
+		if (this.articulo == null) {
+			if (other.articulo != null) {
+				return false;
+			}
+		} else if (!this.articulo.equals(other.articulo)) {
+			return false;
+		}
+		if (this.venta == null) {
+			if (other.venta != null) {
+				return false;
+			}
+		} else if (!this.venta.equals(other.venta)) {
+			return false;
+		}
+		return true;
 	}
 }

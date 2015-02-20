@@ -45,7 +45,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 
 	private static final long	serialVersionUID	= 1L;
 
-	private long				id;
+	private Long				id;
 	private String				codigo;
 	private String				modelo;
 	private String				descripcion;
@@ -55,7 +55,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 	private Marca				marca;
 	private BigDecimal			costo;
 	private BigDecimal			precio;
-	private int					cantidad;
+	private Integer				stock;
 
 	private Set<Movimiento>		movimientos			= new HashSet<>(0);
 	private Set<Proveedor>		proveedores			= new HashSet<>(0);
@@ -71,7 +71,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 		return this.id;
 	}
 
-	public void setId (long id) {
+	public void setId (Long id) {
 		this.id = id;
 	}
 
@@ -148,6 +148,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 	}
 
 	public void setCosto (BigDecimal costo) {
+		track(MOD_COSTO.getCodigo(), this.costo, costo);
 		this.costo = costo;
 	}
 
@@ -162,12 +163,13 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 	}
 
 	@Column(name = "cantidad", nullable = false)
-	public int getCantidad () {
-		return this.cantidad;
+	public Integer getStock () {
+		return this.stock;
 	}
 
-	public void setCantidad (int cantidad) {
-		this.cantidad = cantidad;
+	public void setStock (Integer cantidad) {
+		track(MOD_STOCK.getCodigo(), this.stock, cantidad);
+		this.stock = cantidad;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -194,11 +196,6 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 	}
 
 	@Override
-	public String toString () {
-		return "Articulo [id=" + this.id + ", codigo=" + this.codigo + ", modelo=" + this.modelo + ", descripcion=" + this.descripcion + ", rubro=" + this.rubro + ", clase=" + this.clase + ", tipo=" + this.tipo + ", marca=" + this.marca + ", costo=" + this.costo + ", precio=" + this.precio + ", cantidad=" + this.cantidad + "]";
-	}
-
-	@Override
 	public int compareTo (Articulo a) {
 		if (a == null) {
 			return 1;
@@ -213,12 +210,51 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 
 	@Override
 	protected boolean removeMovimiento (Movimiento m) {
-		return this.movimientos.remove (m);
+		return this.movimientos.remove(m);
 	}
 
 	@Override
 	@Transient
 	protected String getTipoEntidad () {
 		return ARTICULO.getCodigo();
+	}
+
+	@Override
+	public String toString () {
+		return "Articulo [id=" + this.id + ", codigo=" + this.codigo + ", modelo=" + this.modelo + ", descripcion=" + this.descripcion + ", tipo=" + this.tipo + ", marca=" + this.marca + ", costo=" + this.costo + ", precio=" + this.precio + ", cantidad=" + this.stock + "]";
+	}
+
+	@Override
+	public int hashCode () {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (this.codigo == null ? 0 : this.codigo.hashCode());
+		result = prime * result + (int) (this.id ^ this.id >>> 32);
+		return result;
+	}
+
+	@Override
+	public boolean equals (Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Articulo other = (Articulo) obj;
+		if (this.codigo == null) {
+			if (other.codigo != null) {
+				return false;
+			}
+		} else if (!this.codigo.equals(other.codigo)) {
+			return false;
+		}
+		if (this.id != other.id) {
+			return false;
+		}
+		return true;
 	}
 }

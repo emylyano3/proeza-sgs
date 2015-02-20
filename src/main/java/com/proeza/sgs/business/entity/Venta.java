@@ -3,7 +3,10 @@ package com.proeza.sgs.business.entity;
 // Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -18,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+
+import com.proeza.sgs.business.exception.ArticuloDuplicadoEnVentaException;
 
 import static javax.persistence.GenerationType.*;
 
@@ -37,10 +42,10 @@ public class Venta implements Serializable {
 	private String				codigo;
 	private MedioPago			medioPago;
 	private Date				fecha;
-	private double				importe;
+	private BigDecimal			importe;
 	private Cliente				cliente;
 
-	private Set<VentaArticulo>	articulos;
+	private Set<VentaArticulo>	articulos			= new HashSet<>();
 
 	public Venta () {
 	}
@@ -86,11 +91,14 @@ public class Venta implements Serializable {
 	}
 
 	@Column(name = "importe", nullable = false, precision = 10)
-	public double getImporte () {
+	public BigDecimal getImporte () {
 		return this.importe;
 	}
 
-	public void setImporte (double importe) {
+	public void setImporte (BigDecimal importe) {
+		if (importe != null) {
+			importe.setScale(2, RoundingMode.HALF_UP);
+		}
 		this.importe = importe;
 	}
 
@@ -111,5 +119,96 @@ public class Venta implements Serializable {
 
 	public void setArticulos (Set<VentaArticulo> articulos) {
 		this.articulos = articulos;
+	}
+
+	public void addArticulo (Articulo a, int cantidad) {
+		VentaArticulo va = new VentaArticulo();
+		va.setArticulo(a);
+		va.setVenta(this);
+		if (findArticulo(va) == null) {
+			va.setCantidad(cantidad);
+			this.articulos.add(va);
+		} else {
+			throw new ArticuloDuplicadoEnVentaException();
+		}
+	}
+
+	public void updateArticulo (Articulo a, int cantidad) {
+		VentaArticulo va = new VentaArticulo();
+		va.setArticulo(a);
+		va.setVenta(this);
+		if ((va = findArticulo(va)) != null) {
+			va.setCantidad(cantidad);
+		}
+	}
+
+	public boolean removeArticulo (Articulo a) {
+		VentaArticulo va = new VentaArticulo();
+		va.setArticulo(a);
+		va.setVenta(this);
+		if ((va = findArticulo(va)) != null) {
+			va.setCantidad(0);
+			return this.articulos.remove(va);
+		}
+		return false;
+	}
+
+	private VentaArticulo findArticulo (VentaArticulo va) {
+		if (this.articulos.contains(va)) {
+			for (VentaArticulo aux : this.articulos) {
+				if (aux.equals(va)) {
+					return aux;
+				}
+			}
+		}
+		return null;
+	}
+
+	public BigDecimal calcularImporte () {
+		double acum = 0;
+		for (VentaArticulo va : this.articulos) {
+			acum += va.getCantidad() * va.getArticulo().getPrecio().doubleValue();
+		}
+		setImporte(BigDecimal.valueOf(acum));
+		return getImporte();
+	}
+
+	@Override
+	public String toString () {
+		return "Venta [id=" + this.id + ", codigo=" + this.codigo + ", medioPago=" + this.medioPago + ", fecha=" + this.fecha + ", importe=" + this.importe + "]";
+	}
+
+	@Override
+	public int hashCode () {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (this.codigo == null ? 0 : this.codigo.hashCode());
+		result = prime * result + (int) (this.id ^ this.id >>> 32);
+		return result;
+	}
+
+	@Override
+	public boolean equals (Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Venta other = (Venta) obj;
+		if (this.codigo == null) {
+			if (other.codigo != null) {
+				return false;
+			}
+		} else if (!this.codigo.equals(other.codigo)) {
+			return false;
+		}
+		if (this.id != other.id) {
+			return false;
+		}
+		return true;
 	}
 }

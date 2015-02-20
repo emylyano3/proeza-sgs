@@ -5,7 +5,8 @@ import java.io.Serializable;
 public enum TipoMovimiento implements Serializable {
 
 	MOD_STOCK("Modificacion Stock", "Modificación de stock"),
-	MOD_PRECIO("Modificacion Precio", "Modificación de precio");
+	MOD_COSTO("Modificacion Costo", "Modificación del costo"),
+	MOD_PRECIO("Modificacion Precio", "Modificación del precio");
 
 	private TipoMovimiento (String nombre, String desc) {
 		this.nombre = nombre;

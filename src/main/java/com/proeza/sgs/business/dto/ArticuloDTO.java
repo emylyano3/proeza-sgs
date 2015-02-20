@@ -54,7 +54,7 @@ public class ArticuloDTO {
 		this.marca = art.getMarca() != null ? art.getMarca().getNombre() : null;
 		this.clase = art.getClase() != null ? art.getClase().getNombre() : null;
 		this.tipo = art.getTipo() != null ? art.getTipo().getNombre() : null;
-		this.cantidad = art.getCantidad();
+		this.cantidad = art.getStock();
 		this.costo = art.getCosto() != null ? art.getCosto().doubleValue() : 0;
 		this.precio = art.getPrecio() != null ? art.getPrecio().doubleValue() : 0;
 	}

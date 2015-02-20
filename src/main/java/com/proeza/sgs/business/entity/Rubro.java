@@ -30,7 +30,7 @@ import static javax.persistence.GenerationType.*;
 	catalog = "sgs_proeza_db",
 	name = "art_rubro",
 	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
-@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Rubro implements Serializable, Identifiable {
 
 	private static final long	serialVersionUID	= 1L;
@@ -105,6 +105,6 @@ public class Rubro implements Serializable, Identifiable {
 
 	@Override
 	public String toString () {
-		return "Rubro [id=" + this.id + ", codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
+		return "Rubro [codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
 	}
 }

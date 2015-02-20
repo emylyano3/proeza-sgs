@@ -104,7 +104,7 @@ public class ArticuloBuilder {
 	public Articulo build () {
 		Articulo a = new Articulo();
 		a.setId(this.id);
-		a.setCantidad(this.cantidad);
+		a.setStock(this.cantidad);
 		a.setClase(this.clase);
 		a.setCodigo(this.codigo);
 		a.setCosto(this.costo);

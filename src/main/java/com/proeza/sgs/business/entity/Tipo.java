@@ -108,6 +108,6 @@ public class Tipo implements Serializable, Identifiable {
 
 	@Override
 	public String toString () {
-		return "Tipo [id=" + this.id + ", codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
+		return "Tipo [codigo=" + this.codigo + ", nombre=" + this.nombre + ", clase=" + this.clase + "]";
 	}
 }
