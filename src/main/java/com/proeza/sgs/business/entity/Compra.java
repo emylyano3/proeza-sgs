@@ -41,7 +41,7 @@ public class Compra implements Serializable {
 	private double				importe;
 	private Proveedor			proveedor;
 
-	private Set<CompraArticulo>	articulos			= new HashSet<CompraArticulo>(0);
+	private Set<CompraArticulo>	articulos			= new HashSet<>(0);
 
 	public Compra () {
 	}

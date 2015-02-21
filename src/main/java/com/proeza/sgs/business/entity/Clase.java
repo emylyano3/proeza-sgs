@@ -118,6 +118,6 @@ public class Clase implements Serializable, Identifiable {
 
 	@Override
 	public String toString () {
-		return "Clase [codigo=" + this.codigo + ", nombre=" + this.nombre + ", rubro=" + this.rubro + "]";
+		return "[" + this.codigo + ":" + this.nombre + "]";
 	}
 }

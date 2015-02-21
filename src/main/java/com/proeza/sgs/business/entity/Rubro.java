@@ -105,6 +105,6 @@ public class Rubro implements Serializable, Identifiable {
 
 	@Override
 	public String toString () {
-		return "Rubro [codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
+		return "[" + this.codigo + ":" + this.nombre + "]";
 	}
 }

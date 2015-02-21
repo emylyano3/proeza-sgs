@@ -221,7 +221,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 
 	@Override
 	public String toString () {
-		return "Articulo [id=" + this.id + ", codigo=" + this.codigo + ", modelo=" + this.modelo + ", descripcion=" + this.descripcion + ", tipo=" + this.tipo + ", marca=" + this.marca + ", costo=" + this.costo + ", precio=" + this.precio + ", cantidad=" + this.stock + "]";
+		return "Articulo [codigo=" + this.codigo + ", modelo=" + this.modelo + ", rubro=" + this.rubro + ", clase=" + this.clase + ", tipo=" + this.tipo + ", marca=" + this.marca + ", costo=" + this.costo + ", precio=" + this.precio + ", stock=" + this.stock + "]";
 	}
 
 	@Override

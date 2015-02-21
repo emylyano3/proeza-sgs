@@ -95,6 +95,6 @@ public class Marca implements Serializable, Identifiable {
 
 	@Override
 	public String toString () {
-		return "Marca [id=" + this.id + ", nombre=" + this.nombre + ", codigo=" + this.codigo + "]";
+		return "[" + this.codigo + ":" + this.nombre + "]";
 	}
 }
