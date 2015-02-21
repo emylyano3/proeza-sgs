@@ -1,4 +1,4 @@
-package proeza.test.unit.web.context;
+package proeza.test.unit;
 
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.mail.IMailManager;
 
 @Configuration
-public class TestContext {
+public class UnitTestContext {
 
 	@Bean
 	public IUserService userService () {

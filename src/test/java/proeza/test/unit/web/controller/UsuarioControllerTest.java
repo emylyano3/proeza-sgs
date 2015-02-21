@@ -6,7 +6,7 @@ import java.util.Set;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import proeza.test.unit.web.WebMvcTest;
+import proeza.test.unit.web.WebMvcUnitTest;
 
 import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.sgs.system.dao.IPageDao;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static proeza.test.unit.web.WebMvcTestUtils.*;
 
-public class UsuarioControllerTest extends WebMvcTest {
+public class UsuarioControllerTest extends WebMvcUnitTest {
 
 	@Autowired
 	private IPageDao	pageDao;

@@ -91,6 +91,17 @@ public class WebMvcTestUtils {
 		return menu;
 	}
 
+	public static String buildPagePath (String group, String name, String suffix) {
+		StringBuilder sb = new StringBuilder();
+		sb
+			.append(group)
+			.append("/")
+			.append(name)
+			.append(".")
+			.append(suffix);
+		return sb.toString();
+	}
+
 	private synchronized static long getNextId () {
 		return ++id;
 	}

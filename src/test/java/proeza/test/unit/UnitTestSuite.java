@@ -4,13 +4,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import proeza.test.unit.settings.SettingsTest;
-import proeza.test.unit.web.controller.HomeControllerTest;
-import proeza.test.unit.web.controller.UsuarioControllerTest;
+import proeza.test.unit.viewmenu.ViewMenuManagerTest;
+import proeza.test.unit.web.controller.ControllerTestSuite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	HomeControllerTest.class,
-	UsuarioControllerTest.class,
+	ControllerTestSuite.class,
+	ViewMenuManagerTest.class,
 	SettingsTest.class
 })
-public class UnitTestSuite {}
+public class UnitTestSuite {
+}
