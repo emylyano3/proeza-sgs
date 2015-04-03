@@ -1,3 +1,6 @@
+CREATE DATABASE  IF NOT EXISTS `seg_proeza_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `seg_proeza_db`;
+
 -- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: seg_proeza_db
