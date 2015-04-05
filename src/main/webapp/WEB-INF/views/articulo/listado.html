@@ -5,19 +5,20 @@
 	layout:decorator="layout.html">
 <body>
 	<div id="content" layout:fragment="contenido">
-		<link rel="stylesheet" href="/proeza-sgs/resources/jqx/css/jqx.base.css" type="text/css" />
-		<div class="input-group custom-search-form">
+		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" />
+		<div class="input-group">
 		   <input id="filter" type="text" class="form-control" placeholder="Buscar..." th:placeholder="#{control.search-articles}"/>
 		   <span class="input-group-btn">
-		       <button id="cleanFilter" class="btn btn-default" type="button">
-		           <i class="fa fa-search"></i>
+		       <button id="search" class="btn btn-default" type="button">
+		           <i class="fa fa-search"/>
 		       </button>
 		   </span>
 		</div>
+        <p/>
 	    <div id="jqxWidget" style="font-size: 13px; font-family: Verdana; float: left;">
 	        <div id="articulos"></div>
 	        <div style="margin-top: 10px;">
-	            <input id="clear" type="button" value="Clear" />
+	            <input id="clear" type="button" value="Clear" th:value="#{control.clear}" />
         	</div>
 	    </div>
 	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxcore.js"></script>
@@ -59,7 +60,7 @@
 	            // initializa la grilla de articulos
 	            $("#articulos").jqxGrid(
 	            {
-	                width: 850,
+	                width: 1075,
 	                source: dataAdapter,
 	                columnsresize: true,
 	                columns: [
@@ -82,6 +83,7 @@
 	            });
 	            $("#clear").click(function () {
 	                $("#articulos").jqxGrid('clear');
+	                $("#filter").val("");
 	            });
 	        });
 	    </script>

@@ -50,7 +50,7 @@
 	insert into sgs_proeza_db.art_articulo_proveedor(id, fk_articulo, fk_proveedor) values (2, 2, 1);
 	
 	/* Articulo - Cliente */
-	insert into sgs_proeza_db.art_articulo_cliente(fk_articulo, fk_cliente) values (1, 2);
+	insert into sgs_proeza_db.art_articulo_cliente(id, fk_articulo, fk_cliente) values (1, 1, 2);
 	
 	/* Venta */
 	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente) values ('EFT20150215', '02/15/2015', 1500, 1, 2);

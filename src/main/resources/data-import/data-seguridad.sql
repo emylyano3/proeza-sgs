@@ -34,9 +34,9 @@
 	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (4, 101, 31);
 	
 	/* prod_stat */
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (9, 103, 33);
+	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (5, 102, 32);
 	
 	/* prod_viewer */
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (10, 102, 32);
+	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (6, 103, 33);
 	
 /* Seguridad */
