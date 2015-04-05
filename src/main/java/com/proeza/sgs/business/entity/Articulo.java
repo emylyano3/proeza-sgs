@@ -25,8 +25,8 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.proeza.core.persistence.tracking.entity.Movimiento;
-import com.proeza.core.persistence.tracking.entity.Trackeable;
+import com.proeza.core.tracking.entity.Movimiento;
+import com.proeza.core.tracking.entity.Trackeable;
 
 import static com.proeza.sgs.business.entity.TipoEntidad.*;
 import static com.proeza.sgs.business.entity.TipoMovimiento.*;

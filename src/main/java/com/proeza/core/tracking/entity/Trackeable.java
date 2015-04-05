@@ -1,4 +1,4 @@
-package com.proeza.core.persistence.tracking.entity;
+package com.proeza.core.tracking.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

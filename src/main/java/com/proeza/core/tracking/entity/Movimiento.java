@@ -1,4 +1,4 @@
-package com.proeza.core.persistence.tracking.entity;
+package com.proeza.core.tracking.entity;
 
 // Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
 

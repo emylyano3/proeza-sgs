@@ -55,7 +55,7 @@ public class JpaConfig {
 	@Bean
 	public AbstractEntityManagerFactoryBean entityManager (DataSource ds, AbstractJpaVendorAdapter jpaAdapter, Properties jpaProperties) {
 		final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setPackagesToScan("com.proeza.sgs.business.entity", "com.proeza.security.entity", "com.proeza.sgs.system.entity", "com.proeza.core.persistence.tracking.entity");
+		em.setPackagesToScan("com.proeza.sgs.business.entity", "com.proeza.security.entity", "com.proeza.sgs.system.entity", "com.proeza.core.tracking.entity");
 		em.setDataSource(ds);
 		em.setJpaVendorAdapter(jpaAdapter);
 		em.setJpaProperties(jpaProperties);

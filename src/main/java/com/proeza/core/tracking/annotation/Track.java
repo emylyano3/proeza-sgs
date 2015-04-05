@@ -1,4 +1,4 @@
-package com.proeza.core.persistence.tracking.annotation;
+package com.proeza.core.tracking.annotation;
 
 public @interface Track {
 

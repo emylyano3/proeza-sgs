@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.proeza.core.persistence.tracking.entity.Movimiento;
+import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.sgs.business.dto.ArticuloDTO;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
