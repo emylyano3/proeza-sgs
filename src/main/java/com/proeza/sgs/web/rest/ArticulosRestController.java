@@ -27,8 +27,8 @@ public class ArticulosRestController {
 		return this.productService.findByStringFilter(filter);
 	}
 
-	@RequestMapping(value = "/rest/articulos/update", method = RequestMethod.GET)
-	public void update () {
-		this.productService.update(202L, 855D);
+	@RequestMapping(value = "/rest/articulos/updatePrice", method = RequestMethod.GET)
+	public void updatePrice (@RequestParam("id") String id, @RequestParam("price") String price) {
+		this.productService.update(Long.valueOf(id), Double.valueOf(price));
 	}
 }

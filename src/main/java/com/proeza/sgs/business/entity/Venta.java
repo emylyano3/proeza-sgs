@@ -90,7 +90,7 @@ public class Venta implements Serializable {
 		this.fecha = fecha;
 	}
 
-	@Column(name = "importe", nullable = false, precision = 10)
+	@Column(name = "importe", nullable = false, precision = 10, scale = 2)
 	public BigDecimal getImporte () {
 		return this.importe;
 	}

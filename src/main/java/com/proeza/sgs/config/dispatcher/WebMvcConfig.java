@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @ComponentScan(basePackages = {"com.proeza.sgs.web"})
 @EnableWebMvc
+//TODO Esta configuracion tambien esta en JpaConfig. Quitar esta!
 @EnableTransactionManagement
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 

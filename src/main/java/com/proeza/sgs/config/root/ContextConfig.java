@@ -35,8 +35,8 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 import com.proeza.core.config.DataSourceSettings;
 import com.proeza.core.config.MailSettings;
-import com.proeza.core.config.Settings;
 import com.proeza.core.resources.MessageResolver;
+import com.proeza.core.tracking.aspect.Tracking;
 
 @Configuration
 @Import(value = {
@@ -45,8 +45,7 @@ import com.proeza.core.resources.MessageResolver;
 	SecurityConfig.class
 })
 @ComponentScan(
-	basePackages = {"com.proeza.**.service", "com.proeza.**.mail"},
-	basePackageClasses = {Settings.class},
+	basePackages = {"com.proeza.**.service", "com.proeza.**.mail", "com.proeza.core.config"},
 	excludeFilters = {
 		@Filter(Configuration.class),
 		@Filter(Controller.class),
@@ -64,6 +63,9 @@ public class ContextConfig {
 	private MailSettings		mailSettings;
 
 	@Bean
+	/**
+	 * TODO Esta config ya esta en DataSourceConfig. Quitarla!
+	 */
 	public DataSource dataSource () {
 		final DriverManagerDataSource ds = new DriverManagerDataSource();
 		ds.setUrl(this.dsSettings.getUrl());
@@ -82,6 +84,7 @@ public class ContextConfig {
 	public MessageSource messageSource () {
 		final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 		messageSource.setBasename("/WEB-INF/messages/messages");
+		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
 	}
 
@@ -137,6 +140,11 @@ public class ContextConfig {
 		templateEngine.addDialect(new SpringSecurityDialect());
 		templateEngine.addMessageResolver(messageResolver);
 		return templateEngine;
+	}
+
+	@Bean
+	public Tracking trackingAspect () {
+		return new Tracking();
 	}
 
 	@Bean

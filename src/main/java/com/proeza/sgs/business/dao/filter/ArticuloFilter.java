@@ -73,7 +73,7 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
 			Expression<String> lowerModelo = this.builder.lower(root.get(Articulo_.modelo));
 			Expression<String> lowerDescripcion = this.builder.lower(root.get(Articulo_.descripcion));
 
-			List<Predicate> predicates = new ArrayList<>();
+			List<Predicate> predicates = new ArrayList<>(5);
 
 			for (String element : this.widedFilter) {
 				predicates.add(this.builder.like(lowerClase, element));
@@ -88,12 +88,12 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
 			List<Articulo> bag = this.articuloDao.getEntityManager().createQuery(criteria).getResultList();
 			return reapplyFilters(bag);
 		} else {
-			return new ArrayList<>();
+			return new ArrayList<>(0);
 		}
 	}
 
 	private List<Articulo> reapplyFilters (List<Articulo> bag) {
-		List<Articulo> result = new ArrayList<>(0);
+		List<Articulo> result = new ArrayList<>(13);
 		Set<String> matched = new HashSet<>(this.rawFilterSplitted.length);
 		for (Articulo articulo : bag) {
 			for (String filter : this.rawFilterSplitted) {
