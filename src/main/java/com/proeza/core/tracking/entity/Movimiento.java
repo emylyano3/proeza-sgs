@@ -24,9 +24,9 @@ public class Movimiento implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
-	private long				id;
+	private Long				id;
 	private String				tipoMov;
-	private long				idEntidad;
+	private Long				idEntidad;
 	private String				tipoEntidad;
 	private Date				fechaMovimiento;
 	private String				valorAnte;
@@ -38,11 +38,11 @@ public class Movimiento implements Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId () {
+	public Long getId () {
 		return this.id;
 	}
 
-	public void setId (long id) {
+	public void setId (Long id) {
 		this.id = id;
 	}
 
@@ -84,11 +84,11 @@ public class Movimiento implements Serializable {
 	}
 
 	@Column(name = "fk_entidad", nullable = false)
-	public long getIdEntidad () {
+	public Long getIdEntidad () {
 		return this.idEntidad;
 	}
 
-	public void setIdEntidad (long idEntidad) {
+	public void setIdEntidad (Long idEntidad) {
 		this.idEntidad = idEntidad;
 	}
 

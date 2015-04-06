@@ -35,8 +35,8 @@ public abstract class BaseDao<Entity> implements Dao<Entity> {
 	public List<Entity> findAll () {
 		@SuppressWarnings("unchecked")
 		final List<Entity> resultList = this.entityManager
-			.createQuery(" select x from " + getEntityClass().getName() + " x")
-			.getResultList();
+		    .createQuery(" select x from " + getEntityClass().getName() + " x")
+		    .getResultList();
 		return resultList;
 	}
 

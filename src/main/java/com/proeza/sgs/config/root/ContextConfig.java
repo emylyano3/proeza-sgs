@@ -36,7 +36,6 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 import com.proeza.core.config.DataSourceSettings;
 import com.proeza.core.config.MailSettings;
 import com.proeza.core.resources.MessageResolver;
-import com.proeza.core.tracking.aspect.Tracking;
 
 @Configuration
 @Import(value = {
@@ -140,11 +139,6 @@ public class ContextConfig {
 		templateEngine.addDialect(new SpringSecurityDialect());
 		templateEngine.addMessageResolver(messageResolver);
 		return templateEngine;
-	}
-
-	@Bean
-	public Tracking trackingAspect () {
-		return new Tracking();
 	}
 
 	@Bean

@@ -59,7 +59,12 @@
                     <span class="icon-bar"/>
                     <span class="icon-bar"/>
                 </button>
-                <a class="navbar-brand" href="#" th:href="@{/home}" th:text="#{app.name}">Proeza SGS</a>
+                <a class="navbar-brand" href="#" th:href="@{/home}">
+                	<div>
+	                	<img src="../../resources/app/img/logo20x.png" th:src="@{/resources/app/img/logo20x.png}" />
+	                	<span th:text="#{app.name}"/>
+                	</div>
+                </a>
             </div>
             <!-- /.navbar-header -->
 
