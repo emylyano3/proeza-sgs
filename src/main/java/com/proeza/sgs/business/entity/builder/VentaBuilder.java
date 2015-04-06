@@ -13,7 +13,7 @@ import com.proeza.sgs.business.entity.VentaArticulo;
 
 public class VentaBuilder {
 
-	private long				id;
+	private Long				id;
 	private String				codigo;
 	private MedioPago			medioPago;
 	private Date				fecha;
@@ -22,7 +22,7 @@ public class VentaBuilder {
 
 	private Set<VentaArticulo>	articulos	= new HashSet<>();
 
-	public VentaBuilder withId (long id) {
+	public VentaBuilder withId (Long id) {
 		this.id = id;
 		return this;
 	}

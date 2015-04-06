@@ -15,18 +15,18 @@ import static javax.persistence.GenerationType.*;
 @Table(schema = "sgs_proeza_db", name = "cmn_email")
 public class Email {
 
-	private long	id;
+	private Long	id;
 	private String	direccion;
 	private Persona	persona;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
-	public long getId () {
+	public Long getId () {
 		return this.id;
 	}
 
-	public void setId (long id) {
+	public void setId (Long id) {
 		this.id = id;
 	}
 

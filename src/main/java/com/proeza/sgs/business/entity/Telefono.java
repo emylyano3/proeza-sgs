@@ -16,7 +16,7 @@ import static javax.persistence.GenerationType.*;
 @Table(schema = "sgs_proeza_db", name = "cmn_telefono")
 public class Telefono {
 
-	private long			id;
+	private Long			id;
 	private String			prefInternacional;
 	private String			prefArea;
 	private String			numero;
@@ -26,11 +26,11 @@ public class Telefono {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
-	public long getId () {
+	public Long getId () {
 		return this.id;
 	}
 
-	public void setId (long id) {
+	public void setId (Long id) {
 		this.id = id;
 	}
 

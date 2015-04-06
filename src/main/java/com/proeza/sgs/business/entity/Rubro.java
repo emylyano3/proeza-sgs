@@ -35,7 +35,7 @@ public class Rubro implements Serializable, Identifiable {
 
 	private static final long	serialVersionUID	= 1L;
 
-	private long				id;
+	private Long				id;
 	private String				codigo;
 	private String				nombre;
 	private String				descripcion;
@@ -54,7 +54,7 @@ public class Rubro implements Serializable, Identifiable {
 		return this.id;
 	}
 
-	public void setId (long id) {
+	public void setId (Long id) {
 		this.id = id;
 	}
 

@@ -15,7 +15,7 @@ import com.proeza.sgs.business.entity.Tipo;
 
 public class ArticuloBuilder {
 
-	private long			id;
+	private Long			id;
 	private String			codigo;
 	private String			modelo;
 	private String			descripcion;
@@ -30,7 +30,7 @@ public class ArticuloBuilder {
 	private Set<Movimiento>	movimientos	= new HashSet<>(0);
 	private Set<Proveedor>	proveedores	= new HashSet<>(0);
 
-	public ArticuloBuilder withId (long id) {
+	public ArticuloBuilder withId (Long id) {
 		this.id = id;
 		return this;
 	}
@@ -72,6 +72,11 @@ public class ArticuloBuilder {
 
 	public ArticuloBuilder withPrecio (BigDecimal precio) {
 		this.precio = precio;
+		return this;
+	}
+
+	public ArticuloBuilder withCosto (BigDecimal costo) {
+		this.costo = costo;
 		return this;
 	}
 

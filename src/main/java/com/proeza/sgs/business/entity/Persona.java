@@ -22,7 +22,7 @@ import static javax.persistence.GenerationType.*;
 public class Persona implements Serializable {
 	private static final long	serialVersionUID	= 1L;
 
-	private long				id;
+	private Long				id;
 	private String				nombre;
 	private String				apellido;
 	private String				sexo				= "M";
@@ -33,11 +33,11 @@ public class Persona implements Serializable {
 	@Id
 	@GeneratedValue(strategy = AUTO)
 	@Column(name = "id", nullable = false, unique = true)
-	public long getId () {
+	public Long getId () {
 		return this.id;
 	}
 
-	public void setId (long id) {
+	public void setId (Long id) {
 		this.id = id;
 	}
 

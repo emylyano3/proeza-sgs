@@ -21,7 +21,7 @@ public class ArticuloProveedor implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
-	private long				id;
+	private Long				id;
 	private Articulo			articulo;
 	private Proveedor			proveedor;
 
@@ -31,11 +31,11 @@ public class ArticuloProveedor implements Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId () {
+	public Long getId () {
 		return this.id;
 	}
 
-	public void setId (long id) {
+	public void setId (Long id) {
 		this.id = id;
 	}
 
