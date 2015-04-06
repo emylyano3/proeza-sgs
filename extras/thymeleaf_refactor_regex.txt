@@ -3,7 +3,7 @@
 <$1$2/>
 
 # Linkeo de recursos
-(href|src)="(\.\./\.\./)resources/(.*?)"
+(href|src)="(.*?)resources/(.*?)"
 $1="$2resources/$3\" th:$1="@\{/resources/$3\}"
 
 # Reduccion de codigo

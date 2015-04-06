@@ -21,15 +21,19 @@
 	            <input id="clear" type="button" value="Clear" th:value="#{control.clear}" />
         	</div>
 	    </div>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxcore.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxbuttons.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxscrollbar.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxmenu.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.selection.js"></script> 
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.columnsresize.js"></script> 
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdata.js"></script> 
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/demos.js"></script>
+	    
+	    <script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxscrollbar.js" th:src="@{/resources/jqx/js/jqxscrollbar.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxmenu.js" th:src="@{/resources/jqx/js/jqxmenu.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.js" th:src="@{/resources/jqx/js/jqxgrid.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.selection.js" th:src="@{/resources/jqx/js/jqxgrid.selection.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/demos.js" th:src="@{/resources/jqx/js/demos.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
+	    <script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.columnsresize.js" th:src="@{/resources/jqx/js/jqxgrid.columnsresize.js}" /> 
+	    
+		
 	    <script type="text/javascript">
 
 			function replaceAll(text, busca, reemplaza ){
@@ -63,13 +67,15 @@
 	                width: 1075,
 	                source: dataAdapter,
 	                columnsresize: true,
+	                altrows: true,
+			        sortable: true,
 	                columns: [
 						{ text: 'Modelo', dataField: 'modelo', width: 150 },
 						{ text: 'Descripción', dataField: 'descripcion', width: 230 },
 						{ text: 'Clase', dataField: 'clase', width: 80 },
 						{ text: 'Tipo', dataField: 'tipo', width: 80 },
 						{ text: 'Marca', dataField: 'marca', width: 80 },
-						{ text: 'Precio', dataField: 'precio', minwidth: 70 }
+						{ text: 'Precio', dataField: 'precio', cellsalign: 'right', cellsformat: 'c2', minwidth: 70 }
 	                ]
 	            });
 	            // Inicializa los botones de la grilla

@@ -5,23 +5,25 @@
 	layout:decorator="layout.html">
 <body>
 	<div id="content" layout:fragment="contenido">
-		<link rel="stylesheet" href="/proeza-sgs/resources/jqx/css/jqx.base.css" type="text/css" />
-		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxcore.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdata.js"></script> 
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxbuttons.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxscrollbar.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxmenu.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.js"></script>
-		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.pager.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.selection.js"></script> 
-		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxnumberinput.js"></script>
-		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxwindow.js"></script>
-		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxlistbox.js"></script>
-		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdropdownlist.js"></script>
-		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxinput.js"></script>
-	    <script type="text/javascript" src="/proeza-sgs/resources/jqx/js/demos.js"></script>
-	    
-	    <script type="text/javascript">
+		<link rel="stylesheet" href="/proeza-sgs/resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/proeza-sgs/resources/jqx/css/jqx.classic.css" th:href="@{/resources/jqx/css/jqx.classic.css}" type="text/css" media="screen" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxscrollbar.js" th:src="@{/resources/jqx/js/jqxscrollbar.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxmenu.js" th:src="@{/resources/jqx/js/jqxmenu.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.js" th:src="@{/resources/jqx/js/jqxgrid.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.pager.js" th:src="@{/resources/jqx/js/jqxgrid.pager.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.selection.js" th:src="@{/resources/jqx/js/jqxgrid.selection.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxnumberinput.js" th:src="@{/resources/jqx/js/jqxnumberinput.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxwindow.js" th:src="@{/resources/jqx/js/jqxwindow.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxlistbox.js" th:src="@{/resources/jqx/js/jqxlistbox.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxdropdownlist.js" th:src="@{/resources/jqx/js/jqxdropdownlist.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxinput.js" th:src="@{/resources/jqx/js/jqxinput.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/demos.js" th:src="@{/resources/jqx/js/demos.js}" />
+		<script type="text/javascript" src="/proeza-sgs/resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
+
+		<script type="text/javascript">
 			$(document).ready(function () {
 	            // prepare the data
 	            var source =
@@ -72,13 +74,16 @@
 	                source: dataAdapter,
 	                pageable: true,
 			        autoheight: true,
+	                altrows: true,
+			        sortable: true,
+	                enabletooltips: true,
 	                columns: [
 						{ text: 'Modelo', dataField: 'modelo', width: 150 },
 // 						{ text: 'Descripción', dataField: 'descripcion', width: 230 },
 						{ text: 'Clase', dataField: 'clase', width: 80 },
 						{ text: 'Tipo', dataField: 'tipo', width: 80 },
 						{ text: 'Marca', dataField: 'marca', width: 80 },
-						{ text: 'Precio', dataField: 'precio', minwidth: 70 },
+						{ text: 'Precio', dataField: 'precio', cellsalign: 'right', cellsformat: 'c2', minwidth: 70 },
 						{ text: 'Editar', datafield: 'Edit', columntype: 'button', cellsrenderer: function () {return "Edit";},
 							buttonclick: function (row) {
 					        	// open the popup window when the user clicks a button.
@@ -130,43 +135,44 @@
 			    });
 			});
 		</script>
-	    <div id="jqxWidget" style="font-size: 13px; font-family: Verdana; float: left;">
+		<div id="jqxWidget" style="font-size: 13px; font-family: Verdana; float: left;">
 			<div id="articulos"></div>
-		    <div style="margin-top: 30px;">
-			    <div id="cellbegineditevent"></div>
-			    <div style="margin-top: 10px;" id="cellendeditevent"></div>
+			<div style="margin-top: 30px;">
+				<div id="cellbegineditevent"></div>
+				<div style="margin-top: 10px;" id="cellendeditevent"></div>
 			</div>
 			<div id="popupWindow">
 				<div>Editar</div>
 				<div style="overflow: hidden;">
-				   <table>
-				       <tr>
-				           <td align="right">Modelo:</td>
-				           <td align="left"><input id="modelo" /></td>
-				       </tr>
-				       <tr>
-				           <td align="right">Clase:</td>
-				           <td align="left"><input id="clase" /></td>
-				       </tr>
-				       <tr>
-				           <td align="right">Tipo:</td>
-				           <td align="left"><input id="tipo" /></td>
-				       </tr>
-				       <tr>
-				           <td align="right">Marca:</td>
-				           <td align="left"><input id="marca" /></td>
-				       </tr>
-				       <tr>
-				           <td align="right">Precio:</td>
-				           <td align="left"><div id="precio"></div></td>
-				       </tr>
-				       <tr>
-				           <td align="right"></td>
-				           <td style="padding-top: 10px;" align="right"><input style="margin-right: 5px;" type="button" id="Guardar" value="Guardar" /><input id="Cancelar" type="button" value="Cancelar" /></td>
-				           </tr>
-				    </table>
+					<table>
+						<tr>
+							<td align="right">Modelo:</td>
+							<td align="left"><input id="modelo" /></td>
+						</tr>
+						<tr>
+							<td align="right">Clase:</td>
+							<td align="left"><input id="clase" /></td>
+						</tr>
+						<tr>
+							<td align="right">Tipo:</td>
+							<td align="left"><input id="tipo" /></td>
+						</tr>
+						<tr>
+							<td align="right">Marca:</td>
+							<td align="left"><input id="marca" /></td>
+						</tr>
+						<tr>
+							<td align="right">Precio:</td>
+							<td align="left"><div id="precio"></div></td>
+						</tr>
+						<tr>
+							<td align="right"></td>
+							<td style="padding-top: 10px;" align="right"><input style="margin-right: 5px;" type="button" id="Guardar" value="Guardar" /><input
+								id="Cancelar" type="button" value="Cancelar" /></td>
+						</tr>
+					</table>
 				</div>
-		   </div>
+			</div>
 		</div>
 	</div>
 </body>
