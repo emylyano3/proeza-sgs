@@ -1,5 +1,7 @@
 package com.proeza.sgs.business.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -7,56 +9,79 @@ import javax.validation.constraints.NotNull;
 import com.proeza.sgs.business.entity.Articulo;
 
 /**
- * Creado para solucionar este problema de este<br>
+ * Se utilizan DTO´s para devolver al FE por problema explicado en este<br>
  * <a href="http://stackoverflow.com/questions/27944951/invoking-spring-4-x-rest-service">Post</a>
  */
-public class ArticuloDTO {
+/**
+ * @author c.eschia
+ *
+ */
+public class ArticuloDTO implements Serializable {
 
-	private long	id;
+	private static final long	serialVersionUID	= 1L;
 
-	private String	codigo;
-
-	@NotNull
-	private String	modelo;
-
-	private String	descripcion;
-
-	@NotNull
-	private String	rubro;
+	private long	          id;
 
 	@NotNull
-	private String	clase;
+	private String	          codigo;
 
 	@NotNull
-	private String	tipo;
+	private String	          modelo;
+
+	private String	          descripcion;
 
 	@NotNull
-	private String	marca;
+	private String	          rubro;
+
+	@NotNull
+	private String	          clase;
+
+	@NotNull
+	private String	          tipo;
+
+	@NotNull
+	private String	          marca;
 
 	@Min(0)
 	@NotNull
 	@DecimalMin(value = "0")
-	private Double	costo;
+	private Double	          costo;
 
 	@NotNull
 	@DecimalMin(value = "0")
-	private Double	precio;
+	private Double	          precio;
 
 	@Min(0)
-	private int		cantidad;
+	private int	              cantidad;
+
+	@NotNull
+	private String	          codClase;
+
+	@NotNull
+	private String	          codTipo;
+
+	@NotNull
+	private String	          codMarca;
+
+	@NotNull
+	private String	          codRubro;
 
 	public ArticuloDTO (Articulo art) {
 		this.id = art.getId();
 		this.codigo = art.getCodigo();
 		this.modelo = art.getModelo();
 		this.descripcion = art.getDescripcion();
+		this.cantidad = art.getStock();
+		this.costo = art.getCosto() != null ? art.getCosto().doubleValue() : 0;
+		this.precio = art.getPrecio() != null ? art.getPrecio().doubleValue() : 0;
 		this.rubro = art.getRubro() != null ? art.getRubro().getNombre() : null;
 		this.marca = art.getMarca() != null ? art.getMarca().getNombre() : null;
 		this.clase = art.getClase() != null ? art.getClase().getNombre() : null;
 		this.tipo = art.getTipo() != null ? art.getTipo().getNombre() : null;
-		this.cantidad = art.getStock();
-		this.costo = art.getCosto() != null ? art.getCosto().doubleValue() : 0;
-		this.precio = art.getPrecio() != null ? art.getPrecio().doubleValue() : 0;
+		this.codRubro = art.getRubro() != null ? art.getRubro().getCodigo() : null;
+		this.codClase = art.getClase() != null ? art.getClase().getCodigo() : null;
+		this.codTipo = art.getTipo() != null ? art.getTipo().getCodigo() : null;
+		this.codMarca = art.getMarca() != null ? art.getMarca().getCodigo() : null;
 	}
 
 	public long getId () {
@@ -146,4 +171,9 @@ public class ArticuloDTO {
 	public void setCantidad (int cantidad) {
 		this.cantidad = cantidad;
 	}
+
+	@Override
+    public String toString () {
+	    return "ArticuloDTO [codigo=" + this.codigo + ", modelo=" + this.modelo + ", clase=" + this.clase + ", tipo=" + this.tipo + ", marca=" + this.marca + ", precio=" + this.precio + ", cantidad=" + this.cantidad + "]";
+    }
 }

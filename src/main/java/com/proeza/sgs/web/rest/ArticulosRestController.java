@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proeza.sgs.business.dto.ArticuloDTO;
-import com.proeza.sgs.business.service.IProductService;
+import com.proeza.sgs.business.service.IArticuloService;
 
 @RestController
 public class ArticulosRestController {
 
 	@Autowired
-	private IProductService	productService;
+	private IArticuloService	productService;
 
 	@RequestMapping(value = "/rest/articulos/findAll")
 	public List<ArticuloDTO> list () {
@@ -29,6 +29,6 @@ public class ArticulosRestController {
 
 	@RequestMapping(value = "/rest/articulos/updatePrice", method = RequestMethod.GET)
 	public void updatePrice (@RequestParam("id") String id, @RequestParam("price") String price) {
-		this.productService.update(Long.valueOf(id), Double.valueOf(price));
+		this.productService.updatePrice(Long.valueOf(id), Double.valueOf(price));
 	}
 }

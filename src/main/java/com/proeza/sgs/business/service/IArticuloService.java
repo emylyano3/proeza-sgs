@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.proeza.sgs.business.dto.ArticuloDTO;
 
-public interface IProductService {
+public interface IArticuloService {
 
 	List<ArticuloDTO> findAll ();
 
 	List<ArticuloDTO> findByStringFilter (String filter);
 
-	void update (Long id, Double price);
+	void updatePrice (Long id, Double price);
 }

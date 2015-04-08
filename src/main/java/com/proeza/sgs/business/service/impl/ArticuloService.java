@@ -1,4 +1,4 @@
-package com.proeza.sgs.business.service;
+package com.proeza.sgs.business.service.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,25 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proeza.sgs.business.dao.ArticuloDao;
+import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
 import com.proeza.sgs.business.dto.ArticuloDTO;
 import com.proeza.sgs.business.entity.Articulo;
+import com.proeza.sgs.business.service.IArticuloService;
 
 @Service
 @Transactional
-public class ProductService implements IProductService {
+public class ArticuloService implements IArticuloService {
 
-	public static final Logger		log	= Logger.getLogger(ProductService.class);
+	public static final Logger		log	= Logger.getLogger(ArticuloService.class);
 
 	@Autowired
 	private ArticuloDao				articuloDao;
 
 	@Autowired
-	private ArticuloFilterFactory	filterFactory;
+	private ClaseDao				claseDao;
 
-	public ProductService () {
-		log.debug("Inicializando el servicio de articulos");
-	}
+	@Autowired
+	private ArticuloFilterFactory	filterFactory;
 
 	@Override
 	public List<ArticuloDTO> findAll () {
@@ -46,7 +47,7 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public void update (Long id, Double price) {
+	public void updatePrice (Long id, Double price) {
 		Articulo art = this.articuloDao.find(id);
 		art.setPrecio(BigDecimal.valueOf(price));
 	}

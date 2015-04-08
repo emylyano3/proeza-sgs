@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html 
-	xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	layout:decorator="layout.html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout.html">
 <body>
 	<div id="content" layout:fragment="contenido">
-		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
-		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.classic.css" th:href="@{/resources/jqx/css/jqx.classic.css}" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css"
+			media="screen" />
+		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.classic.css" th:href="@{/resources/jqx/css/jqx.classic.css}" type="text/css"
+			media="screen" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
@@ -24,115 +23,185 @@
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
 
 		<script type="text/javascript">
-			$(document).ready(function () {
-	            // prepare the data
-	            var source =
-	            {
-	                datatype: "json",
-	                dataFields: [
-	     	                    { name: 'modelo', type: 'string' },
-	     	                    { name: 'descripcion', type: 'string' },
-	     	                    { name: 'clase', type: 'string' },
-	     	                    { name: 'tipo', type: 'string' },
-	     	                    { name: 'marca', type: 'string' },
-	     	                    { name: 'precio', type: 'double' },
-	                ],
-	                updaterow: function (rowid, rowdata, commit) {
-	                    // synchronize with the server - send update command
-	                    // call commit with parameter true if the synchronization with the server is successful 
-	                    // and with parameter false if the synchronization failder.
-	                    commit(true);
-	                },
-	                id: "id",
-	                url: "/proeza-sgs/rest/articulos/findAll"
-	            };
-	            
-	            // initialize the input fields.
-			    $("#modelo").jqxInput({ theme: theme });
-			    $("#clase").jqxInput({ theme: theme });
-			    $("#tipo").jqxInput({ theme: theme });
-			    $("#marca").jqxInput({ theme: theme });
-			
-			    $("#modelo").width(150);
-			    $("#modelo").height(23);
-			    $("#clase").width(150);
-			    $("#clase").height(23);
-			    $("#tipo").width(150);
-			    $("#tipo").height(23);
-			    $("#marca").width(150);
-			    $("#marca").height(23);
-			
-			    $("#precio").jqxNumberInput({ spinMode: 'simple', symbol: '$', width: 150, min: 0, height: 23, spinButtons: true });
-			    
-	            var dataAdapter = new $.jqx.dataAdapter(source);
-	            var editrow = -1;
-	            
-	            // initializa la grilla de articulos
-	            $("#articulos").jqxGrid(
-	            {
-	                width: 850,
-	                source: dataAdapter,
-	                pageable: true,
-			        autoheight: true,
-	                altrows: true,
-			        sortable: true,
-	                enabletooltips: true,
-	                columns: [
-						{ text: 'Modelo', dataField: 'modelo', width: 150 },
-// 						{ text: 'Descripción', dataField: 'descripcion', width: 230 },
-						{ text: 'Clase', dataField: 'clase', width: 80 },
-						{ text: 'Tipo', dataField: 'tipo', width: 80 },
-						{ text: 'Marca', dataField: 'marca', width: 80 },
-						{ text: 'Precio', dataField: 'precio', cellsalign: 'right', cellsformat: 'c2', minwidth: 70 },
-						{ text: 'Editar', datafield: 'Edit', columntype: 'button', cellsrenderer: function () {return "Edit";},
-							buttonclick: function (row) {
-					        	// open the popup window when the user clicks a button.
-								editrow = row;
-								var offset = $("#articulos").offset();
-								$("#popupWindow").jqxWindow({ position: { x: parseInt(offset.left) + 60, y: parseInt(offset.top) + 60 } });
-								
-								// get the clicked row's data and initialize the input fields.
-								var dataRecord = $("#articulos").jqxGrid('getrowdata', editrow);
-								$("#modelo").val(dataRecord.modelo);
-								$("#clase").val(dataRecord.clase);
-								$("#tipo").val(dataRecord.tipo);
-								$("#marca").val(dataRecord.marca);
-								$("#precio").jqxNumberInput({ decimal: dataRecord.precio });
-								
-								// show the popup window.
-								$("#popupWindow").jqxWindow('open');
-					      	}
+			$(document).ready(function() {
+				// prepare the data
+				var source = {
+					datatype : "json",
+					dataFields : [ {
+						name : 'modelo',
+						type : 'string'
+					}, {
+						name : 'descripcion',
+						type : 'string'
+					}, {
+						name : 'clase',
+						type : 'string'
+					}, {
+						name : 'tipo',
+						type : 'string'
+					}, {
+						name : 'marca',
+						type : 'string'
+					}, {
+						name : 'precio',
+						type : 'double'
+					}, {
+						name : 'codArt',
+						type : 'string'
+					}, {
+						name : 'codClase',
+						type : 'string'
+					}, {
+						name : 'codTipo',
+						type : 'string'
+					}, {
+						name : 'codMarca',
+						type : 'string'
+					}, {
+						name : 'codRubro',
+						type : 'string'
+					}, ],
+					updaterow : function(rowid, rowdata, commit) {
+						// synchronize with the server - send update command
+						// call commit with parameter true if the synchronization with the server is successful 
+						// and with parameter false if the synchronization failder.
+						commit(true);
+					},
+					id : "id",
+					url : "/proeza-sgs/rest/articulos/findAll"
+				};
+
+				// initialize the input fields.
+				$("#modelo").jqxInput({
+					theme : theme
+				});
+				$("#clase").jqxInput({
+					theme : theme
+				});
+				$("#tipo").jqxInput({
+					theme : theme
+				});
+				$("#marca").jqxInput({
+					theme : theme
+				});
+
+// 				$("#modelo").width(150);
+// 				$("#modelo").height(23);
+// 				$("#clase").width(150);
+// 				$("#clase").height(23);
+// 				$("#tipo").width(150);
+// 				$("#tipo").height(23);
+// 				$("#marca").width(150);
+// 				$("#marca").height(23);
+
+				$("#precio").jqxNumberInput({
+					spinMode : 'simple',
+					symbol : '$',
+					width : 150,
+					min : 0,
+					height : 23,
+					spinButtons : true
+				});
+
+				var dataAdapter = new $.jqx.dataAdapter(source);
+				var editrow = -1;
+
+				// initializa la grilla de articulos
+				$("#articulos").jqxGrid({
+					width : 1070,
+					source : dataAdapter,
+					pageable : true,
+					autoheight : true,
+					altrows : true,
+					sortable : true,
+					enabletooltips : true,
+					columns : [ {
+						text : 'Modelo',
+						dataField : 'modelo',
+						width : 220
+					}, {
+						text : 'Descripción',
+						dataField : 'descripcion',
+						width : 300
+					}, {
+						text : 'Clase',
+						dataField : 'clase',
+						width : 130
+					}, {
+						text : 'Tipo',
+						dataField : 'tipo',
+						width : 130
+					}, {
+						text : 'Marca',
+						dataField : 'marca',
+						width : 130
+					}, {
+						text : 'Precio',
+						dataField : 'precio',
+						cellsalign : 'right',
+						cellsformat : 'c2',
+						minwidth : 80
+					}, {
+						text : 'Editar',
+						datafield : 'Edit',
+						columntype : 'button',
+						cellsrenderer : function() {
+							return "Edit";
+						},
+						buttonclick : function(row) {
+							// open the popup window when the user clicks a button.
+							editrow = row;
+							var offset = $("#articulos").offset();
+							//$("#popupWindow").jqxWindow({ position: { x: parseInt(offset.left) + 60, y: parseInt(offset.top) + 60 } });
+
+							// get the clicked row's data and initialize the input fields.
+							var dataRecord = $("#articulos").jqxGrid('getrowdata', editrow);
+							$("#modelo").val(dataRecord.modelo);
+							$("#clase").val(dataRecord.clase);
+							$("#tipo").val(dataRecord.tipo);
+							$("#marca").val(dataRecord.marca);
+							$("#precio").jqxNumberInput({
+								decimal : dataRecord.precio
+							});
+
+							// show the popup window.
+							//$("#popupWindow").jqxWindow('open');
 						}
-	                ]
-	            });
-			    		
-			    // initialize the popup window and buttons.
-			    $("#popupWindow").jqxWindow({
-			        width: 250, resizable: false,  isModal: true, autoOpen: false, cancelButton: $("#Cancelar"), modalOpacity: 0.01           
-			    });
-			
-			    $("#popupWindow").on('open', function () {
-			        $("#modelo").jqxInput('selectAll');
-			    });
-			 
-			    $("#Cancelar").jqxButton({ theme: theme });
-			    $("#Guardar").jqxButton({ theme: theme });
-			
-			    // update the edited row when the user clicks the 'Save' button.
-			    $("#Guardar").click(function () {
-			        if (editrow >= 0) {
-			            var row = { 
-			            		modelo: $("#modelo").val(), 
-			            		clase: $("#clase").val(), 
-			            		tipo: $("#tipo").val(), 
-			            		marca: $("#marca").val(),
-			            		precio: parseFloat($("#precio").jqxNumberInput('decimal'))
-			            };
-			            var rowID = $('#articulos').jqxGrid('getrowid', editrow);
-			            $('#articulos').jqxGrid('updaterow', rowID, row);
-			            $("#popupWindow").jqxWindow('hide');
-			        }
-			    });
+					} ]
+				});
+
+				// initialize the popup window and buttons.
+
+				// 			    $("#popupWindow").jqxWindow({
+				// 			        width: 250, resizable: false,  isModal: true, autoOpen: false, cancelButton: $("#Cancelar"), modalOpacity: 0.01           
+				// 			    });
+
+				// 			    $("#popupWindow").on('open', function () {
+				// 			        $("#modelo").jqxInput('selectAll');
+				// 			    });
+
+				$("#Cancelar").jqxButton({
+					theme : theme
+				});
+				$("#Guardar").jqxButton({
+					theme : theme
+				});
+
+				// update the edited row when the user clicks the 'Save' button.
+				$("#Guardar").click(function() {
+					if (editrow >= 0) {
+						var row = {
+							modelo : $("#modelo").val(),
+							clase : $("#clase").val(),
+							tipo : $("#tipo").val(),
+							marca : $("#marca").val(),
+							precio : parseFloat($("#precio").jqxNumberInput('decimal'))
+						};
+						var rowID = $('#articulos').jqxGrid('getrowid', editrow);
+						$('#articulos').jqxGrid('updaterow', rowID, row);
+						// $("#popupWindow").jqxWindow('hide');
+					}
+				});
 			});
 		</script>
 		<div id="jqxWidget" style="font-size: 13px; font-family: Verdana; float: left;">
@@ -143,15 +212,26 @@
 			</div>
 			<div id="popupWindow">
 				<div>Editar</div>
-				<div style="overflow: hidden;">
+				<div>
 					<table>
 						<tr>
 							<td align="right">Modelo:</td>
 							<td align="left"><input id="modelo" /></td>
 						</tr>
 						<tr>
+							<td align="right">Descripción:</td>
+							<td align="left"><input id="modelo" /></td>
+						</tr>
+						<tr>
 							<td align="right">Clase:</td>
-							<td align="left"><input id="clase" /></td>
+							<td align="left">
+								<div class="col-sm-10">
+									<select id="clase" class="form-control">
+										<option />
+										<option th:each="clase : ${clases}" th:text="${clase.nombre}" th:id="${clase.id}"/>
+									</select>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<td align="right">Tipo:</td>
@@ -167,8 +247,10 @@
 						</tr>
 						<tr>
 							<td align="right"></td>
-							<td style="padding-top: 10px;" align="right"><input style="margin-right: 5px;" type="button" id="Guardar" value="Guardar" /><input
-								id="Cancelar" type="button" value="Cancelar" /></td>
+							<td style="padding-top: 10px;" align="right">
+								<input style="margin-right: 5px;" type="button" id="Guardar" value="Guardar" /> 
+								<input id="Cancelar" type="button" value="Cancelar" />
+							</td>
 						</tr>
 					</table>
 				</div>
