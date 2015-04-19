@@ -6,5 +6,5 @@ import com.proeza.sgs.business.dto.ClaseDTO;
 
 public interface IClaseService {
 
-	public Collection<ClaseDTO> findAll ();
+	Collection<ClaseDTO> findAll ();
 }

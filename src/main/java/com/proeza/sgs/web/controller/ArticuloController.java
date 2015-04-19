@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proeza.sgs.business.service.IClaseService;
+import com.proeza.sgs.business.service.IMarcaService;
+import com.proeza.sgs.business.service.IRubroService;
+import com.proeza.sgs.business.service.ITipoService;
 import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
@@ -23,9 +26,21 @@ public class ArticuloController {
 	@Autowired
 	private IClaseService	   claseService;
 
+	@Autowired
+	private ITipoService	   tipoService;
+
+	@Autowired
+	private IMarcaService	   marcaService;
+
+	@Autowired
+	private IRubroService	   rubroService;
+
 	@ModelAttribute
 	public void context (final ModelMap model) {
 		model.addAttribute("clases", this.claseService.findAll());
+		model.addAttribute("tipos", this.tipoService.findAll());
+		model.addAttribute("marcas", this.marcaService.findAll());
+		model.addAttribute("rubros", this.rubroService.findAll());
 	}
 
 	@RequestMapping({"/articulo/{page}"})

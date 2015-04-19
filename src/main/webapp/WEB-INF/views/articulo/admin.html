@@ -3,7 +3,7 @@
 <body>
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
-		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.classic.css" th:href="@{/resources/jqx/css/jqx.classic.css}" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.ui-redmond.css" th:href="@{/resources/jqx/css/jqx.ui-redmond.css}" type="text/css" media="screen" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
@@ -40,6 +40,9 @@
 						type : 'string'
 					}, {
 						name : 'marca',
+						type : 'string'
+					}, {
+						name : 'rubro',
 						type : 'string'
 					}, {
 						name : 'precio',
@@ -91,6 +94,7 @@
 				$("#articulos").jqxGrid({
 					width : 900,
 					height : 250,
+					theme: 'ui-redmond',
 					source : dataAdapter,
 					pageable : false,
 					autoheight : false,
@@ -133,6 +137,7 @@
 							$("#clase").val(dataRecord.clase);
 							$("#tipo").val(dataRecord.tipo);
 							$("#marca").val(dataRecord.marca);
+							$("#rubro").val(dataRecord.rubro);
 							$("#precio").val(dataRecord.precio);
 						}
 					} ]
@@ -146,6 +151,7 @@
 							clase : $("#clase").val(),
 							tipo : $("#tipo").val(),
 							marca : $("#marca").val(),
+							rubro : $("#rubro").val(),
 							precio : $("#precio").val()
 						};
 						var rowID = $('#articulos').jqxGrid('getrowid', editrow);
@@ -168,45 +174,72 @@
 					<td>
 						<div id="editpanel">
 							<form class="form-horizontal" style="width: 400px">
-								<div class="form-group">
-									<label for="modelo" class="col-sm-2 control-label">Modelo</label>
-									<div class="col-sm-10">
-										<input class="form-control input-sm" id="modelo" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="clase" class="col-sm-2 control-label">Clase</label>
-									<div class="col-sm-10">
-										<select id="clase" class="form-control input-sm">
-											<option />
-											<option th:each="clase : ${clases}" th:text="${clase.nombre}" th:id="${clase.id}" />
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="tipo" class="col-sm-2 control-label">Tipo</label>
-									<div class="col-sm-10">
-										<input class="form-control input-sm" id="tipo" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="marca" class="col-sm-2 control-label">Marca</label>
-									<div class="col-sm-10">
-										<input class="form-control input-sm" id="marca" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="precio" class="col-sm-2 control-label">Precio</label>
-									<div class="col-sm-10">
-										<input class="form-control input-sm" id="precio" data-mask="999.999.999,99" />
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-offset-2 col-sm-10">
-										<button id="cancelar" type="submit" class="btn btn-default">Cancelar</button>
-										<button id="guardar" type="submit" class="btn btn-default">Guardar</button>
-									</div>
-								</div>
+								<table>
+									<tr>
+										<td>
+											<div class="form-group">
+												<label for="modelo" class="col-sm-2 control-label">Modelo</label>
+												<div class="col-sm-10">
+													<input class="form-control input-sm" id="modelo" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="clase" class="col-sm-2 control-label">Clase</label>
+												<div class="col-sm-10">
+													<select id="clase" class="form-control input-sm">
+														<option />
+														<option th:each="clase : ${clases}" th:text="${clase.nombre}" th:id="${clase.codigo}" />
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="tipo" class="col-sm-2 control-label">Tipo</label>
+												<div class="col-sm-10">
+													<select id="tipo" class="form-control input-sm">
+														<option />
+														<option th:each="tipo : ${tipos}" th:text="${tipo.nombre}" th:id="${tipo.codigo}" />
+													</select>
+												</div>
+											</div>
+										</td>
+										<td>
+											<div class="form-group">
+												<label for="marca" class="col-sm-2 control-label">Marca</label>
+												<div class="col-sm-10">
+													<select id="marca" class="form-control input-sm">
+														<option />
+														<option th:each="marca : ${marcas}" th:text="${marca.nombre}" th:id="${marca.codigo}" />
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="precio" class="col-sm-2 control-label">Precio</label>
+												<div class="col-sm-10">
+													<input class="form-control input-sm" id="precio" data-mask="999.999.999,99" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="tipo" class="col-sm-2 control-label">Rubro</label>
+												<div class="col-sm-10">
+													<select id="rubro" class="form-control input-sm">
+														<option />
+														<option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:id="${rubro.codigo}" />
+													</select>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="form-group">
+												<div class="col-sm-offset-2 col-sm-10">
+													<button id="cancelar" type="submit" class="btn btn-default">Cancelar</button>
+													<button id="guardar" type="submit" class="btn btn-default">Guardar</button>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</table>
 							</form>
 						</div>
 					</td>
