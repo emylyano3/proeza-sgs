@@ -6,6 +6,13 @@
 
 body {
     background-color: #f8f8f8;
+    margin-top: 100px;
+}
+
+@media(min-width:768px) {
+    body {
+        margin-top: 50px;
+    }
 }
 
 #wrapper {
@@ -22,7 +29,7 @@ body {
     #page-wrapper {
         position: inherit;
         margin: 0 0 0 250px;
-        padding: 20px 20px;
+        padding: 20px 5px;
         border-left: 1px solid #e7e7e7;
     }
 }
