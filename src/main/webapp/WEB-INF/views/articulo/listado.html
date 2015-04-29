@@ -6,20 +6,41 @@
 <body>
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" />
-		<div class="input-group">
-		   <input id="filter" type="text" class="form-control" placeholder="Buscar..." th:placeholder="#{control.search-articles}"/>
-		   <span class="input-group-btn">
-		       <button id="search" class="btn btn-default" type="button">
-		           <i class="fa fa-search"/>
-		       </button>
-		   </span>
+		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
+		
+		<!-- Titulo -->
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="page-header">
+					<span th:text="#{art.title}" />
+					<small th:text="#{art.list.subtitle}" />
+				</h2>
+<!-- 				<ol class="breadcrumb"> -->
+<!-- 					<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a></li> -->
+<!-- 					<li class="active"><i class="fa fa-table"></i> Tables</li> -->
+<!-- 				</ol> -->
+			</div>
 		</div>
-        <p/>
-	    <div id="jqxWidget" style="font-size: 13px; font-family: Verdana; float: left;">
-	        <div id="articulos"></div>
-	        <div style="margin-top: 10px;">
-	            <input id="clear" type="button" value="Clear" th:value="#{control.clear}" />
-        	</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+					<input id="filter" type="text" class="form-control" placeholder="Buscar..." th:placeholder="#{control.search-articles}" /> 
+					<span class="input-group-btn">
+						<button id="search" class="btn btn-default" type="button">
+							<i class="fa fa-search" />
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<p/>
+		<div class="row">
+			<div class="col-md-12">
+		        <div id="articulos"/>
+		        <div>
+	            	<input id="clear" type="button" value="Limpiar" th:value="#{control.clear}" />
+        		</div>
+       		</div>
 	    </div>
 	    
 	    <script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
@@ -63,8 +84,9 @@
 	            // initializa la grilla de articulos
 	            $("#articulos").jqxGrid(
 	            {
-	                width: 1075,
+	                width: '100%',
 	                source: dataAdapter,
+					theme : 'energyblue',
 	                columnsresize: true,
 	                altrows: true,
 			        sortable: true,
