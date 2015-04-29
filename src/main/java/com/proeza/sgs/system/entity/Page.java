@@ -44,6 +44,8 @@ public class Page implements Serializable {
 	private String				group;
 	private String				name;
 	private String				description;
+	private String				title;
+	private String				subtitle;
 
 	private Set<Menu>			menues				= new TreeSet<>();
 	private Set<Rol>			roles				= new TreeSet<>();
@@ -84,6 +86,24 @@ public class Page implements Serializable {
 
 	public void setDescription (String description) {
 		this.description = description;
+	}
+
+	@Column(name = "titulo")
+	public String getTitle () {
+		return this.title;
+	}
+
+	public void setTitle (String title) {
+		this.title = title;
+	}
+
+	@Column(name = "subtitulo")
+	public String getSubtitle () {
+		return this.subtitle;
+	}
+
+	public void setSubtitle (String subtitle) {
+		this.subtitle = subtitle;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)

@@ -345,8 +345,26 @@
         </nav>
         
         <div id="page-wrapper">
-            <div class="container-fluid" id="content" layout:fragment="contenido">Contenido</div>
-        </div>
+            <div class="container-fluid">
+            
+				<!-- Titulo -->
+				<div class="row">
+					<div class="col-md-12">
+						<h2 class="page-header">
+							<span text="Título:" th:text="${pageTitle}" />
+							<small text="Subtítulo" th:text="${pageSubtitle}" />
+						</h2>
+<!-- 						<ol class="breadcrumb"> -->
+<!-- 							<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a></li> -->
+<!-- 							<li class="active"><i class="fa fa-table"></i> Tables</li> -->
+<!-- 						</ol> -->
+					</div>
+				</div>
+				<div class="row">
+             		<div id="content" layout:fragment="contenido">Contenido</div>
+				</div>
+        	</div>
+    	</div>
     </div>
     <!-- /#wrapper -->
 

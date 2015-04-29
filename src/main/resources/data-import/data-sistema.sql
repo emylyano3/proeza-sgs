@@ -1,16 +1,16 @@
 /* Pagina */
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (1, 'usuario', 'home' ,'Página de inicio de las funcionalidades de usuario');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (2, 'usuario', 'listado' ,'Página con la que se realiza el listado de usuarios');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (3, 'usuario', 'admin' ,'Página con la que se realiza la adminsitración de usuarios');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (4, 'usuario', 'estadisticas' ,'Página con la que se accede a las estadísticas de usuarios');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (5, 'root', 'home' ,'Inicio de la aplicación');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (6, 'root', 'register','Página de registro de usuario');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (7, 'root', 'login','Página de Ingreso al sistema');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (8, 'root', 'logout','Página que se muestra al usuario luego de su salida del sistema');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (9, 'articulo', 'home' ,'Página inicial de las funcionalidades de articulo');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (10, 'articulo', 'listado' ,'Página donde se ofrecen funcionalidades de listado de articulos');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (11, 'articulo', 'stats' ,'Página donde se acceden a las estadísticas de articulos');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion) values (12, 'articulo', 'admin' ,'Página donde se administran los articulos');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (1, 'usuario', 'home' ,'Página de inicio de las funcionalidades de usuario','Usuario', 'Inicio');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (2, 'usuario', 'listado' ,'Página con la que se realiza el listado de usuarios','Usuario', 'Listado');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (3, 'usuario', 'admin' ,'Página con la que se realiza la adminsitración de usuarios','Usuario', 'Administración');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (4, 'usuario', 'estadisticas' ,'Página con la que se accede a las estadísticas de usuarios','Usuario', 'Estadísticas');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (5, 'root', 'home' ,'Inicio de la aplicación','Inicio','');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (6, 'root', 'register','Página de registro de usuario','','');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (7, 'root', 'login','Página de Ingreso al sistema','','');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (8, 'root', 'logout','Página que se muestra al usuario luego de su salida del sistema','','');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (9, 'articulo', 'home' ,'Página inicial de las funcionalidades de articulo','Artículo','Inicio');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (10, 'articulo', 'listado' ,'Página donde se ofrecen funcionalidades de listado de articulos','Artículo','Listado');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (11, 'articulo', 'stats' ,'Página donde se acceden a las estadísticas de articulos','Artículo','Estadísticas');
+insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (12, 'articulo', 'admin' ,'Página donde se administran los articulos','Artículo','Administración');
 
 /* Pagina - Rol */
 	/* Paginas Usuario */

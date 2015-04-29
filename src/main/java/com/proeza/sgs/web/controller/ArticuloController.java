@@ -13,6 +13,8 @@ import com.proeza.sgs.business.service.IClaseService;
 import com.proeza.sgs.business.service.IMarcaService;
 import com.proeza.sgs.business.service.IRubroService;
 import com.proeza.sgs.business.service.ITipoService;
+import com.proeza.sgs.system.dao.IPageDao;
+import com.proeza.sgs.system.entity.Page;
 import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
@@ -35,6 +37,9 @@ public class ArticuloController {
 	@Autowired
 	private IRubroService	   rubroService;
 
+	@Autowired
+	private IPageDao	       pageDao;
+
 	@ModelAttribute
 	public void context (final ModelMap model) {
 		model.addAttribute("clases", this.claseService.findAll());
@@ -46,6 +51,9 @@ public class ArticuloController {
 	@RequestMapping({"/articulo/{page}"})
 	public String home (ModelMap model, Principal principal, @PathVariable("page") String page) {
 		model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, page, principal));
+		Page pagina = this.pageDao.findByGroupAndName(PAGE_GROUP, page);
+		model.addAttribute("pageTitle", pagina.getTitle());
+		model.addAttribute("pageSubtitle", pagina.getSubtitle());
 		return PAGE_GROUP + "/" + page + ".html";
 	}
 }
