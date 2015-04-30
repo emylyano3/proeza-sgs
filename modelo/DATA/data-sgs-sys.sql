@@ -107,18 +107,18 @@ UNLOCK TABLES;
 LOCK TABLES `sys_pagina` WRITE;
 /*!40000 ALTER TABLE `sys_pagina` DISABLE KEYS */;
 INSERT INTO `sys_pagina` VALUES
-(00000000000000000001,'usuario','home','Página de inicio de las funcionalidades de usuario'),
-(00000000000000000002,'usuario','listado','Página con la que se realiza el listado de usuarios'),
-(00000000000000000003,'usuario','admin','Página con la que se realiza la adminsitración de usuarios'),
-(00000000000000000004,'usuario','estadisticas','Página con la que se accede a las estadísticas de usuarios'),
-(00000000000000000005,'root','home','Inicio de la aplicación'),
-(00000000000000000006,'root','register','Página de registro de usuario'),
-(00000000000000000007,'root','login','Página de Ingreso al sistema'),
-(00000000000000000008,'root','logout','Página que se muestra al usuario luego de su salida del sistema'),
-(00000000000000000009,'articulo','home','Página inicial de las funcionalidades de articulo'),
-(00000000000000000010,'articulo','listado','Página donde se ofrecen funcionalidades de listado de articulos'),
-(00000000000000000011,'articulo','stats','Página donde se acceden a las estadísticas de articulos'),
-(00000000000000000012,'articulo','admin','Página donde se administran los articulos');
+(00000000000000000001,'usuario','home','Página de inicio de las funcionalidades de usuario','Usuario', 'Inicio'),
+(00000000000000000002,'usuario','listado','Página con la que se realiza el listado de usuarios','Usuario', 'Listado'),
+(00000000000000000003,'usuario','admin','Página con la que se realiza la adminsitración de usuarios','Usuario', 'Administración'),
+(00000000000000000004,'usuario','estadisticas','Página con la que se accede a las estadísticas de usuarios','Usuario', 'Estadísticas'),
+(00000000000000000005,'root','home','Inicio de la aplicación','Inicio',''),
+(00000000000000000006,'root','register','Página de registro de usuario','',''),
+(00000000000000000007,'root','login','Página de Ingreso al sistema','',''),
+(00000000000000000008,'root','logout','Página que se muestra al usuario luego de su salida del sistema','',''),
+(00000000000000000009,'articulo','home','Página inicial de las funcionalidades de articulo','Artículo','Inicio'),
+(00000000000000000010,'articulo','listado','Página donde se ofrecen funcionalidades de listado de articulos','Artículo','Listado'),
+(00000000000000000011,'articulo','stats','Página donde se acceden a las estadísticas de articulos','Artículo','Estadísticas'),
+(00000000000000000012,'articulo','admin','Página donde se administran los articulos','Artículo','Administración');
 /*!40000 ALTER TABLE `sys_pagina` ENABLE KEYS */;
 UNLOCK TABLES;
 

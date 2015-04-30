@@ -502,6 +502,8 @@ CREATE TABLE `sys_pagina` (
   `grupo` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Grupo al que pertenece la pagina. Indica funcionalidad de un conjunto de paginas.',
   `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL COMMENT 'El nombre legible que tiene la pagina',
   `descripcion` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion de la pagina',
+  `titulo` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Título de la pagina. Corresponde a una version legible por usuario del grupo al que pertenece la página',
+  `subtitulo` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Subtitulo de la página. Corresponde a una versión legible por usuario del nombre de la página',
   PRIMARY KEY (`id`),
   UNIQUE KEY `grupo_nombre` (`grupo`,`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene todas las paginas que componen la aplicacion.';
