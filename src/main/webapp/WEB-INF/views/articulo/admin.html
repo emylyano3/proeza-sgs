@@ -112,6 +112,7 @@
 		</div>
 		
 		<script type="text/javascript">
+			// Inicializacion de la tabla de arículos
 			$(document).ready(
 					function() {
 						// prepare the data
@@ -165,7 +166,7 @@
 			                    commit(true);
 			                },
 							id : "id",
-							url : "/proeza-sgs/rest/articulos/findAll"
+							url : "/proeza-sgs/rest/articulo/findAll"
 						};
 
 						var dataAdapter = new $.jqx.dataAdapter(source);
@@ -200,28 +201,7 @@
 								cellsalign : 'right',
 								cellsformat : 'c2',
 								minwidth : 100
-							}, {
-								text : 'Editar',
-								datafield : 'Edit',
-								columntype : 'button',
-								cellsrenderer : function() {
-									return "Edit";
-								},
-								buttonclick : function(row) {
-									// open the popup window when the user clicks a button.
-									editrow = row;
-									var offset = $("#articulos").offset();
-									// get the clicked row's data and initialize the input fields.
-									var dataRecord = $("#articulos").jqxGrid('getrowdata', editrow);
-									$("#modelo").val(dataRecord.modelo);
-									$("#clase").val(dataRecord.clase);
-									$("#tipo").val(dataRecord.tipo);
-									$("#marca").val(dataRecord.marca);
-									$("#rubro").val(dataRecord.rubro);
-									$("#precio").val(dataRecord.precio);
-									$("#editionPopup").modal('show');
-								}
-							} ]
+							}]
 						});
 
 						// create context menu
@@ -240,26 +220,37 @@
 						$("#gridMenu").on('itemclick', function(event) {
 							var args = event.args;
 							var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
-							if ($.trim($(args).id()) == "editArt") {
-
-							} else {
+							if ($.trim($(args).text()) == "Editar Artículo") {
+								// open the popup window when the user clicks a button.
+								editrow = rowindex;
+								var offset = $("#articulos").offset();
+								// get the clicked row's data and initialize the input fields.
+								var dataRecord = $("#articulos").jqxGrid('getrowdata', editrow);
+								$("#modelo").val(dataRecord.modelo);
+								$("#clase").val(dataRecord.clase);
+								$("#tipo").val(dataRecord.tipo);
+								$("#marca").val(dataRecord.marca);
+								$("#rubro").val(dataRecord.rubro);
+								$("#precio").val(dataRecord.precio);
+								$("#editionPopup").modal('show');
+							} else if ($.trim($(args).text()) == "Eliminar Artículo") {
 								var rowid = $("#articulos").jqxGrid('getrowid', rowindex);
 								$("#articulos").jqxGrid('deleterow', rowid);
 							}
 						});
 
 						$("#articulos").on(
-								'rowclick',
-								function(event) {
-									if (event.args.rightclick) {
-										$("#articulos").jqxGrid('selectrow', event.args.rowindex);
-										var scrollTop = $(window).scrollTop();
-										var scrollLeft = $(window).scrollLeft();
-										contextMenu.jqxMenu('open', parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
-												parseInt(event.args.originalEvent.clientY) + 5 + scrollTop);
-										return false;
-									}
+						'rowclick',
+							function(event) {
+								if (event.args.rightclick) {
+									$("#articulos").jqxGrid('selectrow', event.args.rowindex);
+									var scrollTop = $(window).scrollTop();
+									var scrollLeft = $(window).scrollLeft();
+									contextMenu.jqxMenu('open', parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+											parseInt(event.args.originalEvent.clientY) + 5 + scrollTop);
+									return false;
 								}
+							}
 						);
 
 						// update the edited row when the user clicks the 'save' button.
@@ -279,15 +270,15 @@
 							$("#editionPopup").modal('hide');
 						});
 
-						//
+						// Hide popup when cancel
 						$("#cancel").click(function() {
 							$("#editionPopup").modal('hide');
 						});
-					});
-			$(document).ready(function() {
-				$("#precio").inputmask("currency", {
-					"autoUnmask" : true
-				});
+						
+						// Configuracion del control de ingreso del precio
+						$("#precio").inputmask("currency", {
+							"autoUnmask" : true
+						});
 			});
 		</script>
 	</div>

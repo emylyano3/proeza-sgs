@@ -17,18 +17,18 @@ public class ArticulosRestController {
 	@Autowired
 	private IArticuloService	productService;
 
-	@RequestMapping(value = "/rest/articulos/findAll")
+	@RequestMapping(value = "/rest/articulo/findAll")
 	public List<ArticuloDTO> list () {
 		return this.productService.findAll();
 	}
 
-	@RequestMapping(value = "/rest/articulos/search", method = RequestMethod.GET)
+	@RequestMapping(value = "/rest/articulo/search", method = RequestMethod.GET)
 	public List<ArticuloDTO> search (@RequestParam("filter") String filter) {
 		return this.productService.findByStringFilter(filter);
 	}
 
-	@RequestMapping(value = "/rest/articulos/updatePrice", method = RequestMethod.GET)
-	public void updatePrice (@RequestParam("id") String id, @RequestParam("price") String price) {
-		this.productService.updatePrice(Long.valueOf(id), Double.valueOf(price));
+	@RequestMapping(value = "/rest/articulo/update", method = RequestMethod.GET)
+	public void update (@RequestParam("id") String id, @RequestParam("price") String price) {
+		this.productService.update(Long.valueOf(id), Double.valueOf(price));
 	}
 }

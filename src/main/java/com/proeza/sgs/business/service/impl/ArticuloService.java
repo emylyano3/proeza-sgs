@@ -47,7 +47,7 @@ public class ArticuloService implements IArticuloService {
 	}
 
 	@Override
-	public void updatePrice (Long id, Double price) {
+	public void update (Long id, Double price) {
 		Articulo art = this.articuloDao.find(id);
 		art.setPrecio(BigDecimal.valueOf(price));
 	}
