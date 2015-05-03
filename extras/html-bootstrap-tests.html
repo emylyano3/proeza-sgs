@@ -5,9 +5,24 @@
 <title>Bootstrap HTML Test</title>
 <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap-theme.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+	    $.ajax({
+	        url: "http://rest-service.guides.spring.io/greeting"
+	    }).then(function(data) {
+	       $('.greeting-id').append(data.id);
+	       $('.greeting-content').append(data.content);
+	    });
+	});
+</script>
 </head>
 <body>
+
+	<div>
+		<p class="greeting-id">The ID is</p>
+		<p class="greeting-content">The content is</p>
+	</div>
 
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal</button>
