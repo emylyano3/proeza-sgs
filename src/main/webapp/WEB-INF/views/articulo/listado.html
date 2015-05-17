@@ -13,8 +13,8 @@
 				<div class="input-group">
 					<input id="filter" type="text" class="form-control" placeholder="Buscar..." th:placeholder="#{control.search-articles}" /> 
 					<span class="input-group-btn">
-						<button id="search" class="btn btn-default" type="button">
-							<i class="fa fa-search" />
+						<button id="eraser" class="btn btn-default" type="button">
+							<i class="fa fa-eraser" />
 						</button>
 					</span>
 				</div>
@@ -24,13 +24,9 @@
 		<div class="row">
 			<div class="col-md-12">
 		        <div id="articulos"/>
-		        <div>
-	            	<input id="clear" type="button" value="Limpiar" th:value="#{control.clear}" />
-        		</div>
        		</div>
 	    </div>
-	    
-	    <script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxscrollbar.js" th:src="@{/resources/jqx/js/jqxscrollbar.js}" />
@@ -78,16 +74,15 @@
 	                altrows: true,
 			        sortable: true,
 	                columns: [
-						{ text: 'Modelo', dataField: 'modelo', width: 150 },
-						{ text: 'Descripción', dataField: 'descripcion', width: 230 },
-						{ text: 'Clase', dataField: 'clase', width: 80 },
-						{ text: 'Tipo', dataField: 'tipo', width: 80 },
-						{ text: 'Marca', dataField: 'marca', width: 80 },
-						{ text: 'Precio', dataField: 'precio', cellsalign: 'right', cellsformat: 'c2', minwidth: 70 }
+						{ text: 'Modelo', dataField: 'modelo', width: '20%' },
+						{ text: 'Descripción', dataField: 'descripcion', width: '20%' },
+						{ text: 'Clase', dataField: 'clase', width: '15%' },
+						{ text: 'Tipo', dataField: 'tipo', width: '20%' },
+						{ text: 'Marca', dataField: 'marca', width: '15%' },
+						{ text: 'Precio', dataField: 'precio', cellsalign: 'right', cellsformat: 'c2', minwidth: '10%' }
 	                ]
 	            });
 	            // Inicializa los botones de la grilla
-	            $("#clear").jqxButton({ theme: theme });
 	            $('#filter').on('input', function() {
 	                var filter = $(this).val();
 	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
@@ -96,6 +91,10 @@
 	                $("#articulos").jqxGrid('updatebounddata', 'cells');
 	            });
 	            $("#clear").click(function () {
+	                $("#articulos").jqxGrid('clear');
+	                $("#filter").val("");
+	            });
+	            $("#eraser").click(function () {
 	                $("#articulos").jqxGrid('clear');
 	                $("#filter").val("");
 	            });
