@@ -21,8 +21,8 @@
 
 /* Data de negocio */
 	/* Articulos */
-	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PRRS000001', 1, 1, 2, 1, 'Ocean 1005', '3 rulemanes; antireverse instantaneo; devanador', 200, 250, 2);
-	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PCES000002', 1, 2, 1, 1, 'Energhia 195', 'Pasahilo silicio; Puntero con roldana', 100, 150, 3);
+	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PRRS000001', 1, 1, 1, 1, 'Ocean 1005', '3 rulemanes; antireverse instantaneo; devanador', 200, 250, 2);
+	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PCES000002', 1, 2, 2, 1, 'Energhia 195', 'Pasahilo silicio; Puntero con roldana', 100, 150, 3);
 	
 	/* Persona */
 	insert into sgs_proeza_db.cmn_persona (id, nombre, apellido, sexo) values (1, 'Dario','Romero','M');
