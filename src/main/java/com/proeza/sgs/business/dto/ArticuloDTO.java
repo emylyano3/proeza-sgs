@@ -66,6 +66,10 @@ public class ArticuloDTO implements Serializable {
 	@NotNull
 	private String	          codRubro;
 
+	public ArticuloDTO () {
+
+	}
+
 	public ArticuloDTO (Articulo art) {
 		this.id = art.getId();
 		this.codigo = art.getCodigo();
