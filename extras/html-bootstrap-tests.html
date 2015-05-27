@@ -5,7 +5,11 @@
 <title>Bootstrap HTML Test</title>
 <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap-theme.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link rel="stylesheet" href="../src/main/webapp/resources/app/css/animate.css" type="text/css" media="screen" />
+<script src="../src/main/webapp/resources/jquery/jquery.js"></script>
+<script src="../src/main/webapp/resources/jquery/jquery.inputmask.bundle.js"></script>
+<script src="../src/main/webapp/resources/bootstrap/js/bootstrap.js"></script>
+<script src="../src/main/webapp/resources/bootstrap/js/bootstrap-notify.js" />
 <script type="text/javascript">
 	$(document).ready(function() {
 	    $.ajax({
@@ -26,7 +30,9 @@
 
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal</button>
-
+	<form method="post" action="#GenerateNotify">
+		<button id="notify" type="button" class="btn btn-primary btn-lg" >Notify</button>
+	</form>
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -96,7 +102,7 @@
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<div class="checkbox">
-					<label> <input type="checkbox"> Remember me</label>
+					<label> <input type="checkbox">Remember me</label>
 				</div>
 			</div>
 		</div>
@@ -109,10 +115,19 @@
 	<script>
 		$(document).ready(function(){
 		    $("#masked-input").inputmask("currency");
+		    $("#notify").click(function() {
+				$.notify({
+					title: '<strong>Atención:</strong>',
+					message: 'Esto es una notificación'
+				},{
+					animate: {
+						enter: 'animated fadeInRight',
+						exit: 'animated fadeOutRight'
+					},
+					type: 'success'
+				});
+		    });
 		});
 	</script>
 </body>
-<script src="../src/main/webapp/resources/jquery/jquery.js"></script>
-<script src="../src/main/webapp/resources/jquery/jquery.inputmask.bundle.js"></script>
-<script src="../src/main/webapp/resources/bootstrap/js/bootstrap.js"></script>
 </html>

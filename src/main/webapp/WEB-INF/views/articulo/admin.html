@@ -4,6 +4,7 @@
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../../../resources/app/css/animate.css" th:href="@{/resources/app/css/animate.css}" type="text/css" media="screen" />
 
 		<!-- Grilla de articulos -->
 		<div class="row">
@@ -96,10 +97,8 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group" type="hidden" >
-								<div class="col-sm-10">
-									<input id="cantidad" class="form-control input-sm" type="hidden" />
-								</div>
+							<div class="hidden" >
+								<input id="cantidad" class="hidden" />
 							</div>
 						</form>
 					</div>
@@ -126,6 +125,7 @@
 		<script type="text/javascript" src="../../../resources/jqx/js/demos.js" th:src="@{/resources/jqx/js/demos.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
 		<script type="text/javascript" src="../../../resources/jquery/jquery.inputmask.bundle.js" th:src="@{/resources/jquery/jquery.inputmask.bundle.js}" />
+		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
 		
 		<script type="text/javascript">
 			// Inicializacion de la tabla de arículos
@@ -160,7 +160,12 @@
 									contentType: 'application/json',
 									data : JSON.stringify(rowdata),
 									success : function() {
-										alert('success');
+										$.notify({
+											title: '<strong>Modificación de artículo:</strong>',
+											message: 'La modificación se realizó correctamente'
+										},{
+											type: 'success'
+										});
 										commit(true);
 									},
 									error: function () {            
