@@ -4,21 +4,6 @@
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxscrollbar.js" th:src="@{/resources/jqx/js/jqxscrollbar.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxmenu.js" th:src="@{/resources/jqx/js/jqxmenu.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.js" th:src="@{/resources/jqx/js/jqxgrid.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.selection.js" th:src="@{/resources/jqx/js/jqxgrid.selection.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxnumberinput.js" th:src="@{/resources/jqx/js/jqxnumberinput.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxwindow.js" th:src="@{/resources/jqx/js/jqxwindow.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxlistbox.js" th:src="@{/resources/jqx/js/jqxlistbox.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxdropdownlist.js" th:src="@{/resources/jqx/js/jqxdropdownlist.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxinput.js" th:src="@{/resources/jqx/js/jqxinput.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/demos.js" th:src="@{/resources/jqx/js/demos.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
-		<script type="text/javascript" src="../../../resources/jquery/jquery.inputmask.bundle.js" th:src="@{/resources/jquery/jquery.inputmask.bundle.js}" />
 
 		<!-- Grilla de articulos -->
 		<div class="row">
@@ -41,14 +26,26 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-        				<h4 class="modal-title">Edición de Artículo</h4>
+        				<h4 class="modal-title"><span th:text="#{art.admin.popup.edit}" text="Editar Artículo" /></h4>
       				</div>
 					<div id="editpanel" class="modal-body" >
-						<form class="form-horizontal" style="width: 400px">
+						<form class="form-horizontal" style="width: 500px">
+							<div class="form-group">
+								<label for="codigo" class="col-sm-2 control-label" th:text="#{control.code}" />
+								<div class="col-sm-10">
+									<input id="codigo" class="form-control input-sm" disabled="disabled"/>
+								</div>
+							</div>
 							<div class="form-group">
 								<label for="modelo" class="col-sm-2 control-label" th:text="#{control.model}" />
 								<div class="col-sm-10">
 									<input id="modelo" class="form-control input-sm" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="descripcion" class="col-sm-2 control-label" th:text="#{control.description}" />
+								<div class="col-sm-10">
+									<input id="descripcion" class="form-control input-sm" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -81,7 +78,13 @@
 							<div class="form-group">
 								<label for="precio" class="col-sm-2 control-label" th:text="#{control.price}" />
 								<div class="col-sm-10">
-									<input id="precio" class="form-control input-sm" data-mask="999.999.999,99" />
+									<input id="precio" class="form-control input-sm" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="costo" class="col-sm-2 control-label" th:text="#{control.cost}" />
+								<div class="col-sm-10">
+									<input id="costo" class="form-control input-sm" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -93,14 +96,11 @@
 									</select>
 								</div>
 							</div>
-							<!-- 
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<button id="cancel" type="button" class="btn btn-default" th:text="#{control.cancel}" />
-									<button id="save" type="button" class="btn btn-default" th:text="#{control.save}" />
+							<div class="form-group" type="hidden" >
+								<div class="col-sm-10">
+									<input id="cantidad" class="form-control input-sm" type="hidden" />
 								</div>
 							</div>
-							 -->
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -111,6 +111,22 @@
 			</div>
 		</div>
 		
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxscrollbar.js" th:src="@{/resources/jqx/js/jqxscrollbar.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxmenu.js" th:src="@{/resources/jqx/js/jqxmenu.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.js" th:src="@{/resources/jqx/js/jqxgrid.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.selection.js" th:src="@{/resources/jqx/js/jqxgrid.selection.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxnumberinput.js" th:src="@{/resources/jqx/js/jqxnumberinput.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxwindow.js" th:src="@{/resources/jqx/js/jqxwindow.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxlistbox.js" th:src="@{/resources/jqx/js/jqxlistbox.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxdropdownlist.js" th:src="@{/resources/jqx/js/jqxdropdownlist.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxinput.js" th:src="@{/resources/jqx/js/jqxinput.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/demos.js" th:src="@{/resources/jqx/js/demos.js}" />
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
+		<script type="text/javascript" src="../../../resources/jquery/jquery.inputmask.bundle.js" th:src="@{/resources/jquery/jquery.inputmask.bundle.js}" />
+		
 		<script type="text/javascript">
 			// Inicializacion de la tabla de arículos
 			$(document).ready(
@@ -118,31 +134,46 @@
 						// prepare the data
 						var source = {
 							datatype : "json",
-							dataFields : [ {name : 'modelo', type : 'string'},
+							id : "id",
+							url : "/proeza-sgs/rest/articulo/findAll",
+							dataFields : [ 
+							               {name : 'codigo', type : 'string'},
+							               {name : 'modelo', type : 'string'},
 							               {name : 'descripcion', type : 'string' }, 
 							               {name : 'clase', type : 'string'},
 							               {name : 'tipo', type : 'string'}, 
 							               {name : 'marca', type : 'string'}, 
 							               {name : 'rubro', type : 'string'}, 
 							               {name : 'precio', type : 'double'}, 
-							               {name : 'codArt', type : 'string'},
+							               {name : 'costo', type : 'double'}, 
+							               {name : 'cantidad', type : 'int'}, 
 							               {name : 'codClase', type : 'string'}, 
 							               {name : 'codTipo', type : 'string'},
 							               {name : 'codMarca', type : 'string'}, 
 							               {name : 'codRubro', type : 'string'},
 							               ],
 							updaterow : function(rowid, rowdata, commit) {
+								$.ajax({
+									type : 'POST',
+									url : '/proeza-sgs/rest/articulo/update',
+									dataType: 'json',
+									contentType: 'application/json',
+									data : JSON.stringify(rowdata),
+									success : function() {
+										alert('success');
+										commit(true);
+									},
+									error: function () {            
+										alert('error');
+										commit(false);
+							        }
+								});
+							},
+							deleterow : function(rowid, commit) {
 								// Hacer aca la logica de sincronizar con el servidor (usando ajax).
 								// Enviar datos, comitear con true si la sincronizacion fue exitosa, false si hubo fallo
 								commit(true);
-							},
-						 	deleterow: function (rowid, commit) {
-								// Hacer aca la logica de sincronizar con el servidor (usando ajax).
-								// Enviar datos, comitear con true si la sincronizacion fue exitosa, false si hubo fallo
-			                    commit(true);
-			                },
-							id : "id",
-							url : "/proeza-sgs/rest/articulo/findAll"
+							}
 						};
 
 						var dataAdapter = new $.jqx.dataAdapter(source);
@@ -159,32 +190,25 @@
 							altrows : true,
 							sortable : true,
 							enabletooltips : true,
-							columns : [ 
-							{
+							columns : [ {
 								text : 'Modelo',
 								dataField : 'modelo',
 								width : '30%'
-							}
-							,
-							{
+							}, {
 								text : 'Clase',
 								dataField : 'clase',
 								width : '30%'
-							}
-							, 
-							{
+							}, {
 								text : 'Marca',
 								dataField : 'marca',
 								width : '30%'
-							}
-							,
-							{
+							}, {
 								text : 'Precio',
 								dataField : 'precio',
 								cellsalign : 'right',
 								cellsformat : 'c2',
 								minwidth : '10%'
-							}]
+							} ]
 						});
 						// create context menu
 						var contextMenu = $("#gridMenu").jqxMenu({
@@ -208,23 +232,26 @@
 								var offset = $("#articulos").offset();
 								// get the clicked row's data and initialize the input fields.
 								var dataRecord = $("#articulos").jqxGrid('getrowdata', editrow);
+								$("#codigo").val(dataRecord.codigo);
 								$("#modelo").val(dataRecord.modelo);
+								$("#descripcion").val(dataRecord.descripcion);
 								$("#clase").val(dataRecord.clase);
 								$("#tipo").val(dataRecord.tipo);
 								$("#marca").val(dataRecord.marca);
 								$("#rubro").val(dataRecord.rubro);
 								$("#precio").val(dataRecord.precio);
+								$("#costo").val(dataRecord.costo);
+								$("#cantidad").val(dataRecord.cantidad);
 								$("#editionPopup").modal('show');
 							} else if ($.trim($(args).text()) == "Eliminar Artículo") {
 								var rowid = $("#articulos").jqxGrid('getrowid', rowindex);
 								$("#articulos").jqxGrid('deleterow', rowid);
 							}
 						});
-
 						$("#articulos").on(
-						'rowclick',
-							function(event) {
-								if (event.args.rightclick) {
+							'rowclick',
+							function(event) {	
+								if (event.args.rightclick) {	
 									$("#articulos").jqxGrid('selectrow', event.args.rowindex);
 									var scrollTop = $(window).scrollTop();
 									var scrollLeft = $(window).scrollLeft();
@@ -239,12 +266,20 @@
 						$("#save").click(function() {
 							if (editrow >= 0) {
 								var row = {
+									codigo : $("#codigo").val(),
 									modelo : $("#modelo").val(),
+									descripcion : $("#descripcion").val(),
 									clase : $("#clase").val(),
 									tipo : $("#tipo").val(),
-									marca : $("#marca").val(),
 									rubro : $("#rubro").val(),
-									precio : $("#precio").val()
+									marca : $("#marca").val(),
+									precio : $("#precio").val(),
+									costo : $("#costo").val(),
+									cantidad : $("#cantidad").val(),
+									codClase : $( "#clase option:selected" ).attr('id'),
+									codTipo : $( "#tipo option:selected" ).attr('id'),
+									codMarca : $( "#marca option:selected" ).attr('id'),
+									codRubro : $( "#rubro option:selected" ).attr('id')
 								};
 								var rowID = $('#articulos').jqxGrid('getrowid', editrow);
 								$('#articulos').jqxGrid('updaterow', rowID, row);
@@ -256,12 +291,15 @@
 						$("#cancel").click(function() {
 							$("#editionPopup").modal('hide');
 						});
-						
+
 						// Configuracion del control de ingreso del precio
 						$("#precio").inputmask("currency", {
 							"autoUnmask" : true
 						});
-			});
+						$("#costo").inputmask("currency", {
+							"autoUnmask" : true
+						});
+					});
 		</script>
 	</div>
 </body>

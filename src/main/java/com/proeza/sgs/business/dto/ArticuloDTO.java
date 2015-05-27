@@ -176,6 +176,38 @@ public class ArticuloDTO implements Serializable {
 		this.cantidad = cantidad;
 	}
 
+	public String getCodClase () {
+		return this.codClase;
+	}
+
+	public void setCodClase (String codClase) {
+		this.codClase = codClase;
+	}
+
+	public String getCodTipo () {
+		return this.codTipo;
+	}
+
+	public void setCodTipo (String codTipo) {
+		this.codTipo = codTipo;
+	}
+
+	public String getCodMarca () {
+		return this.codMarca;
+	}
+
+	public void setCodMarca (String codMarca) {
+		this.codMarca = codMarca;
+	}
+
+	public String getCodRubro () {
+		return this.codRubro;
+	}
+
+	public void setCodRubro (String codRubro) {
+		this.codRubro = codRubro;
+	}
+
 	@Override
     public String toString () {
 	    return "ArticuloDTO [codigo=" + this.codigo + ", modelo=" + this.modelo + ", clase=" + this.clase + ", tipo=" + this.tipo + ", marca=" + this.marca + ", precio=" + this.precio + ", cantidad=" + this.cantidad + "]";

@@ -66,12 +66,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.logoutUrl("/doLogout")
 			.deleteCookies("JSESSIONID")
 			.logoutSuccessUrl("/logout")
-			.and()
+//			.and()
+//			.csrf()
+			.and())
 			.csrf()
-			.and());
+			.disable();
 	}
 
-	private void addAccessControl (HttpSecurity http) throws Exception {
+	private HttpSecurity addAccessControl (HttpSecurity http) throws Exception {
 		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authRegister = http.authorizeRequests();
 		List<Page> pages = this.pageDao.findAll();
 		for (Page page : pages) {
@@ -80,6 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			authRegister.antMatchers(pagePath).hasAnyRole(getRolesCodes(roles));
 		}
 		authRegister.antMatchers("/**").permitAll();
+		return http;
 	}
 
 	private String[] getRolesCodes (Set<Rol> roles) {

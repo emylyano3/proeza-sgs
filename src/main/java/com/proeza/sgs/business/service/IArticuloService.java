@@ -10,5 +10,5 @@ public interface IArticuloService {
 
 	List<ArticuloDTO> findByStringFilter (String filter);
 
-	void update (Long id, Double price);
+	void update (ArticuloDTO articulo);
 }

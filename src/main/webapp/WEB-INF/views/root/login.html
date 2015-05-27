@@ -37,7 +37,7 @@
 	               	<div class="alert alert-danger" th:if="${errorMsg != null}" th:text="${errorMsg}">Error en el ingreso</div>
                     <div class="panel-body">
 	                    <form action="#" th:action="@{/login/authenticate}" method="post">
-							<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+<!-- 							<input type="hidden" name="_csrf" th:value="${_csrf.token}"/> -->
 							<fieldset>
 								<div class="form-group" title="Username">
 									<input class="form-control" name="username" id="username" type="text" value="" autofocus="autofocus" th:placeholder="#{control.unsername}"/>

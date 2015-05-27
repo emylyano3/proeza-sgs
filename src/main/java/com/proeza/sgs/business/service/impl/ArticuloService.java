@@ -12,22 +12,38 @@ import org.springframework.stereotype.Service;
 
 import com.proeza.sgs.business.dao.ArticuloDao;
 import com.proeza.sgs.business.dao.ClaseDao;
+import com.proeza.sgs.business.dao.MarcaDao;
+import com.proeza.sgs.business.dao.RubroDao;
+import com.proeza.sgs.business.dao.TipoDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
 import com.proeza.sgs.business.dto.ArticuloDTO;
 import com.proeza.sgs.business.entity.Articulo;
+import com.proeza.sgs.business.entity.Clase;
+import com.proeza.sgs.business.entity.Marca;
+import com.proeza.sgs.business.entity.Rubro;
+import com.proeza.sgs.business.entity.Tipo;
 import com.proeza.sgs.business.service.IArticuloService;
 
 @Service
 @Transactional
 public class ArticuloService implements IArticuloService {
 
-	public static final Logger		log	= Logger.getLogger(ArticuloService.class);
+	public static final Logger	  log	= Logger.getLogger(ArticuloService.class);
 
 	@Autowired
-	private ArticuloDao				articuloDao;
+	private ArticuloDao	          articuloDao;
 
 	@Autowired
-	private ClaseDao				claseDao;
+	private ClaseDao	          claseDao;
+
+	@Autowired
+	private RubroDao	          rubroDao;
+
+	@Autowired
+	private MarcaDao	          marcaDao;
+
+	@Autowired
+	private TipoDao	              tipoDao;
 
 	@Autowired
 	private ArticuloFilterFactory	filterFactory;
@@ -47,9 +63,20 @@ public class ArticuloService implements IArticuloService {
 	}
 
 	@Override
-	public void update (Long id, Double price) {
-		Articulo art = this.articuloDao.find(id);
-		art.setPrecio(BigDecimal.valueOf(price));
+	public void update (ArticuloDTO dto) {
+		Articulo art = this.articuloDao.findByCode(dto.getCodigo());
+		Tipo tipo = this.tipoDao.findByCode(dto.getCodTipo());
+		Rubro rubro = this.rubroDao.findByCode(dto.getCodRubro());
+		Marca marca = this.marcaDao.findByCode(dto.getCodMarca());
+		Clase clase = this.claseDao.findByCode(dto.getCodClase());
+		art.setMarca(marca);
+		art.setTipo(tipo);
+		art.setRubro(rubro);
+		art.setClase(clase);
+		art.setCosto(BigDecimal.valueOf(dto.getCosto()));
+		art.setPrecio(BigDecimal.valueOf(dto.getPrecio()));
+		art.setModelo(dto.getModelo());
+		art.setDescripcion(dto.getDescripcion());
 	}
 
 	private List<ArticuloDTO> hideEntites (List<Articulo> articulos) {
