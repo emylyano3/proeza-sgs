@@ -1,18 +1,11 @@
-********************************************************************************************************
-*
-* Proeza SGS Project 2015
-*
-********************************************************************************************************
+<h1>Proeza SGS Project 2015</h1>
 
-Configuracion de proyecto
-=========================
- 
+<h2>Configuracion de proyecto</h2>
+
+<div>
+<span> 
 Proeza es un proyecto Java armado con Maven, desarrollado en Eclipse y versionado con git. 
 Para poder levantar el proyecto simplemente es necesario importarlo con eclipse.
+</span>
 
-File > Import > Existing Maven Proyect
-
-Sin embargo, desde la incorporacion de JPA 2 y el uso del metamodelo, son necesarios algunos
-pasos adicionales para la completa configuracion.
-
-//TODO Completar
+<ul><li>File > Import > Existing Maven Proyect</li></ul>
