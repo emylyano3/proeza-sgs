@@ -12,13 +12,6 @@
 				<div id="articulos" />
 			</div> 
 		</div>
-		<!-- Menu Contextual -->
-		<div id="gridMenu">
-	        <ul>
-	            <li id="editArt" th:text="#{art.admin.menu.edit}"/>
-	            <li id="deleteArt" th:text="#{art.admin.menu.delete}"/>
-	        </ul>
-       </div>
 		<!-- Modal de edicion -->
 		<div class="modal fade" id="editionPopup" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
@@ -109,7 +102,13 @@
 				</div>
 			</div>
 		</div>
-		
+		<!-- Menu Contextual -->
+		<div id="gridMenu">
+	        <ul>
+	            <li id="editArt" th:text="#{art.admin.menu.edit}"/>
+	            <li id="deleteArt" th:text="#{art.admin.menu.delete}"/>
+	        </ul>
+       </div>
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
@@ -169,7 +168,12 @@
 										commit(true);
 									},
 									error: function () {            
-										alert('error');
+										$.notify({
+											title: '<strong>Modificación de artículo:</strong>',
+											message: 'Ocurrió un error en la actualización del artículo'
+										},{
+											type: 'danger'
+										});
 										commit(false);
 							        }
 								});
