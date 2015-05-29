@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bootstrap HTML Test</title>
+<link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap-theme.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../src/main/webapp/resources/app/css/animate.css" type="text/css" media="screen" />
+</head>
+<body>
+	<form method="post" action="#GenerateNotify">
+		<button id="notify" type="button" class="btn btn-primary btn-lg" >Notify</button>
+	</form>
+	
+	<script src="../src/main/webapp/resources/jquery/jquery.js"></script>
+	<script src="../src/main/webapp/resources/bootstrap/js/bootstrap-notify.js"></script>
+	<script>
+		$(document).ready(function(){
+		    $("#notify").click(function() {
+				$.notify({
+					title: '<strong>Atención:</strong>',
+					message: 'Esto es una notificación'
+				},{
+					animate: {
+						enter: 'animated fadeInRight',
+						exit: 'animated fadeOutRight'
+					},
+					type: 'success'
+				});
+		    });
+		});
+	</script>
+</body>
+</html>

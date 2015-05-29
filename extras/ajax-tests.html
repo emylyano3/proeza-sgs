@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bootstrap HTML Test</title>
+<link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap-theme.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
+</head>
+<body>
+
+	<div>
+		<p class="greeting-id">The ID is</p>
+		<p class="greeting-content">The content is</p>
+	</div>
+
+	<script src="../src/main/webapp/resources/jquery/jquery.js"></script>
+	<script src="../src/main/webapp/resources/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.ajax({
+				url : "http://rest-service.guides.spring.io/greeting"
+			}).then(function(data) {
+				$('.greeting-id').append(data.id);
+				$('.greeting-content').append(data.content);
+			});
+		});
+	</script>
+</body>
+</html>

@@ -5,52 +5,9 @@
 <title>Bootstrap HTML Test</title>
 <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap-theme.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="../src/main/webapp/resources/app/css/animate.css" type="text/css" media="screen" />
-<script src="../src/main/webapp/resources/jquery/jquery.js"></script>
-<script src="../src/main/webapp/resources/jquery/jquery.inputmask.bundle.js"></script>
-<script src="../src/main/webapp/resources/bootstrap/js/bootstrap.js"></script>
-<script src="../src/main/webapp/resources/bootstrap/js/bootstrap-notify.js" />
-<script type="text/javascript">
-	$(document).ready(function() {
-	    $.ajax({
-	        url: "http://rest-service.guides.spring.io/greeting"
-	    }).then(function(data) {
-	       $('.greeting-id').append(data.id);
-	       $('.greeting-content').append(data.content);
-	    });
-	});
-</script>
 </head>
 <body>
 
-	<div>
-		<p class="greeting-id">The ID is</p>
-		<p class="greeting-content">The content is</p>
-	</div>
-
-	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal</button>
-	<form method="post" action="#GenerateNotify">
-		<button id="notify" type="button" class="btn btn-primary btn-lg" >Notify</button>
-	</form>
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-				</div>
-				<div class="modal-body">...</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-			</div>
-		</div>
-	</div>
 	<form style="width: 500px">
 		<div class="form-group">
 			<label for="exampleInputEmail1">Email address</label> 
@@ -112,22 +69,9 @@
 			</div>
 		</div>
 	</form>
-	<script>
-		$(document).ready(function(){
-		    $("#masked-input").inputmask("currency");
-		    $("#notify").click(function() {
-				$.notify({
-					title: '<strong>Atención:</strong>',
-					message: 'Esto es una notificación'
-				},{
-					animate: {
-						enter: 'animated fadeInRight',
-						exit: 'animated fadeOutRight'
-					},
-					type: 'success'
-				});
-		    });
-		});
-	</script>
+	<script src="../src/main/webapp/resources/jquery/jquery.js"></script>
+	<script src="../src/main/webapp/resources/jquery/jquery.inputmask.bundle.js"></script>
+	<script src="../src/main/webapp/resources/bootstrap/js/bootstrap.js"></script>
+	
 </body>
 </html>
