@@ -1,7 +1,6 @@
 package com.proeza.sgs.config.init;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import javax.servlet.Filter;
 
@@ -18,10 +17,9 @@ public class MvcInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	private static final String	APPLICATION_PROPERTIES	= "application.properties";
 
 	{
-		ClassPathResource cpr = new ClassPathResource(APPLICATION_PROPERTIES);
-		Properties p = System.getProperties();
 		try {
-			p.load(cpr.getInputStream());
+			ClassPathResource cpr = new ClassPathResource(APPLICATION_PROPERTIES);
+			System.getProperties().load(cpr.getInputStream());
 		} catch (IOException e) {
 			throw new RuntimeException("Error iniciando la aplicacion. No se puede cargar el archivo " + APPLICATION_PROPERTIES, e);
 		}

@@ -1,7 +1,5 @@
 package com.proeza.sgs.config.root;
 
-import javax.sql.DataSource;
-
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -60,19 +57,6 @@ public class ContextConfig {
 
 	@Autowired
 	private MailSettings		mailSettings;
-
-	@Bean
-	/**
-	 * TODO Esta config ya esta en DataSourceConfig. Quitarla!
-	 */
-	public DataSource dataSource () {
-		final DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setUrl(this.dsSettings.getUrl());
-		ds.setUsername(this.dsSettings.getUserName());
-		ds.setPassword(this.dsSettings.getPass());
-		ds.setDriverClassName(this.dsSettings.getDriver());
-		return ds;
-	}
 
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer () {
