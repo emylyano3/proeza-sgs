@@ -16,19 +16,19 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "fk_persona", referencedColumnName = "id")
 public class Cliente extends Persona {
 	private static final long	serialVersionUID	= 1L;
-	private Set<Telefono>		articulos			= new HashSet<>(0);
+	private Set<Articulo>	  articulos	         = new HashSet<>(0);
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
-		catalog = "sgs_proeza_db",
-		name = "art_articulo_cliente",
-		joinColumns = {@JoinColumn(name = "fk_cliente")},
-		inverseJoinColumns = {@JoinColumn(name = "fk_articulo")})
-	public Set<Telefono> getArticulos () {
+	    catalog = "sgs_proeza_db",
+	    name = "art_articulo_cliente",
+	    joinColumns = {@JoinColumn(name = "fk_cliente")},
+	    inverseJoinColumns = {@JoinColumn(name = "fk_articulo")})
+	public Set<Articulo> getArticulos () {
 		return this.articulos;
 	}
 
-	public void setArticulos (Set<Telefono> articulos) {
+	public void setArticulos (Set<Articulo> articulos) {
 		this.articulos = articulos;
 	}
 }

@@ -100,4 +100,9 @@ public class Movimiento implements Serializable {
 	public void setTipoEntidad (String tipo) {
 		this.tipoEntidad = tipo;
 	}
+
+	@Override
+    public String toString () {
+	    return "Movimiento [id=" + this.id + ", tipoMov=" + this.tipoMov + ", tipoEntidad=" + this.tipoEntidad + ", valorAnte=" + this.valorAnte + ", valorPost=" + this.valorPost + "]";
+    }
 }

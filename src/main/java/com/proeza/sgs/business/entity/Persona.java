@@ -22,13 +22,13 @@ import static javax.persistence.GenerationType.*;
 public class Persona implements Serializable {
 	private static final long	serialVersionUID	= 1L;
 
-	private Long				id;
-	private String				nombre;
-	private String				apellido;
-	private String				sexo				= "M";
+	private Long	          id;
+	private String	          nombre;
+	private String	          apellido;
+	private String	          sexo	             = "M";
 
-	private Set<Email>			emails				= new HashSet<>(0);
-	private Set<Telefono>		telefonos			= new HashSet<>(0);
+	private Set<Email>	      emails	         = new HashSet<>(0);
+	private Set<Telefono>	  telefonos	         = new HashSet<>(0);
 
 	@Id
 	@GeneratedValue(strategy = AUTO)
@@ -84,5 +84,56 @@ public class Persona implements Serializable {
 
 	public void setTelefonos (Set<Telefono> telefonos) {
 		this.telefonos = telefonos;
+	}
+
+	@Override
+	public String toString () {
+		return "Persona [id=" + this.id + ", nombre=" + this.nombre + ", apellido=" + this.apellido + ", sexo=" + this.sexo + "]";
+	}
+
+	@Override
+	public int hashCode () {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (this.apellido == null ? 0 : this.apellido.hashCode());
+		result = prime * result + (this.id == null ? 0 : this.id.hashCode());
+		result = prime * result + (this.nombre == null ? 0 : this.nombre.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals (Object obj) {
+		if (this == obj) {
+	        return true;
+        }
+		if (obj == null) {
+	        return false;
+        }
+		if (getClass() != obj.getClass()) {
+	        return false;
+        }
+		Persona other = (Persona) obj;
+		if (this.apellido == null) {
+			if (other.apellido != null) {
+	            return false;
+            }
+		} else if (!this.apellido.equals(other.apellido)) {
+	        return false;
+        }
+		if (this.id == null) {
+			if (other.id != null) {
+	            return false;
+            }
+		} else if (!this.id.equals(other.id)) {
+	        return false;
+        }
+		if (this.nombre == null) {
+			if (other.nombre != null) {
+	            return false;
+            }
+		} else if (!this.nombre.equals(other.nombre)) {
+	        return false;
+        }
+		return true;
 	}
 }

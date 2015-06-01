@@ -30,7 +30,7 @@ public abstract class Trackeable implements Identifiable {
 		if (getId() == null || valorAnte == null || valorAnte.equals(valorPoste)) {
 			return null;
 		}
-		Object valorAnteFinal = getValorAntePrevio(tipoMov, valorAnte);
+		Object valorAnteFinal = getAntiguoValorPrevio(tipoMov, valorAnte);
 		if (!equivalentValue(valorPoste, valorAnteFinal)) {
 			Movimiento mov = new Movimiento();
 			mov.setFechaMovimiento(DateUtils.createNow().getTime());
@@ -75,7 +75,7 @@ public abstract class Trackeable implements Identifiable {
 	 * anterior del movimiento previo.<br>
 	 * Finalmente se elimina el movimiento encontrado de los movimientos del articulo.
 	 */
-	private Object getValorAntePrevio (String tipoMov, Object valorAnte) {
+	private Object getAntiguoValorPrevio (String tipoMov, Object valorAnte) {
 		Movimiento mov;
 		Object valorAnteFinal = valorAnte;
 		if ((mov = getPrevious(tipoMov)) != null) {
@@ -88,13 +88,13 @@ public abstract class Trackeable implements Identifiable {
 
 	/**
 	 * Devuelve (si es que existe) la unica instancia que debiera existir de un tipo de movimiento para la entidad
-	 * trackeada que tenga como id un cero (es decir que aun no ha sido persistida)
+	 * trackeada que tenga <tt>null</tt> como id (es decir que aun no ha sido persistida)
 	 */
 	private Movimiento getPrevious (String tipoMov) {
 		List<Movimiento> movs = this.mapMovimientos.get(tipoMov);
 		if (movs != null) {
 			for (Movimiento mov : movs) {
-				if (mov.getId() == 0) {
+				if (mov.getId() == null) {
 					return mov;
 				}
 			}

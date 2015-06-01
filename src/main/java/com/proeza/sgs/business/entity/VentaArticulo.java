@@ -26,10 +26,10 @@ public class VentaArticulo implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 
-	private Long				id;
-	private Articulo			articulo;
-	private Venta				venta;
-	private int					cantidad;
+	private Long	          id;
+	private Articulo	      articulo;
+	private Venta	          venta;
+	private int	              cantidad;
 
 	public VentaArticulo () {
 	}
@@ -95,29 +95,43 @@ public class VentaArticulo implements Serializable {
 	@Override
 	public boolean equals (Object obj) {
 		if (this == obj) {
-			return true;
-		}
+	        return true;
+        }
 		if (obj == null) {
-			return false;
-		}
+	        return false;
+        }
 		if (getClass() != obj.getClass()) {
-			return false;
-		}
+	        return false;
+        }
 		VentaArticulo other = (VentaArticulo) obj;
 		if (this.articulo == null) {
 			if (other.articulo != null) {
-				return false;
-			}
+	            return false;
+            }
 		} else if (!this.articulo.equals(other.articulo)) {
-			return false;
-		}
+	        return false;
+        }
 		if (this.venta == null) {
 			if (other.venta != null) {
-				return false;
-			}
+	            return false;
+            }
 		} else if (!this.venta.equals(other.venta)) {
-			return false;
-		}
+	        return false;
+        }
 		return true;
 	}
+
+	@Override
+    public String toString () {
+		StringBuilder sb = new StringBuilder();
+		sb
+		.append("VentaArticulo [")
+		.append(this.articulo != null ? "articulo=" + this.articulo.getCodigo() + ",": "")
+		.append(this.venta != null ? "venta=" + this.venta.getCodigo() + ",": "")
+		.append("cantidad=" + this.cantidad)
+		.append("]");
+	    return "VentaArticulo [articulo=" + this.articulo + ", venta=" + this.venta + ", cantidad=" + this.cantidad + "]";
+    }
+
+
 }

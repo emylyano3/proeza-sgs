@@ -22,8 +22,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import com.proeza.sgs.business.exception.ArticuloDuplicadoEnVentaException;
-
 import static javax.persistence.GenerationType.*;
 
 /**
@@ -121,19 +119,20 @@ public class Venta implements Serializable {
 		this.articulos = articulos;
 	}
 
-	public void addArticulo (Articulo a, int cantidad) {
+	public void addArticulo (Articulo art, int cantidad) {
 		VentaArticulo va = new VentaArticulo();
-		va.setArticulo(a);
+		va.setArticulo(art);
 		va.setVenta(this);
-		if (findArticulo(va) == null) {
+		VentaArticulo aux = findArticulo(va);
+		if (aux == null) {
 			va.setCantidad(cantidad);
 			this.articulos.add(va);
 		} else {
-			throw new ArticuloDuplicadoEnVentaException();
+			aux.setCantidad(cantidad + aux.getCantidad());
 		}
 	}
 
-	public void updateArticulo (Articulo a, int cantidad) {
+	public void updateCantidad (Articulo a, int cantidad) {
 		VentaArticulo va = new VentaArticulo();
 		va.setArticulo(a);
 		va.setVenta(this);
@@ -178,37 +177,58 @@ public class Venta implements Serializable {
 		return "Venta [id=" + this.id + ", codigo=" + this.codigo + ", medioPago=" + this.medioPago + ", fecha=" + this.fecha + ", importe=" + this.importe + "]";
 	}
 
-	@Override
-	public int hashCode () {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (this.codigo == null ? 0 : this.codigo.hashCode());
-		result = prime * result + (int) (this.id ^ this.id >>> 32);
-		return result;
-	}
 
 	@Override
-	public boolean equals (Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Venta other = (Venta) obj;
-		if (this.codigo == null) {
-			if (other.codigo != null) {
-				return false;
-			}
-		} else if (!this.codigo.equals(other.codigo)) {
-			return false;
-		}
-		if (this.id != other.id) {
-			return false;
-		}
-		return true;
-	}
+    public int hashCode () {
+	    final int prime = 31;
+	    int result = 1;
+	    result = prime * result + (this.cliente == null ? 0 : this.cliente.hashCode());
+	    result = prime * result + (this.codigo == null ? 0 : this.codigo.hashCode());
+	    result = prime * result + (this.fecha == null ? 0 : this.fecha.hashCode());
+	    result = prime * result + (this.id == null ? 0 : this.id.hashCode());
+	    return result;
+    }
+
+	@Override
+    public boolean equals (Object obj) {
+	    if (this == obj) {
+	        return true;
+        }
+	    if (obj == null) {
+	        return false;
+        }
+	    if (getClass() != obj.getClass()) {
+	        return false;
+        }
+	    Venta other = (Venta) obj;
+	    if (this.cliente == null) {
+		    if (other.cliente != null) {
+	            return false;
+            }
+	    } else if (!this.cliente.equals(other.cliente)) {
+	        return false;
+        }
+	    if (this.codigo == null) {
+		    if (other.codigo != null) {
+	            return false;
+            }
+	    } else if (!this.codigo.equals(other.codigo)) {
+	        return false;
+        }
+	    if (this.fecha == null) {
+		    if (other.fecha != null) {
+	            return false;
+            }
+	    } else if (!this.fecha.equals(other.fecha)) {
+	        return false;
+        }
+	    if (this.id == null) {
+		    if (other.id != null) {
+	            return false;
+            }
+	    } else if (!this.id.equals(other.id)) {
+	        return false;
+        }
+	    return true;
+    }
 }
