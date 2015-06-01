@@ -154,7 +154,6 @@ public class NegocioDalTest extends IntegrationTest {
 		assertFalse(movs.isEmpty());
 		Movimiento mov = movs.iterator().next();
 		assertNotNull(mov);
-		assertNotNull(mov.getId());
 	}
 
 	@Test
@@ -173,13 +172,13 @@ public class NegocioDalTest extends IntegrationTest {
 		venta.addArticulo(art, 2);
 		venta.calcularImporte();
 		assertNotNull(venta.getImporte());
-		assertEquals(venta.getImporte().doubleValue(), 540, 0);
+		assertEquals(540, venta.getImporte().doubleValue(), 0);
 		assertEquals(Integer.valueOf(0), art.getStock());
 		assertEquals(art.getMovimientos().size(), 2);
 		// Actualizo a 1 la cantidad de unidades del articulo vendido y verifico
-		venta.updateArticulo(art, 1);
+		venta.updateCantidad(art, 1);
 		venta.calcularImporte();
-		assertEquals(venta.getImporte().doubleValue(), 270, 0);
+		assertEquals(270, venta.getImporte().doubleValue(), 0);
 		assertEquals(Integer.valueOf(1), art.getStock());
 		assertEquals(art.getMovimientos().size(), 2);
 		// Quito el articulo vendido y verifico

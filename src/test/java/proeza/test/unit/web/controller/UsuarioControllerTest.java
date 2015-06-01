@@ -48,7 +48,8 @@ public class UsuarioControllerTest extends WebMvcUnitTest {
 			.andExpect(status().isOk())
 			.andExpect(view().name("usuario/home.html"))
 			.andExpect(model().attribute(MenuType.SIDE_MENU_LEFT.name(), hasProperty("name", is("M_LEFT_MAIN"))));
-		verify(this.pageDao, times(1)).findByGroupAndName(PAGE_GROUP, "home");
+		// Una vez para buscar los menues y la otra para buscar el titulo y subtitulo de la pagina
+		verify(this.pageDao, times(2)).findByGroupAndName(PAGE_GROUP, "home");
 		verifyNoMoreInteractions(this.pageDao);
 	}
 

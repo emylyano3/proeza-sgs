@@ -14,6 +14,10 @@ import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.service.IUserService;
 import com.proeza.security.service.UserService;
 import com.proeza.sgs.business.service.IArticuloService;
+import com.proeza.sgs.business.service.IClaseService;
+import com.proeza.sgs.business.service.IMarcaService;
+import com.proeza.sgs.business.service.IRubroService;
+import com.proeza.sgs.business.service.ITipoService;
 import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.mail.IMailManager;
 
@@ -33,6 +37,26 @@ public class UnitTestContext {
 	@Bean
 	public IPageDao pageDao () {
 		return Mockito.mock(IPageDao.class);
+	}
+
+	@Bean
+	public IClaseService claseService () {
+		return Mockito.mock(IClaseService.class);
+	}
+
+	@Bean
+	public IRubroService rubroService () {
+		return Mockito.mock(IRubroService.class);
+	}
+
+	@Bean
+	public ITipoService tipoService () {
+		return Mockito.mock(ITipoService.class);
+	}
+
+	@Bean
+	public IMarcaService marcaService () {
+		return Mockito.mock(IMarcaService.class);
 	}
 
 	@Bean

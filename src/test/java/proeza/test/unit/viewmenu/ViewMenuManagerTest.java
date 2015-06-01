@@ -36,6 +36,5 @@ public class ViewMenuManagerTest extends AbstractUnitTest {
 
 	@Test
 	public void test () {
-		System.out.println();
 	}
 }
