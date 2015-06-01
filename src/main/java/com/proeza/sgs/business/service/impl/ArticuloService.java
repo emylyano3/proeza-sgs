@@ -17,6 +17,7 @@ import com.proeza.sgs.business.dao.RubroDao;
 import com.proeza.sgs.business.dao.TipoDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
 import com.proeza.sgs.business.dto.ArticuloDTO;
+import com.proeza.sgs.business.dto.service.PrecioDTO;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.business.entity.Marca;
@@ -79,6 +80,49 @@ public class ArticuloService implements IArticuloService {
 		art.setDescripcion(dto.getDescripcion());
 	}
 
+	@Override
+    public List<PrecioDTO> priceHistory (String code) {
+		List<PrecioDTO> result = new ArrayList<PrecioDTO>(0);
+		switch (code) {
+			case "1":
+				result.add(new PrecioDTO(12.3, getDate(1,1,2015)));
+				result.add(new PrecioDTO(13.0, getDate(2,2,2015)));
+				result.add(new PrecioDTO(13.2, getDate(6,3,2015)));
+				result.add(new PrecioDTO(14.0, getDate(2,4,2015)));
+				result.add(new PrecioDTO(14.0, getDate(4,5,2015)));
+				result.add(new PrecioDTO(13.9, getDate(9,6,2015)));
+				break;
+			case "2":
+				result.add(new PrecioDTO(0.21, getDate(1,1,2015)));
+				result.add(new PrecioDTO(0.31, getDate(2,1,2015)));
+				result.add(new PrecioDTO(0.38, getDate(6,1,2015)));
+				result.add(new PrecioDTO(0.39, getDate(2,1,2015)));
+				result.add(new PrecioDTO(0.45, getDate(4,1,2015)));
+				result.add(new PrecioDTO(0.50, getDate(9,1,2015)));
+				break;
+			case "3":
+				result.add(new PrecioDTO(12201, getDate(1,1,2015)));
+				result.add(new PrecioDTO(12291, getDate(2,2,2015)));
+				result.add(new PrecioDTO(12308, getDate(6,3,2015)));
+				result.add(new PrecioDTO(12419, getDate(2,4,2015)));
+				result.add(new PrecioDTO(12555, getDate(4,5,2015)));
+				result.add(new PrecioDTO(12600, getDate(9,6,2015)));
+				break;
+
+			default:
+				break;
+		}
+		return result;
+	}
+
+	private String getDate (int day, int month, int year) {
+//		Calendar c = Calendar.getInstance();
+//		c.set(Calendar.DATE, day);
+//		c.set(Calendar.MONTH, month);
+//		c.set(Calendar.YEAR, year);
+		return day + "/" + month + "/" + year;
+	}
+
 	private List<ArticuloDTO> hideEntites (List<Articulo> articulos) {
 		List<ArticuloDTO> result = new ArrayList<>(articulos.size());
 		for (Articulo art : articulos) {
@@ -86,4 +130,5 @@ public class ArticuloService implements IArticuloService {
 		}
 		return result;
 	}
+
 }
