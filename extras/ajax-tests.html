@@ -18,10 +18,14 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$.ajax({
-				url : "http://rest-service.guides.spring.io/greeting"
+				url : "http://localhost:8081/proeza-sgs/rest/articulo/priceHistory/1",
+				type : "POST",
+				dataType: 'jsonp',
+				contentType: 'application/json',
+				crossDomain: false
 			}).then(function(data) {
-				$('.greeting-id').append(data.id);
-				$('.greeting-content').append(data.content);
+				var obj = JSON.parse(data); 
+				console.log(obj);
 			});
 		});
 	</script>
