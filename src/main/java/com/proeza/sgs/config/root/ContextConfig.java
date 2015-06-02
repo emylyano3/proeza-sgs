@@ -17,6 +17,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -50,6 +51,7 @@ import com.proeza.core.resources.MessageResolver;
 @EnableAsync
 @EnableScheduling
 @EnableAspectJAutoProxy
+@EnableTransactionManagement
 public class ContextConfig {
 
 	@Autowired
