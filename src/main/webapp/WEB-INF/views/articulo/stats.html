@@ -6,59 +6,52 @@
 <body>
 	<div id="content" layout:fragment="contenido">
 		<div>
-			<div class="col-sm-6 text-center">
-				<label class="label label-success">Area Chart</label>
-				<div id="area-chart" style="min-height: 250px"></div>
-			</div>
-			<script type="text/javascript">
-				$(document).ready(function() {
-					var data = [
-				            { y: '2014', a: 50, b: 150, c: 150},
-				            { y: '2015', a: 65,  b: 75, c: 99},
-				            { y: '2016', a: 50,  b: 50, c: 110},
-				            { y: '2017', a: 75,  b: 60, c: 100},
-				            { y: '2018', a: 80,  b: 65, c: 85},
-				            { y: '2019', a: 90,  b: 70, c: 82},
-				            { y: '2020', a: 100, b: 75, c: 89},
-				            { y: '2021', a: 115, b: 75, c: 92},
-				            { y: '2022', a: 120, b: 85, c: 81},
-				            { y: '2023', a: 145, b: 85, c: 98},
-				            { y: '2024', a: 160, b: 95, c: 70}
-				          ],
-				          config = {
-				            data: data,
-				            xkey: 'y',
-				            ykeys: ['a', 'b', 'c'],
-				            labels: ['Total Income', 'Total Outcome','Pedo'],
-				            fillOpacity: 0.6,
-				            hideHover: 'auto',
-				            behaveLikeLine: false,
-				            resize: true,
-				            pointFillColors:['#ffffff'],
-				            pointStrokeColors: ['black'],
-				            lineColors:['gray','red', 'blue']
-				        };
-				      config.element = 'area-chart';
-				      Morris.Area(config);
-				});
-			</script>
+			<canvas id="priceHistory" width="800" height="400"></canvas>
 		</div>
+		<script type="text/javascript" src="../../../resources/chart/js/chart.js" th:src="@{/resources/chart/js/chart.js}" ></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$.ajax({
-					url : '/proeza-sgs/rest/articulo/priceHistory/1',
-					type : 'POST',
-					dataType : 'json',
-					contentType : 'application/json',
-					success: function (data, status, jqXHR) {
-						console.log(data[0].fecha);
-						var obj = JSON.stringify(data);
-			        },
-			        error: function (jqXHR, status) {            
-						console.log(jqXHR.statusText);
-						console.log('Error found');
-			        }
-				});
+				var ctx = document.getElementById("priceHistory").getContext("2d");
+				var data = {
+				    labels: ["January", "February", "March", "April", "May", "June", "July"],
+				    datasets: [
+				        {
+				            label: "My First dataset",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: [65, 59, 80, 81, 56, 55, 40]
+				        },
+				        {
+				            label: "My Second dataset",
+				            fillColor: "rgba(151,187,205,0.2)",
+				            strokeColor: "rgba(151,187,205,1)",
+				            pointColor: "rgba(151,187,205,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(151,187,205,1)",
+				            data: [28, 48, 40, 19, 86, 27, 90]
+				        }
+				    ]
+				};
+				var priceHistoryChart = new Chart(ctx).Line(data);
+// 				$.ajax({
+// 					url : '/proeza-sgs/rest/articulo/priceHistory/1',
+// 					type : 'POST',
+// 					dataType : 'json',
+// 					contentType : 'application/json',
+// 					success: function (data, status, jqXHR) {
+// 						console.log(data[0].fecha);
+// 						var obj = JSON.stringify(data);
+// 			        },
+// 			        error: function (jqXHR, status) {            
+// 						console.log(jqXHR.statusText);
+// 						console.log('Error found');
+// 			        }
+// 				});				
 			});
 		</script>
 	</div>
