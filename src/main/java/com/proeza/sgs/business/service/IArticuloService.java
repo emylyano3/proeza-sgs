@@ -3,7 +3,7 @@ package com.proeza.sgs.business.service;
 import java.util.List;
 
 import com.proeza.sgs.business.dto.ArticuloDTO;
-import com.proeza.sgs.business.dto.service.PrecioDTO;
+import com.proeza.sgs.business.dto.service.PrecioHistoryDTO;
 
 public interface IArticuloService {
 
@@ -13,5 +13,5 @@ public interface IArticuloService {
 
 	void update (ArticuloDTO articulo);
 
-	List<PrecioDTO> priceHistory (String code);
+	List<PrecioHistoryDTO> priceHistory (String code);
 }

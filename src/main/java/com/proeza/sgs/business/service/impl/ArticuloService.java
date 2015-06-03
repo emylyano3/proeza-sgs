@@ -2,6 +2,7 @@ package com.proeza.sgs.business.service.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -17,7 +18,7 @@ import com.proeza.sgs.business.dao.RubroDao;
 import com.proeza.sgs.business.dao.TipoDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
 import com.proeza.sgs.business.dto.ArticuloDTO;
-import com.proeza.sgs.business.dto.service.PrecioDTO;
+import com.proeza.sgs.business.dto.service.PrecioHistoryDTO;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.business.entity.Marca;
@@ -81,32 +82,28 @@ public class ArticuloService implements IArticuloService {
 	}
 
 	@Override
-    public List<PrecioDTO> priceHistory (String code) {
-		List<PrecioDTO> result = new ArrayList<PrecioDTO>(0);
+    public List<PrecioHistoryDTO> priceHistory (String code) {
+		List<PrecioHistoryDTO> result = new ArrayList<PrecioHistoryDTO>(0);
+		List<Double> data = new ArrayList<>();
+		List<Double> data2 = new ArrayList<>();
 		switch (code) {
 			case "1":
-				result.add(new PrecioDTO(12.3, getDate(1,1,2015)));
-				result.add(new PrecioDTO(13.0, getDate(2,2,2015)));
-				result.add(new PrecioDTO(13.2, getDate(6,3,2015)));
-				result.add(new PrecioDTO(14.0, getDate(2,4,2015)));
-				result.add(new PrecioDTO(14.0, getDate(4,5,2015)));
-				result.add(new PrecioDTO(13.9, getDate(9,6,2015)));
+				data.addAll(Arrays.asList(new Double[] {28D, 48D, 40D, 19D, 86D, 27D, 90D}));
+				data2.addAll(Arrays.asList(new Double[] {65D, 59D, 80D, 81D, 56D, 55D, 40D}));
+				result.add(new PrecioHistoryDTO(data));
+				result.add(new PrecioHistoryDTO(data2));
 				break;
 			case "2":
-				result.add(new PrecioDTO(0.21, getDate(1,1,2015)));
-				result.add(new PrecioDTO(0.31, getDate(2,1,2015)));
-				result.add(new PrecioDTO(0.38, getDate(6,1,2015)));
-				result.add(new PrecioDTO(0.39, getDate(2,1,2015)));
-				result.add(new PrecioDTO(0.45, getDate(4,1,2015)));
-				result.add(new PrecioDTO(0.50, getDate(9,1,2015)));
+				data.addAll(Arrays.asList(new Double[] {10D, 30D, 30D, 50D, 50D, 100D, 100D}));
+				data2.addAll(Arrays.asList(new Double[] {65D, 59D, 80D, 81D, 56D, 55D, 40D}));
+				result.add(new PrecioHistoryDTO(data));
+				result.add(new PrecioHistoryDTO(data2));
 				break;
 			case "3":
-				result.add(new PrecioDTO(12201, getDate(1,1,2015)));
-				result.add(new PrecioDTO(12291, getDate(2,2,2015)));
-				result.add(new PrecioDTO(12308, getDate(6,3,2015)));
-				result.add(new PrecioDTO(12419, getDate(2,4,2015)));
-				result.add(new PrecioDTO(12555, getDate(4,5,2015)));
-				result.add(new PrecioDTO(12600, getDate(9,6,2015)));
+				data.addAll(Arrays.asList(new Double[] {28D, 48D, 40D, 19D, 86D, 27D, 90D}));
+				data2.addAll(Arrays.asList(new Double[] {65D, 59D, 80D, 81D, 56D, 55D, 40D}));
+				result.add(new PrecioHistoryDTO(data));
+				result.add(new PrecioHistoryDTO(data2));
 				break;
 
 			default:
@@ -115,13 +112,6 @@ public class ArticuloService implements IArticuloService {
 		return result;
 	}
 
-	private String getDate (int day, int month, int year) {
-//		Calendar c = Calendar.getInstance();
-//		c.set(Calendar.DATE, day);
-//		c.set(Calendar.MONTH, month);
-//		c.set(Calendar.YEAR, year);
-		return day + "/" + month + "/" + year;
-	}
 
 	private List<ArticuloDTO> hideEntites (List<Articulo> articulos) {
 		List<ArticuloDTO> result = new ArrayList<>(articulos.size());

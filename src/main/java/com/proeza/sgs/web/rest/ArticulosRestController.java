@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proeza.sgs.business.dto.ArticuloDTO;
-import com.proeza.sgs.business.dto.service.PrecioDTO;
+import com.proeza.sgs.business.dto.service.PrecioHistoryDTO;
 import com.proeza.sgs.business.service.IArticuloService;
 
 @RestController
@@ -40,7 +40,7 @@ public class ArticulosRestController {
 	}
 
 	@RequestMapping(value = "priceHistory/{code}", method = RequestMethod.POST)
-	public List<PrecioDTO> priceHistory (@PathVariable String code) {
+	public List<PrecioHistoryDTO> priceHistory (@PathVariable String code) {
 		return this.productService.priceHistory(code);
 	}
 }

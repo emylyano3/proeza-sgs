@@ -11,47 +11,45 @@
 		<script type="text/javascript" src="../../../resources/chart/js/chart.js" th:src="@{/resources/chart/js/chart.js}" ></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				var ctx = document.getElementById("priceHistory").getContext("2d");
-				var data = {
-				    labels: ["January", "February", "March", "April", "May", "June", "July"],
-				    datasets: [
-				        {
-				            label: "My First dataset",
-				            fillColor: "rgba(220,220,220,0.2)",
-				            strokeColor: "rgba(220,220,220,1)",
-				            pointColor: "rgba(220,220,220,1)",
-				            pointStrokeColor: "#fff",
-				            pointHighlightFill: "#fff",
-				            pointHighlightStroke: "rgba(220,220,220,1)",
-				            data: [65, 59, 80, 81, 56, 55, 40]
-				        },
-				        {
-				            label: "My Second dataset",
-				            fillColor: "rgba(151,187,205,0.2)",
-				            strokeColor: "rgba(151,187,205,1)",
-				            pointColor: "rgba(151,187,205,1)",
-				            pointStrokeColor: "#fff",
-				            pointHighlightFill: "#fff",
-				            pointHighlightStroke: "rgba(151,187,205,1)",
-				            data: [28, 48, 40, 19, 86, 27, 90]
-				        }
-				    ]
-				};
-				var priceHistoryChart = new Chart(ctx).Line(data);
-// 				$.ajax({
-// 					url : '/proeza-sgs/rest/articulo/priceHistory/1',
-// 					type : 'POST',
-// 					dataType : 'json',
-// 					contentType : 'application/json',
-// 					success: function (data, status, jqXHR) {
-// 						console.log(data[0].fecha);
-// 						var obj = JSON.stringify(data);
-// 			        },
-// 			        error: function (jqXHR, status) {            
-// 						console.log(jqXHR.statusText);
-// 						console.log('Error found');
-// 			        }
-// 				});				
+				$.ajax({
+					url : '/proeza-sgs/rest/articulo/priceHistory/2',
+					type : 'POST',
+					dataType : 'json',
+					contentType : 'application/json',
+					success: function (data, status, jqXHR) {
+						var ctx = document.getElementById("priceHistory").getContext("2d");
+						var chartData = {
+						    labels: ["January", "February", "March", "April", "May", "June", "July"],
+						    datasets: [
+						        {
+						            label: "My First dataset",
+						            fillColor: "rgba(220,220,220,0.2)",
+						            strokeColor: "rgba(220,220,220,1)",
+						            pointColor: "rgba(220,220,220,1)",
+						            pointStrokeColor: "#fff",
+						            pointHighlightFill: "#fff",
+						            pointHighlightStroke: "rgba(220,220,220,1)",
+						            data: data[0].prices
+						        },
+						        {
+						            label: "My Second dataset",
+						            fillColor: "rgba(151,187,205,0.2)",
+						            strokeColor: "rgba(151,187,205,1)",
+						            pointColor: "rgba(151,187,205,1)",
+						            pointStrokeColor: "#fff",
+						            pointHighlightFill: "#fff",
+						            pointHighlightStroke: "rgba(151,187,205,1)",
+						            data: data[1].prices
+						        }
+						    ]
+						};
+						var priceHistoryChart = new Chart(ctx).Line(chartData);				
+			        },
+			        error: function (jqXHR, status) {            
+						console.log(jqXHR.statusText);
+						console.log('Error found');
+			        }
+				});				
 			});
 		</script>
 	</div>
