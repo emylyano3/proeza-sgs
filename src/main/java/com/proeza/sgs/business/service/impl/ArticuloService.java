@@ -31,6 +31,7 @@ import com.proeza.sgs.business.entity.TipoMovimiento;
 import com.proeza.sgs.business.service.IArticuloService;
 
 import static javax.xml.bind.DatatypeConverter.*;
+import static org.apache.commons.lang.StringUtils.*;
 
 @Service
 @Transactional
@@ -109,7 +110,7 @@ public class ArticuloService implements IArticuloService {
 		List<String> labels = new ArrayList<String>();
 		DateFormat pattern = new SimpleDateFormat("MMMMM yyyy");
 		for (Movimiento mov : movs) {
-			labels.add(pattern.format(mov.getFechaMovimiento()));
+			labels.add(capitalize(pattern.format(mov.getFechaMovimiento())));
         }
 		return labels;
 	}
