@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.thymeleaf.util.DateUtils;
-
 import com.proeza.core.persistence.Identifiable;
+
+import static org.thymeleaf.util.DateUtils.*;
 
 public abstract class Trackeable implements Identifiable {
 
@@ -26,14 +26,14 @@ public abstract class Trackeable implements Identifiable {
 	 * lo que se hace es llevar cuenta de cuantos movimientos sin id (es decir id con valor cero) hay para cada tipo de
 	 * movimiento. En caso de encontrar uno previo, se lo elimina.
 	 */
-	public Movimiento track (String tipoMov, Object valorAnte, Object valorPoste) {
+	public Movimiento track (String tipoMov, String valorAnte, String valorPoste) {
 		if (getId() == null || valorAnte == null || valorAnte.equals(valorPoste)) {
 			return null;
 		}
-		Object valorAnteFinal = getAntiguoValorPrevio(tipoMov, valorAnte);
+		String valorAnteFinal = getAntiguoValorPrevio(tipoMov, valorAnte);
 		if (!equivalentValue(valorPoste, valorAnteFinal)) {
 			Movimiento mov = new Movimiento();
-			mov.setFechaMovimiento(DateUtils.createNow().getTime());
+			mov.setFechaMovimiento(createNow().getTime());
 			mov.setIdEntidad(getId());
 			mov.setTipoMov(tipoMov);
 			mov.setTipoEntidad(getTipoEntidad());
@@ -45,7 +45,7 @@ public abstract class Trackeable implements Identifiable {
 		return null;
 	}
 
-	private boolean equivalentValue (Object valorPoste, Object valorAnteFinal) {
+	private boolean equivalentValue (String valorPoste, String valorAnteFinal) {
 		if (valorPoste == null) {
 			if (valorAnteFinal == null) {
 				return true;
@@ -55,7 +55,7 @@ public abstract class Trackeable implements Identifiable {
 			if (valorAnteFinal == null) {
 				return false;
 			}
-			return valorAnteFinal.equals(valorPoste.toString());
+			return valorAnteFinal.equals(valorPoste);
 		}
 	}
 
@@ -73,12 +73,13 @@ public abstract class Trackeable implements Identifiable {
 	 * Chequea si existe un movimiento con el tipo recibido, que no tenga id (que tenga id cero). Si lo encuentra
 	 * entonces se cambia el valor a ser tenido en cuenta como anterior, en vez de tomar el recibido, se toma el valor
 	 * anterior del movimiento previo.<br>
-	 * Finalmente se elimina el movimiento encontrado de los movimientos del articulo.
+	 * Finalmente se elimina el movimiento encontrado de los movimientos del articulo. Esto sirve para evitar generar
+	 * varios movimientos dentro de una misma transaccion.
 	 */
-	private Object getAntiguoValorPrevio (String tipoMov, Object valorAnte) {
+	private String getAntiguoValorPrevio (String tipoMov, String valorAnte) {
 		Movimiento mov;
-		Object valorAnteFinal = valorAnte;
-		if ((mov = getPrevious(tipoMov)) != null) {
+		String valorAnteFinal = valorAnte;
+		if ((mov = getUnpersistedPrevious(tipoMov)) != null) {
 			valorAnteFinal = mov.getValorAnte();
 			this.mapMovimientos.get(tipoMov).remove(mov);
 			removeMovimiento(mov);
@@ -90,7 +91,7 @@ public abstract class Trackeable implements Identifiable {
 	 * Devuelve (si es que existe) la unica instancia que debiera existir de un tipo de movimiento para la entidad
 	 * trackeada que tenga <tt>null</tt> como id (es decir que aun no ha sido persistida)
 	 */
-	private Movimiento getPrevious (String tipoMov) {
+	private Movimiento getUnpersistedPrevious (String tipoMov) {
 		List<Movimiento> movs = this.mapMovimientos.get(tipoMov);
 		if (movs != null) {
 			for (Movimiento mov : movs) {

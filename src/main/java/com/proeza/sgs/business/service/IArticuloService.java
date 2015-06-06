@@ -13,5 +13,10 @@ public interface IArticuloService {
 
 	void update (ArticuloDTO articulo);
 
+	/**
+	 * Devuelve el historial de precios de un articulo, observando los movimientos de cambio de precios que tuvo.
+	 *
+	 * @return
+	 */
 	List<PrecioHistoryDTO> priceHistory (String code);
 }

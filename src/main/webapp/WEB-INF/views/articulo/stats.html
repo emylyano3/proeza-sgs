@@ -12,7 +12,7 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$.ajax({
-					url : '/proeza-sgs/rest/articulo/priceHistory/2',
+					url : '/proeza-sgs/rest/articulo/priceHistory/PRRS000001',
 					type : 'POST',
 					dataType : 'json',
 					contentType : 'application/json',
@@ -30,16 +30,6 @@
 						            pointHighlightFill: "#fff",
 						            pointHighlightStroke: "rgba(220,220,220,1)",
 						            data: data[0].prices
-						        },
-						        {
-						            label: "My Second dataset",
-						            fillColor: "rgba(151,187,205,0.2)",
-						            strokeColor: "rgba(151,187,205,1)",
-						            pointColor: "rgba(151,187,205,1)",
-						            pointStrokeColor: "#fff",
-						            pointHighlightFill: "#fff",
-						            pointHighlightStroke: "rgba(151,187,205,1)",
-						            data: data[1].prices
 						        }
 						    ]
 						};

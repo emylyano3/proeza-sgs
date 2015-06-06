@@ -7,7 +7,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.thymeleaf.util.DateUtils;
 
 import proeza.test.integration.IntegrationTest;
 
@@ -27,24 +26,25 @@ import com.proeza.sgs.business.entity.builder.VentaBuilder;
 
 import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 import static org.junit.Assert.*;
+import static org.thymeleaf.util.DateUtils.*;
 
 public class NegocioDalTest extends IntegrationTest {
-	private static Logger			log	= Logger.getLogger(NegocioDalTest.class);
+	private static Logger	      log	= Logger.getLogger(NegocioDalTest.class);
 
 	@Autowired
-	private ClaseDao				claseDao;
+	private ClaseDao	          claseDao;
 
 	@Autowired
-	private ArticuloDao				articuloDao;
+	private ArticuloDao	          articuloDao;
 
 	@Autowired
-	private VentaDao				ventaDao;
+	private VentaDao	          ventaDao;
 
 	@Autowired
-	private ClienteDao				clienteDao;
+	private ClienteDao	          clienteDao;
 
 	@Autowired
-	private MedioPagoDao			medioPagoDao;
+	private MedioPagoDao	      medioPagoDao;
 
 	@Autowired
 	private ArticuloFilterFactory	filterFactory;
@@ -161,31 +161,32 @@ public class NegocioDalTest extends IntegrationTest {
 		Cliente cliente = this.clienteDao.find(2L);
 		MedioPago mp = this.medioPagoDao.find(1L);
 		Venta venta = new VentaBuilder()
-			.withCodigo("EFT20150219")
-			.withCliente(cliente)
-			.withMedioPago(mp)
-			.withFecha(DateUtils.createNow().getTime())
-			.build();
+		    .withCodigo("EFT20150219")
+		    .withCliente(cliente)
+		    .withMedioPago(mp)
+		    .withFecha(createNow().getTime())
+		    .build();
 		Articulo art = this.articuloDao.find(1L);
-		assertEquals(art.getMovimientos().size(), 1);
+		assertEquals(5, art.getMovimientos().size());
 		// Agrego la venta de 2 unidades de un articulo, calculo el importe y verifico
 		venta.addArticulo(art, 2);
 		venta.calcularImporte();
 		assertNotNull(venta.getImporte());
-		assertEquals(540, venta.getImporte().doubleValue(), 0);
+		assertEquals(650, venta.getImporte().doubleValue(), 0);
 		assertEquals(Integer.valueOf(0), art.getStock());
-		assertEquals(art.getMovimientos().size(), 2);
+		assertEquals(6, art.getMovimientos().size());
 		// Actualizo a 1 la cantidad de unidades del articulo vendido y verifico
 		venta.updateCantidad(art, 1);
 		venta.calcularImporte();
-		assertEquals(270, venta.getImporte().doubleValue(), 0);
+		assertEquals(325, venta.getImporte().doubleValue(), 0);
 		assertEquals(Integer.valueOf(1), art.getStock());
-		assertEquals(art.getMovimientos().size(), 2);
+		// Debe seguir habiendo 6 movimientos. El venta.updateCantidad no debio generar nuevos movimientos
+		assertEquals(6, art.getMovimientos().size());
 		// Quito el articulo vendido y verifico
 		venta.removeArticulo(art);
 		venta.calcularImporte();
 		assertEquals(venta.getImporte().doubleValue(), 0, 0);
 		assertEquals(Integer.valueOf(2), art.getStock());
-		assertEquals(art.getMovimientos().size(), 1);
+		assertEquals(5, art.getMovimientos().size());
 	}
 }

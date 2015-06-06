@@ -31,36 +31,37 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.core.tracking.entity.Trackeable;
 
+import static com.proeza.core.util.DataTypeConverter.*;
 import static com.proeza.sgs.business.entity.TipoEntidad.*;
 import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 
 @NamedQueries(value = {
-	@NamedQuery(name = "findByCode", query = "from Articulo a where a.codigo = :code")
+    @NamedQuery(name = "findByCode", query = "from Articulo a where a.codigo = :code")
 })
 @Entity
 @Table(
-	catalog = "sgs_proeza_db",
-	name = "art_articulo",
-	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
+    catalog = "sgs_proeza_db",
+    name = "art_articulo",
+    uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Articulo extends Trackeable implements Serializable, Comparable<Articulo> {
 
 	private static final long	serialVersionUID	= 1L;
 
-	private Long				id;
-	private String				codigo;
-	private String				modelo;
-	private String				descripcion;
-	private Rubro				rubro;
-	private Clase				clase;
-	private Tipo				tipo;
-	private Marca				marca;
-	private BigDecimal			costo;
-	private BigDecimal			precio;
-	private Integer				stock;
+	private Long	          id;
+	private String	          codigo;
+	private String	          modelo;
+	private String	          descripcion;
+	private Rubro	          rubro;
+	private Clase	          clase;
+	private Tipo	          tipo;
+	private Marca	          marca;
+	private BigDecimal	      costo;
+	private BigDecimal	      precio;
+	private Integer	          stock;
 
-	private Set<Movimiento>		movimientos			= new HashSet<>(0);
-	private Set<Proveedor>		proveedores			= new HashSet<>(0);
+	private Set<Movimiento>	  movimientos	     = new HashSet<>(0);
+	private Set<Proveedor>	  proveedores	     = new HashSet<>(0);
 
 	public Articulo () {
 	}
@@ -150,7 +151,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 	}
 
 	public void setCosto (BigDecimal costo) {
-		track(MOD_COSTO.getCodigo(), this.costo, costo);
+		track(MOD_COSTO.getCodigo(), tostring(this.costo), tostring(costo));
 		this.costo = costo;
 	}
 
@@ -160,7 +161,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 	}
 
 	public void setPrecio (BigDecimal precio) {
-		track(MOD_PRECIO.getCodigo(), this.precio, precio);
+		track(MOD_PRECIO.getCodigo(), tostring(this.precio), tostring(precio));
 		this.precio = precio;
 	}
 
@@ -170,16 +171,16 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 	}
 
 	public void setStock (Integer cantidad) {
-		track(MOD_STOCK.getCodigo(), this.stock, cantidad);
+		track(MOD_STOCK.getCodigo(), tostring(this.stock), tostring(cantidad));
 		this.stock = cantidad;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
-		catalog = "sgs_proeza_db",
-		name = "art_articulo_proveedor",
-		joinColumns = {@JoinColumn(name = "fk_articulo", nullable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "fk_proveedor", nullable = false)})
+	    catalog = "sgs_proeza_db",
+	    name = "art_articulo_proveedor",
+	    joinColumns = {@JoinColumn(name = "fk_articulo", nullable = false)},
+	    inverseJoinColumns = {@JoinColumn(name = "fk_proveedor", nullable = false)})
 	public Set<Proveedor> getProveedores () {
 		return this.proveedores;
 	}

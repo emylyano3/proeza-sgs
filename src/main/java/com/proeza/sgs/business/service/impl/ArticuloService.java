@@ -2,7 +2,7 @@ package com.proeza.sgs.business.service.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -11,8 +11,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.proeza.sgs.business.dao.ArticuloDao;
+import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.sgs.business.dao.ClaseDao;
+import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.dao.MarcaDao;
 import com.proeza.sgs.business.dao.RubroDao;
 import com.proeza.sgs.business.dao.TipoDao;
@@ -24,7 +25,10 @@ import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.business.entity.Marca;
 import com.proeza.sgs.business.entity.Rubro;
 import com.proeza.sgs.business.entity.Tipo;
+import com.proeza.sgs.business.entity.TipoMovimiento;
 import com.proeza.sgs.business.service.IArticuloService;
+
+import static javax.xml.bind.DatatypeConverter.*;
 
 @Service
 @Transactional
@@ -33,7 +37,7 @@ public class ArticuloService implements IArticuloService {
 	public static final Logger	  log	= Logger.getLogger(ArticuloService.class);
 
 	@Autowired
-	private ArticuloDao	          articuloDao;
+	private IArticuloDao	      articuloDao;
 
 	@Autowired
 	private ClaseDao	          claseDao;
@@ -82,36 +86,20 @@ public class ArticuloService implements IArticuloService {
 	}
 
 	@Override
-    public List<PrecioHistoryDTO> priceHistory (String code) {
+	public List<PrecioHistoryDTO> priceHistory (String code) {
 		List<PrecioHistoryDTO> result = new ArrayList<PrecioHistoryDTO>(0);
-		List<Double> data = new ArrayList<>();
-		List<Double> data2 = new ArrayList<>();
-		switch (code) {
-			case "1":
-				data.addAll(Arrays.asList(new Double[] {28D, 48D, 40D, 19D, 86D, 27D, 90D}));
-				data2.addAll(Arrays.asList(new Double[] {65D, 59D, 80D, 81D, 56D, 55D, 40D}));
-				result.add(new PrecioHistoryDTO(data));
-				result.add(new PrecioHistoryDTO(data2));
-				break;
-			case "2":
-				data.addAll(Arrays.asList(new Double[] {10D, 30D, 30D, 50D, 50D, 100D, 100D}));
-				data2.addAll(Arrays.asList(new Double[] {65D, 59D, 80D, 81D, 56D, 55D, 40D}));
-				result.add(new PrecioHistoryDTO(data));
-				result.add(new PrecioHistoryDTO(data2));
-				break;
-			case "3":
-				data.addAll(Arrays.asList(new Double[] {28D, 48D, 40D, 19D, 86D, 27D, 90D}));
-				data2.addAll(Arrays.asList(new Double[] {65D, 59D, 80D, 81D, 56D, 55D, 40D}));
-				result.add(new PrecioHistoryDTO(data));
-				result.add(new PrecioHistoryDTO(data2));
-				break;
-
-			default:
-				break;
+		List<Movimiento> movs = this.articuloDao.findMovimientosAsc(code, TipoMovimiento.MOD_PRECIO.getCodigo());
+		List<Double> data = new ArrayList<>(movs.size());
+		for (Iterator<Movimiento> it = movs.iterator(); it.hasNext();) {
+			Movimiento mov = it.next();
+			data.add(parseDouble(mov.getValorAnte()));
+			if (!it.hasNext()) {
+				data.add(parseDouble(mov.getValorPost()));
+			}
 		}
+		result.add(new PrecioHistoryDTO(data));
 		return result;
 	}
-
 
 	private List<ArticuloDTO> hideEntites (List<Articulo> articulos) {
 		List<ArticuloDTO> result = new ArrayList<>(articulos.size());

@@ -120,11 +120,11 @@ public class Venta implements Serializable {
 	}
 
 	public void addArticulo (Articulo art, int cantidad) {
-		VentaArticulo va = new VentaArticulo();
-		va.setArticulo(art);
-		va.setVenta(this);
-		VentaArticulo aux = findArticulo(va);
+		VentaArticulo aux = findVentaArticulo(art);
 		if (aux == null) {
+			VentaArticulo va = new VentaArticulo();
+			va.setArticulo(art);
+			va.setVenta(this);
 			va.setCantidad(cantidad);
 			this.articulos.add(va);
 		} else {
@@ -132,32 +132,28 @@ public class Venta implements Serializable {
 		}
 	}
 
-	public void updateCantidad (Articulo a, int cantidad) {
+	public void updateCantidad (Articulo art, int cantidad) {
 		VentaArticulo va = new VentaArticulo();
-		va.setArticulo(a);
+		va.setArticulo(art);
 		va.setVenta(this);
-		if ((va = findArticulo(va)) != null) {
+		if ((va = findVentaArticulo(art)) != null) {
 			va.setCantidad(cantidad);
 		}
 	}
 
-	public boolean removeArticulo (Articulo a) {
-		VentaArticulo va = new VentaArticulo();
-		va.setArticulo(a);
-		va.setVenta(this);
-		if ((va = findArticulo(va)) != null) {
+	public boolean removeArticulo (Articulo art) {
+		VentaArticulo va;
+		if ((va = findVentaArticulo(art)) != null) {
 			va.setCantidad(0);
 			return this.articulos.remove(va);
 		}
 		return false;
 	}
 
-	private VentaArticulo findArticulo (VentaArticulo va) {
-		if (this.articulos.contains(va)) {
-			for (VentaArticulo aux : this.articulos) {
-				if (aux.equals(va)) {
-					return aux;
-				}
+	private VentaArticulo findVentaArticulo (Articulo art) {
+		for (VentaArticulo aux : this.articulos) {
+			if (aux.getArticulo().equals(art)) {
+				return aux;
 			}
 		}
 		return null;

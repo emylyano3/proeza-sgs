@@ -13,6 +13,7 @@ import com.proeza.core.service.IMailService;
 import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.service.IUserService;
 import com.proeza.security.service.UserService;
+import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.service.IArticuloService;
 import com.proeza.sgs.business.service.IClaseService;
 import com.proeza.sgs.business.service.IMarcaService;
@@ -37,6 +38,11 @@ public class UnitTestContext {
 	@Bean
 	public IPageDao pageDao () {
 		return Mockito.mock(IPageDao.class);
+	}
+
+	@Bean
+	public IArticuloDao articuloDao () {
+		return Mockito.mock(IArticuloDao.class);
 	}
 
 	@Bean

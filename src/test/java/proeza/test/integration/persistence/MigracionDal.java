@@ -23,8 +23,8 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import proeza.test.integration.IntegrationTest;
 
-import com.proeza.sgs.business.dao.ArticuloDao;
 import com.proeza.sgs.business.dao.ClaseDao;
+import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.dao.RubroDao;
 import com.proeza.sgs.business.dao.TipoDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
@@ -45,7 +45,7 @@ public class MigracionDal extends IntegrationTest {
 	private ClaseDao				claseDao;
 
 	@Autowired
-	private ArticuloDao				articuloDao;
+	private IArticuloDao				articuloDao;
 
 	@Autowired
 	private TipoDao					tipoDao;
