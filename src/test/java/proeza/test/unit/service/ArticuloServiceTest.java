@@ -59,14 +59,12 @@ public class ArticuloServiceTest extends AbstractUnitTest {
 		this.movBuilder.withFechaMovimiento(create(2015, 03, 15).getTime());
 		movs.add(this.movBuilder.build());
 		when(this.articuloDao.findMovimientosAsc("COD_1", TipoMovimiento.MOD_PRECIO.getCodigo())).thenReturn(movs);
-		List<PrecioHistoryDTO> result = this.articuloService.priceHistory("COD_1");
+		PrecioHistoryDTO result = this.articuloService.priceHistory("COD_1");
 		assertNotNull("La salida NUNCA debe ser null", result);
-		assertTrue("Se deben devolver un solo item con la historia de precios", result.size() == 1);
-		PrecioHistoryDTO history = result.iterator().next();
-		assertNotNull("El listado de precios no puede ser null", history.getPrices());
-		assertTrue("El listado de precios debe tener 4 items", history.getPrices().size() == 4);
-		assertTrue(history.getPrices().get(0) == 100);
-		assertTrue(history.getPrices().get(3) == 130);
+		assertNotNull("El listado de precios no puede ser null", result.getPrices());
+		assertTrue("El listado de precios debe tener 4 items", result.getPrices().size() == 4);
+		assertTrue(result.getPrices().get(0) == 100);
+		assertTrue(result.getPrices().get(3) == 130);
 	}
 
 	@Override

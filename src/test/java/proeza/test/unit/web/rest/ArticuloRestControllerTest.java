@@ -31,11 +31,9 @@ public class ArticuloRestControllerTest extends WebMvcUnitTest {
 	@Test
 	public void priceHistory () throws Exception {
 		List<Double> data = new ArrayList<>();
-		PrecioHistoryDTO precioHistory = new PrecioHistoryDTO(data);
+		PrecioHistoryDTO precioHistory = new PrecioHistoryDTO(data, null);
 		data.addAll(Arrays.asList(new Double[] {28D, 48D, 40D, 19D, 86D, 27D, 90D}));
-		List<PrecioHistoryDTO> result = new ArrayList<PrecioHistoryDTO>(1);
-		result.add(precioHistory);
-		when(this.articuloService.priceHistory("1")).thenReturn(result);
+		when(this.articuloService.priceHistory("1")).thenReturn(precioHistory);
 		this.mockMvc.perform(post("/rest/articulo/priceHistory/1"))
 		    .andExpect(status().isOk())
 		    .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))

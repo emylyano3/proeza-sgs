@@ -1,6 +1,8 @@
 package com.proeza.sgs.business.service.impl;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -86,10 +88,13 @@ public class ArticuloService implements IArticuloService {
 	}
 
 	@Override
-	public List<PrecioHistoryDTO> priceHistory (String code) {
-		List<PrecioHistoryDTO> result = new ArrayList<PrecioHistoryDTO>(0);
+	public PrecioHistoryDTO priceHistory (String code) {
 		List<Movimiento> movs = this.articuloDao.findMovimientosAsc(code, TipoMovimiento.MOD_PRECIO.getCodigo());
-		List<Double> data = new ArrayList<>(movs.size());
+		return new PrecioHistoryDTO(buildData(movs), buildLabels(movs));
+	}
+
+	private List<Double> buildData (List<Movimiento> movs) {
+	    List<Double> data = new ArrayList<>(movs.size());
 		for (Iterator<Movimiento> it = movs.iterator(); it.hasNext();) {
 			Movimiento mov = it.next();
 			data.add(parseDouble(mov.getValorAnte()));
@@ -97,8 +102,16 @@ public class ArticuloService implements IArticuloService {
 				data.add(parseDouble(mov.getValorPost()));
 			}
 		}
-		result.add(new PrecioHistoryDTO(data));
-		return result;
+	    return data;
+    }
+
+	private List<String>  buildLabels (List<Movimiento> movs) {
+		List<String> labels = new ArrayList<String>();
+		DateFormat pattern = new SimpleDateFormat("MMMMM yyyy");
+		for (Movimiento mov : movs) {
+			labels.add(pattern.format(mov.getFechaMovimiento()));
+        }
+		return labels;
 	}
 
 	private List<ArticuloDTO> hideEntites (List<Articulo> articulos) {

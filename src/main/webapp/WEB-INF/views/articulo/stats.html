@@ -19,7 +19,7 @@
 					success: function (data, status, jqXHR) {
 						var ctx = document.getElementById("priceHistory").getContext("2d");
 						var chartData = {
-						    labels: ["January", "February", "March", "April", "May", "June", "July"],
+						    labels: data.labels,
 						    datasets: [
 						        {
 						            label: "My First dataset",
@@ -29,7 +29,7 @@
 						            pointStrokeColor: "#fff",
 						            pointHighlightFill: "#fff",
 						            pointHighlightStroke: "rgba(220,220,220,1)",
-						            data: data[0].prices
+						            data: data.prices
 						        }
 						    ]
 						};

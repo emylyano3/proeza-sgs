@@ -18,5 +18,5 @@ public interface IArticuloService {
 	 *
 	 * @return
 	 */
-	List<PrecioHistoryDTO> priceHistory (String code);
+	PrecioHistoryDTO priceHistory (String code);
 }

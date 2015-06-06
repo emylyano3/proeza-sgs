@@ -40,7 +40,7 @@ public class ArticulosRestController {
 	}
 
 	@RequestMapping(value = "priceHistory/{code}", method = RequestMethod.POST)
-	public List<PrecioHistoryDTO> priceHistory (@PathVariable String code) {
+	public PrecioHistoryDTO priceHistory (@PathVariable String code) {
 		return this.productService.priceHistory(code);
 	}
 }

@@ -18,8 +18,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.proeza.sgs.business.dao.ArticuloDao;
 import com.proeza.sgs.business.dao.ClaseDao;
+import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Articulo_;
 import com.proeza.sgs.business.entity.Clase;
@@ -35,19 +35,19 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
 
 	private static final int	MIN_FILTER_LENGTH	= 3;
 
-	private String				rawFilter;
+	private String	         rawFilter;
 
-	private String[]			rawFilterSplitted;
+	private String[]	     rawFilterSplitted;
 
-	private String[]			widedFilter;
-
-	@Autowired
-	private ArticuloDao			articuloDao;
+	private String[]	     widedFilter;
 
 	@Autowired
-	private ClaseDao			claseDao;
+	private IArticuloDao	 articuloDao;
 
-	private CriteriaBuilder		builder;
+	@Autowired
+	private ClaseDao	     claseDao;
+
+	private CriteriaBuilder	 builder;
 
 	public ArticuloFilter () {
 	}
@@ -82,7 +82,6 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
 				predicates.add(this.builder.like(lowerModelo, element));
 				predicates.add(this.builder.like(lowerDescripcion, element));
 			}
-
 			Predicate or = this.builder.or(toArray(predicates));
 			criteria.where(or);
 			List<Articulo> bag = this.articuloDao.getEntityManager().createQuery(criteria).getResultList();
@@ -133,7 +132,7 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
 		if (this.rawFilter != null && !this.rawFilter.isEmpty()) {
 			String[] aux = this.rawFilter.trim().split(",");
 			List<String> noList = new ArrayList<>(0);
-			List<String> yesList= new ArrayList<>(0);
+			List<String> yesList = new ArrayList<>(0);
 			for (String filter : aux) {
 				if (filter.trim().length() >= MIN_FILTER_LENGTH) {
 					yesList.add(filter.trim().toLowerCase());

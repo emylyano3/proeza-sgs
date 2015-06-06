@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import proeza.test.integration.IntegrationTest;
 
 import com.proeza.core.tracking.entity.Movimiento;
-import com.proeza.sgs.business.dao.ArticuloDao;
 import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.dao.ClienteDao;
+import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.dao.MedioPagoDao;
 import com.proeza.sgs.business.dao.VentaDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
@@ -35,7 +35,7 @@ public class NegocioDalTest extends IntegrationTest {
 	private ClaseDao	          claseDao;
 
 	@Autowired
-	private ArticuloDao	          articuloDao;
+	private IArticuloDao	      articuloDao;
 
 	@Autowired
 	private VentaDao	          ventaDao;

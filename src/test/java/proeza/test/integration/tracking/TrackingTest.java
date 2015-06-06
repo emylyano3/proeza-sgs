@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import proeza.test.integration.IntegrationTest;
 
 import com.proeza.core.tracking.entity.Movimiento;
-import com.proeza.sgs.business.dao.ArticuloDao;
 import com.proeza.sgs.business.dao.ClaseDao;
+import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.dao.MarcaDao;
 import com.proeza.sgs.business.dao.RubroDao;
 import com.proeza.sgs.business.dao.TipoDao;
@@ -23,19 +23,19 @@ import static org.junit.Assert.*;
 public class TrackingTest extends IntegrationTest {
 
 	@Autowired
-	private ArticuloDao	artDao;
+	private IArticuloDao	artDao;
 
 	@Autowired
-	private ClaseDao	claseDao;
+	private ClaseDao	 claseDao;
 
 	@Autowired
-	private TipoDao	    tipoDao;
+	private TipoDao	     tipoDao;
 
 	@Autowired
-	private MarcaDao	marcaDao;
+	private MarcaDao	 marcaDao;
 
 	@Autowired
-	private RubroDao	rubroDao;
+	private RubroDao	 rubroDao;
 
 	@Test
 	public void setPrecio () {

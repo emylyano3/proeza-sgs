@@ -3,6 +3,8 @@ package com.proeza.core.persistence;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 public interface Dao<Entity> {
 
 	Entity find (Object id);
@@ -14,4 +16,6 @@ public interface Dao<Entity> {
 	Collection<Entity> persist (Collection<Entity> entities);
 
 	void delete (Entity entity);
+
+	EntityManager getEntityManager ();
 }
