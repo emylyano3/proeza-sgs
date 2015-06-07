@@ -1,6 +1,5 @@
 package com.proeza.security.service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,22 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.proeza.security.dao.UsuarioDao;
 import com.proeza.security.entity.Usuario;
+import com.proeza.security.form.UsuarioDTO;
 import com.proeza.security.form.UsuarioForm;
-import com.proeza.sgs.business.dao.ArticuloDao;
-import com.proeza.sgs.business.dto.ArticuloDTO;
-import com.proeza.sgs.business.dto.UsuarioDTO;
-import com.proeza.sgs.business.entity.Articulo;
-import com.proeza.sgs.business.entity.Clase;
-import com.proeza.sgs.business.entity.Marca;
-import com.proeza.sgs.business.entity.Rubro;
-import com.proeza.sgs.business.entity.Tipo;
 
 @Transactional
 @Service("userService")
 public class UserService implements IUserService {
 
 	public static final Logger		log	= Logger.getLogger(UserService.class);
-	
+
 	@Autowired
 	private UsuarioDao	          	usuarioDao;
 
@@ -43,12 +35,12 @@ public class UserService implements IUserService {
 		Usuario created = this.userDao.persist(user.getUsuario());
 		return new UsuarioForm(created);
 	}
-	
+
 	@Override
 	public List<UsuarioDTO> findAll () {
 		return hideEntites(this.userDao.findAll());
-	}	
-		
+	}
+
 	private List<UsuarioDTO> hideEntites (List<Usuario> usuarios) {
 		List<UsuarioDTO> result = new ArrayList<>(usuarios.size());
 		for (Usuario usu : usuarios) {
@@ -56,7 +48,7 @@ public class UserService implements IUserService {
 		}
 		return result;
 	}
-	
+
 	@Override
 	public void update (UsuarioDTO dto) {
 		Usuario usuario = this.usuarioDao.findByAlias(dto.getAlias());

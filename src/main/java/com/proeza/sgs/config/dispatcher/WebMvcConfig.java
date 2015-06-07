@@ -9,7 +9,10 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-@ComponentScan(basePackages = {"com.proeza.sgs.web"})
+@ComponentScan(basePackages = {
+    "com.proeza.sgs.web",
+    "com.proeza.security.rest"
+})
 @EnableWebMvc
 @EnableTransactionManagement
 public class WebMvcConfig extends WebMvcConfigurerAdapter {

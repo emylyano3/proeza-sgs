@@ -1,4 +1,4 @@
-package com.proeza.sgs.business.dto;
+package com.proeza.security.form;
 
 import java.io.Serializable;
 
