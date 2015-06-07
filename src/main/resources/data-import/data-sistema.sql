@@ -55,6 +55,9 @@ insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (10, 1
 	/* Usuario */
 	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (2, 'MI_USUA', 'Usuario', 'Para acceder al home de usuario','#', 'fa fa-users');
 	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (3, 'MI_USUA_HOME', 'Usuario', 'Para acceder al home de usuario','/usuario/home', 'fa fa-home');
+	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (9, 'MI_USUA_ADMIN', 'Administración', 'PPara acceder a la administración de usuarios','/usuario/admin', 'fa fa-home');
+	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (10, 'MI_USUA_LIST', 'Listados', 'Para acceder al listado de usuarios','/usuario/home', 'fa fa-home');
+	
 	
 	/* Articulo */
 	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (4, 'MI_ARTI', 'Artículo', 'Para agupar los items de articulo','#', 'fa fa-barcode');
@@ -66,6 +69,9 @@ insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (10, 1
 
 /* Item - Sub Item */
 insert into sgs_proeza_db.sys_item_subitem(id, fk_item, fk_subitem, indice) values (1, 2, 1, 0);
+insert into sgs_proeza_db.sys_item_subitem(id, fk_item, fk_subitem, indice) values (6, 2, 9, 1);
+insert into sgs_proeza_db.sys_item_subitem(id, fk_item, fk_subitem, indice) values (7, 2, 10, 2);
+
 insert into sgs_proeza_db.sys_item_subitem(id, fk_item, fk_subitem, indice) values (2, 4, 5, 0);
 insert into sgs_proeza_db.sys_item_subitem(id, fk_item, fk_subitem, indice) values (3, 4, 6, 1);
 insert into sgs_proeza_db.sys_item_subitem(id, fk_item, fk_subitem, indice) values (4, 4, 7, 2);
@@ -84,6 +90,13 @@ insert into sgs_proeza_db.sys_menu_item(fk_menu, fk_item, indice) values (1, 4, 
 	insert into sgs_proeza_db.sys_item_rol(id, fk_item, fk_rol) values (4, 3, 41);
 	insert into sgs_proeza_db.sys_item_rol(id, fk_item, fk_rol) values (5, 3, 42);
 	insert into sgs_proeza_db.sys_item_rol(id, fk_item, fk_rol) values (6, 3, 43);
+	insert into sgs_proeza_db.sys_item_rol(id, fk_item, fk_rol) values (19, 9, 41);
+	insert into sgs_proeza_db.sys_item_rol(id, fk_item, fk_rol) values (20, 9, 42);
+	insert into sgs_proeza_db.sys_item_rol(id, fk_item, fk_rol) values (21, 9, 43);
+	insert into sgs_proeza_db.sys_item_rol(id, fk_item, fk_rol) values (22, 10, 41);
+	insert into sgs_proeza_db.sys_item_rol(id, fk_item, fk_rol) values (23, 10, 42);
+	insert into sgs_proeza_db.sys_item_rol(id, fk_item, fk_rol) values (24, 10, 43);
+	
 	
 	/* Articulo */
 	insert into sgs_proeza_db.sys_item_rol(id, fk_item, fk_rol) values (7, 4, 31);
