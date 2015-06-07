@@ -15,37 +15,37 @@ import static javax.persistence.GenerationType.*;
 @Table(schema = "sgs_proeza_db", name = "cmn_email")
 public class Email {
 
-	private Long	id;
-	private String	direccion;
-	private Persona	persona;
+    private Long    id;
+    private String  direccion;
+    private Persona persona;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", nullable = false, unique = true)
-	public Long getId () {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
+    public Long getId () {
+        return this.id;
+    }
 
-	public void setId (Long id) {
-		this.id = id;
-	}
+    public void setId (Long id) {
+        this.id = id;
+    }
 
-	@Column(name = "direccion", nullable = false)
-	public String getDireccion () {
-		return this.direccion;
-	}
+    @Column(name = "direccion", nullable = false)
+    public String getDireccion () {
+        return this.direccion;
+    }
 
-	public void setDireccion (String direccion) {
-		this.direccion = direccion;
-	}
+    public void setDireccion (String direccion) {
+        this.direccion = direccion;
+    }
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_persona", nullable = false)
-	public Persona getPersona () {
-		return this.persona;
-	}
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_persona", nullable = false)
+    public Persona getPersona () {
+        return this.persona;
+    }
 
-	public void setPersona (Persona persona) {
-		this.persona = persona;
-	}
+    public void setPersona (Persona persona) {
+        this.persona = persona;
+    }
 }

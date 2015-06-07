@@ -18,40 +18,40 @@ import com.proeza.security.entity.Rol;
 @Entity
 @Table(schema = "sgs_proeza_db", name = "sys_pagina_rol")
 public class PageRol implements Serializable {
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	private long				id;
-	private Page				page;
-	private Rol					rol;
+    private long              id;
+    private Page              page;
+    private Rol               rol;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", nullable = false, unique = true)
-	public long getId () {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
+    public long getId () {
+        return this.id;
+    }
 
-	public void setId (long id) {
-		this.id = id;
-	}
+    public void setId (long id) {
+        this.id = id;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_rol", nullable = false)
-	public Rol getRol () {
-		return this.rol;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_rol", nullable = false)
+    public Rol getRol () {
+        return this.rol;
+    }
 
-	public void setRol (Rol rol) {
-		this.rol = rol;
-	}
+    public void setRol (Rol rol) {
+        this.rol = rol;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_pagina", nullable = false)
-	public Page getPage () {
-		return this.page;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_pagina", nullable = false)
+    public Page getPage () {
+        return this.page;
+    }
 
-	public void setPage (Page page) {
-		this.page = page;
-	}
+    public void setPage (Page page) {
+        this.page = page;
+    }
 }

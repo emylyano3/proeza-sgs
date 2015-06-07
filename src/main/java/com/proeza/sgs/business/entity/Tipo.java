@@ -29,85 +29,85 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(
-	catalog = "sgs_proeza_db",
-	name = "art_tipo",
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo", "fk_clase"})})
+    catalog = "sgs_proeza_db",
+    name = "art_tipo",
+    uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo", "fk_clase"})})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Tipo implements Serializable, Identifiable {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Long				id;
-	private String				codigo;
-	private String				nombre;
-	private String				descripcion;
+    private Long              id;
+    private String            codigo;
+    private String            nombre;
+    private String            descripcion;
 
-	private Clase				clase;
-	private Set<Articulo>		articulos			= new HashSet<>(0);
+    private Clase             clase;
+    private Set<Articulo>     articulos        = new HashSet<>(0);
 
-	public Tipo () {
-	}
+    public Tipo () {
+    }
 
-	@Id
-	@Override
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Long getId () {
-		return this.id;
-	}
+    @Id
+    @Override
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public Long getId () {
+        return this.id;
+    }
 
-	public void setId (Long id) {
-		this.id = id;
-	}
+    public void setId (Long id) {
+        this.id = id;
+    }
 
-	@Column(name = "codigo", unique = true, nullable = false, length = 20)
-	public String getCodigo () {
-		return this.codigo;
-	}
+    @Column(name = "codigo", unique = true, nullable = false, length = 20)
+    public String getCodigo () {
+        return this.codigo;
+    }
 
-	public void setCodigo (String codigo) {
-		this.codigo = codigo;
-	}
+    public void setCodigo (String codigo) {
+        this.codigo = codigo;
+    }
 
-	@Column(name = "nombre", nullable = false, length = 45)
-	public String getNombre () {
-		return this.nombre;
-	}
+    @Column(name = "nombre", nullable = false, length = 45)
+    public String getNombre () {
+        return this.nombre;
+    }
 
-	public void setNombre (String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre (String nombre) {
+        this.nombre = nombre;
+    }
 
-	@Column(name = "descripcion", length = 100)
-	public String getDescripcion () {
-		return this.descripcion;
-	}
+    @Column(name = "descripcion", length = 100)
+    public String getDescripcion () {
+        return this.descripcion;
+    }
 
-	public void setDescripcion (String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setDescripcion (String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_clase", nullable = false)
-	public Clase getClase () {
-		return this.clase;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_clase", nullable = false)
+    public Clase getClase () {
+        return this.clase;
+    }
 
-	public void setClase (Clase clase) {
-		this.clase = clase;
-	}
+    public void setClase (Clase clase) {
+        this.clase = clase;
+    }
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipo")
-	public Set<Articulo> getArticulos () {
-		return this.articulos;
-	}
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipo")
+    public Set<Articulo> getArticulos () {
+        return this.articulos;
+    }
 
-	public void setArticulos (Set<Articulo> articulos) {
-		this.articulos = articulos;
-	}
+    public void setArticulos (Set<Articulo> articulos) {
+        this.articulos = articulos;
+    }
 
-	@Override
-	public String toString () {
-		return "[" + this.codigo + ":" + this.nombre + "]";
-	}
+    @Override
+    public String toString () {
+        return "[" + this.codigo + ":" + this.nombre + "]";
+    }
 }

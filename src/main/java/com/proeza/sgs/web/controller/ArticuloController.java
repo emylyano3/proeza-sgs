@@ -20,40 +20,40 @@ import com.proeza.sgs.web.menu.IViewMenuManager;
 @Controller
 public class ArticuloController {
 
-	public static final String	PAGE_GROUP	= "articulo";
+    public static final String PAGE_GROUP = "articulo";
 
-	@Autowired
-	private IViewMenuManager	menuManager;
+    @Autowired
+    private IViewMenuManager   menuManager;
 
-	@Autowired
-	private IClaseService	   claseService;
+    @Autowired
+    private IClaseService      claseService;
 
-	@Autowired
-	private ITipoService	   tipoService;
+    @Autowired
+    private ITipoService       tipoService;
 
-	@Autowired
-	private IMarcaService	   marcaService;
+    @Autowired
+    private IMarcaService      marcaService;
 
-	@Autowired
-	private IRubroService	   rubroService;
+    @Autowired
+    private IRubroService      rubroService;
 
-	@Autowired
-	private IPageDao	       pageDao;
+    @Autowired
+    private IPageDao           pageDao;
 
-	@ModelAttribute
-	public void context (final ModelMap model) {
-		model.addAttribute("clases", this.claseService.findAll());
-		model.addAttribute("tipos", this.tipoService.findAll());
-		model.addAttribute("marcas", this.marcaService.findAll());
-		model.addAttribute("rubros", this.rubroService.findAll());
-	}
+    @ModelAttribute
+    public void context (final ModelMap model) {
+        model.addAttribute("clases", this.claseService.findAll());
+        model.addAttribute("tipos", this.tipoService.findAll());
+        model.addAttribute("marcas", this.marcaService.findAll());
+        model.addAttribute("rubros", this.rubroService.findAll());
+    }
 
-	@RequestMapping({"/articulo/{page}"})
-	public String home (ModelMap model, Principal principal, @PathVariable("page") String page) {
-		model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, page, principal));
-		Page pagina = this.pageDao.findByGroupAndName(PAGE_GROUP, page);
-		model.addAttribute("pageTitle", pagina.getTitle());
-		model.addAttribute("pageSubtitle", pagina.getSubtitle());
-		return PAGE_GROUP + "/" + page + ".html";
-	}
+    @RequestMapping({"/articulo/{page}"})
+    public String home (ModelMap model, Principal principal, @PathVariable("page") String page) {
+        model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, page, principal));
+        Page pagina = this.pageDao.findByGroupAndName(PAGE_GROUP, page);
+        model.addAttribute("pageTitle", pagina.getTitle());
+        model.addAttribute("pageSubtitle", pagina.getSubtitle());
+        return PAGE_GROUP + "/" + page + ".html";
+    }
 }

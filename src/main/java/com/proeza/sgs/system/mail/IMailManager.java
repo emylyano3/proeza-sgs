@@ -8,5 +8,5 @@ import com.proeza.security.entity.Usuario;
 
 public interface IMailManager {
 
-	void sendRegisterEmail (Usuario user, Locale locale) throws MessagingException;
+    void sendRegisterEmail (Usuario user, Locale locale) throws MessagingException;
 }

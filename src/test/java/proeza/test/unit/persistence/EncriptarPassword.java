@@ -6,11 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class EncriptarPassword {
 
-	private static final String	PASSWORD	= "prod_admin";
+    private static final String PASSWORD = "prod_admin";
 
-	@Test
-	public void encodePass () {
-		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println(encoder.encode(PASSWORD));
-	}
+    @Test
+    public void encodePass () {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println(encoder.encode(PASSWORD));
+    }
 }

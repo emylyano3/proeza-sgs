@@ -16,103 +16,103 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(
-	catalog = "seg_proeza_db",
-	name = "rol",
-	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
+    catalog = "seg_proeza_db",
+    name = "rol",
+    uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class Rol implements java.io.Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	private long				id;
-	private String				codigo;
-	private String				nombre;
-	private String				descripcion;
+    private long              id;
+    private String            codigo;
+    private String            nombre;
+    private String            descripcion;
 
-	public Rol () {
-	}
+    public Rol () {
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public long getId () {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public long getId () {
+        return this.id;
+    }
 
-	public void setId (long id) {
-		this.id = id;
-	}
+    public void setId (long id) {
+        this.id = id;
+    }
 
-	@Column(name = "codigo", nullable = false, length = 20)
-	public String getCodigo () {
-		return this.codigo;
-	}
+    @Column(name = "codigo", nullable = false, length = 20)
+    public String getCodigo () {
+        return this.codigo;
+    }
 
-	public void setCodigo (String codigo) {
-		this.codigo = codigo;
-	}
+    public void setCodigo (String codigo) {
+        this.codigo = codigo;
+    }
 
-	@Column(name = "nombre", nullable = false, length = 50)
-	public String getNombre () {
-		return this.nombre;
-	}
+    @Column(name = "nombre", nullable = false, length = 50)
+    public String getNombre () {
+        return this.nombre;
+    }
 
-	public void setNombre (String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre (String nombre) {
+        this.nombre = nombre;
+    }
 
-	@Column(name = "descripcion", length = 200)
-	public String getDescripcion () {
-		return this.descripcion;
-	}
+    @Column(name = "descripcion", length = 200)
+    public String getDescripcion () {
+        return this.descripcion;
+    }
 
-	public void setDescripcion (String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setDescripcion (String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	@Override
-	public int hashCode () {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (this.codigo == null ? 0 : this.codigo.hashCode());
-		result = prime * result + (int) (this.id ^ this.id >>> 32);
-		result = prime * result + (this.nombre == null ? 0 : this.nombre.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode () {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (this.codigo == null ? 0 : this.codigo.hashCode());
+        result = prime * result + (int) (this.id ^ this.id >>> 32);
+        result = prime * result + (this.nombre == null ? 0 : this.nombre.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals (Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Rol other = (Rol) obj;
-		if (this.codigo == null) {
-			if (other.codigo != null) {
-				return false;
-			}
-		} else if (!this.codigo.equals(other.codigo)) {
-			return false;
-		}
-		if (this.id != other.id) {
-			return false;
-		}
-		if (this.nombre == null) {
-			if (other.nombre != null) {
-				return false;
-			}
-		} else if (!this.nombre.equals(other.nombre)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals (Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Rol other = (Rol) obj;
+        if (this.codigo == null) {
+            if (other.codigo != null) {
+                return false;
+            }
+        } else if (!this.codigo.equals(other.codigo)) {
+            return false;
+        }
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.nombre == null) {
+            if (other.nombre != null) {
+                return false;
+            }
+        } else if (!this.nombre.equals(other.nombre)) {
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public String toString () {
-		return "Rol [id=" + this.id + ", codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
-	}
+    @Override
+    public String toString () {
+        return "Rol [id=" + this.id + ", codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
+    }
 }

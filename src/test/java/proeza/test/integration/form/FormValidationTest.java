@@ -15,15 +15,15 @@ import com.proeza.security.form.UsuarioForm;
 /* Crear un test que verifique realmente que la validacion del formulario sea correcta */
 public class FormValidationTest extends IntegrationTest {
 
-//	@Autowired
-	private ValidatorFactory	factory;
+    // @Autowired
+    private ValidatorFactory   factory;
 
-	@Autowired
-	private ApplicationContext	context;
+    @Autowired
+    private ApplicationContext context;
 
-	@Test
-	public void validateUsuarioForm () {
-		UsuarioForm usuarioForm = this.context.getBean(UsuarioForm.class);
-		this.factory.getValidator().validate(usuarioForm);
-	}
+    @Test
+    public void validateUsuarioForm () {
+        UsuarioForm usuarioForm = this.context.getBean(UsuarioForm.class);
+        this.factory.getValidator().validate(usuarioForm);
+    }
 }

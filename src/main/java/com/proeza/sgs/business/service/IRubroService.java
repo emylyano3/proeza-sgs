@@ -6,5 +6,5 @@ import com.proeza.sgs.business.dto.RubroDTO;
 
 public interface IRubroService {
 
-	Collection<RubroDTO> findAll ();
+    Collection<RubroDTO> findAll ();
 }

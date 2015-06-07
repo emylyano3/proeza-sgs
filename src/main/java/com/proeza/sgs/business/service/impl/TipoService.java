@@ -18,19 +18,19 @@ import com.proeza.sgs.business.service.ITipoService;
 @Transactional
 public class TipoService implements ITipoService {
 
-	@Autowired
-	private TipoDao	dao;
+    @Autowired
+    private TipoDao dao;
 
-	@Override
-	public Collection<TipoDTO> findAll () {
-		return hideEntites(this.dao.findAll());
-	}
+    @Override
+    public Collection<TipoDTO> findAll () {
+        return hideEntites(this.dao.findAll());
+    }
 
-	private List<TipoDTO> hideEntites (List<Tipo> tipos) {
-		List<TipoDTO> result = new ArrayList<>(tipos.size());
-		for (Tipo tipo : tipos) {
-			result.add(new TipoDTO(tipo));
-		}
-		return result;
-	}
+    private List<TipoDTO> hideEntites (List<Tipo> tipos) {
+        List<TipoDTO> result = new ArrayList<>(tipos.size());
+        for (Tipo tipo : tipos) {
+            result.add(new TipoDTO(tipo));
+        }
+        return result;
+    }
 }

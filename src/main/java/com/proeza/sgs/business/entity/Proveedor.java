@@ -15,21 +15,21 @@ import javax.persistence.Table;
 @Table(schema = "sgs_proeza_db", name = "art_proveedor")
 @PrimaryKeyJoinColumn(name = "fk_persona", referencedColumnName = "id")
 public class Proveedor extends Persona {
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Set<Telefono>		articulos			= new HashSet<>(0);
+    private Set<Telefono>     articulos        = new HashSet<>(0);
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-		catalog = "sgs_proeza_db",
-		name = "art_articulo_proveedor",
-		joinColumns = {@JoinColumn(name = "fk_proveedor")},
-		inverseJoinColumns = {@JoinColumn(name = "fk_articulo")})
-	public Set<Telefono> getArticulos () {
-		return this.articulos;
-	}
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        catalog = "sgs_proeza_db",
+        name = "art_articulo_proveedor",
+        joinColumns = {@JoinColumn(name = "fk_proveedor")},
+        inverseJoinColumns = {@JoinColumn(name = "fk_articulo")})
+    public Set<Telefono> getArticulos () {
+        return this.articulos;
+    }
 
-	public void setArticulos (Set<Telefono> articulos) {
-		this.articulos = articulos;
-	}
+    public void setArticulos (Set<Telefono> articulos) {
+        this.articulos = articulos;
+    }
 }

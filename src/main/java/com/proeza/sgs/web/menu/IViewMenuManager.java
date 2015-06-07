@@ -5,5 +5,5 @@ import java.util.Map;
 
 public interface IViewMenuManager {
 
-	Map<String, ViewMenu> getMenus (String pageGroup, String pageName, Principal principal);
+    Map<String, ViewMenu> getMenus (String pageGroup, String pageName, Principal principal);
 }

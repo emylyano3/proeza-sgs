@@ -24,15 +24,15 @@ import com.proeza.sgs.config.dispatcher.WebMvcConfig;
 @ContextConfiguration(classes = {UnitTestContext.class, WebMvcConfig.class})
 @WebAppConfiguration
 public abstract class WebMvcUnitTest extends AbstractUnitTest {
-	protected MockMvc				mockMvc;
+    protected MockMvc             mockMvc;
 
-	@Autowired
-	private WebApplicationContext	webApplicationContext;
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
-	@Before
-	@Override
-	public void setUp () {
-		super.setUp();
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
-	}
+    @Before
+    @Override
+    public void setUp () {
+        super.setUp();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
+    }
 }

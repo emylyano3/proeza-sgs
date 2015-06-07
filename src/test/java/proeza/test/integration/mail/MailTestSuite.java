@@ -5,8 +5,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	MailSenderTest.class,
-	MailServiceTest.class
+    MailSenderTest.class,
+    MailServiceTest.class
 })
 public class MailTestSuite {
 }

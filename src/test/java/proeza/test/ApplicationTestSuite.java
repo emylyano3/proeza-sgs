@@ -8,7 +8,8 @@ import proeza.test.unit.UnitTestSuite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	UnitTestSuite.class,
-	IntegrationTestSuite.class
+    UnitTestSuite.class,
+    IntegrationTestSuite.class
 })
-public class ApplicationTestSuite {}
+public class ApplicationTestSuite {
+}

@@ -6,7 +6,7 @@ import com.proeza.security.entity.Usuario;
 
 public interface IUsuarioDao {
 
-	Usuario findByAlias (String alias);
+    Usuario findByAlias (String alias);
 
-	List<Usuario> findAll ();
+    List<Usuario> findAll ();
 }

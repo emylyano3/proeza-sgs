@@ -26,117 +26,117 @@ import static javax.persistence.GenerationType.*;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 
 @NamedQueries(value = {
-	@NamedQuery(name = "findByGroupAndName", query = "from Page p where p.group = :group and p.name = :name"),
-	@NamedQuery(name = "findByName", query = "from Page p where p.name = :name")
+    @NamedQuery(name = "findByGroupAndName", query = "from Page p where p.group = :group and p.name = :name"),
+    @NamedQuery(name = "findByName", query = "from Page p where p.name = :name")
 })
 @Entity
 @Table(
-	catalog = "sgs_proeza_db",
-	name = "sys_pagina",
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"grupo", "nombre"})
-	})
+    catalog = "sgs_proeza_db",
+    name = "sys_pagina",
+    uniqueConstraints = {@UniqueConstraint(columnNames = {"grupo", "nombre"})
+    })
 @Cache(usage = READ_ONLY)
 public class Page implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	private long				id;
-	private String				group;
-	private String				name;
-	private String				description;
-	private String				title;
-	private String				subtitle;
+    private long              id;
+    private String            group;
+    private String            name;
+    private String            description;
+    private String            title;
+    private String            subtitle;
 
-	private Set<Menu>			menues				= new TreeSet<>();
-	private Set<Rol>			roles				= new TreeSet<>();
+    private Set<Menu>         menues           = new TreeSet<>();
+    private Set<Rol>          roles            = new TreeSet<>();
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", nullable = false, unique = true)
-	public long getId () {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
+    public long getId () {
+        return this.id;
+    }
 
-	public void setId (long id) {
-		this.id = id;
-	}
+    public void setId (long id) {
+        this.id = id;
+    }
 
-	@Column(name = "grupo", nullable = false)
-	public String getGroup () {
-		return this.group;
-	}
+    @Column(name = "grupo", nullable = false)
+    public String getGroup () {
+        return this.group;
+    }
 
-	public void setGroup (String group) {
-		this.group = group;
-	}
+    public void setGroup (String group) {
+        this.group = group;
+    }
 
-	@Column(name = "nombre", nullable = false)
-	public String getName () {
-		return this.name;
-	}
+    @Column(name = "nombre", nullable = false)
+    public String getName () {
+        return this.name;
+    }
 
-	public void setName (String name) {
-		this.name = name;
-	}
+    public void setName (String name) {
+        this.name = name;
+    }
 
-	@Column(name = "descripcion")
-	public String getDescription () {
-		return this.description;
-	}
+    @Column(name = "descripcion")
+    public String getDescription () {
+        return this.description;
+    }
 
-	public void setDescription (String description) {
-		this.description = description;
-	}
+    public void setDescription (String description) {
+        this.description = description;
+    }
 
-	@Column(name = "titulo")
-	public String getTitle () {
-		return this.title;
-	}
+    @Column(name = "titulo")
+    public String getTitle () {
+        return this.title;
+    }
 
-	public void setTitle (String title) {
-		this.title = title;
-	}
+    public void setTitle (String title) {
+        this.title = title;
+    }
 
-	@Column(name = "subtitulo")
-	public String getSubtitle () {
-		return this.subtitle;
-	}
+    @Column(name = "subtitulo")
+    public String getSubtitle () {
+        return this.subtitle;
+    }
 
-	public void setSubtitle (String subtitle) {
-		this.subtitle = subtitle;
-	}
+    public void setSubtitle (String subtitle) {
+        this.subtitle = subtitle;
+    }
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-	@JoinTable(
-		catalog = "sgs_proeza_db",
-		name = "sys_pagina_menu",
-		joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false, updatable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "fk_menu", nullable = false, updatable = false)}
-		)
-	public Set<Menu> getMenues () {
-		return this.menues;
-	}
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(
+        catalog = "sgs_proeza_db",
+        name = "sys_pagina_menu",
+        joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false, updatable = false)},
+        inverseJoinColumns = {@JoinColumn(name = "fk_menu", nullable = false, updatable = false)}
+        )
+        public Set<Menu> getMenues () {
+        return this.menues;
+    }
 
-	public void setMenues (Set<Menu> menues) {
-		this.menues = menues;
-	}
+    public void setMenues (Set<Menu> menues) {
+        this.menues = menues;
+    }
 
-	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinTable(
-		catalog = "sgs_proeza_db",
-		name = "sys_pagina_rol",
-		joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false)})
-	public Set<Rol> getRoles () {
-		return this.roles;
-	}
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinTable(
+        catalog = "sgs_proeza_db",
+        name = "sys_pagina_rol",
+        joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false)},
+        inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false)})
+    public Set<Rol> getRoles () {
+        return this.roles;
+    }
 
-	public void setRoles (Set<Rol> roles) {
-		this.roles = roles;
-	}
+    public void setRoles (Set<Rol> roles) {
+        this.roles = roles;
+    }
 
-	@Override
-	public String toString () {
-		return "Page [id=" + this.id + ", group=" + this.group + ", name=" + this.name + ", description=" + this.description + ", menues=" + this.menues + ", roles=" + this.roles + "]";
-	}
+    @Override
+    public String toString () {
+        return "Page [id=" + this.id + ", group=" + this.group + ", name=" + this.name + ", description=" + this.description + ", menues=" + this.menues + ", roles=" + this.roles + "]";
+    }
 }

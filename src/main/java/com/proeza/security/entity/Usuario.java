@@ -28,104 +28,104 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
  */
 @Entity
 @Table(
-	catalog = "seg_proeza_db",
-	name = "usuario",
-	uniqueConstraints = @UniqueConstraint(columnNames = "alias"))
+    catalog = "seg_proeza_db",
+    name = "usuario",
+    uniqueConstraints = @UniqueConstraint(columnNames = "alias"))
 @Cache(usage = NONSTRICT_READ_WRITE)
 public class Usuario implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	private long				id;
-	private String				alias;
-	private String				nombre;
-	private String				apellido;
-	private String				email;
-	private String				password;
-	private Set<Rol>			roles				= new HashSet<>(0);
+    private long              id;
+    private String            alias;
+    private String            nombre;
+    private String            apellido;
+    private String            email;
+    private String            password;
+    private Set<Rol>          roles            = new HashSet<>(0);
 
-	public Usuario () {
-	}
+    public Usuario () {
+    }
 
-	public Usuario (String alias, String email, String password) {
-		setAlias(alias);
-		setEmail(email);
-		setPassword(password);
-	}
+    public Usuario (String alias, String email, String password) {
+        setAlias(alias);
+        setEmail(email);
+        setPassword(password);
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public long getId () {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public long getId () {
+        return this.id;
+    }
 
-	public void setId (long id) {
-		this.id = id;
-	}
+    public void setId (long id) {
+        this.id = id;
+    }
 
-	@Column(name = "alias", unique = true, nullable = false, length = 12)
-	public String getAlias () {
-		return this.alias;
-	}
+    @Column(name = "alias", unique = true, nullable = false, length = 12)
+    public String getAlias () {
+        return this.alias;
+    }
 
-	public void setAlias (String alias) {
-		this.alias = alias;
-	}
+    public void setAlias (String alias) {
+        this.alias = alias;
+    }
 
-	@Column(name = "nombre", length = 50)
-	public String getNombre () {
-		return this.nombre;
-	}
+    @Column(name = "nombre", length = 50)
+    public String getNombre () {
+        return this.nombre;
+    }
 
-	public void setNombre (String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre (String nombre) {
+        this.nombre = nombre;
+    }
 
-	@Column(name = "apellido", length = 50)
-	public String getApellido () {
-		return this.apellido;
-	}
+    @Column(name = "apellido", length = 50)
+    public String getApellido () {
+        return this.apellido;
+    }
 
-	public void setApellido (String apellido) {
-		this.apellido = apellido;
-	}
+    public void setApellido (String apellido) {
+        this.apellido = apellido;
+    }
 
-	@Column(name = "email", nullable = false, length = 100)
-	public String getEmail () {
-		return this.email;
-	}
+    @Column(name = "email", nullable = false, length = 100)
+    public String getEmail () {
+        return this.email;
+    }
 
-	public void setEmail (String email) {
-		this.email = email;
-	}
+    public void setEmail (String email) {
+        this.email = email;
+    }
 
-	@Column(name = "password", nullable = false, length = 60)
-	public String getPassword () {
-		return this.password;
-	}
+    @Column(name = "password", nullable = false, length = 60)
+    public String getPassword () {
+        return this.password;
+    }
 
-	public void setPassword (String password) {
-		this.password = password;
-	}
+    public void setPassword (String password) {
+        this.password = password;
+    }
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(
-		catalog = "seg_proeza_db",
-		name = "usuario_rol",
-		joinColumns = {@JoinColumn(name = "fk_usuario", nullable = false, updatable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false, updatable = false)
-		})
-	public Set<Rol> getRoles () {
-		return this.roles;
-	}
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+        catalog = "seg_proeza_db",
+        name = "usuario_rol",
+        joinColumns = {@JoinColumn(name = "fk_usuario", nullable = false, updatable = false)},
+        inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false, updatable = false)
+        })
+    public Set<Rol> getRoles () {
+        return this.roles;
+    }
 
-	public void setRoles (Set<Rol> roles) {
-		this.roles = roles;
-	}
+    public void setRoles (Set<Rol> roles) {
+        this.roles = roles;
+    }
 
-	@Override
-	public String toString () {
-		return "Usuario [alias=" + this.alias + ", nombre=" + this.nombre + ", apellido=" + this.apellido + ", email=" + this.email + "]";
-	}
+    @Override
+    public String toString () {
+        return "Usuario [alias=" + this.alias + ", nombre=" + this.nombre + ", apellido=" + this.apellido + ", email=" + this.email + "]";
+    }
 }

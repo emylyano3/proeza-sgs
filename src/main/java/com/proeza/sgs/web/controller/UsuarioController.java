@@ -15,20 +15,20 @@ import com.proeza.sgs.web.menu.IViewMenuManager;
 @Controller
 public class UsuarioController {
 
-	public static final String	PAGE_GROUP	= "usuario";
+    public static final String PAGE_GROUP = "usuario";
 
-	@Autowired
-	private IViewMenuManager	menuManager;
+    @Autowired
+    private IViewMenuManager   menuManager;
 
-	@Autowired
-	private IPageDao	       pageDao;
+    @Autowired
+    private IPageDao           pageDao;
 
-	@RequestMapping({"/usuario/{page}"})
-	public String home (ModelMap model, Principal principal, @PathVariable("page") String pageName) {
-		model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, pageName, principal));
-		Page pagina = this.pageDao.findByGroupAndName(PAGE_GROUP, pageName);
-		model.addAttribute("pageTitle", pagina.getTitle());
-		model.addAttribute("pageSubtitle", pagina.getSubtitle());
-		return PAGE_GROUP + "/" + pageName + ".html";
-	}
+    @RequestMapping({"/usuario/{page}"})
+    public String home (ModelMap model, Principal principal, @PathVariable("page") String pageName) {
+        model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, pageName, principal));
+        Page pagina = this.pageDao.findByGroupAndName(PAGE_GROUP, pageName);
+        model.addAttribute("pageTitle", pagina.getTitle());
+        model.addAttribute("pageSubtitle", pagina.getSubtitle());
+        return PAGE_GROUP + "/" + pageName + ".html";
+    }
 }

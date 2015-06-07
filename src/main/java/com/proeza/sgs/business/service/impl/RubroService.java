@@ -18,19 +18,19 @@ import com.proeza.sgs.business.service.IRubroService;
 @Transactional
 public class RubroService implements IRubroService {
 
-	@Autowired
-	private RubroDao	dao;
+    @Autowired
+    private RubroDao dao;
 
-	@Override
-	public Collection<RubroDTO> findAll () {
-		return hideEntites(this.dao.findAll());
-	}
+    @Override
+    public Collection<RubroDTO> findAll () {
+        return hideEntites(this.dao.findAll());
+    }
 
-	private List<RubroDTO> hideEntites (List<Rubro> rubros) {
-		List<RubroDTO> result = new ArrayList<>(rubros.size());
-		for (Rubro tipo : rubros) {
-			result.add(new RubroDTO(tipo));
-		}
-		return result;
-	}
+    private List<RubroDTO> hideEntites (List<Rubro> rubros) {
+        List<RubroDTO> result = new ArrayList<>(rubros.size());
+        for (Rubro tipo : rubros) {
+            result.add(new RubroDTO(tipo));
+        }
+        return result;
+    }
 }

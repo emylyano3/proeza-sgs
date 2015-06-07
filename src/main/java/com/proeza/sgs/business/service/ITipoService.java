@@ -6,5 +6,5 @@ import com.proeza.sgs.business.dto.TipoDTO;
 
 public interface ITipoService {
 
-	Collection<TipoDTO> findAll ();
+    Collection<TipoDTO> findAll ();
 }

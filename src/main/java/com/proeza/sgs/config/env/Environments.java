@@ -5,9 +5,9 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(value = {
-	Prod.class,
-	Dev.class,
-	Test.class
+    Prod.class,
+    Dev.class,
+    Test.class
 })
 public class Environments {
 

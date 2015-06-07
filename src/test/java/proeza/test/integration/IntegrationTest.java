@@ -17,6 +17,6 @@ import com.proeza.sgs.config.root.ContextConfig;
 @ContextConfiguration(classes = {Environments.class, ContextConfig.class}, loader = AnnotationConfigContextLoader.class)
 @Transactional
 public abstract class IntegrationTest {
-	@SuppressWarnings("unused")
-	private MvcInitializer initializer = new MvcInitializer();
+    @SuppressWarnings("unused")
+    private MvcInitializer initializer = new MvcInitializer();
 }

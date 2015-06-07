@@ -18,19 +18,19 @@ import com.proeza.sgs.business.service.IMarcaService;
 @Transactional
 public class MarcaService implements IMarcaService {
 
-	@Autowired
-	private MarcaDao	dao;
+    @Autowired
+    private MarcaDao dao;
 
-	@Override
-	public Collection<MarcaDTO> findAll () {
-		return hideEntites(this.dao.findAll());
-	}
+    @Override
+    public Collection<MarcaDTO> findAll () {
+        return hideEntites(this.dao.findAll());
+    }
 
-	private List<MarcaDTO> hideEntites (List<Marca> clases) {
-		List<MarcaDTO> result = new ArrayList<>(clases.size());
-		for (Marca clase : clases) {
-			result.add(new MarcaDTO(clase));
-		}
-		return result;
-	}
+    private List<MarcaDTO> hideEntites (List<Marca> clases) {
+        List<MarcaDTO> result = new ArrayList<>(clases.size());
+        for (Marca clase : clases) {
+            result.add(new MarcaDTO(clase));
+        }
+        return result;
+    }
 }

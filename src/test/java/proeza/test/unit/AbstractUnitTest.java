@@ -21,18 +21,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {UnitTestContext.class})
 public abstract class AbstractUnitTest {
 
-	@Before
-	public void setUp () {
-		// <se reseteab los mocks entre tests porque los mocks estan manejados por el Spring Container.
-		// Si no fueran reseteados el stubbing y la verficacion de comportamiento serian contaminados
-		// de un test a otro.
-		Mockito.reset(getMocks());
-	}
+    @Before
+    public void setUp () {
+        // <se reseteab los mocks entre tests porque los mocks estan manejados por el Spring Container.
+        // Si no fueran reseteados el stubbing y la verficacion de comportamiento serian contaminados
+        // de un test a otro.
+        Mockito.reset(getMocks());
+    }
 
-	/**
-	 * Devuelve los mocks existentes en la clase de test.
-	 *
-	 * @return
-	 */
-	protected abstract Object[] getMocks ();
+    /**
+     * Devuelve los mocks existentes en la clase de test.
+     *
+     * @return
+     */
+    protected abstract Object[] getMocks ();
 }

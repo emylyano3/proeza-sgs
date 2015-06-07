@@ -7,16 +7,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class ArticuloFilterFactory {
 
-	@Autowired
-	private ApplicationContext	context;
+    @Autowired
+    private ApplicationContext context;
 
-	public ArticuloFilter create () {
-		return this.context.getBean(ArticuloFilter.class);
-	}
+    public ArticuloFilter create () {
+        return this.context.getBean(ArticuloFilter.class);
+    }
 
-	public ArticuloFilter create (String filter) {
-		ArticuloFilter articuloFilter = this.context.getBean(ArticuloFilter.class);
-		articuloFilter.setFilterString(filter);
-		return articuloFilter;
-	}
+    public ArticuloFilter create (String filter) {
+        ArticuloFilter articuloFilter = this.context.getBean(ArticuloFilter.class);
+        articuloFilter.setFilterString(filter);
+        return articuloFilter;
+    }
 }

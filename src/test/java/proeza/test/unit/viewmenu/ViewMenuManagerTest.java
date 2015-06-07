@@ -14,27 +14,27 @@ import com.proeza.sgs.web.menu.ViewMenuManager;
 
 public class ViewMenuManagerTest extends AbstractUnitTest {
 
-	private IViewMenuManager	viewMenuManager;
+    private IViewMenuManager viewMenuManager;
 
-	@Autowired
-	private IPageDao			pageDao;
+    @Autowired
+    private IPageDao         pageDao;
 
-	@Autowired
-	private IUsuarioDao			userDao;
+    @Autowired
+    private IUsuarioDao      userDao;
 
-	@Before
-	public void init () {
-		this.viewMenuManager = new ViewMenuManager();
-		ReflectionTestUtils.setField(this.viewMenuManager, "pageDao", this.pageDao);
-		ReflectionTestUtils.setField(this.viewMenuManager, "userDao", this.userDao);
-	}
+    @Before
+    public void init () {
+        this.viewMenuManager = new ViewMenuManager();
+        ReflectionTestUtils.setField(this.viewMenuManager, "pageDao", this.pageDao);
+        ReflectionTestUtils.setField(this.viewMenuManager, "userDao", this.userDao);
+    }
 
-	@Override
-	protected Object[] getMocks () {
-		return new Object[] {this.pageDao, this.userDao};
-	}
+    @Override
+    protected Object[] getMocks () {
+        return new Object[] {this.pageDao, this.userDao};
+    }
 
-	@Test
-	public void test () {
-	}
+    @Test
+    public void test () {
+    }
 }

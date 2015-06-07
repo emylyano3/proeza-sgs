@@ -22,53 +22,53 @@ import static javax.persistence.GenerationType.*;
 @Table(catalog = "sgs_proeza_db", name = "art_compra_articulo")
 public class CompraArticulo implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Long				id;
-	private Articulo			articulo;
-	private Compra				compra;
-	private int					cantidad;
+    private Long              id;
+    private Articulo          articulo;
+    private Compra            compra;
+    private int               cantidad;
 
-	public CompraArticulo () {
-	}
+    public CompraArticulo () {
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Long getId () {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public Long getId () {
+        return this.id;
+    }
 
-	public void setId (Long id) {
-		this.id = id;
-	}
+    public void setId (Long id) {
+        this.id = id;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_articulo", nullable = false)
-	public Articulo getArticulo () {
-		return this.articulo;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_articulo", nullable = false)
+    public Articulo getArticulo () {
+        return this.articulo;
+    }
 
-	public void setArticulo (Articulo articulo) {
-		this.articulo = articulo;
-	}
+    public void setArticulo (Articulo articulo) {
+        this.articulo = articulo;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_compra", nullable = false)
-	public Compra getCompra () {
-		return this.compra;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_compra", nullable = false)
+    public Compra getCompra () {
+        return this.compra;
+    }
 
-	public void setCompra (Compra compra) {
-		this.compra = compra;
-	}
+    public void setCompra (Compra compra) {
+        this.compra = compra;
+    }
 
-	@Column(name = "cantidad", nullable = false)
-	public int getCantidad () {
-		return this.cantidad;
-	}
+    @Column(name = "cantidad", nullable = false)
+    public int getCantidad () {
+        return this.cantidad;
+    }
 
-	public void setCantidad (int cantidad) {
-		this.cantidad = cantidad;
-	}
+    public void setCantidad (int cantidad) {
+        this.cantidad = cantidad;
+    }
 }

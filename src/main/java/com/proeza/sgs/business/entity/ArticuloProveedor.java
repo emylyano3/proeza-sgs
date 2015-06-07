@@ -15,47 +15,47 @@ import static javax.persistence.GenerationType.*;
 
 @Entity
 @Table(
-	catalog = "sgs_proeza_db",
-	name = "art_articulo_proveedor")
+    catalog = "sgs_proeza_db",
+    name = "art_articulo_proveedor")
 public class ArticuloProveedor implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Long				id;
-	private Articulo			articulo;
-	private Proveedor			proveedor;
+    private Long              id;
+    private Articulo          articulo;
+    private Proveedor         proveedor;
 
-	public ArticuloProveedor () {
-	}
+    public ArticuloProveedor () {
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Long getId () {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public Long getId () {
+        return this.id;
+    }
 
-	public void setId (Long id) {
-		this.id = id;
-	}
+    public void setId (Long id) {
+        this.id = id;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_articulo", nullable = false)
-	public Articulo getArticulo () {
-		return this.articulo;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_articulo", nullable = false)
+    public Articulo getArticulo () {
+        return this.articulo;
+    }
 
-	public void setArticulo (Articulo articulo) {
-		this.articulo = articulo;
-	}
+    public void setArticulo (Articulo articulo) {
+        this.articulo = articulo;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_proveedor", nullable = false, referencedColumnName = "id")
-	public Proveedor getProveedor () {
-		return this.proveedor;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_proveedor", nullable = false, referencedColumnName = "id")
+    public Proveedor getProveedor () {
+        return this.proveedor;
+    }
 
-	public void setProveedor (Proveedor proveedor) {
-		this.proveedor = proveedor;
-	}
+    public void setProveedor (Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
 }

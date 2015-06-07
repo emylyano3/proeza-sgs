@@ -14,13 +14,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableTransactionManagement
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-	@Override
-	public void addResourceHandlers (ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	}
+    @Override
+    public void addResourceHandlers (ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
 
-	@Override
-	public void configureDefaultServletHandling (DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
-	}
+    @Override
+    public void configureDefaultServletHandling (DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
 }

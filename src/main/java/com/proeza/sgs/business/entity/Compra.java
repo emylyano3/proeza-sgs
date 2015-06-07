@@ -27,90 +27,90 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(
-	catalog = "sgs_proeza_db",
-	name = "art_compra",
-	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
+    catalog = "sgs_proeza_db",
+    name = "art_compra",
+    uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class Compra implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long   serialVersionUID = 1L;
 
-	private Long				id;
-	private String				codigo;
-	private MedioPago			medioPago;
-	private Date				fecha;
-	private double				importe;
-	private Proveedor			proveedor;
+    private Long                id;
+    private String              codigo;
+    private MedioPago           medioPago;
+    private Date                fecha;
+    private double              importe;
+    private Proveedor           proveedor;
 
-	private Set<CompraArticulo>	articulos			= new HashSet<>(0);
+    private Set<CompraArticulo> articulos        = new HashSet<>(0);
 
-	public Compra () {
-	}
+    public Compra () {
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Long getId () {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public Long getId () {
+        return this.id;
+    }
 
-	public void setId (Long id) {
-		this.id = id;
-	}
+    public void setId (Long id) {
+        this.id = id;
+    }
 
-	@Column(name = "codigo", unique = true, nullable = false, length = 20)
-	public String getCodigo () {
-		return this.codigo;
-	}
+    @Column(name = "codigo", unique = true, nullable = false, length = 20)
+    public String getCodigo () {
+        return this.codigo;
+    }
 
-	public void setCodigo (String codigo) {
-		this.codigo = codigo;
-	}
+    public void setCodigo (String codigo) {
+        this.codigo = codigo;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_medio_pago", nullable = false)
-	public MedioPago getMedioPago () {
-		return this.medioPago;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_medio_pago", nullable = false)
+    public MedioPago getMedioPago () {
+        return this.medioPago;
+    }
 
-	public void setMedioPago (MedioPago medioPago) {
-		this.medioPago = medioPago;
-	}
+    public void setMedioPago (MedioPago medioPago) {
+        this.medioPago = medioPago;
+    }
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha", nullable = false, length = 10)
-	public Date getFecha () {
-		return this.fecha;
-	}
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha", nullable = false, length = 10)
+    public Date getFecha () {
+        return this.fecha;
+    }
 
-	public void setFecha (Date fecha) {
-		this.fecha = fecha;
-	}
+    public void setFecha (Date fecha) {
+        this.fecha = fecha;
+    }
 
-	@Column(name = "importe", nullable = false, precision = 10)
-	public double getImporte () {
-		return this.importe;
-	}
+    @Column(name = "importe", nullable = false, precision = 10)
+    public double getImporte () {
+        return this.importe;
+    }
 
-	public void setImporte (double importe) {
-		this.importe = importe;
-	}
+    public void setImporte (double importe) {
+        this.importe = importe;
+    }
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "compra")
-	public Set<CompraArticulo> getArticulos () {
-		return this.articulos;
-	}
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "compra")
+    public Set<CompraArticulo> getArticulos () {
+        return this.articulos;
+    }
 
-	public void setArticulos (Set<CompraArticulo> articulos) {
-		this.articulos = articulos;
-	}
+    public void setArticulos (Set<CompraArticulo> articulos) {
+        this.articulos = articulos;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_proveedor", nullable = true)
-	public Proveedor getProveedor () {
-		return this.proveedor;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_proveedor", nullable = true)
+    public Proveedor getProveedor () {
+        return this.proveedor;
+    }
 
-	public void setProveedor (Proveedor proveedor) {
-		this.proveedor = proveedor;
-	}
+    public void setProveedor (Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
 }

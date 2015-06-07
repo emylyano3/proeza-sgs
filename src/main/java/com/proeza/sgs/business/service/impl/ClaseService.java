@@ -18,19 +18,19 @@ import com.proeza.sgs.business.service.IClaseService;
 @Transactional
 public class ClaseService implements IClaseService {
 
-	@Autowired
-	private ClaseDao	dao;
+    @Autowired
+    private ClaseDao dao;
 
-	@Override
-	public Collection<ClaseDTO> findAll () {
-		return hideEntites(this.dao.findAll());
-	}
+    @Override
+    public Collection<ClaseDTO> findAll () {
+        return hideEntites(this.dao.findAll());
+    }
 
-	private List<ClaseDTO> hideEntites (List<Clase> clases) {
-		List<ClaseDTO> result = new ArrayList<>(clases.size());
-		for (Clase clase : clases) {
-			result.add(new ClaseDTO(clase));
-		}
-		return result;
-	}
+    private List<ClaseDTO> hideEntites (List<Clase> clases) {
+        List<ClaseDTO> result = new ArrayList<>(clases.size());
+        for (Clase clase : clases) {
+            result.add(new ClaseDTO(clase));
+        }
+        return result;
+    }
 }

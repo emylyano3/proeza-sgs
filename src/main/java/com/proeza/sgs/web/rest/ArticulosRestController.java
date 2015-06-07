@@ -12,35 +12,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proeza.sgs.business.chart.MultiDataSetChartDefinition;
 import com.proeza.sgs.business.dto.ArticuloDTO;
-import com.proeza.sgs.business.dto.service.PrecioHistoryDTO;
 import com.proeza.sgs.business.service.IArticuloService;
 
 @RestController
 @RequestMapping("rest/articulo")
 public class ArticulosRestController {
 
-	@Autowired
-	private IArticuloService	productService;
+    @Autowired
+    private IArticuloService productService;
 
-	@RequestMapping(value = "findAll")
-	public List<ArticuloDTO> findAll () {
-		return this.productService.findAll();
-	}
+    @RequestMapping(value = "findAll")
+    public List<ArticuloDTO> findAll () {
+        return this.productService.findAll();
+    }
 
-	@RequestMapping(value = "search", method = RequestMethod.GET)
-	public List<ArticuloDTO> search (@RequestParam("filter") String filter) {
-		return this.productService.findByStringFilter(filter);
-	}
+    @RequestMapping(value = "search", method = RequestMethod.GET)
+    public List<ArticuloDTO> search (@RequestParam("filter") String filter) {
+        return this.productService.findByStringFilter(filter);
+    }
 
-	@RequestMapping(value = "update", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void update (@RequestBody ArticuloDTO articulo) {
-		this.productService.update(articulo);
-	}
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update (@RequestBody ArticuloDTO articulo) {
+        this.productService.update(articulo);
+    }
 
-	@RequestMapping(value = "priceHistory/{code}", method = RequestMethod.POST)
-	public PrecioHistoryDTO priceHistory (@PathVariable String code) {
-		return this.productService.priceHistory(code);
-	}
+    @RequestMapping(value = "priceHistory/{code}", method = RequestMethod.POST)
+    public MultiDataSetChartDefinition<String, Double> priceHistory (@PathVariable String code) {
+        return this.productService.priceHistory(code);
+    }
 }

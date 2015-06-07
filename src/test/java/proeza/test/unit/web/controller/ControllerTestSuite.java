@@ -5,7 +5,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	HomeControllerTest.class,
-	UsuarioControllerTest.class
+    HomeControllerTest.class,
+    UsuarioControllerTest.class
 })
-public class ControllerTestSuite {}
+public class ControllerTestSuite {
+}

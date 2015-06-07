@@ -26,84 +26,84 @@ import com.proeza.sgs.system.entity.Page;
 @EnableWebMvcSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String	ROLE_PREFIX	= "ROLE_";
+    private static final String ROLE_PREFIX = "ROLE_";
 
-	@Autowired
-	private UserDetailsService	userDetailsService;
+    @Autowired
+    private UserDetailsService  userDetailsService;
 
-	@Autowired
-	private IPageDao			pageDao;
+    @Autowired
+    private IPageDao            pageDao;
 
-	@Override
-	public void configure (WebSecurity web) throws Exception {
-		web
-			.ignoring()
-			.antMatchers("/resources/**");
-	}
+    @Override
+    public void configure (WebSecurity web) throws Exception {
+        web
+            .ignoring()
+            .antMatchers("/resources/**");
+    }
 
-	@Override
-	protected void configure (AuthenticationManagerBuilder auth) throws Exception {
-		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-		authenticationProvider.setUserDetailsService(this.userDetailsService);
-		authenticationProvider.setPasswordEncoder(passwordEncoder());
-		auth.authenticationProvider(authenticationProvider);
-	}
+    @Override
+    protected void configure (AuthenticationManagerBuilder auth) throws Exception {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(this.userDetailsService);
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        auth.authenticationProvider(authenticationProvider);
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder () {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder () {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Override
-	protected void configure (HttpSecurity http) throws Exception {
-		addAccessControl(http
-			.formLogin()
-			.loginPage("/login")
-			.loginProcessingUrl("/login/authenticate")
-			.failureUrl("/login?error=bad_credentials")
-			.and()
-			.logout()
-			.logoutUrl("/doLogout")
-			.deleteCookies("JSESSIONID")
-			.logoutSuccessUrl("/logout")
-//			.and()
-//			.csrf()
-			.and())
-			.csrf()
-			.disable();
-	}
+    @Override
+    protected void configure (HttpSecurity http) throws Exception {
+        addAccessControl(http
+            .formLogin()
+            .loginPage("/login")
+            .loginProcessingUrl("/login/authenticate")
+            .failureUrl("/login?error=bad_credentials")
+            .and()
+            .logout()
+            .logoutUrl("/doLogout")
+            .deleteCookies("JSESSIONID")
+            .logoutSuccessUrl("/logout")
+            // .and()
+            // .csrf()
+            .and())
+            .csrf()
+            .disable();
+    }
 
-	private HttpSecurity addAccessControl (HttpSecurity http) throws Exception {
-		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authRegister = http.authorizeRequests();
-		List<Page> pages = this.pageDao.findAll();
-		for (Page page : pages) {
-			String pagePath = getPagePathPattern(page);
-			Set<Rol> roles = page.getRoles();
-			authRegister.antMatchers(pagePath).hasAnyRole(getRolesCodes(roles));
-		}
-		authRegister.antMatchers("/**").permitAll();
-		return http;
-	}
+    private HttpSecurity addAccessControl (HttpSecurity http) throws Exception {
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authRegister = http.authorizeRequests();
+        List<Page> pages = this.pageDao.findAll();
+        for (Page page : pages) {
+            String pagePath = getPagePathPattern(page);
+            Set<Rol> roles = page.getRoles();
+            authRegister.antMatchers(pagePath).hasAnyRole(getRolesCodes(roles));
+        }
+        authRegister.antMatchers("/**").permitAll();
+        return http;
+    }
 
-	private String[] getRolesCodes (Set<Rol> roles) {
-		List<String> rolesCodes = new ArrayList<>(roles.size());
-		for (Rol rol : roles) {
-			String roleCode = rol.getCodigo();
-			if (roleCode.startsWith(ROLE_PREFIX)) {
-				roleCode = roleCode.substring(ROLE_PREFIX.length());
-			}
-			rolesCodes.add(roleCode);
-		}
-		return rolesCodes.toArray(new String[rolesCodes.size()]);
-	}
+    private String[] getRolesCodes (Set<Rol> roles) {
+        List<String> rolesCodes = new ArrayList<>(roles.size());
+        for (Rol rol : roles) {
+            String roleCode = rol.getCodigo();
+            if (roleCode.startsWith(ROLE_PREFIX)) {
+                roleCode = roleCode.substring(ROLE_PREFIX.length());
+            }
+            rolesCodes.add(roleCode);
+        }
+        return rolesCodes.toArray(new String[rolesCodes.size()]);
+    }
 
-	private String getPagePathPattern (Page page) {
-		StringBuilder pagePath = new StringBuilder();
-		pagePath
-			.append("/")
-			.append(page.getGroup())
-			.append("/")
-			.append(page.getName());
-		return pagePath.toString();
-	}
+    private String getPagePathPattern (Page page) {
+        StringBuilder pagePath = new StringBuilder();
+        pagePath
+            .append("/")
+            .append(page.getGroup())
+            .append("/")
+            .append(page.getName());
+        return pagePath.toString();
+    }
 }

@@ -5,5 +5,5 @@ import javax.mail.internet.MimeMessage;
 
 public interface IMailService {
 
-	void send (MimeMessage mimeMessage) throws MessagingException;
+    void send (MimeMessage mimeMessage) throws MessagingException;
 }

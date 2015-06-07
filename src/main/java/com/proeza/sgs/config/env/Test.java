@@ -10,11 +10,11 @@ import org.springframework.core.io.ClassPathResource;
 @Configuration
 public class Test {
 
-	@Bean
-	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer () {
-		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-		ppc.setLocation(new ClassPathResource("env/test/app-config.properties"));
-		ppc.setNullValue("");
-		return ppc;
-	}
+    @Bean
+    public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer () {
+        PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+        ppc.setLocation(new ClassPathResource("env/test/app-config.properties"));
+        ppc.setNullValue("");
+        return ppc;
+    }
 }

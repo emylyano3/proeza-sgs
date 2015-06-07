@@ -9,9 +9,9 @@ import proeza.test.integration.persistence.DalTestSuite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	DalTestSuite.class,
-	MailTestSuite.class,
-	FormValidationTest.class,
+    DalTestSuite.class,
+    MailTestSuite.class,
+    FormValidationTest.class,
 })
 public class IntegrationTestSuite {
 }

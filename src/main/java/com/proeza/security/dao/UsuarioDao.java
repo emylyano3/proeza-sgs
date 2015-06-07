@@ -18,20 +18,20 @@ import com.proeza.security.entity.Usuario;
 @Repository
 public class UsuarioDao extends BaseDao<Usuario> implements IUsuarioDao {
 
-	@Autowired
-	private PasswordEncoder	passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@Override
-	public Usuario persist (Usuario entity) {
-		entity.setPassword(this.passwordEncoder.encode(entity.getPassword()));
-		this.entityManager.persist(entity);
-		return entity;
-	}
+    @Override
+    public Usuario persist (Usuario entity) {
+        entity.setPassword(this.passwordEncoder.encode(entity.getPassword()));
+        this.entityManager.persist(entity);
+        return entity;
+    }
 
-	@Override
-	public Usuario findByAlias (String alias) {
-		return this.entityManager.createQuery("select u from Usuario u where alias = :alias", Usuario.class)
-			.setParameter("alias", alias)
-			.getSingleResult();
-	}
+    @Override
+    public Usuario findByAlias (String alias) {
+        return this.entityManager.createQuery("select u from Usuario u where alias = :alias", Usuario.class)
+            .setParameter("alias", alias)
+            .getSingleResult();
+    }
 }

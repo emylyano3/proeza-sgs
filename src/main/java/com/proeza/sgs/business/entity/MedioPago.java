@@ -18,61 +18,61 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(
-	catalog = "sgs_proeza_db",
-	name = "cmn_medio_pago",
-	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
+    catalog = "sgs_proeza_db",
+    name = "cmn_medio_pago",
+    uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class MedioPago implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Long				id;
-	private String				codigo;
-	private String				nombre;
-	private String				descripcion;
+    private Long              id;
+    private String            codigo;
+    private String            nombre;
+    private String            descripcion;
 
-	public MedioPago () {
-	}
+    public MedioPago () {
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Long getId () {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public Long getId () {
+        return this.id;
+    }
 
-	public void setId (Long id) {
-		this.id = id;
-	}
+    public void setId (Long id) {
+        this.id = id;
+    }
 
-	@Column(name = "codigo", unique = true, nullable = false, length = 10)
-	public String getCodigo () {
-		return this.codigo;
-	}
+    @Column(name = "codigo", unique = true, nullable = false, length = 10)
+    public String getCodigo () {
+        return this.codigo;
+    }
 
-	public void setCodigo (String codigo) {
-		this.codigo = codigo;
-	}
+    public void setCodigo (String codigo) {
+        this.codigo = codigo;
+    }
 
-	@Column(name = "nombre", nullable = false, length = 20)
-	public String getNombre () {
-		return this.nombre;
-	}
+    @Column(name = "nombre", nullable = false, length = 20)
+    public String getNombre () {
+        return this.nombre;
+    }
 
-	public void setNombre (String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre (String nombre) {
+        this.nombre = nombre;
+    }
 
-	@Column(name = "descripcion", length = 100)
-	public String getDescripcion () {
-		return this.descripcion;
-	}
+    @Column(name = "descripcion", length = 100)
+    public String getDescripcion () {
+        return this.descripcion;
+    }
 
-	public void setDescripcion (String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setDescripcion (String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	@Override
-	public String toString () {
-		return "MedioPago [codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
-	}
+    @Override
+    public String toString () {
+        return "MedioPago [codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
+    }
 }

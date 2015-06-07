@@ -29,202 +29,201 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(
-	catalog = "sgs_proeza_db",
-	name = "art_venta",
-	uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
+    catalog = "sgs_proeza_db",
+    name = "art_venta",
+    uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class Venta implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long  serialVersionUID = 1L;
 
-	private Long				id;
-	private String				codigo;
-	private MedioPago			medioPago;
-	private Date				fecha;
-	private BigDecimal			importe;
-	private Cliente				cliente;
+    private Long               id;
+    private String             codigo;
+    private MedioPago          medioPago;
+    private Date               fecha;
+    private BigDecimal         importe;
+    private Cliente            cliente;
 
-	private Set<VentaArticulo>	articulos			= new HashSet<>();
+    private Set<VentaArticulo> articulos        = new HashSet<>();
 
-	public Venta () {
-	}
-
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Long getId () {
-		return this.id;
-	}
-
-	public void setId (Long id) {
-		this.id = id;
-	}
-
-	@Column(name = "codigo", unique = true, nullable = false, length = 20)
-	public String getCodigo () {
-		return this.codigo;
-	}
-
-	public void setCodigo (String codigo) {
-		this.codigo = codigo;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_medio_pago", nullable = false)
-	public MedioPago getMedioPago () {
-		return this.medioPago;
-	}
-
-	public void setMedioPago (MedioPago medioPago) {
-		this.medioPago = medioPago;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha", nullable = false, length = 10)
-	public Date getFecha () {
-		return this.fecha;
-	}
-
-	public void setFecha (Date fecha) {
-		this.fecha = fecha;
-	}
-
-	@Column(name = "importe", nullable = false, precision = 10, scale = 2)
-	public BigDecimal getImporte () {
-		return this.importe;
-	}
-
-	public void setImporte (BigDecimal importe) {
-		if (importe != null) {
-			importe.setScale(2, RoundingMode.HALF_UP);
-		}
-		this.importe = importe;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_cliente", nullable = true)
-	public Cliente getCliente () {
-		return this.cliente;
-	}
-
-	public void setCliente (Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "venta")
-	public Set<VentaArticulo> getArticulos () {
-		return this.articulos;
-	}
-
-	public void setArticulos (Set<VentaArticulo> articulos) {
-		this.articulos = articulos;
-	}
-
-	public void addArticulo (Articulo art, int cantidad) {
-		VentaArticulo aux = findVentaArticulo(art);
-		if (aux == null) {
-			VentaArticulo va = new VentaArticulo();
-			va.setArticulo(art);
-			va.setVenta(this);
-			va.setCantidad(cantidad);
-			this.articulos.add(va);
-		} else {
-			aux.setCantidad(cantidad + aux.getCantidad());
-		}
-	}
-
-	public void updateCantidad (Articulo art, int cantidad) {
-		VentaArticulo va = new VentaArticulo();
-		va.setArticulo(art);
-		va.setVenta(this);
-		if ((va = findVentaArticulo(art)) != null) {
-			va.setCantidad(cantidad);
-		}
-	}
-
-	public boolean removeArticulo (Articulo art) {
-		VentaArticulo va;
-		if ((va = findVentaArticulo(art)) != null) {
-			va.setCantidad(0);
-			return this.articulos.remove(va);
-		}
-		return false;
-	}
-
-	private VentaArticulo findVentaArticulo (Articulo art) {
-		for (VentaArticulo aux : this.articulos) {
-			if (aux.getArticulo().equals(art)) {
-				return aux;
-			}
-		}
-		return null;
-	}
-
-	public BigDecimal calcularImporte () {
-		double acum = 0;
-		for (VentaArticulo va : this.articulos) {
-			acum += va.getCantidad() * va.getArticulo().getPrecio().doubleValue();
-		}
-		setImporte(BigDecimal.valueOf(acum));
-		return getImporte();
-	}
-
-	@Override
-	public String toString () {
-		return "Venta [id=" + this.id + ", codigo=" + this.codigo + ", medioPago=" + this.medioPago + ", fecha=" + this.fecha + ", importe=" + this.importe + "]";
-	}
-
-
-	@Override
-    public int hashCode () {
-	    final int prime = 31;
-	    int result = 1;
-	    result = prime * result + (this.cliente == null ? 0 : this.cliente.hashCode());
-	    result = prime * result + (this.codigo == null ? 0 : this.codigo.hashCode());
-	    result = prime * result + (this.fecha == null ? 0 : this.fecha.hashCode());
-	    result = prime * result + (this.id == null ? 0 : this.id.hashCode());
-	    return result;
+    public Venta () {
     }
 
-	@Override
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public Long getId () {
+        return this.id;
+    }
+
+    public void setId (Long id) {
+        this.id = id;
+    }
+
+    @Column(name = "codigo", unique = true, nullable = false, length = 20)
+    public String getCodigo () {
+        return this.codigo;
+    }
+
+    public void setCodigo (String codigo) {
+        this.codigo = codigo;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_medio_pago", nullable = false)
+    public MedioPago getMedioPago () {
+        return this.medioPago;
+    }
+
+    public void setMedioPago (MedioPago medioPago) {
+        this.medioPago = medioPago;
+    }
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha", nullable = false, length = 10)
+    public Date getFecha () {
+        return this.fecha;
+    }
+
+    public void setFecha (Date fecha) {
+        this.fecha = fecha;
+    }
+
+    @Column(name = "importe", nullable = false, precision = 10, scale = 2)
+    public BigDecimal getImporte () {
+        return this.importe;
+    }
+
+    public void setImporte (BigDecimal importe) {
+        if (importe != null) {
+            importe.setScale(2, RoundingMode.HALF_UP);
+        }
+        this.importe = importe;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_cliente", nullable = true)
+    public Cliente getCliente () {
+        return this.cliente;
+    }
+
+    public void setCliente (Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "venta")
+    public Set<VentaArticulo> getArticulos () {
+        return this.articulos;
+    }
+
+    public void setArticulos (Set<VentaArticulo> articulos) {
+        this.articulos = articulos;
+    }
+
+    public void addArticulo (Articulo art, int cantidad) {
+        VentaArticulo aux = findVentaArticulo(art);
+        if (aux == null) {
+            VentaArticulo va = new VentaArticulo();
+            va.setArticulo(art);
+            va.setVenta(this);
+            va.setCantidad(cantidad);
+            this.articulos.add(va);
+        } else {
+            aux.setCantidad(cantidad + aux.getCantidad());
+        }
+    }
+
+    public void updateCantidad (Articulo art, int cantidad) {
+        VentaArticulo va = new VentaArticulo();
+        va.setArticulo(art);
+        va.setVenta(this);
+        if ((va = findVentaArticulo(art)) != null) {
+            va.setCantidad(cantidad);
+        }
+    }
+
+    public boolean removeArticulo (Articulo art) {
+        VentaArticulo va;
+        if ((va = findVentaArticulo(art)) != null) {
+            va.setCantidad(0);
+            return this.articulos.remove(va);
+        }
+        return false;
+    }
+
+    private VentaArticulo findVentaArticulo (Articulo art) {
+        for (VentaArticulo aux : this.articulos) {
+            if (aux.getArticulo().equals(art)) {
+                return aux;
+            }
+        }
+        return null;
+    }
+
+    public BigDecimal calcularImporte () {
+        double acum = 0;
+        for (VentaArticulo va : this.articulos) {
+            acum += va.getCantidad() * va.getArticulo().getPrecio().doubleValue();
+        }
+        setImporte(BigDecimal.valueOf(acum));
+        return getImporte();
+    }
+
+    @Override
+    public String toString () {
+        return "Venta [id=" + this.id + ", codigo=" + this.codigo + ", medioPago=" + this.medioPago + ", fecha=" + this.fecha + ", importe=" + this.importe + "]";
+    }
+
+    @Override
+    public int hashCode () {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (this.cliente == null ? 0 : this.cliente.hashCode());
+        result = prime * result + (this.codigo == null ? 0 : this.codigo.hashCode());
+        result = prime * result + (this.fecha == null ? 0 : this.fecha.hashCode());
+        result = prime * result + (this.id == null ? 0 : this.id.hashCode());
+        return result;
+    }
+
+    @Override
     public boolean equals (Object obj) {
-	    if (this == obj) {
-	        return true;
+        if (this == obj) {
+            return true;
         }
-	    if (obj == null) {
-	        return false;
+        if (obj == null) {
+            return false;
         }
-	    if (getClass() != obj.getClass()) {
-	        return false;
+        if (getClass() != obj.getClass()) {
+            return false;
         }
-	    Venta other = (Venta) obj;
-	    if (this.cliente == null) {
-		    if (other.cliente != null) {
-	            return false;
+        Venta other = (Venta) obj;
+        if (this.cliente == null) {
+            if (other.cliente != null) {
+                return false;
             }
-	    } else if (!this.cliente.equals(other.cliente)) {
-	        return false;
+        } else if (!this.cliente.equals(other.cliente)) {
+            return false;
         }
-	    if (this.codigo == null) {
-		    if (other.codigo != null) {
-	            return false;
+        if (this.codigo == null) {
+            if (other.codigo != null) {
+                return false;
             }
-	    } else if (!this.codigo.equals(other.codigo)) {
-	        return false;
+        } else if (!this.codigo.equals(other.codigo)) {
+            return false;
         }
-	    if (this.fecha == null) {
-		    if (other.fecha != null) {
-	            return false;
+        if (this.fecha == null) {
+            if (other.fecha != null) {
+                return false;
             }
-	    } else if (!this.fecha.equals(other.fecha)) {
-	        return false;
+        } else if (!this.fecha.equals(other.fecha)) {
+            return false;
         }
-	    if (this.id == null) {
-		    if (other.id != null) {
-	            return false;
+        if (this.id == null) {
+            if (other.id != null) {
+                return false;
             }
-	    } else if (!this.id.equals(other.id)) {
-	        return false;
+        } else if (!this.id.equals(other.id)) {
+            return false;
         }
-	    return true;
+        return true;
     }
 }

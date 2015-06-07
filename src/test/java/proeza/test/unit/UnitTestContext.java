@@ -25,73 +25,73 @@ import com.proeza.sgs.system.mail.IMailManager;
 @Configuration
 public class UnitTestContext {
 
-	@Bean
-	public IUserService userService () {
-		return Mockito.mock(UserService.class);
-	}
+    @Bean
+    public IUserService userService () {
+        return Mockito.mock(UserService.class);
+    }
 
-	@Bean
-	public IUsuarioDao usuarioDao () {
-		return Mockito.mock(IUsuarioDao.class);
-	}
+    @Bean
+    public IUsuarioDao usuarioDao () {
+        return Mockito.mock(IUsuarioDao.class);
+    }
 
-	@Bean
-	public IPageDao pageDao () {
-		return Mockito.mock(IPageDao.class);
-	}
+    @Bean
+    public IPageDao pageDao () {
+        return Mockito.mock(IPageDao.class);
+    }
 
-	@Bean
-	public IArticuloDao articuloDao () {
-		return Mockito.mock(IArticuloDao.class);
-	}
+    @Bean
+    public IArticuloDao articuloDao () {
+        return Mockito.mock(IArticuloDao.class);
+    }
 
-	@Bean
-	public IClaseService claseService () {
-		return Mockito.mock(IClaseService.class);
-	}
+    @Bean
+    public IClaseService claseService () {
+        return Mockito.mock(IClaseService.class);
+    }
 
-	@Bean
-	public IRubroService rubroService () {
-		return Mockito.mock(IRubroService.class);
-	}
+    @Bean
+    public IRubroService rubroService () {
+        return Mockito.mock(IRubroService.class);
+    }
 
-	@Bean
-	public ITipoService tipoService () {
-		return Mockito.mock(ITipoService.class);
-	}
+    @Bean
+    public ITipoService tipoService () {
+        return Mockito.mock(ITipoService.class);
+    }
 
-	@Bean
-	public IMarcaService marcaService () {
-		return Mockito.mock(IMarcaService.class);
-	}
+    @Bean
+    public IMarcaService marcaService () {
+        return Mockito.mock(IMarcaService.class);
+    }
 
-	@Bean
-	public IMailService mailService () {
-		return Mockito.mock(IMailService.class);
-	}
+    @Bean
+    public IMailService mailService () {
+        return Mockito.mock(IMailService.class);
+    }
 
-	@Bean
-	public IArticuloService productService  () {
-		return Mockito.mock(IArticuloService.class);
-	}
+    @Bean
+    public IArticuloService productService () {
+        return Mockito.mock(IArticuloService.class);
+    }
 
-	@Bean
-	public IMailManager mailManager () {
-		return Mockito.mock(IMailManager.class);
-	}
+    @Bean
+    public IMailManager mailManager () {
+        return Mockito.mock(IMailManager.class);
+    }
 
-	@Bean
-	public IMessageResolver proezaMessageResolver () {
-		return Mockito.mock(MessageResolver.class);
-	}
+    @Bean
+    public IMessageResolver proezaMessageResolver () {
+        return Mockito.mock(MessageResolver.class);
+    }
 
-	@Bean
-	public LocaleResolver localeResolver () {
-		return new FixedLocaleResolver();
-	}
+    @Bean
+    public LocaleResolver localeResolver () {
+        return new FixedLocaleResolver();
+    }
 
-	@Bean
-	public PlatformTransactionManager platformTransactionManager () {
-		return Mockito.mock(PlatformTransactionManager.class);
-	}
+    @Bean
+    public PlatformTransactionManager platformTransactionManager () {
+        return Mockito.mock(PlatformTransactionManager.class);
+    }
 }

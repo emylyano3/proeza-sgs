@@ -8,12 +8,12 @@ import com.proeza.sgs.system.entity.Page;
 
 public interface IPageDao extends Dao<Page> {
 
-	public abstract List<Page> findByName (String name);
+    public abstract List<Page> findByName (String name);
 
-	public abstract Page findByGroupAndName (String group, String name);
+    public abstract Page findByGroupAndName (String group, String name);
 
-	public abstract Page findByNameAndMenuType (String code, MenuType type);
+    public abstract Page findByNameAndMenuType (String code, MenuType type);
 
-	@Override
-	public abstract List<Page> findAll ();
+    @Override
+    public abstract List<Page> findAll ();
 }

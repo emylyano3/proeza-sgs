@@ -15,47 +15,47 @@ import static javax.persistence.GenerationType.*;
 
 @Entity
 @Table(
-	catalog = "sgs_proeza_db",
-	name = "art_articulo_cliente")
+    catalog = "sgs_proeza_db",
+    name = "art_articulo_cliente")
 public class ArticuloCliente implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Long				id;
-	private Articulo			articulo;
-	private Cliente				cliente;
+    private Long              id;
+    private Articulo          articulo;
+    private Cliente           cliente;
 
-	public ArticuloCliente () {
-	}
+    public ArticuloCliente () {
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Long getId () {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public Long getId () {
+        return this.id;
+    }
 
-	public void setId (Long id) {
-		this.id = id;
-	}
+    public void setId (Long id) {
+        this.id = id;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_articulo", nullable = false, referencedColumnName = "id")
-	public Articulo getArticulo () {
-		return this.articulo;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_articulo", nullable = false, referencedColumnName = "id")
+    public Articulo getArticulo () {
+        return this.articulo;
+    }
 
-	public void setArticulo (Articulo articulo) {
-		this.articulo = articulo;
-	}
+    public void setArticulo (Articulo articulo) {
+        this.articulo = articulo;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_cliente", nullable = false)
-	public Cliente getCliente () {
-		return this.cliente;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_cliente", nullable = false)
+    public Cliente getCliente () {
+        return this.cliente;
+    }
 
-	public void setCliente (Cliente cliente) {
-		this.cliente = cliente;
-	}
+    public void setCliente (Cliente cliente) {
+        this.cliente = cliente;
+    }
 }

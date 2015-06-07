@@ -13,12 +13,12 @@ import com.proeza.sgs.business.entity.Tipo_;
 @Repository
 public class TipoDao extends BaseDao<Tipo> {
 
-	public Tipo findByCode (String code) {
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-		CriteriaQuery<Tipo> criteria = builder.createQuery(Tipo.class);
-		Root<Tipo> root = criteria.from(Tipo.class);
-		criteria.select(root);
-		criteria.where(builder.equal(root.get(Tipo_.codigo), code));
-		return this.entityManager.createQuery(criteria).getSingleResult();
-	}
+    public Tipo findByCode (String code) {
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        CriteriaQuery<Tipo> criteria = builder.createQuery(Tipo.class);
+        Root<Tipo> root = criteria.from(Tipo.class);
+        criteria.select(root);
+        criteria.where(builder.equal(root.get(Tipo_.codigo), code));
+        return this.entityManager.createQuery(criteria).getSingleResult();
+    }
 }

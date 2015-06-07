@@ -25,36 +25,36 @@ import static proeza.test.unit.web.WebMvcTestUtils.*;
 
 public class UsuarioControllerTest extends WebMvcUnitTest {
 
-	@Autowired
-	private IPageDao	pageDao;
+    @Autowired
+    private IPageDao    pageDao;
 
-	@Autowired
-	private IUsuarioDao	usuarioDao;
+    @Autowired
+    private IUsuarioDao usuarioDao;
 
-	@Test
-	public void usuarioControllerTest_HOME () throws Exception {
-		Menu menu = buildBaseLeftMenu();
-		// Creo un item adicional para el menu que apunte a la funcionalidad admin
-		Item itemAdmin = buildItem("MI_ADMIN", "usuario/admin");
-		MenuItem menuItemAlta = buildMenuItem(1, itemAdmin, menu);
-		menu.getItems().add(menuItemAlta);
-		Set<Menu> menues = new HashSet<>();
-		menues.add(menu);
-		Page page = buildPage("usuario", "home", menues);
+    @Test
+    public void usuarioControllerTest_HOME () throws Exception {
+        Menu menu = buildBaseLeftMenu();
+        // Creo un item adicional para el menu que apunte a la funcionalidad admin
+        Item itemAdmin = buildItem("MI_ADMIN", "usuario/admin");
+        MenuItem menuItemAlta = buildMenuItem(1, itemAdmin, menu);
+        menu.getItems().add(menuItemAlta);
+        Set<Menu> menues = new HashSet<>();
+        menues.add(menu);
+        Page page = buildPage("usuario", "home", menues);
 
-		when(this.pageDao.findByGroupAndName(PAGE_GROUP, "home")).thenReturn(page);
+        when(this.pageDao.findByGroupAndName(PAGE_GROUP, "home")).thenReturn(page);
 
-		this.mockMvc.perform(get("/usuario/home"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("usuario/home.html"))
-			.andExpect(model().attribute(MenuType.SIDE_MENU_LEFT.name(), hasProperty("name", is("M_LEFT_MAIN"))));
-		// Una vez para buscar los menues y la otra para buscar el titulo y subtitulo de la pagina
-		verify(this.pageDao, times(2)).findByGroupAndName(PAGE_GROUP, "home");
-		verifyNoMoreInteractions(this.pageDao);
-	}
+        this.mockMvc.perform(get("/usuario/home"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("usuario/home.html"))
+            .andExpect(model().attribute(MenuType.SIDE_MENU_LEFT.name(), hasProperty("name", is("M_LEFT_MAIN"))));
+        // Una vez para buscar los menues y la otra para buscar el titulo y subtitulo de la pagina
+        verify(this.pageDao, times(2)).findByGroupAndName(PAGE_GROUP, "home");
+        verifyNoMoreInteractions(this.pageDao);
+    }
 
-	@Override
-	protected Object[] getMocks () {
-		return new Object[] {this.pageDao, this.usuarioDao};
-	}
+    @Override
+    protected Object[] getMocks () {
+        return new Object[] {this.pageDao, this.usuarioDao};
+    }
 }

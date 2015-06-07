@@ -6,5 +6,5 @@ import com.proeza.sgs.business.dto.MarcaDTO;
 
 public interface IMarcaService {
 
-	Collection<MarcaDTO> findAll ();
+    Collection<MarcaDTO> findAll ();
 }

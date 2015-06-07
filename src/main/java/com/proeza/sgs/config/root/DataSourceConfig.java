@@ -12,16 +12,16 @@ import com.proeza.core.config.DataSourceSettings;
 @Configuration
 public class DataSourceConfig {
 
-	@Autowired
-	private DataSourceSettings	dsSettings;
+    @Autowired
+    private DataSourceSettings dsSettings;
 
-	@Bean
-	public DataSource dataSource () {
-		final DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setUrl(this.dsSettings.getUrl());
-		ds.setUsername(this.dsSettings.getUserName());
-		ds.setPassword(this.dsSettings.getPass());
-		ds.setDriverClassName(this.dsSettings.getDriver());
-		return ds;
-	}
+    @Bean
+    public DataSource dataSource () {
+        final DriverManagerDataSource ds = new DriverManagerDataSource();
+        ds.setUrl(this.dsSettings.getUrl());
+        ds.setUsername(this.dsSettings.getUserName());
+        ds.setPassword(this.dsSettings.getPass());
+        ds.setDriverClassName(this.dsSettings.getDriver());
+        return ds;
+    }
 }

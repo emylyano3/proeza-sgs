@@ -5,9 +5,9 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	NegocioDalTest.class,
-	SistemaDalTest.class,
-	SeguridadDalTest.class
+    NegocioDalTest.class,
+    SistemaDalTest.class,
+    SeguridadDalTest.class
 })
 public class DalTestSuite {
 }

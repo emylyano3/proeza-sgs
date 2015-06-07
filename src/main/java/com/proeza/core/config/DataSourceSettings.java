@@ -6,31 +6,31 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataSourceSettings extends Settings {
 
-	@Value("${datasource.url}")
-	private String	url;
+    @Value("${datasource.url}")
+    private String url;
 
-	@Value("${datasource.password}")
-	private String	pass;
+    @Value("${datasource.password}")
+    private String pass;
 
-	@Value("${datasource.username}")
-	private String	userName;
+    @Value("${datasource.username}")
+    private String userName;
 
-	@Value("${datasource.driver}")
-	private String	driver;
+    @Value("${datasource.driver}")
+    private String driver;
 
-	public String getUrl () {
-		return this.url;
-	}
+    public String getUrl () {
+        return this.url;
+    }
 
-	public String getPass () {
-		return this.pass;
-	}
+    public String getPass () {
+        return this.pass;
+    }
 
-	public String getUserName () {
-		return this.userName;
-	}
+    public String getUserName () {
+        return this.userName;
+    }
 
-	public String getDriver () {
-		return this.driver;
-	}
+    public String getDriver () {
+        return this.driver;
+    }
 }

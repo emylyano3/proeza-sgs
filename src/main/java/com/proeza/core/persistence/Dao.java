@@ -7,15 +7,15 @@ import javax.persistence.EntityManager;
 
 public interface Dao<Entity> {
 
-	Entity find (Object id);
+    Entity find (Object id);
 
-	List<Entity> findAll ();
+    List<Entity> findAll ();
 
-	Entity persist (Entity entity);
+    Entity persist (Entity entity);
 
-	Collection<Entity> persist (Collection<Entity> entities);
+    Collection<Entity> persist (Collection<Entity> entities);
 
-	void delete (Entity entity);
+    void delete (Entity entity);
 
-	EntityManager getEntityManager ();
+    EntityManager getEntityManager ();
 }
