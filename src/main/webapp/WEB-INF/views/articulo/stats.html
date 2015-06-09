@@ -5,11 +5,11 @@
 	layout:decorator="layout.html">
 <body>
 	<div id="content" layout:fragment="contenido">
-		<div class="panel">
+		<div class="panel animated zoomIn">
 			<div class="panel-heading">
 			Historial de precios de artículo
 			</div>
-			<div class="panel-body animated zoomIn">
+			<div class="panel-body">
 				<div class="row">
 				 	<div class="col-md-3 text-center" style="-webkit-animation-delay: 0.2s;">
                         <div class="small">
@@ -24,10 +24,10 @@
                             <i class="fa fa-clock-o"></i> 15 de Mayo de 2015, Último aumento
                         </div>
                     </div>
-					<div class="col-md-6 animated-panel zoomIn" style="-webkit-animation-delay: 0.3s;">
+					<div class="col-md-6" style="-webkit-animation-delay: 0.3s;">
 						<canvas id="priceHistory" width="500" height="200"></canvas>
 					</div>
-                    <div class="col-md-3 text-center animated-panel zoomIn" style="-webkit-animation-delay: 0.4s;">
+                    <div class="col-md-3 text-center" style="-webkit-animation-delay: 0.4s;">
                         <div class="small">
                             <i class="fa fa-dollar"></i> Ventas anuales
                         </div>
