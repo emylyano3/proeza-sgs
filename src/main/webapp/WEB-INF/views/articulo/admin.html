@@ -126,7 +126,8 @@
 		<script type="text/javascript" src="../../../resources/jquery/jquery.inputmask.bundle.js" th:src="@{/resources/jquery/jquery.inputmask.bundle.js}" />
 		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
 		
-		<script type="text/javascript">
+		<script th:inline="javascript">
+		/*<![CDATA[*/
 			// Inicializacion de la tabla de arículos
 			$(document).ready(
 					function() {
@@ -160,8 +161,8 @@
 									data : JSON.stringify(rowdata),
 									success : function() {
 										$.notify({
-											title: '<strong>Modificación de artículo:</strong>',
-											message: 'La modificación se realizó correctamente'
+											title: /*[[#{art.alert.updaterow.success.title}]]*/ '<strong>Modificación de artículo:</strong>',
+											message: /*[[#{art.alert.updaterow.success.message}]]*/ 'La modificación se realizó correctamente'
 										},{
 											type: 'success'
 										});
@@ -169,8 +170,8 @@
 									},
 									error: function () {            
 										$.notify({
-											title: '<strong>Modificación de artículo:</strong>',
-											message: 'Ocurrió un error en la actualización del artículo'
+											title: /*[[#{art.alert.updaterow.error.title}]]*/ '<strong>Modificación de artículo:</strong>',
+											message: /*[[art.alert.updaterow.error.message]]*/ 'Ocurrió un error en la actualización del artículo'
 										},{
 											type: 'danger'
 										});
@@ -200,19 +201,19 @@
 							sortable : true,
 							enabletooltips : true,
 							columns : [ {
-								text : 'Modelo',
+								text : /*[[#{art.grid.model}]]*/ 'Modelo',
 								dataField : 'modelo',
 								width : '30%'
 							}, {
-								text : 'Clase',
+								text : /*[[#{art.grid.class}]]*/ 'Clase',
 								dataField : 'clase',
 								width : '30%'
 							}, {
-								text : 'Marca',
+								text : /*[[#{art.grid.trademark}]]*/ 'Marca',
 								dataField : 'marca',
 								width : '30%'
 							}, {
-								text : 'Precio',
+								text : /*[[#{art.grid.price}]]*/ 'Precio',
 								dataField : 'precio',
 								cellsalign : 'right',
 								cellsformat : 'c2',
@@ -252,7 +253,7 @@
 								$("#costo").val(dataRecord.costo);
 								$("#cantidad").val(dataRecord.cantidad);
 								$("#editionPopup").modal('show');
-							} else if ($.trim($(args).text()) == "Eliminar Artículo") {
+							} else if ($.trim($(args).text()) == [[#{art.admin.menu.edit}]]) {
 								var rowid = $("#articulos").jqxGrid('getrowid', rowindex);
 								$("#articulos").jqxGrid('deleterow', rowid);
 							}
@@ -308,7 +309,8 @@
 						$("#costo").inputmask("currency", {
 							"autoUnmask" : true
 						});
-					});
+				});
+		/*]]>*/
 		</script>
 	</div>
 </body>
