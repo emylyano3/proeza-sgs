@@ -6,10 +6,13 @@ public abstract class MultiDataSetChartManager<S, L, D> {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public MultiDataSetChartDefinition<L, D> getChartDefinition (List<S> source) {
-        return new MultiDataSetChartDefinition(buildLabels(source), buildData(source));
+        init(source);
+        return new MultiDataSetChartDefinition(buildLabels(), buildData());
     }
 
-    protected abstract List<L> buildLabels (List<S> source);
+    protected abstract void init (List<S> source);
 
-    protected abstract List<D> buildData (List<S> source);
+    protected abstract List<L> buildLabels ();
+
+    protected abstract List<D> buildData ();
 }

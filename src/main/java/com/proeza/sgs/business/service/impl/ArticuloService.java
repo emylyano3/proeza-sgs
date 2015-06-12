@@ -8,12 +8,12 @@ import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.proeza.core.tracking.entity.Movimiento;
+import com.proeza.sgs.business.chart.HistorialPrecioLineChartManager;
 import com.proeza.sgs.business.chart.MultiDataSetChartDefinition;
-import com.proeza.sgs.business.chart.MultiDataSetChartManager;
 import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.dao.MarcaDao;
@@ -34,29 +34,28 @@ import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 @Transactional
 public class ArticuloService implements IArticuloService {
 
-    public static final Logger                                   log = Logger.getLogger(ArticuloService.class);
+    public static final Logger    log = Logger.getLogger(ArticuloService.class);
 
     @Autowired
-    private IArticuloDao                                         articuloDao;
+    private IArticuloDao          articuloDao;
 
     @Autowired
-    private ClaseDao                                             claseDao;
+    private ClaseDao              claseDao;
 
     @Autowired
-    private RubroDao                                             rubroDao;
+    private RubroDao              rubroDao;
 
     @Autowired
-    private MarcaDao                                             marcaDao;
+    private MarcaDao              marcaDao;
 
     @Autowired
-    private TipoDao                                              tipoDao;
+    private TipoDao               tipoDao;
 
     @Autowired
-    private ArticuloFilterFactory                                filterFactory;
+    private ArticuloFilterFactory filterFactory;
 
     @Autowired
-    @Qualifier("historialPrecioLineChartManager")
-    private MultiDataSetChartManager<Movimiento, String, Double> chartManager;
+    private ApplicationContext    context;
 
     @Override
     public List<ArticuloDTO> findAll () {
@@ -92,7 +91,7 @@ public class ArticuloService implements IArticuloService {
     @Override
     public MultiDataSetChartDefinition<String, Double> priceHistory (String code) {
         List<Movimiento> movs = this.articuloDao.findMovimientosAsc(code, MOD_PRECIO.getCodigo());
-        return this.chartManager.getChartDefinition(movs);
+        return this.context.getBean(HistorialPrecioLineChartManager.class).getChartDefinition(movs);
     }
 
     private List<ArticuloDTO> hideEntites (List<Articulo> articulos) {

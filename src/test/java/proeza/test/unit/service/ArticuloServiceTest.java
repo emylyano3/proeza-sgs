@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import proeza.test.unit.AbstractUnitTest;
@@ -26,15 +27,19 @@ import static org.thymeleaf.util.DateUtils.*;
 public class ArticuloServiceTest extends AbstractUnitTest {
 
     @Autowired
-    private IArticuloDao      articuloDao;
+    private IArticuloDao       articuloDao;
 
-    private IArticuloService  articuloService = new ArticuloService();
+    @Autowired
+    private ApplicationContext context;
 
-    private MovimientoBuilder movBuilder      = new MovimientoBuilder();
+    private IArticuloService   articuloService = new ArticuloService();
+
+    private MovimientoBuilder  movBuilder      = new MovimientoBuilder();
 
     @Before
     public void setup () {
         ReflectionTestUtils.setField(this.articuloService, "articuloDao", this.articuloDao);
+        ReflectionTestUtils.setField(this.articuloService, "context", this.context);
     }
 
     @Test
@@ -62,9 +67,9 @@ public class ArticuloServiceTest extends AbstractUnitTest {
         MultiDataSetChartDefinition<String, Double> result = this.articuloService.priceHistory("COD_1");
         assertNotNull("La salida NUNCA debe ser null", result);
         assertNotNull("El listado de precios no puede ser null", result.getData());
-        assertEquals("El listado de precios debe tener 4 items", 4, result.getData().size());
-        assertTrue(result.getData().get(0) == 100);
-        assertTrue(result.getData().get(3) == 130);
+        assertEquals("El listado de precios debe tener 3 items", 3, result.getData().size());
+        assertTrue(result.getData().get(0) == 121.31);
+        assertTrue(result.getData().get(2) == 130);
     }
 
     @Override

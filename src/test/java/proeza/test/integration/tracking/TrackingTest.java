@@ -56,7 +56,7 @@ public class TrackingTest extends IntegrationTest {
         this.artDao.persist(art);
         art.setPrecio(BigDecimal.valueOf(123));
         assertNotNull(art.getMovimientos());
-        assertFalse(art.getMovimientos().isEmpty());
+        assertEquals(1, art.getMovimientos().size());
         Movimiento mov = art.getMovimientos().iterator().next();
         assertEquals("125.1", mov.getValorAnte());
         assertEquals("123", mov.getValorPost());

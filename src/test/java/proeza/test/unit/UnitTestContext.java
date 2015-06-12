@@ -13,6 +13,7 @@ import com.proeza.core.service.IMailService;
 import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.service.IUserService;
 import com.proeza.security.service.UserService;
+import com.proeza.sgs.business.chart.HistorialPrecioLineChartManager;
 import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.service.IArticuloService;
 import com.proeza.sgs.business.service.IClaseService;
@@ -33,6 +34,11 @@ public class UnitTestContext {
     @Bean
     public IUsuarioDao usuarioDao () {
         return Mockito.mock(IUsuarioDao.class);
+    }
+
+    @Bean
+    public HistorialPrecioLineChartManager historialPrecioLineChartManager () {
+        return new HistorialPrecioLineChartManager();
     }
 
     @Bean

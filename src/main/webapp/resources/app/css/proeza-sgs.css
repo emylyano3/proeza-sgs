@@ -29,7 +29,7 @@ body {
     #page-wrapper {
         position: inherit;
 	    background: #edf0f5;
-        margin: 0 0 0 250px;
+        margin: 0 0 0 180px;
         padding: 20px 20px;
         border-left: 1px solid #e7e7e7;
     }
@@ -139,7 +139,7 @@ body {
     .sidebar {
         z-index: 1;
         position: absolute;
-        width: 250px;
+        width: 180px;
         margin-top: 51px;
     }
 
@@ -516,4 +516,113 @@ table.dataTable thead .sorting:after {
 
 .small-header .hpanel {
     margin-bottom: 0
+}
+
+#menu {
+    width: 180px;
+    bottom: 0;
+    float: left;
+    left: 0;
+    position: absolute;
+    top: 50px;
+    transition: all 0.4s ease 0s
+}
+
+
+.fixed-sidebar #menu {
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 197px;
+    margin-right: -17px
+}
+
+
+body.hide-sidebar #menu {
+    margin-left: -180px
+}
+
+body.page-small #menu {
+    margin-left: -180px
+}
+
+body.page-small.show-sidebar #menu {
+    margin-left: 0
+}
+
+
+.header-link {
+    padding: 18px 26px 17px 26px;
+    font-size: 14px;
+    float: left;
+    border-right: 1px solid #e4e5e7;
+    border-left: 1px solid #e4e5e7;
+    margin-right: 15px;
+    background: #f7f9fa;
+    cursor: pointer
+}
+
+.header-link:hover {
+    background: #f1f4f6
+}
+
+navbar-form-custom {
+    float: left;
+    height: 52px;
+    padding: 0;
+    width: 200px
+}
+
+.navbar-form-custom .form-control {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: medium none;
+    font-size: 13px;
+    height: 52px;
+    margin: 0;
+    z-index: 1060;
+    padding: 0
+}
+
+.form-control, .form-control:focus, .has-error .form-control:focus, .has-success .form-control:focus, .has-warning .form-control:focus, .navbar-collapse, .navbar-form, .navbar-form-custom .form-control:focus, .navbar-form-custom .form-control:hover, .open .btn.dropdown-toggle, .panel, .popover, .progress, .progress-bar {
+    box-shadow: none
+}
+
+
+@media (max-width: 768px) {
+    .navbar-form-custom, .navbar-right, #logo {
+        display: none
+    }
+
+    .navbar-static-top {
+        margin: 0
+    }
+
+    .small-logo {
+        display: block;
+        float: left
+    }
+
+    .header-line div {
+        display: none
+    }
+
+    .color-demo .header-line {
+        height: 48px
+    }
+
+    #hbreadcrumb {
+        float: none !important;
+        margin-bottom: 10px;
+        margin-top: 0
+    }
+}
+
+
+.navbar.navbar-static-top .hide-menu {
+    color: #9d9fa2
+}
+
+
+.landing-page .navbar-form-custom, .landing-page .navbar-right, .landing-page #logo {
+    display: block
 }
