@@ -145,23 +145,23 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
         this.descripcion = descripcion;
     }
 
-    @Column(name = "costo", nullable = false, precision = 10)
+    @Column(name = "costo", nullable = false, precision = 10, scale = 2)
     public BigDecimal getCosto () {
         return this.costo;
     }
 
     public void setCosto (BigDecimal costo) {
-        track(MOD_COSTO.getCodigo(), tostring(this.costo), tostring(costo));
+        track(MOD_COSTO.getCodigo(), this.costo, costo);
         this.costo = costo;
     }
 
-    @Column(name = "precio", nullable = false, precision = 10)
+    @Column(name = "precio", nullable = false, precision = 10, scale = 2)
     public BigDecimal getPrecio () {
         return this.precio;
     }
 
     public void setPrecio (BigDecimal precio) {
-        track(MOD_PRECIO.getCodigo(), tostring(this.precio), tostring(precio));
+        track(MOD_PRECIO.getCodigo(), this.precio, precio);
         this.precio = precio;
     }
 

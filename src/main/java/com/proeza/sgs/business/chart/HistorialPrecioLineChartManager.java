@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -32,6 +34,7 @@ public class HistorialPrecioLineChartManager extends MultiDataSetChartManager<Mo
     @Override
     protected void init (List<Movimiento> source) {
         this.source = source;
+        sortAscByDate();
         groupByDate();
     }
 
@@ -92,10 +95,13 @@ public class HistorialPrecioLineChartManager extends MultiDataSetChartManager<Mo
         return data;
     }
 
+    private void sortAscByDate () {
+        Collections.sort(this.source, new MovimientoDateComparator());
+    }
+
     private void groupByDate () {
         for (Movimiento mov : this.source) {
-            List<Movimiento> movs = this.groupedData.get(mov.getFechaMovimiento());
-            if (movs == null) {
+            if (this.groupedData.get(mov.getFechaMovimiento()) == null) {
                 this.groupedData.put(mov.getFechaMovimiento(), new ArrayList<Movimiento>());
             }
             this.groupedData.get(mov.getFechaMovimiento()).add(mov);
@@ -103,6 +109,22 @@ public class HistorialPrecioLineChartManager extends MultiDataSetChartManager<Mo
     }
 
     private Double getLastValue (List<Movimiento> movs) {
-        return DatatypeConverter.parseDouble(movs.get(movs.size()-1).getValorPost());
+        return DatatypeConverter.parseDouble(movs.get(movs.size() - 1).getValorPost());
+    }
+
+    class MovimientoDateComparator implements Comparator<Movimiento> {
+        @Override
+        public int compare (Movimiento m1, Movimiento m2) {
+            if (m1 == null && m2 == null) {
+                return 0;
+            }
+            if (m1 == null) {
+                return -1;
+            }
+            if (m2 == null) {
+                return 1;
+            }
+            return m1.getFechaMovimiento().compareTo(m2.getFechaMovimiento());
+        }
     }
 }

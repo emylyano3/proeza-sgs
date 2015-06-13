@@ -60,13 +60,3 @@ $('.closebox').click(function (event) {
     var hpanel = $(this).closest('div.hpanel');
     hpanel.remove();
 });
-
-//Handle minimalize sidebar menu
-$('.hide-menu').click(function(event){
-    event.preventDefault();
-    if ($(window).width() < 768) {
-        $("body").toggleClass("show-sidebar");
-    } else {
-        $("body").toggleClass("hide-sidebar");
-    }
-});

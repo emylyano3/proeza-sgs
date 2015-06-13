@@ -28,7 +28,7 @@ public class ArticuloDao extends BaseDao<Articulo> implements IArticuloDao {
     }
 
     @Override
-    public List<Movimiento> findMovimientosAsc (String codeArt, String tipoMov) {
+    public List<Movimiento> findMovimientosAscByDate (String codeArt, String tipoMov) {
         Articulo art = findByCode(codeArt);
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<Movimiento> criteria = builder.createQuery(Movimiento.class);

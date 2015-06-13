@@ -90,7 +90,7 @@ public class ArticuloService implements IArticuloService {
 
     @Override
     public MultiDataSetChartDefinition<String, Double> priceHistory (String code) {
-        List<Movimiento> movs = this.articuloDao.findMovimientosAsc(code, MOD_PRECIO.getCodigo());
+        List<Movimiento> movs = this.articuloDao.findMovimientosAscByDate(code, MOD_PRECIO.getCodigo());
         return this.context.getBean(HistorialPrecioLineChartManager.class).getChartDefinition(movs);
     }
 

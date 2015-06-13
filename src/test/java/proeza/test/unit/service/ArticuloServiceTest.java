@@ -20,9 +20,10 @@ import com.proeza.sgs.business.entity.TipoMovimiento;
 import com.proeza.sgs.business.service.IArticuloService;
 import com.proeza.sgs.business.service.impl.ArticuloService;
 
+import static com.proeza.core.util.DataTypeConverter.*;
+import static com.proeza.core.util.date.DateUtil.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import static org.thymeleaf.util.DateUtils.*;
 
 public class ArticuloServiceTest extends AbstractUnitTest {
 
@@ -49,21 +50,21 @@ public class ArticuloServiceTest extends AbstractUnitTest {
         this.movBuilder.withIdEntidad(1L);
         this.movBuilder.withValorAnte("100");
         this.movBuilder.withValorPost("121.31");
-        this.movBuilder.withFechaMovimiento(create(2015, 01, 15).getTime());
+        this.movBuilder.withFechaMovimiento(toTimestamp(create(2015, 01, 15)));
         this.movBuilder.withTipoEntidad(TipoEntidad.ARTICULO.getCodigo());
         this.movBuilder.withTipoMov(TipoMovimiento.MOD_PRECIO.getCodigo());
         movs.add(this.movBuilder.build());
         this.movBuilder.withId(2L);
         this.movBuilder.withValorAnte("121.31");
         this.movBuilder.withValorPost("131.10");
-        this.movBuilder.withFechaMovimiento(create(2015, 02, 15).getTime());
+        this.movBuilder.withFechaMovimiento(toTimestamp(create(2015, 02, 15)));
         movs.add(this.movBuilder.build());
         this.movBuilder.withId(3L);
         this.movBuilder.withValorAnte("131.10");
         this.movBuilder.withValorPost("130");
-        this.movBuilder.withFechaMovimiento(create(2015, 03, 15).getTime());
+        this.movBuilder.withFechaMovimiento(toTimestamp(create(2015, 03, 15)));
         movs.add(this.movBuilder.build());
-        when(this.articuloDao.findMovimientosAsc("COD_1", TipoMovimiento.MOD_PRECIO.getCodigo())).thenReturn(movs);
+        when(this.articuloDao.findMovimientosAscByDate("COD_1", TipoMovimiento.MOD_PRECIO.getCodigo())).thenReturn(movs);
         MultiDataSetChartDefinition<String, Double> result = this.articuloService.priceHistory("COD_1");
         assertNotNull("La salida NUNCA debe ser null", result);
         assertNotNull("El listado de precios no puede ser null", result.getData());

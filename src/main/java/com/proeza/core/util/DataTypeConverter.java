@@ -1,6 +1,8 @@
 package com.proeza.core.util;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class DataTypeConverter {
 
@@ -9,6 +11,13 @@ public class DataTypeConverter {
             return null;
         }
         return i.toString();
+    }
+
+    public static String tostring (Object o) {
+        if (o == null) {
+            return null;
+        }
+        return o.toString();
     }
 
     public static String tostring (Double d) {
@@ -23,5 +32,9 @@ public class DataTypeConverter {
             return null;
         }
         return bd.toString();
+    }
+
+    public static Timestamp toTimestamp (Date date) {
+        return new Timestamp(date.getTime());
     }
 }

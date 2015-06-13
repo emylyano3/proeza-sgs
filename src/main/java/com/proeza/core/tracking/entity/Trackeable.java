@@ -7,7 +7,8 @@ import java.util.Map;
 
 import com.proeza.core.persistence.Identifiable;
 
-import static org.thymeleaf.util.DateUtils.*;
+import static com.proeza.core.util.DataTypeConverter.*;
+import static com.proeza.core.util.date.DateUtil.*;
 
 public abstract class Trackeable implements Identifiable {
 
@@ -26,6 +27,21 @@ public abstract class Trackeable implements Identifiable {
      * lo que se hace es llevar cuenta de cuantos movimientos sin id (es decir id con valor cero) hay para cada tipo de
      * movimiento. En caso de encontrar uno previo, se lo elimina.
      */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public Movimiento track (String tipoMov, Comparable valorAnte, Comparable valorPoste) {
+        if (getId() == null || valorAnte == null || valorAnte == valorPoste || valorAnte.equals(valorPoste) || valorAnte.compareTo(valorPoste) == 0) {
+            return null;
+        }
+        return track(tipoMov, tostring(valorAnte), tostring(valorPoste));
+    }
+
+    /**
+     * La idea de track es que se persista un movimiento para dejar rastro de los cambios realizados entre transacciones
+     * sobre la entidad trackeada. <br>
+     * Para evitar que se genere mas de un movimiento por transaccion, en caso de que se invoque N veces a este metodo,
+     * lo que se hace es llevar cuenta de cuantos movimientos sin id (es decir id con valor cero) hay para cada tipo de
+     * movimiento. En caso de encontrar uno previo, se lo elimina.
+     */
     public Movimiento track (String tipoMov, String valorAnte, String valorPoste) {
         if (getId() == null || valorAnte == null || valorAnte.equals(valorPoste)) {
             return null;
@@ -33,7 +49,7 @@ public abstract class Trackeable implements Identifiable {
         String valorAnteFinal = getAntiguoValorPrevio(tipoMov, valorAnte);
         if (!equivalentValue(valorPoste, valorAnteFinal)) {
             Movimiento mov = new Movimiento();
-            mov.setFechaMovimiento(createNow().getTime());
+            mov.setFechaMovimiento(toTimestamp(createNow()));
             mov.setIdEntidad(getId());
             mov.setTipoMov(tipoMov);
             mov.setTipoEntidad(getTipoEntidad());

@@ -15,5 +15,5 @@ public interface IArticuloDao extends Dao<Articulo> {
      *
      * @return Una lista de {@link Movimiento} con el resultado.
      */
-    List<Movimiento> findMovimientosAsc (String codeArt, String tipoMov);
+    List<Movimiento> findMovimientosAscByDate (String codeArt, String tipoMov);
 }

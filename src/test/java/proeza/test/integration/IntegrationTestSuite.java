@@ -6,12 +6,16 @@ import org.junit.runners.Suite;
 import proeza.test.integration.form.FormValidationTest;
 import proeza.test.integration.mail.MailTestSuite;
 import proeza.test.integration.persistence.DalTestSuite;
+import proeza.test.integration.tracking.TrackingTest;
+import proeza.test.integration.web.rest.ArticuloRestITest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     DalTestSuite.class,
     MailTestSuite.class,
     FormValidationTest.class,
+    TrackingTest.class,
+    ArticuloRestITest.class
 })
 public class IntegrationTestSuite {
 }

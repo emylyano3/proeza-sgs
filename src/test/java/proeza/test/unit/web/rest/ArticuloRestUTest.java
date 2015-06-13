@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class ArticuloRestUnitTest extends WebMvcUnitTest {
+public class ArticuloRestUTest extends WebMvcUnitTest {
 
     @Autowired
     private IArticuloService articuloService;
