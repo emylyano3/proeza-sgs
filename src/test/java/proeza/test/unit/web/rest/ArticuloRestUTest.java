@@ -32,7 +32,7 @@ public class ArticuloRestUTest extends WebMvcUnitTest {
     public void priceHistory () throws Exception {
         List<Double> data = new ArrayList<>();
         List<String> labels = new ArrayList<>();
-        MultiDataSetChartDefinition<String, Double> precioHistory = new MultiDataSetChartDefinition<String, Double>();
+        MultiDataSetChartDefinition<String, Double> precioHistory = new MultiDataSetChartDefinition<>();
         precioHistory.setData(data);
         precioHistory.setLabels(labels);
         data.addAll(Arrays.asList(new Double[] {28D, 48D, 40D, 19D, 86D, 27D, 90D}));

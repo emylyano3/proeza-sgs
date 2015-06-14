@@ -75,7 +75,7 @@
 						        }
 						    ]
 						};
-						var priceHistoryChart = new Chart(ctx).Line(chartData);				
+						var priceHistoryChart = new Chart(ctx).Line(chartData,{responsive: true});
 			        },
 			        error: function (jqXHR, status) {            
 						console.log(jqXHR.statusText);

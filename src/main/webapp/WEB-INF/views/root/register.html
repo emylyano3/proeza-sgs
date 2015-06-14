@@ -8,7 +8,7 @@
 	<div id="content" layout:fragment="contenido">
 		<div sec:authorize="isAnonymous()">
 			<form class="form-horizontal" action="#" th:action="@{register}" th:object="${userForm}" method="post">
-				<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+<!-- 				<input type="hidden" name="_csrf" th:value="${_csrf.token}"/> -->
 				<fieldset>
 					<label for="alias" th:text="#{form.register.alias}">Alias</label>
 					<input id="alias" type="text" th:field="*{alias}" placeholder="Su alias" required="required" autofocus="autofocus"/>
