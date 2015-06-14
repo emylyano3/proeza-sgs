@@ -5,6 +5,7 @@
 	insert into seg_proeza_db.usuario (id, alias, nombre, apellido, email, password) values (101, 'prod_admin','prod_admin','prod_admin', 'prod_admin@proeza.com.ar', '$2a$10$gstdn6.1OVcOmjSxx36kJuHoH9seRgbSNYQjVTNavTBVGGxcrT6VC');
 	insert into seg_proeza_db.usuario (id, alias, nombre, apellido, email, password) values (102, 'prod_viewer','prod_viewer','prod_viewer', 'prod_viewer@proeza.com.ar', '$2a$10$WwVnE7OeUpe1a892TJrbEOUEzTFKWiHLIM0w9WNKyxZmyGM8vmwk2');
 	insert into seg_proeza_db.usuario (id, alias, nombre, apellido, email, password) values (103, 'prod_stat','prod_stat','prod_stat', 'prod_stat@proeza.com.ar', '$2a$10$LGpaazPGhg3U8cqTEb5bq.65GKpqYlEoRG7xEBEtnJ0ZiNN5CFz/S');
+	insert into seg_proeza_db.usuario (id, alias, nombre, apellido, email, password) values (104, 'admin','admin','admin', 'admin@proeza.com.ar', '$2a$10$N9ba82wZVlNGgMgcO24XBeGwcE6LkEPkWvuFI8I7efa5F8VgOWXEq');
 	
 	/* Roles */
 	/* Venta */
@@ -23,7 +24,7 @@
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (41,'ROLE_USUAR_ADMIN','Administrador de la seguridad del sistema','');
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (42,'ROLE_USUAR_ESTAD','Estadista de usuarios','');
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (43,'ROLE_USUAR_LISTA','Listado de usuarios','');
-	
+
 	/* Asociacion de Usuarios y roles */
 	/* user_admin */
 	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (1, 100, 41);
@@ -38,5 +39,14 @@
 	
 	/* prod_viewer */
 	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (6, 103, 33);
+	
+	/* admin */
+	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (7, 104, 41);
+	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (8, 104, 42);
+	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (9, 104, 43);
+	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (10, 104, 31);
+	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (11, 104, 32);
+	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (12, 104, 33);
+	
 	
 /* Seguridad */

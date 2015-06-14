@@ -29,7 +29,11 @@ INSERT INTO `sys_item` VALUES
 (00000000000000000005,'MI_ARTI_HOME','Home','Para acceder al home de articulo','','/articulo/home'),
 (00000000000000000006,'MI_ARTI_LIST','Listado','Para acceder al listado de articulos','','/articulo/listado'),
 (00000000000000000007,'MI_ARTI_STATS','Estadísticas','Para acceder a las estadísticas de articulos','','/articulo/stats'),
-(00000000000000000008,'MI_ARTI_ADMIN','Administración','Para acceder a la administración de articulos','','/articulo/admin');
+(00000000000000000008,'MI_ARTI_ADMIN','Administración','Para acceder a la administración de articulos','','/articulo/admin'),
+(00000000000000000009,'MI_USUA_ADMIN','Administración','Para acceder a la administración de usuarios','fa fa-home','/usuario/admin'),
+(00000000000000000010,'MI_USUA_LIST','Listados','Para acceder al listado de usuarios','fa fa-home','/usuario/home');
+	
+;
 /*!40000 ALTER TABLE `sys_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +61,14 @@ INSERT INTO `sys_item_rol` VALUES
 (00000000000000000015,00000000000000000006,00000000000000000033),
 (00000000000000000016,00000000000000000007,00000000000000000031),
 (00000000000000000017,00000000000000000007,00000000000000000033),
-(00000000000000000018,00000000000000000008,00000000000000000031);
+(00000000000000000018,00000000000000000008,00000000000000000031),
+(00000000000000000019,00000000000000000009,00000000000000000041),
+(00000000000000000020,00000000000000000009,00000000000000000042),
+(00000000000000000021,00000000000000000009,00000000000000000043),
+(00000000000000000022,00000000000000000010,00000000000000000041),
+(00000000000000000023,00000000000000000010,00000000000000000042),
+(00000000000000000024,00000000000000000010,00000000000000000043);
+
 /*!40000 ALTER TABLE `sys_item_rol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -72,7 +83,10 @@ INSERT INTO `sys_item_subitem` VALUES
 (00000000000000000002,00000000000000000004,00000000000000000005,0),
 (00000000000000000003,00000000000000000004,00000000000000000006,1),
 (00000000000000000004,00000000000000000004,00000000000000000007,2),
-(00000000000000000005,00000000000000000004,00000000000000000008,3);
+(00000000000000000005,00000000000000000004,00000000000000000008,3),
+(00000000000000000006,00000000000000000002,00000000000000000009,1),
+(00000000000000000007,00000000000000000002,00000000000000000010,2);
+
 /*!40000 ALTER TABLE `sys_item_subitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,10 +121,10 @@ UNLOCK TABLES;
 LOCK TABLES `sys_pagina` WRITE;
 /*!40000 ALTER TABLE `sys_pagina` DISABLE KEYS */;
 INSERT INTO `sys_pagina` VALUES
-(00000000000000000001,'usuario','home','Página de inicio de las funcionalidades de usuario','Usuario', 'Inicio'),
-(00000000000000000002,'usuario','listado','Página con la que se realiza el listado de usuarios','Usuario', 'Listado'),
-(00000000000000000003,'usuario','admin','Página con la que se realiza la adminsitración de usuarios','Usuario', 'Administración'),
-(00000000000000000004,'usuario','estadisticas','Página con la que se accede a las estadísticas de usuarios','Usuario', 'Estadísticas'),
+(00000000000000000001,'usuario','home','Página de inicio de las funcionalidades de usuario','Usuario','Inicio'),
+(00000000000000000002,'usuario','listado','Página con la que se realiza el listado de usuarios','Usuario','Listado'),
+(00000000000000000003,'usuario','admin','Página con la que se realiza la adminsitración de usuarios','Usuario','Administración'),
+(00000000000000000004,'usuario','estadisticas','Página con la que se accede a las estadísticas de usuarios','Usuario','Estadísticas'),
 (00000000000000000005,'root','home','Inicio de la aplicación','Inicio',''),
 (00000000000000000006,'root','register','Página de registro de usuario','',''),
 (00000000000000000007,'root','login','Página de Ingreso al sistema','',''),
@@ -173,5 +187,5 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
 -- Dump completed on 2015-04-03 10:20:52
+

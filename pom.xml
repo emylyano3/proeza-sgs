@@ -4,7 +4,7 @@
 	<groupId>com.proeza</groupId>
 	<artifactId>proeza-sgs</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-BSTP</version>
+	<version>0.0.2</version>
 	<name>Sistema de Gestión de Stock Proeza</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -31,10 +31,12 @@
 		<mockito-core-version>1.10.19</mockito-core-version>
 		<jackson-core-version>2.5.0</jackson-core-version>
 		<hamcrest-all-version>1.3</hamcrest-all-version>
-		<aspectjweaver.version>1.8.5</aspectjweaver.version>
-		<aspectjrt.version>1.8.5</aspectjrt.version>
+		<aspectjweaver-version>1.8.5</aspectjweaver-version>
+		<aspectjrt-version>1.8.5</aspectjrt-version>
 		<json-path-version>0.8.1</json-path-version>
 		<commons-lang-version>2.6</commons-lang-version>
+		<commons-fileupload-version>1.3.1</commons-fileupload-version>
+		<commons-io-version>2.4</commons-io-version>
 	</properties>
 	<prerequisites>
 		<maven>2.2.1</maven>
@@ -64,6 +66,16 @@
 	</profiles>
 
 	<dependencies>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -141,12 +153,12 @@
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
-			<version>${aspectjrt.version}</version>
+			<version>${aspectjrt-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<version>${aspectjweaver.version}</version>
+			<version>${aspectjweaver-version}</version>
 		</dependency>
 
 		<!-- Hibernate -->
