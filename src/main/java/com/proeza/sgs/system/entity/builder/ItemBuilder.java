@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.springframework.context.i18n.LocaleContextHolder;
+
+import com.proeza.core.i18n.entity.I18n;
 import com.proeza.security.entity.Rol;
 import com.proeza.sgs.system.entity.Item;
 import com.proeza.sgs.system.entity.ItemSubitem;
@@ -64,6 +67,7 @@ public class ItemBuilder {
 
     public Item build () {
         Item item = new Item();
+        item.setTextoI18n(new I18n(this.text, LocaleContextHolder.getLocale().toString()));
         item.setId(this.id);
         item.setCode(this.code);
         item.setLink(this.link);

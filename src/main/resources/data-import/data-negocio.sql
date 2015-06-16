@@ -1,10 +1,4 @@
 /* Maestros */
-	/* Telefono Tipo */
-	insert into sgs_proeza_db.cmn_telefono_tipo (codigo, nombre, descripcion) values ('MPERSONAL','Movil Personal','Celular personal');
-	insert into sgs_proeza_db.cmn_telefono_tipo (codigo, nombre, descripcion) values ('MTRABAJO','Movil de Trabajo','Celular trabajo');
-	insert into sgs_proeza_db.cmn_telefono_tipo (codigo, nombre, descripcion) values ('FPERSONAL','Personal','Telefono fijo personal');
-	insert into sgs_proeza_db.cmn_telefono_tipo (codigo, nombre, descripcion) values ('FTRABAJO','Trabajo','Telefono fijo de trabajo');
-
 	/* Rubro */
 	insert into sgs_proeza_db.art_rubro (codigo, nombre, descripcion) values ('PESCA','Pesca','Pesca');
 	
@@ -39,11 +33,6 @@
 
 	/* Telefono */
 	insert into sgs_proeza_db.cmn_telefono (pref_internacional, pref_area, numero, fk_tipo, fk_persona) values ('+54', '011', '2323000', 1, 1); 
-	
-	/* Medio de pago */
-	insert into sgs_proeza_db.cmn_medio_pago (codigo, nombre, descripcion) values ('EFT', 'Efectivo', 'Efectivo');
-	insert into sgs_proeza_db.cmn_medio_pago (codigo, nombre, descripcion) values ('TCR', 'Crédito', 'Tarjeta de crédito');
-	insert into sgs_proeza_db.cmn_medio_pago (codigo, nombre, descripcion) values ('TDE', 'Débito', 'Tarjeta de débito');
 	
 	/* Articulo - Proveedor */
 	insert into sgs_proeza_db.art_articulo_proveedor(id, fk_articulo, fk_proveedor) values (1, 1, 1);

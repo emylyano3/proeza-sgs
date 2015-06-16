@@ -7,10 +7,12 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import proeza.test.integration.IntegrationTest;
 
-import com.proeza.sgs.system.dao.PageDao;
+import com.proeza.sgs.system.dao.IItemDao;
+import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.entity.Item;
 import com.proeza.sgs.system.entity.ItemSubitem;
 import com.proeza.sgs.system.entity.Menu;
@@ -24,7 +26,10 @@ public class SistemaDalTest extends IntegrationTest {
     private static Logger log = Logger.getLogger(SistemaDalTest.class);
 
     @Autowired
-    private PageDao       pageDao;
+    private IPageDao      pageDao;
+
+    @Autowired
+    private IItemDao      itemDao;
 
     @Test
     public void page_FIND_ALL () {
@@ -83,6 +88,36 @@ public class SistemaDalTest extends IntegrationTest {
                 assertNotNull("El item MI_ARTI no debe tener subitems nulos", subitem);
                 assertTrue("El subitem debe tener alguno de los codigos: " + codSubitems, codSubitems.contains(subitem.getCode()));
             }
+        }
+    }
+
+    @Test
+    public void item_I18N () {
+        Item item = this.itemDao.find(1L);
+        assertNotNull(item);
+        assertNotNull(item.getTextoI18n());
+        assertNotNull(item.getTextoI18n().getTraducciones());
+        assertFalse(item.getTextoI18n().getTraducciones().isEmpty());
+        assertEquals("en_US", item.getTextoI18n().getTraducciones().iterator().next().getLocale());
+    }
+
+    @Test
+    public void item_I18N_CURRENT_LOCALE () {
+        Item item = this.itemDao.find(1L);
+        assertNotNull(item);
+        assertNotNull(item.getTextoI18n());
+        assertNotNull(item.getTextoI18n().getTraducciones());
+        assertFalse(item.getTextoI18n().getTraducciones().isEmpty());
+        switch (LocaleContextHolder.getLocale().toString()) {
+            case "en_US":
+                assertEquals("Home", item.getText());
+                break;
+            case "es_AR":
+                assertEquals("Inicio", item.getText());
+                break;
+
+            default:
+                break;
         }
     }
 }

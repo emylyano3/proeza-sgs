@@ -31,7 +31,7 @@ public class HomeController {
     }
 
     @RequestMapping({"/", "/index", "/home"})
-    public ModelAndView home (ModelAndView model, Principal principal) {
+    public ModelAndView home (ModelAndView model) {
         model.setViewName(PAGE_GROUP + "/" + PAGE_NAME + ".html");
         Page pagina = this.pageDao.findByGroupAndName(PAGE_GROUP, PAGE_NAME);
         model.addObject("pageTitle", pagina.getTitle());

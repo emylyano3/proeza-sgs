@@ -1,16 +1,17 @@
 /* Pagina */
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (1, 'usuario', 'home' ,'Página de inicio de las funcionalidades de usuario','Usuario', 'Inicio');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (2, 'usuario', 'listado' ,'Página con la que se realiza el listado de usuarios','Usuario', 'Listado');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (3, 'usuario', 'admin' ,'Página con la que se realiza la adminsitración de usuarios','Usuario', 'Administración');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (4, 'usuario', 'estadisticas' ,'Página con la que se accede a las estadísticas de usuarios','Usuario', 'Estadísticas');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (5, 'root', 'home' ,'Inicio de la aplicación','Inicio','');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (6, 'root', 'register','Página de registro de usuario','','');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (7, 'root', 'login','Página de Ingreso al sistema','','');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (8, 'root', 'logout','Página que se muestra al usuario luego de su salida del sistema','','');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (9, 'articulo', 'home' ,'Página inicial de las funcionalidades de articulo','Artículo','Inicio');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (10, 'articulo', 'listado' ,'Página donde se ofrecen funcionalidades de listado de articulos','Artículo','Listado');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (11, 'articulo', 'stats' ,'Página donde se acceden a las estadísticas de articulos','Artículo','Estadísticas');
-insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (12, 'articulo', 'admin' ,'Página donde se administran los articulos','Artículo','Administración');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (1, 'usuario', 'home' ,'Página de inicio de las funcionalidades de usuario','Usuario', 'Inicio');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (2, 'usuario', 'listado' ,'Página con la que se realiza el listado de usuarios','Usuario', 'Listado');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (3, 'usuario', 'admin' ,'Página con la que se realiza la adminsitración de usuarios','Usuario', 'Administración');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (4, 'usuario', 'estadisticas' ,'Página con la que se accede a las estadísticas de usuarios','Usuario', 'Estadísticas');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (5, 'root', 'home' ,'Inicio de la aplicación','Inicio','');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (6, 'root', 'register','Página de registro de usuario','','');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (7, 'root', 'login','Página de Ingreso al sistema','','');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (8, 'root', 'logout','Página que se muestra al usuario luego de su salida del sistema','','');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (9, 'articulo', 'home' ,'Página inicial de las funcionalidades de articulo','Artículo','Inicio');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (10, 'articulo', 'listado' ,'Página donde se ofrecen funcionalidades de listado de articulos','Artículo','Listado');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (11, 'articulo', 'stats' ,'Página donde se acceden a las estadísticas de articulos','Artículo','Estadísticas');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (12, 'articulo', 'admin' ,'Página donde se administran los articulos','Artículo','Administración');
+/* Pagina */
 
 /* Pagina - Rol */
 	/* Paginas Usuario */
@@ -34,37 +35,39 @@ insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, su
 /* Pagina - Rol */
 
 /* Menu */
-insert into sgs_proeza_db.sys_menu(id, codigo, texto, tooltip, tipo, icono) values (1, 'M_LEFT_MAIN','Menú Principal', 'Para acceder al inicio de la aplicación','SIDE_MENU_LEFT', null);
+	insert into sgs_proeza_db.sys_menu(id, codigo, texto, tooltip, tipo, icono) values (1, 'M_LEFT_MAIN','Menú Principal', 'Para acceder al inicio de la aplicación','SIDE_MENU_LEFT', null);
+/* Menu */
 
 /* Asociacion pagina - menu */
-insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (1, 1, 1);
-insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (2, 2, 1);
-insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (3, 3, 1);
-insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (4, 4, 1);
-insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (5, 5, 1);
-insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (6, 6, 1);
-insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (7, 9, 1);
-insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (8, 10, 1);
-insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (9, 11, 1);
-insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (10, 12, 1);
+	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (1, 1, 1);
+	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (2, 2, 1);
+	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (3, 3, 1);
+	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (4, 4, 1);
+	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (5, 5, 1);
+	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (6, 6, 1);
+	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (7, 9, 1);
+	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (8, 10, 1);
+	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (9, 11, 1);
+	insert into sgs_proeza_db.sys_pagina_menu (id, fk_pagina, fk_menu) values (10, 12, 1);
+/* Asociacion pagina - menu */
 
 /* Item de Menu */
 	/* Root */
-	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (1, 'MI_HOME', 'Inicio', 'Para acceder al inicio de la aplicación', '/home', 'fa fa-home');
+	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (1, 'MI_HOME', 1, 6, '/home', 'fa fa-home');
 	
 	/* Usuario */
-	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (2, 'MI_USUA', 'Usuario', 'Para acceder al home de usuario','#', 'fa fa-users');
-	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (3, 'MI_USUA_HOME', 'Usuario', 'Para acceder al home de usuario','/usuario/home', 'fa fa-home');
-	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (9, 'MI_USUA_ADMIN', 'Administración', 'PPara acceder a la administración de usuarios','/usuario/admin', 'fa fa-home');
-	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (10, 'MI_USUA_LIST', 'Listados', 'Para acceder al listado de usuarios','/usuario/home', 'fa fa-home');
+	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (2, 'MI_USUA', 2, null,'#', 'fa fa-users');
+	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (3, 'MI_USUA_HOME', 1, 7,'/usuario/home', 'fa fa-home');
+	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (9, 'MI_USUA_ADMIN', 3, 8,'/usuario/admin', 'fa fa-home');
+	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (10, 'MI_USUA_LIST', 4, 9,'/usuario/home', 'fa fa-home');
 	
 	
 	/* Articulo */
-	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (4, 'MI_ARTI', 'Artículo', 'Para agupar los items de articulo','#', 'fa fa-barcode');
-	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (5, 'MI_ARTI_HOME', 'Home', 'Para acceder al home de articulo','/articulo/home', '');
-	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (6, 'MI_ARTI_LIST', 'Listado', 'Para acceder al listado de articulos','/articulo/listado', '');
-	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (7, 'MI_ARTI_STATS', 'Estadísticas', 'Para acceder a las estadísticas de articulos','/articulo/stats', '');
-	insert into sgs_proeza_db.sys_item(id, codigo, texto, tooltip, link, icono) values (8, 'MI_ARTI_ADMIN', 'Administración', 'Para acceder a la administración de articulos','/articulo/admin', '');
+	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (4, 'MI_ARTI', 14, null,'#', 'fa fa-barcode');
+	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (5, 'MI_ARTI_HOME', 1, 10,'/articulo/home', '');
+	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (6, 'MI_ARTI_LIST', 4, 11,'/articulo/listado', '');
+	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (7, 'MI_ARTI_STATS', 5, 12,'/articulo/stats', '');
+	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (8, 'MI_ARTI_ADMIN', 3, 13,'/articulo/admin', '');
 /* Item de Menu */
 
 /* Item - Sub Item */

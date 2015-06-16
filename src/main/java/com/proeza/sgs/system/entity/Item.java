@@ -15,11 +15,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 
+import com.proeza.core.i18n.I18nHelper;
+import com.proeza.core.i18n.entity.I18n;
 import com.proeza.security.entity.Rol;
 
 import static javax.persistence.GenerationType.*;
@@ -37,12 +41,15 @@ public class Item implements Serializable {
 
     private long              id;
     private String            code;
-    private String            text;
-    private String            tooltip;
     private String            link;
     private String            icon;
     private Set<Rol>          roles            = new HashSet<>(0);
     private Set<ItemSubitem>  subitems         = new TreeSet<>();
+
+    private I18n              tooltipI18n;
+    private I18n              textoI18n;
+
+    private I18nHelper        i18nHelper       = new I18nHelper();
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -64,15 +71,6 @@ public class Item implements Serializable {
         this.code = code;
     }
 
-    @Column(name = "tooltip")
-    public String getTooltip () {
-        return this.tooltip;
-    }
-
-    public void setTooltip (String tooltip) {
-        this.tooltip = tooltip;
-    }
-
     @Column(name = "link", nullable = false)
     public String getLink () {
         return this.link;
@@ -82,13 +80,20 @@ public class Item implements Serializable {
         this.link = link;
     }
 
-    @Column(name = "texto", nullable = false)
-    public String getText () {
-        return this.text;
+    public void setText (String texto) {
     }
 
-    public void setText (String text) {
-        this.text = text;
+    public void setTooltip (String tooltip) {
+    }
+
+    @Transient
+    public String getText () {
+        return this.i18nHelper.getTextoLocalizado(this.textoI18n);
+    }
+
+    @Transient
+    public String getTooltip () {
+        return this.i18nHelper.getTextoLocalizado(this.tooltipI18n);
     }
 
     @Column(name = "icono")
@@ -124,8 +129,28 @@ public class Item implements Serializable {
         this.subitems = subitems;
     }
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "i18n_texto")
+    public I18n getTextoI18n () {
+        return this.textoI18n;
+    }
+
+    public void setTextoI18n (I18n textoI18n) {
+        this.textoI18n = textoI18n;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "i18n_tooltip")
+    public I18n getTooltipI18n () {
+        return this.tooltipI18n;
+    }
+
+    public void setTooltipI18n (I18n tooltipI18n) {
+        this.tooltipI18n = tooltipI18n;
+    }
+
     @Override
     public String toString () {
-        return "Item [id=" + this.id + ", code=" + this.code + ", text=" + this.text + ", tooltip=" + this.tooltip + ", link=" + this.link + ", icon=" + this.icon + ", roles=" + this.roles + "]";
+        return "Item [id=" + this.id + ", code=" + this.code + ", tooltip=" + this.tooltipI18n + ", link=" + this.link + ", icon=" + this.icon + ", roles=" + this.roles + "]";
     }
 }

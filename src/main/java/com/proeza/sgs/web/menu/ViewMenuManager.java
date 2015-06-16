@@ -32,6 +32,7 @@ public class ViewMenuManager implements IViewMenuManager {
     @Autowired
     private IUsuarioDao userDao;
 
+    @Override
     @Transactional
     public Map<String, ViewMenu> getMenus (String pageGroup, String pageName, Principal principal) {
         Page page = this.pageDao.findByGroupAndName(pageGroup, pageName);
