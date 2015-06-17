@@ -236,7 +236,7 @@
 						$("#gridMenu").on('itemclick', function(event) {
 							var args = event.args;
 							var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
-							if ($.trim($(args).text()) == "Editar Artículo") {
+							if ($.trim($(args).text()) == [[#{art.admin.menu.edit}]]) {
 								// open the popup window when the user clicks a button.
 								editrow = rowindex;
 								var offset = $("#articulos").offset();
@@ -253,7 +253,7 @@
 								$("#costo").val(dataRecord.costo);
 								$("#cantidad").val(dataRecord.cantidad);
 								$("#editionPopup").modal('show');
-							} else if ($.trim($(args).text()) == [[#{art.admin.menu.edit}]]) {
+							} else if ($.trim($(args).text()) == [[#{art.admin.menu.delete}]]) {
 								var rowid = $("#articulos").jqxGrid('getrowid', rowindex);
 								$("#articulos").jqxGrid('deleterow', rowid);
 							}
