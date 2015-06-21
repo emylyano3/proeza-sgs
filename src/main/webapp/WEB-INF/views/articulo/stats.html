@@ -32,8 +32,8 @@
                     </div>
 					<div class="col-md-6" >
 						<div class="text-center small">
-                            <i class="fa fa-laptop"/> 
-                            <span>Este es un texto provisorio</span>
+                            <i class="fa fa-dollar"/> 
+                            <span th:text="#{art.chart.pricehistory.detail}" ></span>
                         </div>
 						<canvas id="priceHistory" width="500" height="200"></canvas>
 					</div>
@@ -56,6 +56,32 @@
 			</div>
 			<div class="panel-footer">
 				<span id="pricehistoryfooter"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="hpanel animated zoomIn">
+					<div class="panel-body">
+					</div>
+					<div class="panel-footer">
+					</div>
+				</div>			
+			</div>
+			<div class="col-md-4">
+				<div class="hpanel animated zoomIn">
+					<div class="panel-body">
+					</div>
+					<div class="panel-footer">
+					</div>
+				</div>			
+			</div>
+			<div class="col-md-4">
+				<div class="hpanel animated zoomIn">
+					<div class="panel-body">
+					</div>
+					<div class="panel-footer">
+					</div>
+				</div>			
 			</div>
 		</div>
 		<script type="text/javascript" src="../../../resources/chart/js/chart.js" th:src="@{/resources/chart/js/chart.js}" ></script>
