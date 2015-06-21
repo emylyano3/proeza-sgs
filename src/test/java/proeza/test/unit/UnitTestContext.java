@@ -13,7 +13,7 @@ import com.proeza.core.service.IMailService;
 import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.service.IUserService;
 import com.proeza.security.service.UserService;
-import com.proeza.sgs.business.chart.HistorialPrecioLineChartManager;
+import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartManager;
 import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.service.IArticuloService;
 import com.proeza.sgs.business.service.IClaseService;
@@ -37,8 +37,8 @@ public class UnitTestContext {
     }
 
     @Bean
-    public HistorialPrecioLineChartManager historialPrecioLineChartManager () {
-        return new HistorialPrecioLineChartManager();
+    public HistorialPrecioChartManager historialPrecioLineChartManager () {
+        return new HistorialPrecioChartManager();
     }
 
     @Bean

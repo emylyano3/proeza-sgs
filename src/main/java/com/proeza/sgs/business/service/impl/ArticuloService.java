@@ -12,8 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.proeza.core.tracking.entity.Movimiento;
-import com.proeza.sgs.business.chart.HistorialPrecioLineChartManager;
-import com.proeza.sgs.business.chart.MultiDataSetChartDefinition;
+import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
+import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartManager;
 import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.dao.MarcaDao;
@@ -89,9 +89,9 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
-    public MultiDataSetChartDefinition<String, Double> priceHistory (String code) {
+    public HistorialPrecioChartDefinition priceHistory (String code) {
         List<Movimiento> movs = this.articuloDao.findMovimientosAscByDate(code, MOD_PRECIO.getCodigo());
-        return this.context.getBean(HistorialPrecioLineChartManager.class).getChartDefinition(movs);
+        return (HistorialPrecioChartDefinition) this.context.getBean(HistorialPrecioChartManager.class).getChartDefinition(movs);
     }
 
     private List<ArticuloDTO> hideEntites (List<Articulo> articulos) {

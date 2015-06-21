@@ -11,46 +11,55 @@
                     <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                     <a class="closebox"><i class="fa fa-times"></i></a>
                 </div>
-				Historial de precios de artículo
+				<span text="Historial de precios de artículo" th:text="#{art.chart.pricehistory.title}"/>
 			</div>
 			<div class="panel-body">
 				<div class="row">
-				 	<div class="col-md-3 text-center" style="-webkit-animation-delay: 0.2s;">
+				 	<div class="col-md-3 text-center">
                         <div class="small">
-                            <i class="fa fa-bolt"></i> Aumentos anuales
+                            <i class="fa fa-bolt"/>
+                            <span text="Cambios de precio" th:text="#{art.chart.priceupdates}"/>
                         </div>
                         <div>
                             <h1 class="font-extra-bold m-t-xl m-b-xs">
-                                7 Aumentos
+                                <span id="priceUpdates" text="No hay datos" th:text="#{common.nodata}" />
                             </h1>
                         </div>
                         <div class="small m-t-xl">
-                            <i class="fa fa-clock-o"></i> 15 de Mayo de 2015, Último aumento
+                            <i class="fa fa-clock-o"/>
+                            <span id="lastPriceUpdate"/>
                         </div>
                     </div>
-					<div class="col-md-6" style="-webkit-animation-delay: 0.3s;">
+					<div class="col-md-6" >
+						<div class="text-center small">
+                            <i class="fa fa-laptop"/> 
+                            <span>Este es un texto provisorio</span>
+                        </div>
 						<canvas id="priceHistory" width="500" height="200"></canvas>
 					</div>
-                    <div class="col-md-3 text-center" style="-webkit-animation-delay: 0.4s;">
+                    <div class="col-md-3 text-center">
                         <div class="small">
-                            <i class="fa fa-dollar"></i> Ventas anuales
+                            <i class="fa fa-list-alt"/>
+                            <span text="Stock del artículo" th:text="#{art.chart.stock}" />
                         </div>
                         <div>
                             <h1 class="font-extra-bold m-t-xl m-b-xs">
-                                18 unidades
+                                <span id="stock" text="No hay datos" th:text="#{common.nodata}" />
                             </h1>
                         </div>
                         <div class="small m-t-xl">
-                            <i class="fa fa-clock-o"></i> 1 de Marzo de 2015, Última venta
+                            <i class="fa fa-clock-o"/>
+                            <span id="lastStockUpdate" /> 
                         </div>
                     </div>					
 				</div>
 			</div>
 			<div class="panel-footer">
-			Ultima actualización: Martes 11 de Junio
+				<span id="pricehistoryfooter"/>
 			</div>
 		</div>
 		<script type="text/javascript" src="../../../resources/chart/js/chart.js" th:src="@{/resources/chart/js/chart.js}" ></script>
+		<script type="text/javascript" src="../../../resources/jquery/jquery.formatdate.js" th:src="@{/resources/jquery/jquery.formatdate.js}" ></script>
 		<script th:inline="javascript">
 			$(document).ready(function() {
 				$.ajax({
@@ -76,6 +85,11 @@
 						    ]
 						};
 						var priceHistoryChart = new Chart(ctx).Line(chartData,{responsive: true});
+						$('#stock').text(data.stock);
+						$('#priceUpdates').text(data.updates);
+						$('#lastStockUpdate').text([[#{art.chart.laststockupdate}]] + $.formatDateTime('mm/dd/yy', new Date(data.lastStockUpdate)));
+						$('#lastPriceUpdate').text([[#{art.chart.lastpriceupdate}]] + $.formatDateTime('mm/dd/yy', new Date(data.lastPriceUpdate)));
+						$('#pricehistoryfooter').text([[#{art.chart.pricehistoryfooter}]]);
 			        },
 			        error: function (jqXHR, status) {            
 						console.log(jqXHR.statusText);

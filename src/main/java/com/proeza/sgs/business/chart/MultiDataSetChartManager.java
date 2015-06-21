@@ -2,17 +2,20 @@ package com.proeza.sgs.business.chart;
 
 import java.util.List;
 
-public abstract class MultiDataSetChartManager<S, L, D> {
+public abstract class MultiDataSetChartManager<S> {
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public MultiDataSetChartDefinition<L, D> getChartDefinition (List<S> source) {
+    public MultiDataSetChartDefinition getChartDefinition (List<S> source) {
         init(source);
-        return new MultiDataSetChartDefinition(buildLabels(), buildData());
+        List<?> data = buildData();
+        List<String> labels = buildLabels();
+        return buildDefinition(labels, data);
     }
 
     protected abstract void init (List<S> source);
 
-    protected abstract List<L> buildLabels ();
+    protected abstract List<String> buildLabels ();
 
-    protected abstract List<D> buildData ();
+    protected abstract List<?> buildData ();
+
+    protected abstract MultiDataSetChartDefinition buildDefinition (List<String> labels, List<?> data);
 }

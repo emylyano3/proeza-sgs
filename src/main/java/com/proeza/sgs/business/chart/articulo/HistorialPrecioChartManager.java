@@ -1,4 +1,4 @@
-package com.proeza.sgs.business.chart;
+package com.proeza.sgs.business.chart.articulo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,22 +14,30 @@ import java.util.TreeMap;
 
 import javax.xml.bind.DatatypeConverter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.proeza.core.tracking.entity.Movimiento;
+import com.proeza.core.util.date.DateUtil;
 import com.proeza.core.util.date.comparator.MonthRangeDateComparator;
+import com.proeza.sgs.business.chart.MultiDataSetChartDefinition;
+import com.proeza.sgs.business.chart.MultiDataSetChartManager;
+import com.proeza.sgs.business.dao.IArticuloDao;
 
 import static java.util.Calendar.*;
 import static org.apache.commons.lang.StringUtils.*;
 
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class HistorialPrecioLineChartManager extends MultiDataSetChartManager<Movimiento, String, Double> {
+public class HistorialPrecioChartManager extends MultiDataSetChartManager<Movimiento> {
 
     private Map<Date, List<Movimiento>> groupedData = new TreeMap<Date, List<Movimiento>>(new MonthRangeDateComparator());
     private List<Movimiento>            source      = new ArrayList<Movimiento>();
+
+    @Autowired
+    private IArticuloDao                articuloDao;
 
     @Override
     protected void init (List<Movimiento> source) {
@@ -126,5 +134,31 @@ public class HistorialPrecioLineChartManager extends MultiDataSetChartManager<Mo
             }
             return m1.getFechaMovimiento().compareTo(m2.getFechaMovimiento());
         }
+    }
+
+    @Override
+    protected MultiDataSetChartDefinition buildDefinition (List<String> labels, List<?> data) {
+        HistorialPrecioChartDefinition definition = new HistorialPrecioChartDefinition(labels, data);
+        definition.setUpdates(getUpdates());
+        definition.setStock(getStock());
+        definition.setLastPriceUpdate(getLastPriceUpdate());
+        definition.setLastStockUpdate(getLastStockUpdate());
+        return definition;
+    }
+
+    private Integer getStock () {
+        return 5;
+    }
+
+    private Date getLastStockUpdate () {
+        return DateUtil.createNow();
+    }
+
+    private Date getLastPriceUpdate () {
+        return this.source.get(this.source.size() - 1).getFechaMovimiento();
+    }
+
+    private Integer getUpdates () {
+        return this.source.size();
     }
 }

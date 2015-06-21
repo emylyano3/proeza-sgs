@@ -2,7 +2,7 @@ package com.proeza.sgs.business.service;
 
 import java.util.List;
 
-import com.proeza.sgs.business.chart.MultiDataSetChartDefinition;
+import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.dto.ArticuloDTO;
 
 public interface IArticuloService {
@@ -14,9 +14,8 @@ public interface IArticuloService {
     void update (ArticuloDTO articulo);
 
     /**
-     * Devuelve el historial de precios de un articulo, observando los movimientos de cambio de precios que tuvo.
-     *
-     * @return
+     * Devuelve el historial de precios de un articulo, observando los movimientos de cambio de precios que tuvo, más
+     * cierta información adicional como numero de aumentos y el stock.
      */
-    MultiDataSetChartDefinition<String, Double> priceHistory (String code);
+    HistorialPrecioChartDefinition priceHistory (String code);
 }

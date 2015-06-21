@@ -13,7 +13,7 @@ import proeza.test.unit.AbstractUnitTest;
 
 import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.core.tracking.entity.builder.MovimientoBuilder;
-import com.proeza.sgs.business.chart.MultiDataSetChartDefinition;
+import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.entity.TipoEntidad;
 import com.proeza.sgs.business.entity.TipoMovimiento;
@@ -65,12 +65,12 @@ public class ArticuloServiceTest extends AbstractUnitTest {
         this.movBuilder.withFechaMovimiento(toTimestamp(create(2015, 03, 15)));
         movs.add(this.movBuilder.build());
         when(this.articuloDao.findMovimientosAscByDate("COD_1", TipoMovimiento.MOD_PRECIO.getCodigo())).thenReturn(movs);
-        MultiDataSetChartDefinition<String, Double> result = this.articuloService.priceHistory("COD_1");
+        HistorialPrecioChartDefinition result = this.articuloService.priceHistory("COD_1");
         assertNotNull("La salida NUNCA debe ser null", result);
         assertNotNull("El listado de precios no puede ser null", result.getData());
         assertEquals("El listado de precios debe tener 3 items", 3, result.getData().size());
-        assertTrue(result.getData().get(0) == 121.31);
-        assertTrue(result.getData().get(2) == 130);
+        assertTrue((Double) result.getData().get(0) == 121.31);
+        assertTrue((Double) result.getData().get(2) == 130);
     }
 
     @Override

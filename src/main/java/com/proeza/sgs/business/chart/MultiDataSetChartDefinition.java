@@ -3,34 +3,31 @@ package com.proeza.sgs.business.chart;
 import java.io.Serializable;
 import java.util.List;
 
-public class MultiDataSetChartDefinition<L, D> implements Serializable {
+public class MultiDataSetChartDefinition implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private List<L>           labels;
-    private List<D>           data;
+    private List<String>      labels;
+    private List<?>           data;
 
-    public MultiDataSetChartDefinition () {
-    }
-
-    public MultiDataSetChartDefinition (List<L> labels, List<D> data) {
+    public MultiDataSetChartDefinition (List<String> labels, List<?> data) {
         this.data = data;
         this.labels = labels;
     }
 
-    public List<L> getLabels () {
+    public List<String> getLabels () {
         return this.labels;
     }
 
-    public void setLabels (List<L> labels) {
+    public void setLabels (List<String> labels) {
         this.labels = labels;
     }
 
-    public List<D> getData () {
+    public List<?> getData () {
         return this.data;
     }
 
-    public void setData (List<D> data) {
+    public void setData (List<?> data) {
         this.data = data;
     }
 }

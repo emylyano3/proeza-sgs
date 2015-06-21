@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import proeza.test.unit.TestUtil;
 import proeza.test.unit.web.WebMvcUnitTest;
 
-import com.proeza.sgs.business.chart.MultiDataSetChartDefinition;
+import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.service.IArticuloService;
 
 import static org.hamcrest.Matchers.*;
@@ -32,7 +32,7 @@ public class ArticuloRestUTest extends WebMvcUnitTest {
     public void priceHistory () throws Exception {
         List<Double> data = new ArrayList<>();
         List<String> labels = new ArrayList<>();
-        MultiDataSetChartDefinition<String, Double> precioHistory = new MultiDataSetChartDefinition<>();
+        HistorialPrecioChartDefinition precioHistory = new HistorialPrecioChartDefinition(labels, data);
         precioHistory.setData(data);
         precioHistory.setLabels(labels);
         data.addAll(Arrays.asList(new Double[] {28D, 48D, 40D, 19D, 86D, 27D, 90D}));

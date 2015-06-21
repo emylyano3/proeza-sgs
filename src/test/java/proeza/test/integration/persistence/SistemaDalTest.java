@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 import proeza.test.integration.IntegrationTest;
 
+import com.proeza.core.i18n.entity.Traduccion;
 import com.proeza.sgs.system.dao.IItemDao;
 import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.entity.Item;
@@ -20,6 +24,7 @@ import com.proeza.sgs.system.entity.MenuItem;
 import com.proeza.sgs.system.entity.Page;
 import com.proeza.sgs.web.controller.HomeController;
 
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 public class SistemaDalTest extends IntegrationTest {
@@ -98,7 +103,23 @@ public class SistemaDalTest extends IntegrationTest {
         assertNotNull(item.getTextoI18n());
         assertNotNull(item.getTextoI18n().getTraducciones());
         assertFalse(item.getTextoI18n().getTraducciones().isEmpty());
-        assertEquals("en_US", item.getTextoI18n().getTraducciones().iterator().next().getLocale());
+        assertEquals(2, item.getTextoI18n().getTraducciones().size());
+        assertThat(item.getTextoI18n().getTraducciones(), hasItem(hasLocale("en_US")));
+        assertThat(item.getTextoI18n().getTraducciones(), hasItem(hasLocale("es_AR")));
+    }
+
+    public static Matcher<Traduccion> hasLocale (final String locale) {
+        return new BaseMatcher<Traduccion>() {
+            @Override
+            public boolean matches (Object o) {
+                return ((Traduccion) o).getLocale().equals(locale);
+            }
+
+            @Override
+            public void describeTo (Description description) {
+                description.appendText("El locale debería ser ").appendValue(locale);
+            }
+        };
     }
 
     @Test
