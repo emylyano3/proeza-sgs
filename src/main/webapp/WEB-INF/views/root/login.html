@@ -2,23 +2,22 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title th:text="#{user.msg.welcome}">Login a SGS</title>
+    <title th:text="#{login.title}" text="Proeza Login" />
 
     <!-- Bootstrap Core CSS -->
     <link href="../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
 
-    <!-- MetisMenu CSS -->
-    <link href="../../resources/metismenu/css/metisMenu.css" th:href="@{/resources/metismenu/css/metisMenu.css}" rel="stylesheet"/>
-
     <!-- Custom CSS -->
     <link href="../../resources/app/css/proeza-sgs.css" th:href="@{/resources/app/css/proeza-sgs.css}" rel="stylesheet"/>
+
+	<!-- Animate CSS -->
+	<link href="../../resources/animate/css/animate.css" th:href="@{/resources/animate/css/animate.css}" rel="stylesheet" />
 
     <!-- Custom Fonts -->
     <link href="../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css"/>
@@ -26,38 +25,51 @@
 	<link rel="shortcut icon" href="../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" />
 </head>
 
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-					<div class="panel-heading">
-                        <h3 class="panel-title" th:text="#{sec.pleaselogin}">Ingrese con su usuario y contraseña</h3>
-                    </div>
-	               	<div class="alert alert-danger" th:if="${errorMsg != null}" th:text="${errorMsg}">Error en el ingreso</div>
-                    <div class="panel-body">
-	                    <form action="#" th:action="@{/login/authenticate}" method="post">
+<body class="blank">
+
+	<div class="color-line"></div>
+	<div class="pull-left m">
+	    <a href="#" th:href="@{/home}" class="btn btn-primary" text="Volver al home" th:text="#{control.backtohome}"/>
+	</div>
+	<div class="login-container">
+	    <div class="row">
+	        <div class="col-md-12">
+	            <div class="text-center m-b-md">
+	                <h3 th:text="#{login.pleaselogin}" text="Por favor ingrese a la aplicación"/>
+	                <small th:text="#{login.completeuserpass}" text="Complete con su usuario y contraseña"/>
+	            </div>
+	            <div class="hpanel">
+	                <div class="panel-body">
+                        <form id="loginForm" action="#" th:action="@{/login/authenticate}" method="post">
 <!-- 							<input type="hidden" name="_csrf" th:value="${_csrf.token}"/> -->
-							<fieldset>
-								<div class="form-group" title="Username">
-									<input class="form-control" name="username" id="username" type="text" value="" autofocus="autofocus" th:placeholder="#{control.username}"/>
-								</div>
-								<div class="form-group" title="Password">
-									<input class="form-control" name="password" id="password" type="password" value="" th:placeholder="#{control.password}" />
-								</div>
-								<div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" text="Recordarme" th:text="#{control.rememberme}" />
-                                    </label>
-                                </div>
-								<button type="submit" class="btn btn-primary" th:text="#{control.login}">Ingresar</button>
-							</fieldset>
-						</form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                            <div class="form-group">
+                                <label class="control-label" for="username" text="Usuario" th:text="#{control.username}"/>
+                                <input name="username" id="username" type="text" autofocus="autofocus" th:placeholder="#{control.ph.username}" class="form-control" required="required"/>
+                                <span class="help-block small" th:text="#{login.usernamehelp}" text="Su alias de usuario único"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="password" text="Usuario" th:text="#{control.password}"/>
+                                <input name="password" id="password" type="password" th:placeholder="#{control.ph.password}" class="form-control" required="required"/>
+                                <span class="help-block small" th:text="#{login.passwordhelp}" text="Su contraseña de usuario"/>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" class="i-checks" checked="checked" th:text="#{control.rememberme}" text="Recordarme"/>
+                                <p class="help-block small" th:text="#{login.remembermehelp}" text="(si es una computarora privada)" />
+                            </div>
+                            <button class="btn btn-success btn-block" th:text="#{control.login}" text="Ingresar" />
+                            <a class="btn btn-default btn-block" href="#" th:href="@{/register}" th:text="#{control.register}" text="Registrarme"/>
+                        </form>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="row">
+	        <div class="col-md-12 text-center">
+	            <strong><span th:text="#{app.name}"/></strong> - <span th:text="#{app.description}" text="Sistema de Gestión de Stock"/><br/> 
+	            <span th:text="#{app.copyright}" text="2015 Copyright Proeza" />
+	        </div>
+	    </div>
+	</div>
 
     <!-- jQuery -->
     <script src="../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}"/>
@@ -68,9 +80,11 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../../resources/metismenu/js/metisMenu.js" th:src="@{/resources/metismenu/js/metisMenu.js}"/>
 
+    <!-- iCheck JavaScript -->
+    <script src="../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"/>
+    
     <!-- Custom Theme JavaScript -->
     <script src="../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}"/>
-
 </body>
 
 </html>
