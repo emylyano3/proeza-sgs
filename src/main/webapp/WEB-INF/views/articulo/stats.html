@@ -4,7 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
 	layout:decorator="layout.html">
 <body>
-	<div id="content" layout:fragment="contenido">
+	<div id="content" layout:fragment="contenido" class="container-fluid">
 		<div class="hpanel animated zoomIn">
 			<div class="panel-heading">
 				<div class="panel-tools">
@@ -35,7 +35,9 @@
                             <i class="fa fa-dollar"/> 
                             <span th:text="#{art.chart.pricehistory.detail}" ></span>
                         </div>
-						<canvas id="priceHistory" width="500" height="200"></canvas>
+                        <div class="text-center small">
+							<canvas id="priceHistory" width="500" height="200"></canvas>
+						</div>
 					</div>
                     <div class="col-md-3 text-center">
                         <div class="small">
@@ -60,10 +62,19 @@
 		</div>
 		<div class="row">
 			<div class="col-md-4">
-				<div class="hpanel animated zoomIn">
+				<div class="hpanel">
 					<div class="panel-body">
+						<div class="text-center small">
+	                        <i class="fa fa-dollar"/> 
+	                        <span th:text="#{art.chart.pricehistory.detail}" ></span>
+	                    </div>
+	                    <p/>
+						<div class="text-center small">
+							<canvas id="topTenArticles" width="200" height="200"/>
+						</div>
 					</div>
 					<div class="panel-footer">
+						<span th:text="#{art.chart.topten.footer}" />
 					</div>
 				</div>			
 			</div>
@@ -121,8 +132,23 @@
 						console.log(jqXHR.statusText);
 						console.err('Error: No se pudo obtener la data del grafico de historial de precio');
 			        }
-				});				
+				});
+				$.ajax({
+					url : '/proeza-sgs/rest/articulo/bestSellersArticles/10',
+					type : 'POST',
+					dataType : 'json',
+					contentType : 'application/json',
+					success: function (data, status, jqXHR) {
+						var ctx = $('#topTenArticles').get(0).getContext('2d');
+						var topTenArticlesChart = new Chart(ctx).Doughnut(data,{responsive: false});
+			        },
+			        error: function (jqXHR, status) {            
+						console.log(jqXHR.statusText);
+						console.err('Error: No se pudo obtener la data de top ten de marcas');
+			        }
+				});
 			});
+			
 		</script>
 	</div>
 </body>

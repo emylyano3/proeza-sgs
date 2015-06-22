@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.proeza.core.tracking.entity.Movimiento;
+import com.proeza.sgs.business.chart.SingleDataSetChartDefinition;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartManager;
 import com.proeza.sgs.business.dao.ClaseDao;
@@ -99,6 +100,15 @@ public class ArticuloService implements IArticuloService {
         for (Articulo art : articulos) {
             result.add(new ArticuloDTO(art));
         }
+        return result;
+    }
+
+    @Override
+    public List<SingleDataSetChartDefinition> bestSellers (Integer top) {
+        List<SingleDataSetChartDefinition> result = new ArrayList<>();
+        result.add(new SingleDataSetChartDefinition("Reel waterdog", 30, "#F7464A", "#FF5A5E"));
+        result.add(new SingleDataSetChartDefinition("Caña surfish", 30, "#46BFBD", "#5AD3D1"));
+        result.add(new SingleDataSetChartDefinition("Señuelo Del", 40, "#FDB45C", "#FFC870"));
         return result;
     }
 }

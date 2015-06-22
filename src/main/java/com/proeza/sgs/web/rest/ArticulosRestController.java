@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proeza.sgs.business.chart.SingleDataSetChartDefinition;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.dto.ArticuloDTO;
 import com.proeza.sgs.business.service.IArticuloService;
@@ -42,5 +43,10 @@ public class ArticulosRestController {
     @RequestMapping(value = "priceHistory/{code}", method = RequestMethod.POST)
     public HistorialPrecioChartDefinition priceHistory (@PathVariable String code) {
         return this.productService.priceHistory(code);
+    }
+
+    @RequestMapping(value = "bestSellersArticles/{top}", method = RequestMethod.POST)
+    public List<SingleDataSetChartDefinition> bestSellers (@PathVariable Integer top) {
+        return this.productService.bestSellers(top);
     }
 }
