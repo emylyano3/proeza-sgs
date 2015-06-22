@@ -1,9 +1,6 @@
 /**
- * HOMER - Responsive Admin Theme
- * Copyright 2015 Webapplayers.com
  *
  */
-
 $(document).ready(function () {
 
     // Add special class to minimalize page elements when screen is less than 768px
@@ -20,7 +17,9 @@ $(document).ready(function () {
     });
 
     // Initialize metsiMenu plugin to sidebar menu
-    $('#side-menu').metisMenu();
+    if ($('#side-menu') != null) {
+    	$('#side-menu').metisMenu();
+    }
 
     // Initialize iCheck plugin
     $('.i-checks').iCheck({

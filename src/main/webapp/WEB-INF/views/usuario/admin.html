@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout.html">
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorator="layout.html">
 <body>
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
-		<link rel="stylesheet" href="../../../resources/app/css/animate.css" th:href="@{/resources/app/css/animate.css}" type="text/css" media="screen" />
 
 		<!-- Grilla de usuarios -->
 		<div class="row">
@@ -80,7 +82,7 @@
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
 		<script type="text/javascript" src="../../../resources/jquery/jquery.inputmask.bundle.js" th:src="@{/resources/jquery/jquery.inputmask.bundle.js}" />
 		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
-		
+		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}" />
 		<script type="text/javascript">
 			// Inicializacion de la tabla de arículos
 			$(document).ready(
@@ -239,5 +241,4 @@
 		</script>
 	</div>
 </body>
-<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}" />
 </html>
