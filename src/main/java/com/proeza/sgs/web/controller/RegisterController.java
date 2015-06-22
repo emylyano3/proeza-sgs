@@ -17,6 +17,8 @@ import org.springframework.web.servlet.LocaleResolver;
 
 import com.proeza.security.form.UsuarioForm;
 import com.proeza.security.service.IUserService;
+import com.proeza.sgs.system.dao.IPageDao;
+import com.proeza.sgs.system.entity.Page;
 import com.proeza.sgs.system.mail.IMailManager;
 import com.proeza.sgs.web.menu.IViewMenuManager;
 
@@ -38,6 +40,9 @@ public class RegisterController {
     @Autowired
     private LocaleResolver     localeResolver;
 
+    @Autowired
+    private IPageDao           pageDao;
+
     @ModelAttribute
     public void menues (final ModelMap model, final Principal principal) {
         model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, PAGE_NAME, principal));
@@ -45,6 +50,9 @@ public class RegisterController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getForm (final ModelMap model, final UsuarioForm usuarioForm) {
+        Page pagina = this.pageDao.findByGroupAndName(PAGE_GROUP, PAGE_NAME);
+        model.addAttribute("pageTitle", pagina.getTitle());
+        model.addAttribute("pageSubtitle", pagina.getSubtitle());
         usuarioForm.setAlias("Emy");
         usuarioForm.setNombre("Emiliano");
         usuarioForm.setApellido("Schiano");

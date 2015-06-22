@@ -4,7 +4,7 @@
 	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (3, 'usuario', 'admin' ,'Página con la que se realiza la adminsitración de usuarios','Usuario', 'Administración');
 	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (4, 'usuario', 'estadisticas' ,'Página con la que se accede a las estadísticas de usuarios','Usuario', 'Estadísticas');
 	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (5, 'root', 'home' ,'Inicio de la aplicación','Inicio','');
-	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (6, 'root', 'register','Página de registro de usuario','','');
+	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (6, 'root', 'register','Página de registro de usuario','Registro','Registro de usuario');
 	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (7, 'root', 'login','Página de Ingreso al sistema','','');
 	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (8, 'root', 'logout','Página que se muestra al usuario luego de su salida del sistema','','');
 	insert into sgs_proeza_db.sys_pagina (id, grupo, nombre, descripcion, titulo, subtitulo) values (9, 'articulo', 'home' ,'Página inicial de las funcionalidades de articulo','Artículo','Inicio');
