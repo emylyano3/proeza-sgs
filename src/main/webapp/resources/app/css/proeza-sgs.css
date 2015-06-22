@@ -552,6 +552,12 @@ body.blank {
     padding-top: 6%
 }
 
+.logout-container {
+    width: 420px;
+    margin: auto;
+    padding-top: 6%
+}
+
 .register-container {
     width: 720px;
     margin: auto;
