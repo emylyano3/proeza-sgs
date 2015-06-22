@@ -39,29 +39,21 @@
 		
 	    <script type="text/javascript">
 
-			function replaceAll(text, busca, reemplaza ){
-				while (text.toString().indexOf(busca) != -1) {
-					text = text.toString().replace(busca,reemplaza);
-				}
-				return text;
-			}
-
 	        $(document).ready(function () {
 	            // prepare the data
-	            var source =
-	            {
-	                datatype: "json",
-	                dataFields: [
+	            var source = {
+                	id: "id",
+		            url: "/proeza-sgs/rest/articulo/search?filter=",
+		            datatype: "json",
+		            dataFields: [
 	     	                    { name: 'modelo', type: 'string' },
 	     	                    { name: 'descripcion', type: 'string' },
 	     	                    { name: 'clase', type: 'string' },
 	     	                    { name: 'tipo', type: 'string' },
 	     	                    { name: 'marca', type: 'string' },
 	     	                    { name: 'precio', type: 'double' },
-	                ],
-	                id: "id",
-	                url: "/proeza-sgs/rest/articulo/search?filter="
-	            };
+		            ]
+		        };
 	            var dataAdapter = new $.jqx.dataAdapter(source);
 	            
 	            // initializa la grilla de articulos
@@ -82,7 +74,7 @@
 						{ text: 'Precio', dataField: 'precio', cellsalign: 'right', cellsformat: 'c2', minwidth: '10%' }
 	                ]
 	            });
-	            // Inicializa los botones de la grilla
+	            // Inicializa los controles del filto
 	            $('#filter').on('input', function() {
 	                var filter = $(this).val();
 	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
@@ -99,6 +91,13 @@
 	                $("#filter").val("");
 	            });
 	        });
+	        
+			function replaceAll(text, busca, reemplaza ){
+				while (text.toString().indexOf(busca) != -1) {
+					text = text.toString().replace(busca,reemplaza);
+				}
+				return text;
+			}
 	    </script>
 	</div>
 </body>

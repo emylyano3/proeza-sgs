@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout.html">
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorator="layout.html">
 <body>
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
-		<link rel="stylesheet" href="../../../resources/app/css/animate.css" th:href="@{/resources/app/css/animate.css}" type="text/css" media="screen" />
 
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+					<input id="filter" type="text" class="form-control" placeholder="Buscar..." th:placeholder="#{control.search-articles}" /> 
+					<span class="input-group-btn">
+						<button id="eraser" class="btn btn-default" type="button">
+							<i class="fa fa-eraser" />
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<p/>
 		<!-- Grilla de articulos -->
 		<div class="row">
 			<div class="col-md-12">
@@ -127,190 +142,211 @@
 		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
 		
 		<script th:inline="javascript">
-		/*<![CDATA[*/
 			// Inicializacion de la tabla de arículos
 			$(document).ready(
-					function() {
-						// prepare the data
-						var source = {
-							datatype : "json",
-							id : "id",
-							url : "/proeza-sgs/rest/articulo/findAll",
-							dataFields : [ 
-							               {name : 'codigo', type : 'string'},
-							               {name : 'modelo', type : 'string'},
-							               {name : 'descripcion', type : 'string' }, 
-							               {name : 'clase', type : 'string'},
-							               {name : 'tipo', type : 'string'}, 
-							               {name : 'marca', type : 'string'}, 
-							               {name : 'rubro', type : 'string'}, 
-							               {name : 'precio', type : 'double'}, 
-							               {name : 'costo', type : 'double'}, 
-							               {name : 'cantidad', type : 'int'}, 
-							               {name : 'codClase', type : 'string'}, 
-							               {name : 'codTipo', type : 'string'},
-							               {name : 'codMarca', type : 'string'}, 
-							               {name : 'codRubro', type : 'string'},
-							               ],
-							updaterow : function(rowid, rowdata, commit) {
-								$.ajax({
-									type : 'POST',
-									url : '/proeza-sgs/rest/articulo/update',
-									dataType: 'json',
-									contentType: 'application/json',
-									data : JSON.stringify(rowdata),
-									success : function() {
-										$.notify({
-											title: /*[[#{art.alert.updaterow.success.title}]]*/ '<strong>Modificación de artículo:</strong>',
-											message: /*[[#{art.alert.updaterow.success.message}]]*/ 'La modificación se realizó correctamente'
-										},{
-											type: 'success'
-										});
-										commit(true);
-									},
-									error: function () {            
-										$.notify({
-											title: /*[[#{art.alert.updaterow.error.title}]]*/ '<strong>Modificación de artículo:</strong>',
-											message: /*[[art.alert.updaterow.error.message]]*/ 'Ocurrió un error en la actualización del artículo'
-										},{
-											type: 'danger'
-										});
-										commit(false);
-							        }
+				function() {
+					// prepare the data
+					var source = {
+						datatype : "json",
+						id : "id",
+						url : "/proeza-sgs/rest/articulo/search?filter=",
+						dataFields : [ 
+						               {name : 'codigo', type : 'string'},
+						               {name : 'modelo', type : 'string'},
+						               {name : 'descripcion', type : 'string' }, 
+						               {name : 'clase', type : 'string'},
+						               {name : 'tipo', type : 'string'}, 
+						               {name : 'marca', type : 'string'}, 
+						               {name : 'rubro', type : 'string'}, 
+						               {name : 'precio', type : 'double'}, 
+						               {name : 'costo', type : 'double'}, 
+						               {name : 'cantidad', type : 'int'}, 
+						               {name : 'codClase', type : 'string'}, 
+						               {name : 'codTipo', type : 'string'},
+						               {name : 'codMarca', type : 'string'}, 
+						               {name : 'codRubro', type : 'string'},
+						               ],
+					updaterow : function(rowid, rowdata, commit) {
+						$.ajax({
+							type : 'POST',
+							url : '/proeza-sgs/rest/articulo/update',
+							dataType: 'json',
+							contentType: 'application/json',
+							data : JSON.stringify(rowdata),
+							success : function() {
+								$.notify({
+									title: /*[[#{art.alert.updaterow.success.title}]]*/ '<strong>Modificación de artículo:</strong>',
+									message: /*[[#{art.alert.updaterow.success.message}]]*/ 'La modificación se realizó correctamente'
+								},{
+									type: 'success'
 								});
-							},
-							deleterow : function(rowid, commit) {
-								// Hacer aca la logica de sincronizar con el servidor (usando ajax).
-								// Enviar datos, comitear con true si la sincronizacion fue exitosa, false si hubo fallo
 								commit(true);
-							}
-						};
-
-						var dataAdapter = new $.jqx.dataAdapter(source);
-						var editrow = -1;
-
-						// initializa la grilla de articulos
-						$("#articulos").jqxGrid({
-							width : '100%',
-							height : '100%',
-							theme : 'energyblue',
-							source : dataAdapter,
-							pageable : false,
-							autoheight : false,
-							altrows : true,
-							sortable : true,
-							enabletooltips : true,
-							columns : [ {
-								text : /*[[#{art.grid.model}]]*/ 'Modelo',
-								dataField : 'modelo',
-								width : '30%'
-							}, {
-								text : /*[[#{art.grid.class}]]*/ 'Clase',
-								dataField : 'clase',
-								width : '30%'
-							}, {
-								text : /*[[#{art.grid.trademark}]]*/ 'Marca',
-								dataField : 'marca',
-								width : '30%'
-							}, {
-								text : /*[[#{art.grid.price}]]*/ 'Precio',
-								dataField : 'precio',
-								cellsalign : 'right',
-								cellsformat : 'c2',
-								minwidth : '10%'
-							} ]
+							},
+							error: function () {            
+								$.notify({
+									title: /*[[#{art.alert.updaterow.error.title}]]*/ '<strong>Modificación de artículo:</strong>',
+									message: /*[[art.alert.updaterow.error.message]]*/ 'Ocurrió un error en la actualización del artículo'
+								},{
+									type: 'danger'
+								});
+								commit(false);
+					        }
 						});
-						// create context menu
-						var contextMenu = $("#gridMenu").jqxMenu({
-							width : 180,
-							height : 60,
-							autoOpenPopup : false,
-							mode : 'popup'
-
-						});
-						$("#articulos").on('contextmenu', function() {
-							return false;
-						});
-
-						// handle context menu clicks.
-						$("#gridMenu").on('itemclick', function(event) {
-							var args = event.args;
-							var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
-							if ($.trim($(args).text()) == [[#{art.admin.menu.edit}]]) {
-								// open the popup window when the user clicks a button.
-								editrow = rowindex;
-								var offset = $("#articulos").offset();
-								// get the clicked row's data and initialize the input fields.
-								var dataRecord = $("#articulos").jqxGrid('getrowdata', editrow);
-								$("#codigo").val(dataRecord.codigo);
-								$("#modelo").val(dataRecord.modelo);
-								$("#descripcion").val(dataRecord.descripcion);
-								$("#clase").val(dataRecord.clase);
-								$("#tipo").val(dataRecord.tipo);
-								$("#marca").val(dataRecord.marca);
-								$("#rubro").val(dataRecord.rubro);
-								$("#precio").val(dataRecord.precio);
-								$("#costo").val(dataRecord.costo);
-								$("#cantidad").val(dataRecord.cantidad);
-								$("#editionPopup").modal('show');
-							} else if ($.trim($(args).text()) == [[#{art.admin.menu.delete}]]) {
-								var rowid = $("#articulos").jqxGrid('getrowid', rowindex);
-								$("#articulos").jqxGrid('deleterow', rowid);
-							}
-						});
-						$("#articulos").on(
-							'rowclick',
-							function(event) {	
-								if (event.args.rightclick) {	
-									$("#articulos").jqxGrid('selectrow', event.args.rowindex);
-									var scrollTop = $(window).scrollTop();
-									var scrollLeft = $(window).scrollLeft();
-									contextMenu.jqxMenu('open', parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
-											parseInt(event.args.originalEvent.clientY) + 5 + scrollTop);
-									return false;
-								}
-							}
-						);
-
-						// update the edited row when the user clicks the 'save' button.
-						$("#save").click(function() {
-							if (editrow >= 0) {
-								var row = {
-									codigo : $("#codigo").val(),
-									modelo : $("#modelo").val(),
-									descripcion : $("#descripcion").val(),
-									clase : $("#clase").val(),
-									tipo : $("#tipo").val(),
-									rubro : $("#rubro").val(),
-									marca : $("#marca").val(),
-									precio : $("#precio").val(),
-									costo : $("#costo").val(),
-									cantidad : $("#cantidad").val(),
-									codClase : $( "#clase option:selected" ).attr('id'),
-									codTipo : $( "#tipo option:selected" ).attr('id'),
-									codMarca : $( "#marca option:selected" ).attr('id'),
-									codRubro : $( "#rubro option:selected" ).attr('id')
-								};
-								var rowID = $('#articulos').jqxGrid('getrowid', editrow);
-								$('#articulos').jqxGrid('updaterow', rowID, row);
-							}
-							$("#editionPopup").modal('hide');
-						});
-
-						// Hide popup when cancel
-						$("#cancel").click(function() {
-							$("#editionPopup").modal('hide');
-						});
-
-						// Configuracion del control de ingreso del precio
-						$("#precio").inputmask("currency", {
-							"autoUnmask" : true
-						});
-						$("#costo").inputmask("currency", {
-							"autoUnmask" : true
-						});
+					},
+					deleterow : function(rowid, commit) {
+						// Hacer aca la logica de sincronizar con el servidor (usando ajax).
+						// Enviar datos, comitear con true si la sincronizacion fue exitosa, false si hubo fallo
+						commit(true);
+					}
+				};
+				var dataAdapter = new $.jqx.dataAdapter(source);
+				var editrow = -1;
+				
+				// initializa la grilla de articulos
+				$("#articulos").jqxGrid({
+					width : '100%',
+					height : '100%',
+					theme : 'energyblue',
+					source : dataAdapter,
+					pageable : false,
+					autoheight : false,
+					altrows : true,
+					sortable : true,
+					enabletooltips : true,
+					columns : [ {
+						text : /*[[#{art.grid.model}]]*/ 'Modelo',
+						dataField : 'modelo',
+						width : '30%'
+					}, {
+						text : /*[[#{art.grid.class}]]*/ 'Clase',
+						dataField : 'clase',
+						width : '30%'
+					}, {
+						text : /*[[#{art.grid.trademark}]]*/ 'Marca',
+						dataField : 'marca',
+						width : '30%'
+					}, {
+						text : /*[[#{art.grid.price}]]*/ 'Precio',
+						dataField : 'precio',
+						cellsalign : 'right',
+						cellsformat : 'c2',
+						minwidth : '10%'
+					} ]
 				});
-		/*]]>*/
+				// create context menu
+				var contextMenu = $("#gridMenu").jqxMenu({
+					width : 180,
+					height : 60,
+					autoOpenPopup : false,
+					mode : 'popup'
+
+				});
+				$("#articulos").on('contextmenu', function() {
+					return false;
+				});
+
+				// handle context menu clicks.
+				$("#gridMenu").on('itemclick', function(event) {
+					var args = event.args;
+					var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
+					if ($.trim($(args).text()) == [[#{art.admin.menu.edit}]]) {
+						// open the popup window when the user clicks a button.
+						editrow = rowindex;
+						var offset = $("#articulos").offset();
+						// get the clicked row's data and initialize the input fields.
+						var dataRecord = $("#articulos").jqxGrid('getrowdata', editrow);
+						$("#codigo").val(dataRecord.codigo);
+						$("#modelo").val(dataRecord.modelo);
+						$("#descripcion").val(dataRecord.descripcion);
+						$("#clase").val(dataRecord.clase);
+						$("#tipo").val(dataRecord.tipo);
+						$("#marca").val(dataRecord.marca);
+						$("#rubro").val(dataRecord.rubro);
+						$("#precio").val(dataRecord.precio);
+						$("#costo").val(dataRecord.costo);
+						$("#cantidad").val(dataRecord.cantidad);
+						$("#editionPopup").modal('show');
+					} else if ($.trim($(args).text()) == [[#{art.admin.menu.delete}]]) {
+						var rowid = $("#articulos").jqxGrid('getrowid', rowindex);
+						$("#articulos").jqxGrid('deleterow', rowid);
+					}
+				});
+				$("#articulos").on(
+					'rowclick',
+					function(event) {	
+						if (event.args.rightclick) {	
+							$("#articulos").jqxGrid('selectrow', event.args.rowindex);
+							var scrollTop = $(window).scrollTop();
+							var scrollLeft = $(window).scrollLeft();
+							contextMenu.jqxMenu('open', parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+									parseInt(event.args.originalEvent.clientY) + 5 + scrollTop);
+							return false;
+						}
+					}
+				);
+
+				// update the edited row when the user clicks the 'save' button.
+				$("#save").click(function() {
+					if (editrow >= 0) {
+						var row = {
+							codigo : $("#codigo").val(),
+							modelo : $("#modelo").val(),
+							descripcion : $("#descripcion").val(),
+							clase : $("#clase").val(),
+							tipo : $("#tipo").val(),
+							rubro : $("#rubro").val(),
+							marca : $("#marca").val(),
+							precio : $("#precio").val(),
+							costo : $("#costo").val(),
+							cantidad : $("#cantidad").val(),
+							codClase : $( "#clase option:selected" ).attr('id'),
+							codTipo : $( "#tipo option:selected" ).attr('id'),
+							codMarca : $( "#marca option:selected" ).attr('id'),
+							codRubro : $( "#rubro option:selected" ).attr('id')
+						};
+						var rowID = $('#articulos').jqxGrid('getrowid', editrow);
+						$('#articulos').jqxGrid('updaterow', rowID, row);
+					}
+					$("#editionPopup").modal('hide');
+				});
+
+				// Hide popup when cancel
+				$("#cancel").click(function() {
+					$("#editionPopup").modal('hide');
+				});
+
+				// Configuracion del control de ingreso del precio
+				$("#precio").inputmask("currency", {
+					"autoUnmask" : true
+				});
+				$("#costo").inputmask("currency", {
+					"autoUnmask" : true
+				});
+				
+				 // Inicializa los controles del filto
+	            $('#filter').on('input', function() {
+	                var filter = $(this).val();
+	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
+	                source.url = "/proeza-sgs/rest/articulo/search?" + params;
+					// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
+	                $("#articulos").jqxGrid('updatebounddata', 'cells');
+	            });
+	            $("#clear").click(function () {
+	                $("#articulos").jqxGrid('clear');
+	                $("#filter").val("");
+	            });
+	            $("#eraser").click(function () {
+	                $("#articulos").jqxGrid('clear');
+	                $("#filter").val("");
+	            });
+			});
+			
+			function replaceAll(text, busca, reemplaza ){
+				while (text.toString().indexOf(busca) != -1) {
+					text = text.toString().replace(busca,reemplaza);
+				}
+				return text;
+			}
 		</script>
 	</div>
 </body>
