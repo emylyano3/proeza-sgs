@@ -138,11 +138,13 @@
 	                    </ul>
 	                </li>
 	                <li class="dropdown">
-	                	<a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
+	                	
+	                    
+	                	<a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown"> 
 	                		<i class="fa fa-user fa-fw"></i> 
 	                		<i class="fa fa-caret-down"></i>
 						</a>
-						<ul sec:authorize="isAnonymous()" class="dropdown-menu dropdown-user">
+						<ul sec:authorize="isAnonymous()" class="dropdown-menu hdropdown animated flipInX">
 							<li>
 								<a href="#" th:href="@{/login}" th:text="#{control.login}">
 									<i class="fa fa-sign-in fa-fw"></i>Ingresar
@@ -154,9 +156,10 @@
 								</a>
 							</li>
 						</ul>
-						<ul sec:authorize="isAuthenticated()" class="dropdown-menu dropdown-user">
-							<li><a href="#" sec:authentication="name">Usuario</a></li>
-							<li class="divider"></li>
+						<ul sec:authorize="isAuthenticated()" class="dropdown-menu hdropdown animated flipInX">
+							<div class="title">
+	                            <a href="#" sec:authentication="name">Usuario</a>
+	                        </div>
 							<li>
 								<a href="#" th:href="@{/profile}" th:text="#{control.profile}">
 									<i class="fa fa-user fa-fw"></i>Perfil
