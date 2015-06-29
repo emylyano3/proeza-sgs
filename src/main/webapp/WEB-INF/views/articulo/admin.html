@@ -7,6 +7,7 @@
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../../../resources/fileinput/css/fileinput.css" th:href="@{/resources/fileinput/css/fileinput.css}" media="all" type="text/css" />
 
 		<div class="row">
 			<div class="col-md-12">
@@ -117,9 +118,43 @@
 				</div>
 			</div>
 		</div>
+		<!-- Modal de agregado de imagen -->
+		<div class="modal fade" id="addImagePopup" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"/>
+        				<h4 class="modal-title">
+        					<span th:text="#{art.admin.popup.addImage}" text="Agregar Imagen" />
+        				</h4>
+      				</div>
+					<div id="addImagePanel" class="modal-body" >
+						<div class="container">
+							<div class="row">
+							  	<div class="col-sm-3">
+								  	<form method="POST" class="form-horizontal" enctype="multipart/form-data" th:action="@{/articulo/addImage}">
+										<fieldset>
+											<!-- Implementar con este plugin de bootstrap 
+											https://github.com/kartik-v/bootstrap-fileinput
+											 -->
+											<input id="artCode" name="artCode" type="text" />
+										 	<input id="uploadImage" name="file" type="file" class="file" data-preview-file-type="text" />
+										</fieldset> 
+									</form>
+								</div> 
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id="cancel" type="button" class="btn btn-default" th:text="#{control.cancel}" data-dismiss="modal"/>
+			      	</div>
+				</div>
+			</div>
+		</div>
 		<!-- Menu Contextual -->
 		<div id="gridMenu">
 	        <ul>
+	            <li id="addImgToArt" th:text="#{art.admin.menu.addImage}"/>
 	            <li id="editArt" th:text="#{art.admin.menu.edit}"/>
 	            <li id="deleteArt" th:text="#{art.admin.menu.delete}"/>
 	        </ul>
@@ -140,7 +175,8 @@
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
 		<script type="text/javascript" src="../../../resources/jquery/jquery.inputmask.bundle.js" th:src="@{/resources/jquery/jquery.inputmask.bundle.js}" />
 		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
-		
+		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput.js" th:src="@{/resources/fileinput/js/fileinput.js}" />
+		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput_locale_es.js" th:src="@{/resources/fileinput/js/fileinput_locale_es.js}" />
 		<script th:inline="javascript">
 			// Inicializacion de la tabla de arículos
 			$(document).ready(
@@ -236,7 +272,7 @@
 				// create context menu
 				var contextMenu = $("#gridMenu").jqxMenu({
 					width : 180,
-					height : 60,
+					height : 90,
 					autoOpenPopup : false,
 					mode : 'popup'
 
@@ -249,12 +285,11 @@
 				$("#gridMenu").on('itemclick', function(event) {
 					var args = event.args;
 					var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
+					editrow = rowindex;
+					var offset = $("#articulos").offset();
+					// get the clicked row's data and initialize the input fields.
+					var dataRecord = $("#articulos").jqxGrid('getrowdata', rowindex);
 					if ($.trim($(args).text()) == [[#{art.admin.menu.edit}]]) {
-						// open the popup window when the user clicks a button.
-						editrow = rowindex;
-						var offset = $("#articulos").offset();
-						// get the clicked row's data and initialize the input fields.
-						var dataRecord = $("#articulos").jqxGrid('getrowdata', editrow);
 						$("#codigo").val(dataRecord.codigo);
 						$("#modelo").val(dataRecord.modelo);
 						$("#descripcion").val(dataRecord.descripcion);
@@ -269,11 +304,12 @@
 					} else if ($.trim($(args).text()) == [[#{art.admin.menu.delete}]]) {
 						var rowid = $("#articulos").jqxGrid('getrowid', rowindex);
 						$("#articulos").jqxGrid('deleterow', rowid);
+					} else if ($.trim($(args).text()) == [[#{art.admin.menu.addImage}]]) {
+						$("#artCode").val(dataRecord.codigo);
+						$("#addImagePopup").modal('show');
 					}
 				});
-				$("#articulos").on(
-					'rowclick',
-					function(event) {	
+				$("#articulos").on('rowclick', function(event) {	
 						if (event.args.rightclick) {	
 							$("#articulos").jqxGrid('selectrow', event.args.rowindex);
 							var scrollTop = $(window).scrollTop();
@@ -313,6 +349,7 @@
 				// Hide popup when cancel
 				$("#cancel").click(function() {
 					$("#editionPopup").modal('hide');
+					$("#addImagePopup").modal('hide');
 				});
 
 				// Configuracion del control de ingreso del precio
@@ -339,6 +376,8 @@
 	                $("#articulos").jqxGrid('clear');
 	                $("#filter").val("");
 	            });
+	         	// with plugin options
+	            $("#uploadImage").fileinput({'showUpload':true, 'previewFileType':'image', 'multiple':true, 'maxFileCount':3});
 			});
 			
 			function replaceAll(text, busca, reemplaza ){

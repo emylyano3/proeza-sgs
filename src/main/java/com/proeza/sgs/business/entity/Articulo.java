@@ -62,6 +62,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 
     private Set<Movimiento>   movimientos      = new HashSet<>(0);
     private Set<Proveedor>    proveedores      = new HashSet<>(0);
+    private Set<Resource>     resources        = new HashSet<>(0);
 
     public Articulo () {
     }
@@ -196,6 +197,15 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 
     public void setMovimientos (Set<Movimiento> movimientos) {
         this.movimientos = movimientos;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idOwner", cascade = CascadeType.ALL)
+    public Set<Resource> getResources () {
+        return this.resources;
+    }
+
+    public void setResources (Set<Resource> resources) {
+        this.resources = resources;
     }
 
     @Override

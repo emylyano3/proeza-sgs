@@ -1,9 +1,11 @@
 package com.proeza.sgs.business.service.impl;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.rowset.serial.SerialBlob;
 import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
@@ -11,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.google.common.net.MediaType;
 import com.proeza.core.tracking.entity.Movimiento;
+import com.proeza.core.util.date.DateUtil;
 import com.proeza.sgs.business.chart.SingleDataSetChartDefinition;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartManager;
@@ -25,6 +29,7 @@ import com.proeza.sgs.business.dto.ArticuloDTO;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.business.entity.Marca;
+import com.proeza.sgs.business.entity.Resource;
 import com.proeza.sgs.business.entity.Rubro;
 import com.proeza.sgs.business.entity.Tipo;
 import com.proeza.sgs.business.service.IArticuloService;
@@ -110,5 +115,25 @@ public class ArticuloService implements IArticuloService {
         result.add(new SingleDataSetChartDefinition("Caña surfish", 30, "#46BFBD", "#5AD3D1"));
         result.add(new SingleDataSetChartDefinition("Señuelo Del", 40, "#FDB45C", "#FFC870"));
         return result;
+    }
+
+    @Override
+    public void addImage (String code, String imageName, String imageDesc, byte[] image) {
+        if (image != null) {
+            Articulo art = this.articuloDao.findByCode(code);
+            Resource res = new Resource();
+            res.setIdOwner(art.getId());
+            res.setMediaType(MediaType.JPEG.toString());
+            res.setNombre(imageName);
+            res.setDescripcion(imageDesc);
+            try {
+                res.setData(new SerialBlob(image));
+                res.setPreview(new SerialBlob(image));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            res.setFechaCreacion(DateUtil.createNowstamp());
+            art.getResources().add(res);
+        }
     }
 }

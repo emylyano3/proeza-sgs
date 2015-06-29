@@ -24,4 +24,9 @@ public interface IArticuloService {
      * Devuelve los "top" articulos mas vendidos, donde top es la cantidad de articulos que se desean en el ranking
      */
     List<SingleDataSetChartDefinition> bestSellers (Integer top);
+
+    /**
+     * Agrega una imagen a un articulo determinado
+     */
+    void addImage (String code, String imageName, String imageDesc, byte[] image);
 }
