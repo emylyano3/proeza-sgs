@@ -8,9 +8,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.proeza.sgs.business.service.IArticuloService;
 import com.proeza.sgs.business.service.IClaseService;
@@ -63,19 +60,5 @@ public class ArticuloController {
         model.addAttribute("pageTitle", pagina.getTitle());
         model.addAttribute("pageSubtitle", pagina.getSubtitle());
         return PAGE_GROUP + "/" + page + ".html";
-    }
-
-    @RequestMapping(value = "addImage", method = RequestMethod.POST)
-    public String uploadImage (ModelMap model, Principal principal, @RequestParam("artCode") String code, @RequestParam("file") MultipartFile file) {
-        try {
-            this.articuloService.addImage(code, null, null, file.getBytes());
-            Page pagina = this.pageDao.findByGroupAndName(PAGE_GROUP, "admin");
-            model.addAttribute("pageTitle", pagina.getTitle());
-            model.addAttribute("pageSubtitle", pagina.getSubtitle());
-            model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, "admin", principal));
-            return PAGE_GROUP + "/admin.html";
-        } catch (Exception e) {
-            return PAGE_GROUP + "/admin.html";
-        }
     }
 }
