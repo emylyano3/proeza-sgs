@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bootstrap HTML Test</title>
+<link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../src/main/webapp/resources/fileinput/css/fileinput.css" type="text/css" media="all" />
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4">
+				<form method="POST" class="form-horizontal" enctype="multipart/form-data" action="#">
+					<fieldset>
+						<input id="myUpload" type="file" accept="image/*" />
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="../src/main/webapp/resources/jquery/jquery.js"></script>
+	<script src="../src/main/webapp/resources/bootstrap/js/bootstrap.js"></script>
+	<script src="../src/main/webapp/resources/fileinput/js/fileinput.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#myUpload").fileinput({
+				showUpload : true,
+				showRemove : false,
+				allowedFileExtensions: ["jpg"],
+				allowedFileTypes : ["image"]
+			});
+			$('#myUpload').on('fileuploaded', function(event, previewId) {
+			    console.log("fileuploaded");
+			});
+			$('#myUpload').on('filebatchuploadsuccess', function(event, previewId) {
+			    console.log("filebatchuploadsuccess");
+			});
+			$('#myUpload').on('filebatchpreupload', function(event, previewId) {
+			    console.log("filebatchpreupload");
+			});
+			$('#myUpload').on('filepreupload', function(event, previewId) {
+			    console.log("filepreupload");
+			});
+			$('#myUpload').on('fileloaded', function(event, previewId) {
+			    console.log("fileloaded");
+			});
+			$('#myUpload').on('filereset', function(event, previewId) {
+			    console.log("filereset");
+			});
+			$('#myUpload').on('fileimageloaded', function(event, previewId) {
+			    console.log("fileimageloaded");
+			});
+			$('#myUpload').on('filebrowse', function(event, previewId) {
+			    console.log("filebrowse");
+			});
+			$('#myUpload').on('filebatchuploadcomplete', function(event, previewId) {
+			    console.log("filebatchuploadcomplete");
+			});
+		});
+	</script>
+</body>
+</html>
