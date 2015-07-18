@@ -3,6 +3,7 @@ package com.proeza.sgs.web.rest;
 import java.security.Principal;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.ModelMap;
@@ -24,8 +25,10 @@ import com.proeza.sgs.business.service.IArticuloService;
 @RequestMapping("rest/articulo")
 public class ArticulosRestController {
 
+    private static final Logger log = Logger.getLogger(ArticulosRestController.class);
+
     @Autowired
-    private IArticuloService productService;
+    private IArticuloService    productService;
 
     @RequestMapping(value = "findAll")
     public List<ArticuloDTO> findAll () {
@@ -59,6 +62,7 @@ public class ArticulosRestController {
         try {
             this.productService.addImage(code, null, null, file.getBytes());
         } catch (Exception e) {
+            log.error("Error agregando la imagen al articulo causado por: " + e.getMessage(), e);
         }
     }
 }
