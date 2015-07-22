@@ -18,6 +18,10 @@ $(document).ready(function () {
     	$('#side-menu').metisMenu();
     }
 
+    // Initialize image gallery
+    $('#blueimp-gallery').data('useBootstrapModal', false);
+    $('#blueimp-gallery').toggleClass('blueimp-gallery-controls', true);
+    
     // Initialize iCheck plugin
     $('.i-checks').iCheck({
         checkboxClass: 'icheckbox_square-green',
@@ -104,6 +108,13 @@ $(window).bind("resize click", function () {
         fixWrapperHeight();
     }, 300);
 })
+
+function replaceAll(text, busca, reemplaza ){
+	while (text.toString().indexOf(busca) != -1) {
+		text = text.toString().replace(busca,reemplaza);
+	}
+	return text;
+}
 
 function fixWrapperHeight() {
 

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.sql.rowset.serial.SerialBlob;
 import javax.transaction.Transactional;
@@ -26,6 +27,7 @@ import com.proeza.sgs.business.dao.RubroDao;
 import com.proeza.sgs.business.dao.TipoDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
 import com.proeza.sgs.business.dto.ArticuloDTO;
+import com.proeza.sgs.business.dto.ResourceDTO;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.business.entity.Marca;
@@ -117,6 +119,8 @@ public class ArticuloService implements IArticuloService {
         return result;
     }
 
+    static int IMG_SEQ = 0;
+
     @Override
     public void addImage (String code, String imageName, String imageDesc, byte[] image) {
         if (image != null) {
@@ -124,7 +128,7 @@ public class ArticuloService implements IArticuloService {
             Resource res = new Resource();
             res.setIdOwner(art.getId());
             res.setMediaType(MediaType.JPEG.toString());
-            res.setNombre(imageName);
+            res.setNombre(imageName + "_" + ++IMG_SEQ);
             res.setDescripcion(imageDesc);
             try {
                 res.setData(new SerialBlob(image));
@@ -135,5 +139,35 @@ public class ArticuloService implements IArticuloService {
             res.setFechaCreacion(DateUtil.createNowstamp());
             art.getResources().add(res);
         }
+    }
+
+    @Override
+    public byte[] getImage (String articleCode, String imageName) {
+        Articulo art = this.articuloDao.findByCode(articleCode);
+        Set<Resource> resources = art.getResources();
+        for (Resource res : resources) {
+            if (imageName != null && imageName.equals(res.getNombre())) {
+                try {
+                    return res.getData().getBytes(1L, (int) res.getData().length());
+                } catch (SQLException e) {
+                    log.error("Error obteniendo la data del recurso causado por: " + e.getMessage(), e);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<ResourceDTO> getImagesUrl (String articleCode) {
+        Articulo art = this.articuloDao.findByCode(articleCode);
+        Set<Resource> resources = art.getResources();
+        List<ResourceDTO> result = new ArrayList<ResourceDTO>(resources.size());
+        for (Resource res : resources) {
+            ResourceDTO resource = new ResourceDTO(res);
+            resource.setData(null);
+            resource.setPreview(null);
+            result.add(resource);
+        }
+        return result;
     }
 }

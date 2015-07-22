@@ -5,6 +5,7 @@ import java.util.List;
 import com.proeza.sgs.business.chart.SingleDataSetChartDefinition;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.dto.ArticuloDTO;
+import com.proeza.sgs.business.dto.ResourceDTO;
 
 public interface IArticuloService {
 
@@ -29,4 +30,8 @@ public interface IArticuloService {
      * Agrega una imagen a un articulo determinado
      */
     void addImage (String code, String imageName, String imageDesc, byte[] image);
+
+    byte[] getImage (String articleCode, String imageName);
+
+    List<ResourceDTO> getImagesUrl (String articleCode);
 }

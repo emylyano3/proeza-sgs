@@ -1,11 +1,13 @@
 package com.proeza.sgs.web.rest;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.proeza.sgs.business.chart.SingleDataSetChartDefinition;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.dto.ArticuloDTO;
+import com.proeza.sgs.business.dto.ResourceDTO;
 import com.proeza.sgs.business.service.IArticuloService;
 
 @RestController
@@ -60,9 +63,29 @@ public class ArticulosRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void uploadImage (ModelMap model, Principal principal, @RequestParam("artCode") String code, @RequestParam("file") MultipartFile file) {
         try {
-            this.productService.addImage(code, null, null, file.getBytes());
+            this.productService.addImage(code, "Imagen", "Imagen del artículo", file.getBytes());
         } catch (Exception e) {
             log.error("Error agregando la imagen al articulo causado por: " + e.getMessage(), e);
+        }
+    }
+
+    @RequestMapping(value = "getImage/{article}/{imageName}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    public byte[] getImage (@PathVariable String article, @PathVariable String imageName) {
+        try {
+            return this.productService.getImage(article, imageName);
+        } catch (Exception e) {
+            log.error("Error agregando la imagen al articulo causado por: " + e.getMessage(), e);
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "getImages/{article}", method = RequestMethod.POST)
+    public List<ResourceDTO> getImages (@PathVariable String article) {
+        try {
+            return this.productService.getImagesUrl(article);
+        } catch (Exception e) {
+            log.error("Error agregando la imagen al articulo causado por: " + e.getMessage(), e);
+            return new ArrayList<ResourceDTO>(0);
         }
     }
 }

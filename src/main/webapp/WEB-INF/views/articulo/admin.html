@@ -132,7 +132,7 @@
       				</div>
 					<div id="addImagePanel" class="modal-body" >
 				  		<form enctype="multipart/form-data">
-							<input id="uploadImage" name="file" type="file" accept="image/*" />
+							<input id="uploadImage" name="file" type="file" accept="image/*" multiple="multiple"/>
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -142,7 +142,7 @@
 			</div>
 		</div>
 		<!-- Menu Contextual -->
-		<div id="gridMenu">
+		<div id="gridContextMenu">
 	        <ul>
 	            <li id="addImgToArt" th:text="#{art.admin.menu.addImage}"/>
 	            <li id="editArt" th:text="#{art.admin.menu.edit}"/>
@@ -260,7 +260,7 @@
 					} ]
 				});
 				// create context menu
-				var contextMenu = $("#gridMenu").jqxMenu({
+				var contextMenu = $("#gridContextMenu").jqxMenu({
 					width : 180,
 					height : 90,
 					autoOpenPopup : false,
@@ -272,7 +272,7 @@
 				});
 
 				// handle context menu clicks.
-				$("#gridMenu").on('itemclick', function(event) {
+				$("#gridContextMenu").on('itemclick', function(event) {
 					var args = event.args;
 					var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
 					editrow = rowindex;
@@ -298,6 +298,7 @@
 				         var fileInputOptions = {
 								showUpload : true,
 								showRemove : true,
+								maxFileCount : 5,
 				                allowedFileExtensions : ['jpg', 'png','gif'],
 								allowedFileTypes : ["image"],
 				                uploadUrl: '/proeza-sgs/rest/articulo/addImage?artCode=' + dataRecord.codigo
@@ -308,16 +309,18 @@
 					}
 				});
 				$("#articulos").on('rowclick', function(event) {	
-						if (event.args.rightclick) {	
-							$("#articulos").jqxGrid('selectrow', event.args.rowindex);
-							var scrollTop = $(window).scrollTop();
-							var scrollLeft = $(window).scrollLeft();
-							contextMenu.jqxMenu('open', parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
-									parseInt(event.args.originalEvent.clientY) + 5 + scrollTop);
-							return false;
-						}
+					if (event.args.rightclick) {	
+						$("#articulos").jqxGrid('selectrow', event.args.rowindex);
+						var scrollTop = $(window).scrollTop();
+						var scrollLeft = $(window).scrollLeft();
+						contextMenu.jqxMenu(
+								'open', 
+								parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+								parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
+						);
+						return false;
 					}
-				);
+				});
 
 				// update the edited row when the user clicks the 'save' button.
 				$("#save").click(function() {
@@ -375,13 +378,6 @@
 	                $("#filter").val("");
 	            });
 			});
-			
-			function replaceAll(text, busca, reemplaza ){
-				while (text.toString().indexOf(busca) != -1) {
-					text = text.toString().replace(busca,reemplaza);
-				}
-				return text;
-			}
 		</script>
 	</div>
 </body>

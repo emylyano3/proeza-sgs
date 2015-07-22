@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
 		
 		<div class="row">
+			<div id="images" class="col-md-12" hidden="hidden"/>
 			<div class="col-md-12">
 				<div class="input-group">
 					<input id="filter" type="text" class="form-control" placeholder="Buscar..." th:placeholder="#{control.search-articles}" /> 
@@ -24,8 +25,17 @@
 		<div class="row">
 			<div class="col-md-12">
 		        <div id="articulos"/>
-       		</div>
-	    </div>
+			</div>
+		   </div>
+		<div id="gridContextMenu">
+		    <ul>
+			<li id="seeArtImages" th:text="#{art.list.menu.seeImages}"/>
+			</ul>
+		</div>
+            
+        <!-- El contenedor para las imagenes  -->
+	    <div id="links"	hidden="hidden" /> 
+	    
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
@@ -35,9 +45,9 @@
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.selection.js" th:src="@{/resources/jqx/js/jqxgrid.selection.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/demos.js" th:src="@{/resources/jqx/js/demos.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
-	    <script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.columnsresize.js" th:src="@{/resources/jqx/js/jqxgrid.columnsresize.js}" /> 
-		
-	    <script type="text/javascript">
+		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.columnsresize.js" th:src="@{/resources/jqx/js/jqxgrid.columnsresize.js}" />
+
+	    <script th:inline="javascript">
 
 	        $(document).ready(function () {
 	            // prepare the data
@@ -46,12 +56,13 @@
 		            url: "/proeza-sgs/rest/articulo/search?filter=",
 		            datatype: "json",
 		            dataFields: [
-	     	                    { name: 'modelo', type: 'string' },
-	     	                    { name: 'descripcion', type: 'string' },
-	     	                    { name: 'clase', type: 'string' },
-	     	                    { name: 'tipo', type: 'string' },
-	     	                    { name: 'marca', type: 'string' },
-	     	                    { name: 'precio', type: 'double' },
+							{name: 'codigo', type : 'string'},
+     	                    {name: 'modelo', type: 'string'},
+     	                    {name: 'descripcion', type: 'string'},
+     	                    {name: 'clase', type: 'string'},
+     	                    {name: 'tipo', type: 'string'},
+     	                    {name: 'marca', type: 'string'},
+     	                    {name: 'precio', type: 'double'},
 		            ]
 		        };
 	            var dataAdapter = new $.jqx.dataAdapter(source);
@@ -66,15 +77,36 @@
 	                altrows: true,
 			        sortable: true,
 	                columns: [
-						{ text: 'Modelo', dataField: 'modelo', width: '20%' },
-						{ text: 'Descripción', dataField: 'descripcion', width: '20%' },
-						{ text: 'Clase', dataField: 'clase', width: '15%' },
-						{ text: 'Tipo', dataField: 'tipo', width: '20%' },
-						{ text: 'Marca', dataField: 'marca', width: '15%' },
-						{ text: 'Precio', dataField: 'precio', cellsalign: 'right', cellsformat: 'c2', minwidth: '10%' }
+						{ 
+							text: /*[[#{art.grid.model}]]*/ 'Modelo', 
+							dataField: 'modelo', 
+							width: '20%' 
+						},{ 
+							text: /*[[#{art.grid.desc}]]*/ 'Descripción', 
+							dataField: 'descripcion', 
+							width: '20%' 
+						},{ 
+							text: /*[[#{art.grid.class}]]*/ 'Clase', 
+							dataField: 'clase',
+							width: '15%' 
+						},{ 
+							text: /*[[#{art.grid.type}]]*/ 'Tipo', 
+							dataField: 'tipo', 
+							width: '20%' 
+						},{
+							text: /*[[#{art.grid.trademark}]]*/ 'Marca', 
+							dataField: 'marca', 
+							width: '15%' 
+						},{
+							text: /*[[#{art.grid.price}]]*/ 'Precio', 
+							dataField: 'precio', 
+							cellsalign: 'right', 
+							cellsformat: 'c2', 
+							minwidth: '10%' 
+						}
 	                ]
 	            });
-	            // Inicializa los controles del filto
+	            // Inicializa los controles del filtro
 	            $('#filter').on('input', function() {
 	                var filter = $(this).val();
 	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
@@ -90,14 +122,69 @@
 	                $("#articulos").jqxGrid('clear');
 	                $("#filter").val("");
 	            });
+				$("#articulos").on('rowclick', function(event) {	
+					if (event.args.rightclick) {	
+						$("#articulos").jqxGrid('selectrow', event.args.rowindex);
+						var scrollTop = $(window).scrollTop();
+						var scrollLeft = $(window).scrollLeft();
+						contextMenu.jqxMenu(
+								'open', 
+								parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+								parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
+						);
+						return false;
+					}
+				});
+				// crea el menu contextual
+				var contextMenu = $("#gridContextMenu").jqxMenu({
+					width : 180,
+					height : 35,
+					autoOpenPopup : false,
+					mode : 'popup'
+
+				});
+				$("#articulos").on('contextmenu', function() {
+					return false;
+				});
+				// Manejo los eventos sobre el context menu de la grilla
+				$("#gridContextMenu").on('itemclick', function(event) {
+
+					var args = event.args;
+					var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
+					editrow = rowindex;
+					var offset = $("#articulos").offset();
+					// get the clicked row's data and initialize the input fields.
+					var dataRecord = $("#articulos").jqxGrid('getrowdata', rowindex);
+					if ($.trim($(args).text()) == [[#{art.list.menu.seeImages}]]) {
+						// Load demo images from server
+						var imagesUrl = '/proeza-sgs/rest/articulo/getImages/' + dataRecord.codigo;
+					    $.ajax({
+							type : 'POST',
+					        url: imagesUrl,
+					        dataType: 'json'
+					    }).done(
+					    	function (result) {
+						        var imageUrl;
+						        // Add the demo images as links with thumbnails to the page:
+						        $.each(result, 
+						        	function (index, result) {
+							            imageUrl = '/proeza-sgs/rest/articulo/getImage/' + dataRecord.codigo + "/" + result.nombre;
+							            $('<a/>')
+							                .append($('<img/>')
+											.prop('src', imageUrl))
+							                .prop('href', imageUrl)
+							                .prop('title', result.nombre)
+							                .attr('data-gallery', '')
+							                .appendTo($('#links'));
+							        }
+						        );
+						        $('#links').show();
+								blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
+						    }
+					    );
+					}
+				})
 	        });
-	        
-			function replaceAll(text, busca, reemplaza ){
-				while (text.toString().indexOf(busca) != -1) {
-					text = text.toString().replace(busca,reemplaza);
-				}
-				return text;
-			}
 	    </script>
 	</div>
 </body>

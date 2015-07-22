@@ -26,7 +26,7 @@ public class Resource implements Serializable {
     private String            mediaType;
     private String            nombre;
     private String            descripcion;
-    private Timestamp         fechaCreacion;
+    private Date              fechaCreacion;
     private Blob              preview;
     private Blob              data;
 
