@@ -7,8 +7,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 
-import com.proeza.core.resources.IMessageResolver;
-import com.proeza.core.resources.MessageResolver;
+import com.proeza.core.resources.message.IMessageResolver;
+import com.proeza.core.resources.message.MessageResolver;
 import com.proeza.core.service.IMailService;
 import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.service.IUserService;

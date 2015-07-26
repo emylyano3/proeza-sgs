@@ -1,4 +1,4 @@
-package com.proeza.core.resources;
+package com.proeza.core.resources.message;
 
 import java.util.Locale;
 

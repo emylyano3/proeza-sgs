@@ -208,6 +208,10 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
         this.resources = resources;
     }
 
+    public void addResource (Resource resource) {
+        getResources().add(resource);
+    }
+
     @Override
     public int compareTo (Articulo a) {
         if (a == null) {
@@ -218,12 +222,12 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 
     @Override
     protected void addMovimiento (Movimiento m) {
-        this.movimientos.add(m);
+        getMovimientos().add(m);
     }
 
     @Override
     protected boolean removeMovimiento (Movimiento m) {
-        return this.movimientos.remove(m);
+        return getMovimientos().remove(m);
     }
 
     @Override

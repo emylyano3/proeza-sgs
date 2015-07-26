@@ -2,6 +2,8 @@ package com.proeza.sgs.business.service;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
+
 import com.proeza.sgs.business.chart.SingleDataSetChartDefinition;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.dto.ArticuloDTO;
@@ -19,7 +21,7 @@ public interface IArticuloService {
      * Devuelve el historial de precios de un articulo, observando los movimientos de cambio de precios que tuvo, más
      * cierta información adicional como numero de aumentos y el stock.
      */
-    HistorialPrecioChartDefinition priceHistory (String code);
+    HistorialPrecioChartDefinition priceHistory (String articleCode);
 
     /**
      * Devuelve los "top" articulos mas vendidos, donde top es la cantidad de articulos que se desean en el ranking
@@ -29,9 +31,11 @@ public interface IArticuloService {
     /**
      * Agrega una imagen a un articulo determinado
      */
-    void addImage (String code, String imageName, String imageDesc, byte[] image);
+    void addImage (String articleCode, String imageName, String imageDesc, MediaType type, byte[] image);
 
-    byte[] getImage (String articleCode, String imageName);
+    byte[] getImage (String articleCode, Long id);
 
-    List<ResourceDTO> getImagesUrl (String articleCode);
+    byte[] getThumbnail (String articleCode, Long id);
+
+    List<ResourceDTO> getImagesAvail (String articleCode);
 }

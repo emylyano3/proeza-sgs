@@ -158,24 +158,30 @@
 					if ($.trim($(args).text()) == [[#{art.list.menu.seeImages}]]) {
 						// Load demo images from server
 						var imagesUrl = '/proeza-sgs/rest/articulo/getImages/' + dataRecord.codigo;
+						var linksContainer = document.getElementById('links');
+						while (linksContainer.hasChildNodes()) {
+							linksContainer.removeChild(linksContainer.lastChild);
+						}
+						$('#links').empty();
 					    $.ajax({
 							type : 'POST',
 					        url: imagesUrl,
 					        dataType: 'json'
 					    }).done(
 					    	function (result) {
-						        var imageUrl;
+						        var imageUrl, thumbnailUrl;
 						        // Add the demo images as links with thumbnails to the page:
 						        $.each(result, 
 						        	function (index, result) {
-							            imageUrl = '/proeza-sgs/rest/articulo/getImage/' + dataRecord.codigo + "/" + result.nombre;
+							            imageUrl = '/proeza-sgs/rest/articulo/getImage/' + dataRecord.codigo + "/" + result.id;
+							            thumbnailUrl = '/proeza-sgs/rest/articulo/getThumbnail/' + dataRecord.codigo + "/" + result.id;
 							            $('<a/>')
 							                .append($('<img/>')
-											.prop('src', imageUrl))
+											.prop('src', thumbnailUrl))
 							                .prop('href', imageUrl)
 							                .prop('title', result.nombre)
 							                .attr('data-gallery', '')
-							                .appendTo($('#links'));
+							                .appendTo(links);
 							        }
 						        );
 						        $('#links').show();

@@ -9,6 +9,7 @@ import com.proeza.sgs.business.entity.Resource;
 public class ResourceDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private Long              id;
     private String            mediaType;
     private String            nombre;
     private String            descripcion;
@@ -17,6 +18,7 @@ public class ResourceDTO implements Serializable {
     private byte[]            data;
 
     public ResourceDTO (Resource resource) {
+        this.id = resource.getId();
         this.mediaType = resource.getMediaType();
         this.nombre = resource.getNombre();
         this.descripcion = resource.getDescripcion();
@@ -26,6 +28,14 @@ public class ResourceDTO implements Serializable {
             this.preview = resource.getPreview().getBytes(1L, (int) resource.getPreview().length());
         } catch (SQLException e) {
         }
+    }
+
+    public Long getId () {
+        return this.id;
+    }
+
+    public void setId (Long id) {
+        this.id = id;
     }
 
     public String getMediaType () {

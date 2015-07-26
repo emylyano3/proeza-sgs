@@ -33,7 +33,8 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 import com.proeza.core.config.DataSourceSettings;
 import com.proeza.core.config.MailSettings;
-import com.proeza.core.resources.MessageResolver;
+import com.proeza.core.resources.image.ImageManager;
+import com.proeza.core.resources.message.MessageResolver;
 
 @Configuration
 @Import(value = {
@@ -50,7 +51,7 @@ import com.proeza.core.resources.MessageResolver;
         "com.proeza.security.service",
         "com.proeza.sgs.business",
         "com.proeza.sgs.system"
-        },
+    },
     excludeFilters = {
         @Filter(Configuration.class),
         @Filter(Controller.class),
@@ -82,13 +83,18 @@ public class ContextConfig {
     }
 
     @Bean
-    public com.proeza.core.resources.IMessageResolver proezaMessageResolver (MessageSource messageSource, LocaleResolver localeResolver) {
+    public com.proeza.core.resources.message.IMessageResolver proezaMessageResolver (MessageSource messageSource, LocaleResolver localeResolver) {
         return new MessageResolver(messageSource, localeResolver);
     }
 
     @Bean
     public LocaleResolver localeResolver () {
         return new FixedLocaleResolver();
+    }
+
+    @Bean
+    public ImageManager imageManager () {
+        return new ImageManager();
     }
 
     @Bean

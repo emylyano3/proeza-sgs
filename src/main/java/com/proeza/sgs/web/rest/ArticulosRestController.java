@@ -63,16 +63,26 @@ public class ArticulosRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void uploadImage (ModelMap model, Principal principal, @RequestParam("artCode") String code, @RequestParam("file") MultipartFile file) {
         try {
-            this.productService.addImage(code, "Imagen", "Imagen del artículo", file.getBytes());
+            this.productService.addImage(code, "Imagen", "Imagen del artículo", MediaType.IMAGE_JPEG, file.getBytes());
         } catch (Exception e) {
             log.error("Error agregando la imagen al articulo causado por: " + e.getMessage(), e);
         }
     }
 
-    @RequestMapping(value = "getImage/{article}/{imageName}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
-    public byte[] getImage (@PathVariable String article, @PathVariable String imageName) {
+    @RequestMapping(value = "getImage/{article}/{imageId}", produces = {MediaType.IMAGE_JPEG_VALUE})
+    public byte[] getImage (@PathVariable String article, @PathVariable Long imageId) {
         try {
-            return this.productService.getImage(article, imageName);
+            return this.productService.getImage(article, imageId);
+        } catch (Exception e) {
+            log.error("Error agregando la imagen al articulo causado por: " + e.getMessage(), e);
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "getThumbnail/{article}/{imageId}", produces = {MediaType.IMAGE_JPEG_VALUE})
+    public byte[] getThumbnail (@PathVariable String article, @PathVariable Long imageId) {
+        try {
+            return this.productService.getThumbnail(article, imageId);
         } catch (Exception e) {
             log.error("Error agregando la imagen al articulo causado por: " + e.getMessage(), e);
             return null;
@@ -82,7 +92,7 @@ public class ArticulosRestController {
     @RequestMapping(value = "getImages/{article}", method = RequestMethod.POST)
     public List<ResourceDTO> getImages (@PathVariable String article) {
         try {
-            return this.productService.getImagesUrl(article);
+            return this.productService.getImagesAvail(article);
         } catch (Exception e) {
             log.error("Error agregando la imagen al articulo causado por: " + e.getMessage(), e);
             return new ArrayList<ResourceDTO>(0);

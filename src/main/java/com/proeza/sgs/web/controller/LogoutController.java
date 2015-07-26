@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.proeza.core.resources.IMessageResolver;
+import com.proeza.core.resources.message.IMessageResolver;
 
 @Controller
 public class LogoutController {

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.proeza.core.resources.IMessageResolver;
+import com.proeza.core.resources.message.IMessageResolver;
 import com.proeza.core.service.IMailService;
 import com.proeza.core.service.MailService;
 import com.proeza.security.entity.Usuario;

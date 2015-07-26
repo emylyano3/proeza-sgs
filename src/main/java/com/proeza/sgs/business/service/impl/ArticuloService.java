@@ -12,9 +12,10 @@ import javax.transaction.Transactional;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
-import com.google.common.net.MediaType;
+import com.proeza.core.service.IImageService;
 import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.core.util.date.DateUtil;
 import com.proeza.sgs.business.chart.SingleDataSetChartDefinition;
@@ -42,7 +43,7 @@ import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 @Transactional
 public class ArticuloService implements IArticuloService {
 
-    public static final Logger    log = Logger.getLogger(ArticuloService.class);
+    public static final Logger    log            = Logger.getLogger(ArticuloService.class);
 
     @Autowired
     private IArticuloDao          articuloDao;
@@ -60,10 +61,15 @@ public class ArticuloService implements IArticuloService {
     private TipoDao               tipoDao;
 
     @Autowired
+    private IImageService         imageService;
+
+    @Autowired
     private ArticuloFilterFactory filterFactory;
 
     @Autowired
     private ApplicationContext    context;
+
+    public static final int       THUMBNAIL_SIZE = 75;
 
     @Override
     public List<ArticuloDTO> findAll () {
@@ -119,34 +125,32 @@ public class ArticuloService implements IArticuloService {
         return result;
     }
 
-    static int IMG_SEQ = 0;
-
     @Override
-    public void addImage (String code, String imageName, String imageDesc, byte[] image) {
+    public void addImage (String artCode, String imageName, String imageDesc, MediaType type, byte[] image) {
         if (image != null) {
-            Articulo art = this.articuloDao.findByCode(code);
+            Articulo art = this.articuloDao.findByCode(artCode);
             Resource res = new Resource();
             res.setIdOwner(art.getId());
-            res.setMediaType(MediaType.JPEG.toString());
-            res.setNombre(imageName + "_" + ++IMG_SEQ);
+            res.setNombre(imageName);
+            res.setMediaType(type.getSubtype());
             res.setDescripcion(imageDesc);
             try {
                 res.setData(new SerialBlob(image));
-                res.setPreview(new SerialBlob(image));
+                res.setPreview(new SerialBlob(this.imageService.getThumbnail(image, THUMBNAIL_SIZE, type)));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
             res.setFechaCreacion(DateUtil.createNowstamp());
-            art.getResources().add(res);
+            art.addResource(res);
         }
     }
 
     @Override
-    public byte[] getImage (String articleCode, String imageName) {
+    public byte[] getImage (String articleCode, Long id) {
         Articulo art = this.articuloDao.findByCode(articleCode);
         Set<Resource> resources = art.getResources();
         for (Resource res : resources) {
-            if (imageName != null && imageName.equals(res.getNombre())) {
+            if (id != null && id.equals(res.getId())) {
                 try {
                     return res.getData().getBytes(1L, (int) res.getData().length());
                 } catch (SQLException e) {
@@ -158,7 +162,23 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
-    public List<ResourceDTO> getImagesUrl (String articleCode) {
+    public byte[] getThumbnail (String articleCode, Long id) {
+        Articulo art = this.articuloDao.findByCode(articleCode);
+        Set<Resource> resources = art.getResources();
+        for (Resource res : resources) {
+            if (id != null && id.equals(res.getId())) {
+                try {
+                    return res.getPreview().getBytes(1L, (int) res.getPreview().length());
+                } catch (SQLException e) {
+                    log.error("Error obteniendo la data del recurso causado por: " + e.getMessage(), e);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<ResourceDTO> getImagesAvail (String articleCode) {
         Articulo art = this.articuloDao.findByCode(articleCode);
         Set<Resource> resources = art.getResources();
         List<ResourceDTO> result = new ArrayList<ResourceDTO>(resources.size());
