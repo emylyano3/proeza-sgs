@@ -168,9 +168,9 @@
 		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput.js" th:src="@{/resources/fileinput/js/fileinput.js}" />
 		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput_locale_es.js" th:src="@{/resources/fileinput/js/fileinput_locale_es.js}" />
 		<script th:inline="javascript">
+		 	/*<![CDATA[*/
 			// Inicializacion de la tabla de arículos
-			$(document).ready(
-				function() {
+			$(document).ready(function() {
 					// prepare the data
 					var source = {
 						datatype : "json",
@@ -378,6 +378,7 @@
 	                $("#filter").val("");
 	            });
 			});
+			/*]]>*/
 		</script>
 	</div>
 </body>
