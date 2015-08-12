@@ -250,13 +250,12 @@
 		</div>
 	</aside>
 	<div id="wrapper">
-		<div class="content animate-panel">
+		<div class="content">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<h2><span text="Título" th:text="${pageTitle}" /></h2>
-					<p>
-						<span text="Subtítulo" th:text="${pageSubtitle}" />
-					</p>
+					<span class="pageTitle" th:text="${pageTitle}" />
+					<span class="pageTitle" th:if="${not pageSubtitle.isEmpty()}">:</span>
+					<span class="pageSubtitle" th:text="${pageSubtitle}" />
 				</div>
 			</div>
 			<div class="row">

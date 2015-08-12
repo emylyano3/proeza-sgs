@@ -1553,8 +1553,21 @@ body {
     min-height: 100%
 }
 
+.pageTitle {
+	font-size: 18px;
+    font-weight: 800;
+    line-height: 30px;
+    text-transform: uppercase;
+}
+
+.pageSubtitle {
+	font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
 .content {
-    padding: 25px 40px 40px 40px;
+    padding: 10px 30px 30px 30px;
     min-width: 320px
 }
 
@@ -2396,7 +2409,7 @@ a:hover, a:focus {
     float: left;
     height: 52px;
     padding: 0;
-    width: 200px
+    width: 600px
 }
 
 .navbar-form-custom .form-control {
