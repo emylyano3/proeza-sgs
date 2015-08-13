@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.proeza.core.i18n.I18nHelper;
+
 @Entity
 @Table(
     schema = "sgs_proeza_db",
@@ -40,9 +42,9 @@ public class I18n {
         this.id = id;
     }
 
-    public Traduccion getTraduccion (String lang) {
+    public Traduccion getTraduccion (String locale) {
         for (Traduccion traduccion : this.traducciones) {
-            if (lang.equals(traduccion.getLocale())) {
+            if (locale.equals(traduccion.getLocale())) {
                 return traduccion;
             }
         }
@@ -56,4 +58,11 @@ public class I18n {
     public void setTraducciones (Set<Traduccion> traducciones) {
         this.traducciones = traducciones;
     }
+
+    @Override
+    public String toString () {
+        return new I18nHelper().getTextoLocalizado(this);
+    }
+
+
 }

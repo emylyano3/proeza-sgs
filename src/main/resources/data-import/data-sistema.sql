@@ -53,21 +53,21 @@
 
 /* Item de Menu */
 	/* Root */
-	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (1, 'MI_HOME', 1, 6, '/home', 'fa fa-home');
+	insert into sgs_proeza_db.sys_item(id, codigo, fk_i18n_texto, fk_i18n_tooltip, link, icono) values (1, 'MI_HOME', 1, 6, '/home', 'fa fa-home');
 	
 	/* Usuario */
-	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (2, 'MI_USUA', 2, null,'#', 'fa fa-users');
-	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (3, 'MI_USUA_HOME', 1, 7,'/usuario/home', 'fa fa-home');
-	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (9, 'MI_USUA_ADMIN', 3, 8,'/usuario/admin', 'fa fa-home');
-	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (10, 'MI_USUA_LIST', 4, 9,'/usuario/home', 'fa fa-home');
+	insert into sgs_proeza_db.sys_item(id, codigo, fk_i18n_texto, fk_i18n_tooltip, link, icono) values (2, 'MI_USUA', 2, null,'#', 'fa fa-users');
+	insert into sgs_proeza_db.sys_item(id, codigo, fk_i18n_texto, fk_i18n_tooltip, link, icono) values (3, 'MI_USUA_HOME', 1, 7,'/usuario/home', 'fa fa-home');
+	insert into sgs_proeza_db.sys_item(id, codigo, fk_i18n_texto, fk_i18n_tooltip, link, icono) values (9, 'MI_USUA_ADMIN', 3, 8,'/usuario/admin', 'fa fa-home');
+	insert into sgs_proeza_db.sys_item(id, codigo, fk_i18n_texto, fk_i18n_tooltip, link, icono) values (10, 'MI_USUA_LIST', 4, 9,'/usuario/home', 'fa fa-home');
 	
 	
 	/* Articulo */
-	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (4, 'MI_ARTI', 14, null,'#', 'fa fa-barcode');
-	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (5, 'MI_ARTI_HOME', 1, 10,'/articulo/home', '');
-	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (6, 'MI_ARTI_LIST', 4, 11,'/articulo/listado', '');
-	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (7, 'MI_ARTI_STATS', 5, 12,'/articulo/stats', '');
-	insert into sgs_proeza_db.sys_item(id, codigo, i18n_texto, i18n_tooltip, link, icono) values (8, 'MI_ARTI_ADMIN', 3, 13,'/articulo/admin', '');
+	insert into sgs_proeza_db.sys_item(id, codigo, fk_i18n_texto, fk_i18n_tooltip, link, icono) values (4, 'MI_ARTI', 14, null,'#', 'fa fa-barcode');
+	insert into sgs_proeza_db.sys_item(id, codigo, fk_i18n_texto, fk_i18n_tooltip, link, icono) values (5, 'MI_ARTI_HOME', 1, 10,'/articulo/home', '');
+	insert into sgs_proeza_db.sys_item(id, codigo, fk_i18n_texto, fk_i18n_tooltip, link, icono) values (6, 'MI_ARTI_LIST', 4, 11,'/articulo/listado', '');
+	insert into sgs_proeza_db.sys_item(id, codigo, fk_i18n_texto, fk_i18n_tooltip, link, icono) values (7, 'MI_ARTI_STATS', 5, 12,'/articulo/stats', '');
+	insert into sgs_proeza_db.sys_item(id, codigo, fk_i18n_texto, fk_i18n_tooltip, link, icono) values (8, 'MI_ARTI_ADMIN', 3, 13,'/articulo/admin', '');
 /* Item de Menu */
 
 /* Item - Sub Item */

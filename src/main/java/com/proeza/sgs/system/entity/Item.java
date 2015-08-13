@@ -130,7 +130,7 @@ public class Item implements Serializable {
     }
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "i18n_texto")
+    @JoinColumn(name = "fk_i18n_texto")
     public I18n getTextoI18n () {
         return this.textoI18n;
     }
@@ -140,7 +140,7 @@ public class Item implements Serializable {
     }
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "i18n_tooltip")
+    @JoinColumn(name = "fk_i18n_tooltip")
     public I18n getTooltipI18n () {
         return this.tooltipI18n;
     }
@@ -151,6 +151,6 @@ public class Item implements Serializable {
 
     @Override
     public String toString () {
-        return "Item [id=" + this.id + ", code=" + this.code + ", tooltip=" + this.tooltipI18n + ", link=" + this.link + ", icon=" + this.icon + ", roles=" + this.roles + "]";
+        return "Item [id=" + this.id + ", code=" + this.code + ", roles=" + this.roles + ", textoI18n=" + this.textoI18n + "]";
     }
 }

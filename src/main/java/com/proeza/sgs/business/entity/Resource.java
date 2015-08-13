@@ -8,16 +8,18 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import static javax.persistence.GenerationType.*;
-
 @Entity
 @Table(catalog = "sgs_proeza_db", name = "art_resource")
 public class Resource implements Serializable {
+
+    public static final int   _100KB           = 1024 * 100;
+    public static final int   _5MB             = 1024 * 1024 * 5;
 
     private static final long serialVersionUID = 1L;
 
@@ -34,7 +36,7 @@ public class Resource implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     public Long getId () {
         return this.id;
@@ -54,7 +56,7 @@ public class Resource implements Serializable {
         this.fechaCreacion = fechaCreacion;
     }
 
-    @Column(name = "owner", nullable = false)
+    @Column(name = "fk_owner", nullable = false)
     public Long getIdOwner () {
         return this.idOwner;
     }
@@ -81,7 +83,7 @@ public class Resource implements Serializable {
         this.nombre = nombre;
     }
 
-    @Column(name = "descricion", length = 200)
+    @Column(name = "descripcion", length = 200)
     public String getDescripcion () {
         return this.descripcion;
     }
@@ -90,7 +92,7 @@ public class Resource implements Serializable {
         this.descripcion = descripcion;
     }
 
-    @Column(name = "preview", length = 1024 * 1024)
+    @Column(name = "preview", length = _5MB)
     public Blob getPreview () {
         return this.preview;
     }
@@ -99,7 +101,7 @@ public class Resource implements Serializable {
         this.preview = preview;
     }
 
-    @Column(name = "data", nullable = false, length = 1024 * 1024)
+    @Column(name = "data", length = _100KB, nullable = false)
     public Blob getData () {
         return this.data;
     }
