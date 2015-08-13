@@ -108,13 +108,16 @@
        	<div class="header-link hide-menu">
        		<i class="fa fa-bars"></i>
        	</div>
-        <form role="search" class="navbar-form-custom" method="post" action="#">
-            <div class="form-group">
-                <input type="text" th:placeholder="#{control.search}" placeholder="Buscar..." class="form-control" name="search" />
-            </div>
-        </form>
-       	<div class="navbar-right">
+       	<div class="navbar-form-custom">
+			<input id="filter" type="text" th:placeholder="#{control.search}" placeholder="Buscar..." class="form-control" name="search" />
+       	</div>
+		<div class="navbar-right">
             <ul class="nav navbar-nav no-borders">
+                <li class="button">
+                	<a id="eraser" class="dropdown-toggle" data-toggle="button">
+                		<i class="fa fa-eraser" />
+					</a>
+				</li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                         <i class="fa fa-bullhorn"></i>
@@ -141,7 +144,7 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown">
                         <i class="fa fa-envelope"></i>
-                        <span class="label label-success">4</span>
+                        <span class="label label-success">3</span>
                     </a>
                     <ul class="dropdown-menu hdropdown animated flipInX">
                         <div class="title">
@@ -175,8 +178,6 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                	
-                    
                 	<a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown"> 
                 		<i class="fa fa-user fa-fw"></i> 
                 		<i class="fa fa-caret-down"></i>
@@ -212,7 +213,6 @@
             </ul>
        	</div>
 	</nav>
-    
     <aside id="menu">
     	 <div id="navigation">
     	 	<ul class="nav" id="side-menu">
@@ -258,6 +258,7 @@
 					<span class="pageSubtitle" th:text="${pageSubtitle}" />
 				</div>
 			</div>
+			<p/><p/>
 			<div class="row">
 				<div id="content" layout:fragment="contenido">Contenido</div>
 			</div>
