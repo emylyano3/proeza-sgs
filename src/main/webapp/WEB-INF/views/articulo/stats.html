@@ -5,59 +5,63 @@
 	layout:decorator="layout.html">
 <body>
 	<div id="content" layout:fragment="contenido" class="container-fluid">
-		<div class="hpanel animated zoomIn">
-			<div class="panel-heading">
-				<div class="panel-tools">
-                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                    <a class="closebox"><i class="fa fa-times"></i></a>
-                </div>
-				<span text="Historial de precios de artículo" th:text="#{art.chart.pricehistory.title}"/>
-			</div>
-			<div class="panel-body">
-				<div class="row">
-				 	<div class="col-md-3 text-center">
-                        <div class="small">
-                            <i class="fa fa-bolt"/>
-                            <span text="Cambios de precio" th:text="#{art.chart.priceupdates}"/>
-                        </div>
-                        <div>
-                            <h1 class="font-extra-bold m-t-xl m-b-xs">
-                                <span id="priceUpdates" text="No hay datos" th:text="#{common.nodata}" />
-                            </h1>
-                        </div>
-                        <div class="small m-t-xl">
-                            <i class="fa fa-clock-o"/>
-                            <span id="lastPriceUpdate"/>
-                        </div>
-                    </div>
-					<div class="col-md-6" >
-						<div class="text-center small">
-                            <i class="fa fa-dollar"/> 
-                            <span th:text="#{art.chart.pricehistory.detail}" ></span>
-                        </div>
-                        <div class="text-center small">
-							<canvas id="priceHistory" width="500" height="200"></canvas>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hpanel animated zoomIn">
+					<div class="panel-heading">
+						<div class="panel-tools">
+		                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+		                    <a class="closebox"><i class="fa fa-times"></i></a>
+		                </div>
+						<span text="Historial de precios de artículo" th:text="#{art.chart.pricehistory.title}"/>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+						 	<div class="col-md-3 text-center">
+		                        <div class="small">
+		                            <i class="fa fa-bolt"/>
+		                            <span text="Cambios de precio" th:text="#{art.chart.priceupdates}"/>
+		                        </div>
+		                        <div>
+		                            <h1 class="font-extra-bold m-t-xl m-b-xs">
+		                                <span id="priceUpdates" text="No hay datos" th:text="#{common.nodata}" />
+		                            </h1>
+		                        </div>
+		                        <div class="small m-t-xl">
+		                            <i class="fa fa-clock-o"/>
+		                            <span id="lastPriceUpdate"/>
+		                        </div>
+		                    </div>
+							<div class="col-md-6" >
+								<div class="text-center small">
+		                            <i class="fa fa-dollar"/> 
+		                            <span th:text="#{art.chart.pricehistory.detail}" ></span>
+		                        </div>
+		                        <div class="text-center small">
+									<canvas id="priceHistory" width="500" height="200"></canvas>
+								</div>
+							</div>
+		                    <div class="col-md-3 text-center">
+		                        <div class="small">
+		                            <i class="fa fa-list-alt"/>
+		                            <span text="Stock del artículo" th:text="#{art.chart.stock}" />
+		                        </div>
+		                        <div>
+		                            <h1 class="font-extra-bold m-t-xl m-b-xs">
+		                                <span id="stock" text="No hay datos" th:text="#{common.nodata}" />
+		                            </h1>
+		                        </div>
+		                        <div class="small m-t-xl">
+		                            <i class="fa fa-clock-o"/>
+		                            <span id="lastStockUpdate" /> 
+		                        </div>
+		                    </div>					
 						</div>
 					</div>
-                    <div class="col-md-3 text-center">
-                        <div class="small">
-                            <i class="fa fa-list-alt"/>
-                            <span text="Stock del artículo" th:text="#{art.chart.stock}" />
-                        </div>
-                        <div>
-                            <h1 class="font-extra-bold m-t-xl m-b-xs">
-                                <span id="stock" text="No hay datos" th:text="#{common.nodata}" />
-                            </h1>
-                        </div>
-                        <div class="small m-t-xl">
-                            <i class="fa fa-clock-o"/>
-                            <span id="lastStockUpdate" /> 
-                        </div>
-                    </div>					
+					<div class="panel-footer">
+						<span id="pricehistoryfooter"/>
+					</div>
 				</div>
-			</div>
-			<div class="panel-footer">
-				<span id="pricehistoryfooter"/>
 			</div>
 		</div>
 		<div class="row">
