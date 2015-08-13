@@ -9,10 +9,6 @@ $(document).ready(function () {
     if ($('#side-menu') != null) {
     	$('#side-menu').metisMenu();
     }
-
-    // Initialize image gallery
-    $('#blueimp-gallery').data('useBootstrapModal', false);
-    $('#blueimp-gallery').toggleClass('blueimp-gallery-controls', true);
     
     // Initialize iCheck plugin
     $('.i-checks').iCheck({

@@ -12,15 +12,18 @@
 			<div class="col-md-12">
 		        <div id="articulos"/>
 			</div>
-		   </div>
+		</div>
+        <p/>
+		<div class="row">
+			<div class="col-md-12">
+			    <div id="links"></div>
+			</div>
+		</div>
 		<div id="gridContextMenu">
 		    <ul>
 				<li id="seeArtImages" th:text="#{art.list.menu.seeImages}"/>
 			</ul>
 		</div>
-            
-        <!-- El contenedor para las imagenes  -->
-	    <div id="links"	hidden="hidden" /> 
 	    
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
@@ -36,6 +39,7 @@
 	    <script th:inline="javascript">
 
 	        $(document).ready(function () {
+	        	var lastSelectedRow;
 	            // prepare the data
 	            var source = {
                 	id: "id",
@@ -54,8 +58,7 @@
 	            var dataAdapter = new $.jqx.dataAdapter(source);
 	            
 	            // initializa la grilla de articulos
-	            $("#articulos").jqxGrid(
-	            {
+	            $("#articulos").jqxGrid({
 	                width: '100%',
 	                source: dataAdapter,
 					theme : 'energyblue',
@@ -108,9 +111,47 @@
 	                $("#articulos").jqxGrid('clear');
 	                $("#filter").val("");
 	            });
-				$("#articulos").on('rowclick', function(event) {	
-					if (event.args.rightclick) {	
-						$("#articulos").jqxGrid('selectrow', event.args.rowindex);
+	            $("#articulos").on('rowselect', function (event) {
+	                var rowIndex = event.args.rowindex;
+		            if (lastSelectedRow != rowIndex) {
+		            	lastSelectedRow = rowIndex;
+		             	// Row select: Load thumbnails from server
+						// get the clicked row's data and initialize the input fields.
+						var dataRecord = $("#articulos").jqxGrid('getrowdata', rowIndex);
+						var imagesUrl = '/proeza-sgs/rest/articulo/getImages/' + dataRecord.codigo;
+				        // Add the demo images as links with thumbnails to the page
+				        var linksContainer = document.getElementById('links');
+						while (linksContainer.hasChildNodes()) {
+							linksContainer.removeChild(linksContainer.lastChild);
+						}
+						linksContainer = $('#links');
+					    $.ajax({
+							type : 'POST',
+					        url: imagesUrl,
+					        dataType: 'json'
+					    }).done(
+					    	function (result) {
+						        var thumbnailUrl, imageUrl;
+						        $.each(result, 
+						        	function (index, result) {
+							            thumbnailUrl = '/proeza-sgs/rest/articulo/getThumbnail/' + dataRecord.codigo + "/" + result.id;
+							            imageUrl = '/proeza-sgs/rest/articulo/getImage/' + dataRecord.codigo + "/" + result.id;
+							            $('<a/>')
+							                .append($('<img/>')
+											.prop('src', thumbnailUrl))
+							                .prop('href', imageUrl)
+							                .prop('title', result.nombre)
+							                .attr('data-gallery', '')
+							                .appendTo(linksContainer);
+							        }
+						        );
+						    }
+					    );
+		            }
+	            });
+				$("#articulos").on('rowclick', function(event) {
+					$("#articulos").jqxGrid('selectrow', event.args.rowindex);
+					if (event.args.rightclick) {
 						var scrollTop = $(window).scrollTop();
 						var scrollLeft = $(window).scrollLeft();
 						contextMenu.jqxMenu(
@@ -134,46 +175,16 @@
 				});
 				// Manejo los eventos sobre el context menu de la grilla
 				$("#gridContextMenu").on('itemclick', function(event) {
-
 					var args = event.args;
 					var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
-					editrow = rowindex;
 					var offset = $("#articulos").offset();
 					// get the clicked row's data and initialize the input fields.
 					var dataRecord = $("#articulos").jqxGrid('getrowdata', rowindex);
 					if ($.trim($(args).text()) == [[#{art.list.menu.seeImages}]]) {
-						// Load demo images from server
-						var imagesUrl = '/proeza-sgs/rest/articulo/getImages/' + dataRecord.codigo;
-						var linksContainer = document.getElementById('links');
-						while (linksContainer.hasChildNodes()) {
-							linksContainer.removeChild(linksContainer.lastChild);
-						}
-						$('#links').empty();
-					    $.ajax({
-							type : 'POST',
-					        url: imagesUrl,
-					        dataType: 'json'
-					    }).done(
-					    	function (result) {
-						        var imageUrl, thumbnailUrl;
-						        // Add the demo images as links with thumbnails to the page:
-						        $.each(result, 
-						        	function (index, result) {
-							            imageUrl = '/proeza-sgs/rest/articulo/getImage/' + dataRecord.codigo + "/" + result.id;
-							            thumbnailUrl = '/proeza-sgs/rest/articulo/getThumbnail/' + dataRecord.codigo + "/" + result.id;
-							            $('<a/>')
-							                .append($('<img/>')
-											.prop('src', thumbnailUrl))
-							                .prop('href', imageUrl)
-							                .prop('title', result.nombre)
-							                .attr('data-gallery', '')
-							                .appendTo(links);
-							        }
-						        );
-						        $('#links').show();
-								blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
-						    }
-					    );
+						 // Initialize image gallery
+				        $('#blueimp-gallery').data('useBootstrapModal', false);
+				        $('#blueimp-gallery').toggleClass('blueimp-gallery-controls', true);
+						blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
 					}
 				})
 	        });
