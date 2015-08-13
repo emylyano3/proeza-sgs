@@ -1,17 +1,9 @@
 $(document).ready(function () {
 
+	updateSideBarStatus();
+	
     // Add special class to minimalize page elements when screen is less than 768px
     setBodySmall();
-
-    // Handle minimalize sidebar menu
-    $('.hide-menu').click(function(event){
-        event.preventDefault();
-        if ($(window).width() < 769) {
-            $("body").toggleClass("show-sidebar");
-        } else {
-            $("body").toggleClass("hide-sidebar");
-        }
-    });
 
     // Initialize metsiMenu plugin to sidebar menu
     if ($('#side-menu') != null) {
@@ -139,6 +131,27 @@ function fixWrapperHeight() {
     }
 }
 
+/**
+ * Actualiza el estado de la barra de menu lateral. 
+ * Adicionalmente refresca las grilla de la pantalla en caso de existir alguna. 
+ */
+function updateSideBarStatus () {
+	$('.hide-menu').click(function(event){
+        event.preventDefault();
+        if ($(window).width() < 769) {
+            $("body").toggleClass("show-sidebar");
+        } else {
+            $("body").toggleClass("hide-sidebar");
+        }
+        $("#wrapper").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", 
+        	function(){
+        		if ($("#articulos") != null) {
+        			$("#articulos").jqxGrid('refresh');	
+        		}
+			}
+        );
+    });
+}
 
 function setBodySmall() {
     if ($(this).width() < 769) {
