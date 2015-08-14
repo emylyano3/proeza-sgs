@@ -35,16 +35,19 @@
 		<script type="text/javascript" src="../../../resources/jqx/js/demos.js" th:src="@{/resources/jqx/js/demos.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.columnsresize.js" th:src="@{/resources/jqx/js/jqxgrid.columnsresize.js}" />
+		
 		<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery.js" th:src="@{/resources/gallery/js/blueimp-gallery.js}"/>
 		<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery-indicator.js" th:src="@{/resources/gallery/js/blueimp-gallery-indicator.js}"/>
+		<script type="text/javascript" src="../../../resources/gallery/js/jquery.blueimp-gallery.js" th:src="@{/resources/gallery/js/jquery.blueimp-gallery.js}"/>
 
 	    <script th:inline="javascript">
 
-	        $(document).ready(function () {
-	        	var lastSelectedRow = -1;
+        	var lastSelectedRow = -1;
+
+        	$(document).ready(function () {
 	        	var source = configSource();
 	        	initImageGallery();
-				initGrid(source, lastSelectedRow);            
+				initGrid(source);            
 	            initControls(source);
 	        });
 			
@@ -111,7 +114,7 @@
 	            });	
 	        }
 	        
-	        function initGrid(source, lastSelectedRow) {
+	        function initGrid(source) {
 	            var dataAdapter = new $.jqx.dataAdapter(source);
 	            // initializa la grilla de articulos
 	            $("#articulos").jqxGrid({
@@ -152,7 +155,7 @@
 	                ]
 	            });
 	            var contextMenu = initGridContextMenu();
-	            $("#articulos").on('rowselect', function (event, lastSelectedRow) {
+	            $("#articulos").on('rowselect', function (event) {
 	                var rowIndex = event.args.rowindex;
 		            if (lastSelectedRow != rowIndex) {
 		            	lastSelectedRow = rowIndex;
