@@ -35,13 +35,52 @@
 		<script type="text/javascript" src="../../../resources/jqx/js/demos.js" th:src="@{/resources/jqx/js/demos.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.columnsresize.js" th:src="@{/resources/jqx/js/jqxgrid.columnsresize.js}" />
+		<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery.js" th:src="@{/resources/gallery/js/blueimp-gallery.js}"/>
+		<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery-indicator.js" th:src="@{/resources/gallery/js/blueimp-gallery-indicator.js}"/>
 
 	    <script th:inline="javascript">
 
 	        $(document).ready(function () {
-	        	var lastSelectedRow;
-	            // prepare the data
-	            var source = {
+	        	var lastSelectedRow = -1;
+	        	var source = configSource();
+	        	initImageGallery();
+				initGrid(source, lastSelectedRow);            
+	            initControls(source);
+	        });
+			
+	        function initImageGallery() {
+	        	$('#blueimp-gallery').data('useBootstrapModal', false);
+		        $('#blueimp-gallery').toggleClass('blueimp-gallery-controls', true);	
+	        }
+	        
+	        function initGridContextMenu() {
+				// crea el menu contextual
+				var contextMenu = $("#gridContextMenu").jqxMenu({
+					width : 180,
+					height : 35,
+					autoOpenPopup : false,
+					mode : 'popup'
+				});
+				$("#articulos").on('contextmenu', function() {
+					return false;
+				});
+				// Manejo los eventos sobre el context menu de la grilla
+				$("#gridContextMenu").on('itemclick', function(event) {
+					var args = event.args;
+					var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
+					var offset = $("#articulos").offset();
+					// get the clicked row's data and initialize the input fields.
+					var dataRecord = $("#articulos").jqxGrid('getrowdata', rowindex);
+					if ($.trim($(args).text()) == [[#{art.list.menu.seeImages}]]) {
+						 // Initialize image gallery
+						blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
+					}
+				})
+				return contextMenu;
+	        }
+	        
+	        function configSource() {
+	        	return {
                 	id: "id",
 		            url: "/proeza-sgs/rest/articulo/search?filter=",
 		            datatype: "json",
@@ -54,9 +93,26 @@
      	                    {name: 'marca', type: 'string'},
      	                    {name: 'precio', type: 'double'},
 		            ]
-		        };
+		        };	
+	        }
+	        
+	        function initControls(source) {
+	        	// Inicializa los controles del filtro
+	            $('#filter').on('input', function() {
+	                var filter = $(this).val();
+	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
+	                source.url = "/proeza-sgs/rest/articulo/search?" + params;
+					// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
+	                $("#articulos").jqxGrid('updatebounddata', 'cells');
+	            });
+	            $("#eraser").click(function () {
+	                $("#articulos").jqxGrid('clear');
+	                $("#filter").val("");
+	            });	
+	        }
+	        
+	        function initGrid(source, lastSelectedRow) {
 	            var dataAdapter = new $.jqx.dataAdapter(source);
-	            
 	            // initializa la grilla de articulos
 	            $("#articulos").jqxGrid({
 	                width: '100%',
@@ -95,23 +151,8 @@
 						}
 	                ]
 	            });
-	            // Inicializa los controles del filtro
-	            $('#filter').on('input', function() {
-	                var filter = $(this).val();
-	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
-	                source.url = "/proeza-sgs/rest/articulo/search?" + params;
-					// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
-	                $("#articulos").jqxGrid('updatebounddata', 'cells');
-	            });
-	            $("#clear").click(function () {
-	                $("#articulos").jqxGrid('clear');
-	                $("#filter").val("");
-	            });
-	            $("#eraser").click(function () {
-	                $("#articulos").jqxGrid('clear');
-	                $("#filter").val("");
-	            });
-	            $("#articulos").on('rowselect', function (event) {
+	            var contextMenu = initGridContextMenu();
+	            $("#articulos").on('rowselect', function (event, lastSelectedRow) {
 	                var rowIndex = event.args.rowindex;
 		            if (lastSelectedRow != rowIndex) {
 		            	lastSelectedRow = rowIndex;
@@ -162,32 +203,7 @@
 						return false;
 					}
 				});
-				// crea el menu contextual
-				var contextMenu = $("#gridContextMenu").jqxMenu({
-					width : 180,
-					height : 35,
-					autoOpenPopup : false,
-					mode : 'popup'
-
-				});
-				$("#articulos").on('contextmenu', function() {
-					return false;
-				});
-				// Manejo los eventos sobre el context menu de la grilla
-				$("#gridContextMenu").on('itemclick', function(event) {
-					var args = event.args;
-					var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
-					var offset = $("#articulos").offset();
-					// get the clicked row's data and initialize the input fields.
-					var dataRecord = $("#articulos").jqxGrid('getrowdata', rowindex);
-					if ($.trim($(args).text()) == [[#{art.list.menu.seeImages}]]) {
-						 // Initialize image gallery
-				        $('#blueimp-gallery').data('useBootstrapModal', false);
-				        $('#blueimp-gallery').toggleClass('blueimp-gallery-controls', true);
-						blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
-					}
-				})
-	        });
+	        }
 	    </script>
 	</div>
 </body>
