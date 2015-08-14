@@ -3,6 +3,8 @@ package com.proeza.sgs.business.service.impl;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -180,7 +182,13 @@ public class ArticuloService implements IArticuloService {
     @Override
     public List<ResourceDTO> getImagesAvail (String articleCode) {
         Articulo art = this.articuloDao.findByCode(articleCode);
-        Set<Resource> resources = art.getResources();
+        List<Resource> resources = new ArrayList<Resource>(art.getResources());
+        Collections.sort(resources, new Comparator<Resource>() {
+            @Override
+            public int compare (Resource r1, Resource r2) {
+                return r1.getId().compareTo(r2.getId());
+            };
+        });
         List<ResourceDTO> result = new ArrayList<ResourceDTO>(resources.size());
         for (Resource res : resources) {
             ResourceDTO resource = new ResourceDTO(res);

@@ -109,11 +109,20 @@
 	                $("#articulos").jqxGrid('updatebounddata', 'cells');
 	            });
 	            $("#eraser").click(function () {
+	                cleanThumbnailsContainer();
 	                $("#articulos").jqxGrid('clear');
 	                $("#filter").val("");
 	            });	
 	        }
 	        
+	        function cleanThumbnailsContainer() {
+		        var linksContainer = document.getElementById('links');
+				while (linksContainer.hasChildNodes()) {
+					linksContainer.removeChild(linksContainer.lastChild);
+				}
+				return $('#links');
+	        }
+			
 	        function initGrid(source) {
 	            var dataAdapter = new $.jqx.dataAdapter(source);
 	            // initializa la grilla de articulos
@@ -164,11 +173,7 @@
 						var dataRecord = $("#articulos").jqxGrid('getrowdata', rowIndex);
 						var imagesUrl = '/proeza-sgs/rest/articulo/getImages/' + dataRecord.codigo;
 				        // Add the demo images as links with thumbnails to the page
-				        var linksContainer = document.getElementById('links');
-						while (linksContainer.hasChildNodes()) {
-							linksContainer.removeChild(linksContainer.lastChild);
-						}
-						linksContainer = $('#links');
+				        var linksContainer = cleanThumbnailsContainer();
 					    $.ajax({
 							type : 'POST',
 					        url: imagesUrl,
