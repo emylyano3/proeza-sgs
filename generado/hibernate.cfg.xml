@@ -13,28 +13,54 @@
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">root</property>
 
-		<mapping class="com.proeza.security.entity.Usuario"/>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.generate_statistics">true</property>
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.use_query_cache">true</property>
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+
 		<mapping class="com.proeza.security.entity.Rol"/>
+		<mapping class="com.proeza.security.entity.Usuario"/>
 		<mapping class="com.proeza.security.entity.UsuarioRol"/>
 		
 		<mapping class="com.proeza.sgs.business.entity.Articulo"/>
+		<mapping class="com.proeza.sgs.business.entity.ArticuloCliente"/>
+		<mapping class="com.proeza.sgs.business.entity.ArticuloProveedor"/>
 		<mapping class="com.proeza.sgs.business.entity.Tipo"/>
 		<mapping class="com.proeza.sgs.business.entity.Clase"/>
+		<mapping class="com.proeza.sgs.business.entity.Cliente"/>
 		<mapping class="com.proeza.sgs.business.entity.Compra"/>
 		<mapping class="com.proeza.sgs.business.entity.CompraArticulo"/>
+		<mapping class="com.proeza.sgs.business.entity.Email"/>
 		<mapping class="com.proeza.sgs.business.entity.Marca"/>
 		<mapping class="com.proeza.sgs.business.entity.MedioPago"/>
-		<mapping class="com.proeza.sgs.business.entity.Movimiento"/>
+		<mapping class="com.proeza.sgs.business.entity.Persona"/>
+		<mapping class="com.proeza.sgs.business.entity.Proveedor"/>
+		<mapping class="com.proeza.sgs.business.entity.Resource"/>
 		<mapping class="com.proeza.sgs.business.entity.Rubro"/>
+		<mapping class="com.proeza.sgs.business.entity.Telefono"/>
+		<mapping class="com.proeza.sgs.business.entity.TelefonoTipo"/>
+		<mapping class="com.proeza.sgs.business.entity.Tipo"/>
+		<mapping class="com.proeza.sgs.business.entity.TipoEntidad"/>
 		<mapping class="com.proeza.sgs.business.entity.TipoMovimiento"/>
 		<mapping class="com.proeza.sgs.business.entity.Venta"/>
 		<mapping class="com.proeza.sgs.business.entity.VentaArticulo"/>
 
+		<mapping class="com.proeza.core.i18n.entity.I18n"/>
+		<mapping class="com.proeza.core.i18n.entity.Traduccion"/>
+
+		<mapping class="com.proeza.core.tracking.entity.Movimiento"/>
+
 		<mapping class="com.proeza.sgs.system.entity.Item"/>
 		<mapping class="com.proeza.sgs.system.entity.ItemRol"/>
+		<mapping class="com.proeza.sgs.system.entity.ItemSubitem"/>
 		<mapping class="com.proeza.sgs.system.entity.Menu"/>
 		<mapping class="com.proeza.sgs.system.entity.MenuItem"/>
+		<mapping class="com.proeza.sgs.system.entity.MenuType"/>
 		<mapping class="com.proeza.sgs.system.entity.Page"/>
 		<mapping class="com.proeza.sgs.system.entity.PageMenu"/>
+		<mapping class="com.proeza.sgs.system.entity.PageRol"/>
 	</session-factory>
 </hibernate-configuration>
