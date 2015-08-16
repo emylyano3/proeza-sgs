@@ -15,6 +15,7 @@ import com.proeza.security.service.IUserService;
 import com.proeza.security.service.UserService;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartManager;
 import com.proeza.sgs.business.dao.IArticuloDao;
+import com.proeza.sgs.business.service.IArticuloChartService;
 import com.proeza.sgs.business.service.IArticuloService;
 import com.proeza.sgs.business.service.IClaseService;
 import com.proeza.sgs.business.service.IMarcaService;
@@ -79,6 +80,11 @@ public class UnitTestContext {
     @Bean
     public IArticuloService productService () {
         return Mockito.mock(IArticuloService.class);
+    }
+
+    @Bean
+    public IArticuloChartService productChartService () {
+        return Mockito.mock(IArticuloChartService.class);
     }
 
     @Bean

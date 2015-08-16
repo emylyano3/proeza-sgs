@@ -1,4 +1,4 @@
-package com.proeza.sgs.business.dao;
+package com.proeza.sgs.business.dao.impl;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.proeza.core.persistence.BaseDao;
 import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.core.tracking.entity.Movimiento_;
+import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Articulo_;
 

@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.proeza.sgs.business.dao.TipoDao;
+import com.proeza.sgs.business.dao.impl.TipoDao;
 import com.proeza.sgs.business.dto.TipoDTO;
 import com.proeza.sgs.business.entity.Tipo;
 import com.proeza.sgs.business.service.ITipoService;

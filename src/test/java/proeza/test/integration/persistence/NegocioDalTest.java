@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import proeza.test.integration.IntegrationTest;
 
 import com.proeza.core.tracking.entity.Movimiento;
-import com.proeza.sgs.business.dao.ClaseDao;
-import com.proeza.sgs.business.dao.ClienteDao;
 import com.proeza.sgs.business.dao.IArticuloDao;
-import com.proeza.sgs.business.dao.MedioPagoDao;
-import com.proeza.sgs.business.dao.VentaDao;
+import com.proeza.sgs.business.dao.IVentaDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
+import com.proeza.sgs.business.dao.impl.ClaseDao;
+import com.proeza.sgs.business.dao.impl.ClienteDao;
+import com.proeza.sgs.business.dao.impl.MedioPagoDao;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.business.entity.Cliente;
@@ -38,7 +38,7 @@ public class NegocioDalTest extends IntegrationTest {
     private IArticuloDao          articuloDao;
 
     @Autowired
-    private VentaDao              ventaDao;
+    private IVentaDao             ventaDao;
 
     @Autowired
     private ClienteDao            clienteDao;
@@ -55,7 +55,7 @@ public class NegocioDalTest extends IntegrationTest {
         final List<Clase> result = this.claseDao.findAll();
         assertNotNull(result);
         assertFalse(result.isEmpty());
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class NegocioDalTest extends IntegrationTest {
         final List<Articulo> result = this.articuloDao.findAll();
         assertNotNull(result);
         assertFalse(result.isEmpty());
-        assertEquals(2, result.size());
+        assertEquals(6, result.size());
         Articulo art = result.iterator().next();
         assertNotNull(art);
         assertNotNull(art.getMarca());

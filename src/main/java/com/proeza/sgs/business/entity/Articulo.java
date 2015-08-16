@@ -1,7 +1,5 @@
 package com.proeza.sgs.business.entity;
 
-// Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -9,6 +7,8 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -30,13 +31,25 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.core.tracking.entity.Trackeable;
+import com.proeza.sgs.business.service.dto.WorstSellerDTO;
 
 import static com.proeza.core.util.DataTypeConverter.*;
 import static com.proeza.sgs.business.entity.TipoEntidad.*;
 import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 
+@SqlResultSetMapping(name = "WorstSeller",
+    classes = {
+        @ConstructorResult(
+            targetClass = WorstSellerDTO.class,
+            columns = {
+                @ColumnResult(name = "modelo"),
+                @ColumnResult(name = "cantidad")
+            }
+        )
+    }
+)
 @NamedQueries(value = {
-    @NamedQuery(name = "findByCode", query = "from Articulo a where a.codigo = :code")
+    @NamedQuery(name = "Articulo.findByCode", query = "from Articulo a where a.codigo = :code")
 })
 @Entity
 @Table(
@@ -46,23 +59,24 @@ import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Articulo extends Trackeable implements Serializable, Comparable<Articulo> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long  serialVersionUID = 1L;
 
-    private Long              id;
-    private String            codigo;
-    private String            modelo;
-    private String            descripcion;
-    private Rubro             rubro;
-    private Clase             clase;
-    private Tipo              tipo;
-    private Marca             marca;
-    private BigDecimal        costo;
-    private BigDecimal        precio;
-    private Integer           stock;
+    private Long               id;
+    private String             codigo;
+    private String             modelo;
+    private String             descripcion;
+    private Rubro              rubro;
+    private Clase              clase;
+    private Tipo               tipo;
+    private Marca              marca;
+    private BigDecimal         costo;
+    private BigDecimal         precio;
+    private Integer            stock;
 
-    private Set<Movimiento>   movimientos      = new HashSet<>(0);
-    private Set<Proveedor>    proveedores      = new HashSet<>(0);
-    private Set<Resource>     resources        = new HashSet<>(0);
+    private Set<Movimiento>    movimientos      = new HashSet<>(0);
+    private Set<Proveedor>     proveedores      = new HashSet<>(0);
+    private Set<Resource>      resources        = new HashSet<>(0);
+    private Set<VentaArticulo> ventas           = new HashSet<>(0);
 
     public Articulo () {
     }
@@ -206,6 +220,15 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 
     public void setResources (Set<Resource> resources) {
         this.resources = resources;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "articulo")
+    public Set<VentaArticulo> getVentas () {
+        return this.ventas;
+    }
+
+    public void setVentas (Set<VentaArticulo> articulos) {
+        this.ventas = articulos;
     }
 
     public void addResource (Resource resource) {

@@ -11,6 +11,9 @@ public class SingleDataSetChartDefinition implements Serializable {
     private String            highlight;
     private String            label;
 
+    public SingleDataSetChartDefinition () {
+    }
+
     public SingleDataSetChartDefinition (String label, Integer value, String color, String highlight) {
         this.label = label;
         this.value = value;
@@ -48,5 +51,10 @@ public class SingleDataSetChartDefinition implements Serializable {
 
     public void setLabel (String label) {
         this.label = label;
+    }
+
+    @Override
+    public String toString () {
+        return "SingleDataSetChartDefinition [value=" + this.value + ", label=" + this.label + "]";
     }
 }

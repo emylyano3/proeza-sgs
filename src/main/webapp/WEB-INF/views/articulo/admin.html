@@ -119,7 +119,7 @@
       				</div>
 					<div id="addImagePanel" class="modal-body" >
 				  		<form enctype="multipart/form-data">
-							<input id="uploadImage" name="file" type="file" accept="image/jpeg" multiple="multiple"/>
+							<input id="uploadImage" name="file" type="file" accept="image/jpeg" class="file-loading" multiple="multiple"/>
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -285,6 +285,7 @@
 				         var fileInputOptions = {
 								showUpload : true,
 								showRemove : true,
+				        	    uploadAsync: true,
 								maxFileCount : 5,
 				                allowedFileExtensions : ['jpg', 'png','gif'],
 								allowedFileTypes : ["image"],
@@ -355,10 +356,6 @@
 	                source.url = "/proeza-sgs/rest/articulo/search?" + params;
 					// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
 	                $("#articulos").jqxGrid('updatebounddata', 'cells');
-	            });
-	            $("#clear").click(function () {
-	                $("#articulos").jqxGrid('clear');
-	                $("#filter").val("");
 	            });
 	            $("#eraser").click(function () {
 	                $("#articulos").jqxGrid('clear');

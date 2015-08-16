@@ -18,8 +18,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.dao.IArticuloDao;
+import com.proeza.sgs.business.dao.IClaseDao;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Articulo_;
 import com.proeza.sgs.business.entity.Clase;
@@ -45,7 +45,7 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
     private IArticuloDao     articuloDao;
 
     @Autowired
-    private ClaseDao         claseDao;
+    private IClaseDao        claseDao;
 
     private CriteriaBuilder  builder;
 

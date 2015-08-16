@@ -1,4 +1,4 @@
-package com.proeza.sgs.business.dao;
+package com.proeza.sgs.business.dao.impl;
 
 import org.springframework.stereotype.Repository;
 

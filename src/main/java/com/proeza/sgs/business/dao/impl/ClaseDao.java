@@ -1,4 +1,4 @@
-package com.proeza.sgs.business.dao;
+package com.proeza.sgs.business.dao.impl;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -7,12 +7,14 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import com.proeza.core.persistence.BaseDao;
+import com.proeza.sgs.business.dao.IClaseDao;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.business.entity.Clase_;
 
 @Repository
-public class ClaseDao extends BaseDao<Clase> {
+public class ClaseDao extends BaseDao<Clase> implements IClaseDao {
 
+    @Override
     public Clase findByCode (String code) {
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<Clase> criteria = builder.createQuery(Clase.class);

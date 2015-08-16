@@ -104,7 +104,7 @@
 		<script th:inline="javascript">
 			$(document).ready(function() {
 				$.ajax({
-					url : '/proeza-sgs/rest/articulo/priceHistory/PRRS000001',
+					url : '/proeza-sgs/rest/articulo/stats/priceHistory/PRRS000001',
 					type : 'POST',
 					dataType : 'json',
 					contentType : 'application/json',
@@ -138,7 +138,7 @@
 			        }
 				});
 				$.ajax({
-					url : '/proeza-sgs/rest/articulo/bestSellersArticles/10',
+					url : '/proeza-sgs/rest/articulo/stats/bestSellersArticles/10',
 					type : 'POST',
 					dataType : 'json',
 					contentType : 'application/json',

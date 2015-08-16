@@ -23,11 +23,11 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import proeza.test.integration.IntegrationTest;
 
-import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.dao.IArticuloDao;
-import com.proeza.sgs.business.dao.RubroDao;
-import com.proeza.sgs.business.dao.TipoDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
+import com.proeza.sgs.business.dao.impl.ClaseDao;
+import com.proeza.sgs.business.dao.impl.RubroDao;
+import com.proeza.sgs.business.dao.impl.TipoDao;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.business.entity.Rubro;

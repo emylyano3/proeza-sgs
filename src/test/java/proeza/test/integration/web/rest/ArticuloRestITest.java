@@ -26,7 +26,7 @@ public class ArticuloRestITest extends WebMvcIntegrationTest {
 
     @Test
     public void priceHistory () throws Exception {
-        this.mockMvc.perform(post("/rest/articulo/priceHistory/PRRS000001"))
+        this.mockMvc.perform(post("/rest/articulo/stats/priceHistory/PRRS000001"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(jsonPath("$.labels", hasSize(5)))
@@ -40,11 +40,11 @@ public class ArticuloRestITest extends WebMvcIntegrationTest {
         assertNotNull(articulo);
         this.articuloDao.persist(articulo);
         articulo.setPrecio(BigDecimal.valueOf(275.12));
-        this.mockMvc.perform(post("/rest/articulo/priceHistory/PRRS000001"))
+        this.mockMvc.perform(post("/rest/articulo/stats/priceHistory/PRRS000001"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.labels", hasSize(6)))
-            .andExpect(jsonPath("$.data", hasSize(6)))
+            .andExpect(jsonPath("$.labels", hasSize(8)))
+            .andExpect(jsonPath("$.data", hasSize(8)))
             .andExpect(jsonPath("$.data[0]", is(270D)));
     }
 
@@ -60,13 +60,13 @@ public class ArticuloRestITest extends WebMvcIntegrationTest {
         Thread.sleep(1000);
         articulo.setPrecio(BigDecimal.valueOf(900));
         this.articuloDao.persist(articulo);
-        this.mockMvc.perform(post("/rest/articulo/priceHistory/PRRS000001"))
+        this.mockMvc.perform(post("/rest/articulo/stats/priceHistory/PRRS000001"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.labels", hasSize(6)))
-            .andExpect(jsonPath("$.data", hasSize(6)))
+            .andExpect(jsonPath("$.labels", hasSize(8)))
+            .andExpect(jsonPath("$.data", hasSize(8)))
             .andExpect(jsonPath("$.data[0]", is(270D)))
-            .andExpect(jsonPath("$.data[5]", is(900D)));
+            .andExpect(jsonPath("$.data[7]", is(900D)));
     }
 
     @Test

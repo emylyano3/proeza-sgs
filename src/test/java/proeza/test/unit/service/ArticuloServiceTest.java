@@ -17,8 +17,8 @@ import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.entity.TipoEntidad;
 import com.proeza.sgs.business.entity.TipoMovimiento;
-import com.proeza.sgs.business.service.IArticuloService;
-import com.proeza.sgs.business.service.impl.ArticuloService;
+import com.proeza.sgs.business.service.IArticuloChartService;
+import com.proeza.sgs.business.service.impl.ArticuloChartService;
 
 import static com.proeza.core.util.DataTypeConverter.*;
 import static com.proeza.core.util.date.DateUtil.*;
@@ -28,14 +28,14 @@ import static org.mockito.Mockito.*;
 public class ArticuloServiceTest extends AbstractUnitTest {
 
     @Autowired
-    private IArticuloDao       articuloDao;
+    private IArticuloDao          articuloDao;
 
     @Autowired
-    private ApplicationContext context;
+    private ApplicationContext    context;
 
-    private IArticuloService   articuloService = new ArticuloService();
+    private IArticuloChartService articuloService = new ArticuloChartService();
 
-    private MovimientoBuilder  movBuilder      = new MovimientoBuilder();
+    private MovimientoBuilder     movBuilder      = new MovimientoBuilder();
 
     @Before
     public void setup () {

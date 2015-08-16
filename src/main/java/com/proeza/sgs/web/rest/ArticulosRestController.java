@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.proeza.sgs.business.chart.SingleDataSetChartDefinition;
-import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.dto.ArticuloDTO;
 import com.proeza.sgs.business.dto.ResourceDTO;
 import com.proeza.sgs.business.service.IArticuloService;
@@ -47,16 +45,6 @@ public class ArticulosRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update (@RequestBody ArticuloDTO articulo) {
         this.productService.update(articulo);
-    }
-
-    @RequestMapping(value = "priceHistory/{code}", method = RequestMethod.POST)
-    public HistorialPrecioChartDefinition priceHistory (@PathVariable String code) {
-        return this.productService.priceHistory(code);
-    }
-
-    @RequestMapping(value = "bestSellersArticles/{top}", method = RequestMethod.POST)
-    public List<SingleDataSetChartDefinition> bestSellers (@PathVariable Integer top) {
-        return this.productService.bestSellers(top);
     }
 
     @RequestMapping(value = "addImage", method = RequestMethod.POST)

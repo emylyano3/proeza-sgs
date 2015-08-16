@@ -21,7 +21,7 @@ import proeza.test.integration.IntegrationTest;
 
 import com.proeza.security.dao.UsuarioDao;
 import com.proeza.security.entity.Usuario;
-import com.proeza.sgs.business.dao.ClaseDao;
+import com.proeza.sgs.business.dao.IClaseDao;
 import com.proeza.sgs.system.entity.Page;
 
 import static org.junit.Assert.*;
@@ -30,7 +30,7 @@ public class SeguridadDalTest extends IntegrationTest {
     private static Logger log = Logger.getLogger(SeguridadDalTest.class);
 
     @Autowired
-    private ClaseDao      claseDao;
+    private IClaseDao     claseDao;
 
     @Autowired
     private UsuarioDao    userDao;

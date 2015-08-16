@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import proeza.test.integration.IntegrationTest;
 
 import com.proeza.core.tracking.entity.Movimiento;
-import com.proeza.sgs.business.dao.ClaseDao;
 import com.proeza.sgs.business.dao.IArticuloDao;
-import com.proeza.sgs.business.dao.MarcaDao;
-import com.proeza.sgs.business.dao.RubroDao;
-import com.proeza.sgs.business.dao.TipoDao;
+import com.proeza.sgs.business.dao.impl.ClaseDao;
+import com.proeza.sgs.business.dao.impl.MarcaDao;
+import com.proeza.sgs.business.dao.impl.RubroDao;
+import com.proeza.sgs.business.dao.impl.TipoDao;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.builder.ArticuloBuilder;
 
