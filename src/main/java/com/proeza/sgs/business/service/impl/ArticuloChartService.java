@@ -12,11 +12,16 @@ import org.springframework.stereotype.Service;
 
 import com.proeza.core.persistence.QueryRegistry;
 import com.proeza.core.tracking.entity.Movimiento;
+import com.proeza.sgs.business.chart.ChartColor;
+import com.proeza.sgs.business.chart.ChartColorManager;
 import com.proeza.sgs.business.chart.SingleDataSetChartDefinition;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartManager;
 import com.proeza.sgs.business.dao.IArticuloDao;
+import com.proeza.sgs.business.dao.IMarcaDao;
+import com.proeza.sgs.business.dao.IRubroDao;
 import com.proeza.sgs.business.service.IArticuloChartService;
+import com.proeza.sgs.business.service.dto.PresenciaDTO;
 import com.proeza.sgs.business.service.dto.SellerRankingDTO;
 
 import static com.proeza.sgs.business.entity.TipoMovimiento.*;
@@ -29,6 +34,12 @@ public class ArticuloChartService implements IArticuloChartService {
 
     @Autowired
     private IArticuloDao       articuloDao;
+
+    @Autowired
+    private IMarcaDao          marcaDao;
+
+    @Autowired
+    private IRubroDao          rubroDao;
 
     @Autowired
     private ApplicationContext context;
@@ -45,12 +56,14 @@ public class ArticuloChartService implements IArticuloChartService {
             .setMaxResults(n)
             .getResultList();
         List<SingleDataSetChartDefinition> result = new ArrayList<SingleDataSetChartDefinition>(queryResult.size());
+        ChartColorManager chartColorManager = this.context.getBean(ChartColorManager.class);
         for (SellerRankingDTO ws : queryResult) {
+            ChartColor chartColor = chartColorManager.nextChartColor();
             SingleDataSetChartDefinition item = new SingleDataSetChartDefinition();
             item.setLabel(ws.getModelo());
             item.setValue(ws.getCantidad().intValue());
-            item.setColor(COLORS[--n]);
-            item.setHighlight(HIGLIGHT_COLORS[n]);
+            item.setColor(chartColor.getColor());
+            item.setHighlight(chartColor.getHighlightColor());
             result.add(item);
         }
         return result;
@@ -65,12 +78,14 @@ public class ArticuloChartService implements IArticuloChartService {
             .setMaxResults(n)
             .getResultList();
         List<SingleDataSetChartDefinition> result = new ArrayList<SingleDataSetChartDefinition>(queryResult.size());
+        ChartColorManager chartColorManager = this.context.getBean(ChartColorManager.class);
         for (SellerRankingDTO ws : queryResult) {
+            ChartColor chartColor = chartColorManager.nextChartColor();
             SingleDataSetChartDefinition item = new SingleDataSetChartDefinition();
             item.setLabel(ws.getModelo());
             item.setValue(ws.getCantidad().intValue());
-            item.setColor(COLORS[--n]);
-            item.setHighlight(HIGLIGHT_COLORS[n]);
+            item.setColor(chartColor.getColor());
+            item.setHighlight(chartColor.getHighlightColor());
             result.add(item);
         }
         return result;
@@ -82,32 +97,47 @@ public class ArticuloChartService implements IArticuloChartService {
         return (HistorialPrecioChartDefinition) this.context.getBean(HistorialPrecioChartManager.class).getChartDefinition(movs);
     }
 
-    private static final String[] COLORS          = {
-        "#F7464A",
-        "#46BFBD",
-        "#FDB45C",
-        "#F7464A",
-        "#46BFBD",
-        "#FDB45C",
-        "#F7464A",
-        "#46BFBD",
-        "#FDB45C",
-        "#F7464A",
-        "#46BFBD",
-        "#FDB45C"
-    };
-    private static final String[] HIGLIGHT_COLORS = {
-        "#FF5A5E",
-        "#5AD3D1",
-        "#FFC870",
-        "#FF5A5E",
-        "#5AD3D1",
-        "#FFC870",
-        "#FF5A5E",
-        "#5AD3D1",
-        "#FFC870",
-        "#FF5A5E",
-        "#5AD3D1",
-        "#FFC870"
-    };
+    @Override
+    public List<SingleDataSetChartDefinition> presenciaMarca (int n) {
+        @SuppressWarnings({"unchecked"})
+        List<PresenciaDTO> queryResult = this.marcaDao.getEntityManager().createNativeQuery(
+            this.regisry.getQuery("presenciaMarca"),
+            "PresenciaMarca")
+            .setMaxResults(n)
+            .getResultList();
+        List<SingleDataSetChartDefinition> result = new ArrayList<SingleDataSetChartDefinition>(queryResult.size());
+        ChartColorManager chartColorManager = this.context.getBean(ChartColorManager.class);
+        for (PresenciaDTO presencia : queryResult) {
+            ChartColor chartColor = chartColorManager.nextChartColor();
+            SingleDataSetChartDefinition item = new SingleDataSetChartDefinition();
+            item.setLabel(presencia.getNombre());
+            item.setValue(presencia.getCantidad().intValue());
+            item.setColor(chartColor.getColor());
+            item.setHighlight(chartColor.getHighlightColor());
+            result.add(item);
+        }
+        return result;
+    }
+
+    @Override
+    public List<SingleDataSetChartDefinition> presenciaRubro (int n) {
+        @SuppressWarnings({"unchecked"})
+        List<PresenciaDTO> queryResult = this.rubroDao.getEntityManager().createNativeQuery(
+            this.regisry.getQuery("presenciaRubro"),
+            "PresenciaRubro")
+            .setMaxResults(n)
+            .getResultList();
+        List<SingleDataSetChartDefinition> result = new ArrayList<SingleDataSetChartDefinition>(queryResult.size());
+        ChartColorManager chartColorManager = this.context.getBean(ChartColorManager.class);
+        for (PresenciaDTO presencia : queryResult) {
+            ChartColor chartColor = chartColorManager.nextChartColor();
+            SingleDataSetChartDefinition item = new SingleDataSetChartDefinition();
+            item.setLabel(presencia.getNombre());
+            item.setValue(presencia.getCantidad().intValue());
+            item.setColor(chartColor.getColor());
+            item.setHighlight(chartColor.getHighlightColor());
+            result.add(item);
+        }
+        return result;
+    }
 }

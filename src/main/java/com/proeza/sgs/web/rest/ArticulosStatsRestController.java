@@ -33,4 +33,14 @@ public class ArticulosStatsRestController {
     public List<SingleDataSetChartDefinition> worstSellers (@PathVariable Integer n) {
         return this.productChartService.worstSellers(n);
     }
+
+    @RequestMapping(value = "brandPresence/{n}", method = RequestMethod.POST)
+    public List<SingleDataSetChartDefinition> brandPresence (@PathVariable Integer n) {
+        return this.productChartService.presenciaMarca(n);
+    }
+
+    @RequestMapping(value = "categoryPresence/{n}", method = RequestMethod.POST)
+    public List<SingleDataSetChartDefinition> categoryPresence (@PathVariable Integer n) {
+        return this.productChartService.presenciaRubro(n);
+    }
 }

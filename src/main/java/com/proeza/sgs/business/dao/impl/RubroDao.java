@@ -7,11 +7,12 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import com.proeza.core.persistence.BaseDao;
+import com.proeza.sgs.business.dao.IRubroDao;
 import com.proeza.sgs.business.entity.Rubro;
 import com.proeza.sgs.business.entity.Rubro_;
 
 @Repository
-public class RubroDao extends BaseDao<Rubro> {
+public class RubroDao extends BaseDao<Rubro> implements IRubroDao {
 
     public Rubro findByCode (String code) {
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();

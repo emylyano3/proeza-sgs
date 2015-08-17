@@ -11,6 +11,10 @@ public interface IArticuloChartService {
 
     List<SingleDataSetChartDefinition> bestSellers (int n);
 
+    List<SingleDataSetChartDefinition> presenciaMarca (int n);
+
+    List<SingleDataSetChartDefinition> presenciaRubro (int n);
+
     /**
      * Devuelve el historial de precios de un articulo, observando los movimientos de cambio de precios que tuvo, más
      * cierta información adicional como numero de aumentos y el stock.

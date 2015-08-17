@@ -3,6 +3,7 @@ package com.proeza.sgs.config.root;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -35,6 +37,8 @@ import com.proeza.core.config.DataSourceSettings;
 import com.proeza.core.config.MailSettings;
 import com.proeza.core.resources.image.ImageManager;
 import com.proeza.core.resources.message.MessageResolver;
+import com.proeza.sgs.business.chart.ChartColor;
+import com.proeza.sgs.business.chart.ChartColorManager;
 
 @Configuration
 @Import(value = {
@@ -151,5 +155,22 @@ public class ContextConfig {
         mailSender.setProtocol(this.mailSettings.getProtocol());
         mailSender.setJavaMailProperties(this.mailSettings.asProperties());
         return mailSender;
+    }
+
+    @Bean
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+    public ChartColorManager chartColorManager () {
+        ChartColorManager chartColorManager = new ChartColorManager();
+        chartColorManager.addColor(new ChartColor("#C0392C", "#E56658"));
+        chartColorManager.addColor(new ChartColor("#3498DB", "#3EA1E4"));
+        chartColorManager.addColor(new ChartColor("#9B59B6", "#B268CD"));
+        chartColorManager.addColor(new ChartColor("#62CB31", "#71EC3C"));
+        chartColorManager.addColor(new ChartColor("#FFB606", "#FFC640"));
+        chartColorManager.addColor(new ChartColor("#056932", "#1E9C59"));
+        chartColorManager.addColor(new ChartColor("#E67E22", "#FC8F30"));
+        chartColorManager.addColor(new ChartColor("#FFFF00", "#FFFF5B"));
+        chartColorManager.addColor(new ChartColor("#E74C3C", "#FD7262"));
+        chartColorManager.addColor(new ChartColor("#34495E", "#56799B"));
+        return chartColorManager;
     }
 }

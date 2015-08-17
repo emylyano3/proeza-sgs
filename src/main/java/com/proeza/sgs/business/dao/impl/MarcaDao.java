@@ -7,11 +7,12 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import com.proeza.core.persistence.BaseDao;
+import com.proeza.sgs.business.dao.IMarcaDao;
 import com.proeza.sgs.business.entity.Marca;
 import com.proeza.sgs.business.entity.Marca_;
 
 @Repository
-public class MarcaDao extends BaseDao<Marca> {
+public class MarcaDao extends BaseDao<Marca> implements IMarcaDao {
 
     public Marca findByCode (String code) {
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
