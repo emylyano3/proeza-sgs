@@ -31,19 +31,19 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.core.tracking.entity.Trackeable;
-import com.proeza.sgs.business.service.dto.WorstSellerDTO;
+import com.proeza.sgs.business.service.dto.SellerRankingDTO;
 
 import static com.proeza.core.util.DataTypeConverter.*;
 import static com.proeza.sgs.business.entity.TipoEntidad.*;
 import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 
-@SqlResultSetMapping(name = "WorstSeller",
+@SqlResultSetMapping(name = "SellerRanking",
     classes = {
         @ConstructorResult(
-            targetClass = WorstSellerDTO.class,
+            targetClass = SellerRankingDTO.class,
             columns = {
                 @ColumnResult(name = "modelo"),
-                @ColumnResult(name = "cantidad")
+                @ColumnResult(name = "cantidad", type=BigDecimal.class)
             }
         )
     }

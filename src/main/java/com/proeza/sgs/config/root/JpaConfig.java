@@ -16,6 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.proeza.core.config.JpaSettings;
+import com.proeza.core.persistence.QueryRegistry;
 
 import static org.hibernate.cfg.AvailableSettings.*;
 
@@ -63,6 +64,11 @@ public class JpaConfig {
         em.setJpaVendorAdapter(jpaAdapter);
         em.setJpaProperties(jpaProperties);
         return em;
+    }
+
+    @Bean
+    public QueryRegistry queriesRegistry () {
+        return new QueryRegistry("/queries");
     }
 
     @Bean

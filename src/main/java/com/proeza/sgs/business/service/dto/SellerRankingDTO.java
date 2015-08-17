@@ -1,15 +1,20 @@
 package com.proeza.sgs.business.service.dto;
 
-public class WorstSellerDTO {
+import java.math.BigDecimal;
 
-    public WorstSellerDTO (String modelo, int cantidad) {
+public class SellerRankingDTO {
+
+    public SellerRankingDTO () {
+    }
+
+    public SellerRankingDTO (String modelo, BigDecimal cantidad) {
         super();
         this.modelo = modelo;
         this.cantidad = cantidad;
     }
 
-    private String modelo;
-    private int    cantidad;
+    private String     modelo;
+    private BigDecimal cantidad;
 
     public String getModelo () {
         return this.modelo;
@@ -19,11 +24,11 @@ public class WorstSellerDTO {
         this.modelo = modelo;
     }
 
-    public int getCantidad () {
+    public BigDecimal getCantidad () {
         return this.cantidad;
     }
 
-    public void setCantidad (int cantidad) {
+    public void setCantidad (BigDecimal cantidad) {
         this.cantidad = cantidad;
     }
 

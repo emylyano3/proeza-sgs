@@ -55,11 +55,11 @@
 		                            <i class="fa fa-clock-o"/>
 		                            <span id="lastStockUpdate" /> 
 		                        </div>
-		                    </div>					
+		                    </div>
 						</div>
 					</div>
 					<div class="panel-footer">
-						<span id="pricehistoryfooter"/>
+						<span th:text="#{art.chart.pricehistory.footer}" />
 					</div>
 				</div>
 			</div>
@@ -70,23 +70,32 @@
 					<div class="panel-body">
 						<div class="text-center small">
 	                        <i class="fa fa-dollar"/> 
-	                        <span th:text="#{art.chart.pricehistory.detail}" ></span>
+	                        <span th:text="#{art.chart.bestsellers.detail}" ></span>
 	                    </div>
 	                    <p/>
 						<div class="text-center small">
-							<canvas id="topTenArticles" width="200" height="200"/>
+							<canvas id="bestsellersArticles" width="200" height="200"/>
 						</div>
 					</div>
 					<div class="panel-footer">
-						<span th:text="#{art.chart.topten.footer}" />
+						<span th:text="#{art.chart.bestsellers.footer}" />
 					</div>
 				</div>			
 			</div>
 			<div class="col-md-4">
-				<div class="hpanel animated zoomIn">
+				<div class="hpanel">
 					<div class="panel-body">
+						<div class="text-center small">
+	                        <i class="fa fa-dollar"/> 
+	                        <span th:text="#{art.chart.worstsellers.detail}" ></span>
+	                    </div>
+	                    <p/>
+						<div class="text-center small">
+							<canvas id="worstsellersArticles" width="200" height="200"/>
+						</div>
 					</div>
 					<div class="panel-footer">
+						<span th:text="#{art.chart.worstsellers.footer}" />
 					</div>
 				</div>			
 			</div>
@@ -130,7 +139,6 @@
 						$('#priceUpdates').text(data.updates);
 						$('#lastStockUpdate').text([[#{art.chart.laststockupdate}]] + $.formatDateTime('mm/dd/yy', new Date(data.lastStockUpdate)));
 						$('#lastPriceUpdate').text([[#{art.chart.lastpriceupdate}]] + $.formatDateTime('mm/dd/yy', new Date(data.lastPriceUpdate)));
-						$('#pricehistoryfooter').text([[#{art.chart.pricehistoryfooter}]]);
 			        },
 			        error: function (jqXHR, status) {            
 						console.log(jqXHR.statusText);
@@ -138,13 +146,27 @@
 			        }
 				});
 				$.ajax({
-					url : '/proeza-sgs/rest/articulo/stats/bestSellersArticles/10',
+					url : '/proeza-sgs/rest/articulo/stats/bestSellers/5',
 					type : 'POST',
 					dataType : 'json',
 					contentType : 'application/json',
 					success: function (data, status, jqXHR) {
-						var ctx = $('#topTenArticles').get(0).getContext('2d');
-						var topTenArticlesChart = new Chart(ctx).Doughnut(data,{responsive: false});
+						var ctx = $('#bestsellersArticles').get(0).getContext('2d');
+						var bestsellersArticlesChart = new Chart(ctx).Doughnut(data,{responsive: false});
+			        },
+			        error: function (jqXHR, status) {            
+						console.log(jqXHR.statusText);
+						console.err('Error: No se pudo obtener la data de top ten de marcas');
+			        }
+				});
+				$.ajax({
+					url : '/proeza-sgs/rest/articulo/stats/worstSellers/5',
+					type : 'POST',
+					dataType : 'json',
+					contentType : 'application/json',
+					success: function (data, status, jqXHR) {
+						var ctx = $('#worstsellersArticles').get(0).getContext('2d');
+						var worstsellersArticlesChart = new Chart(ctx).Doughnut(data,{responsive: false});
 			        },
 			        error: function (jqXHR, status) {            
 						console.log(jqXHR.statusText);
@@ -152,7 +174,6 @@
 			        }
 				});
 			});
-			
 		</script>
 	</div>
 </body>
