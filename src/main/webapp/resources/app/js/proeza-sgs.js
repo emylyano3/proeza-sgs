@@ -141,8 +141,11 @@ function updateSideBarStatus () {
         }
         $("#wrapper").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", 
         	function(){
-        		if ($("#articulos") != null) {
+        		if (document.getElementById('articulos') != null) {
         			$("#articulos").jqxGrid('refresh');	
+        		}
+        		if (document.getElementById('usuarios') != null) {
+        			$("#usuarios").jqxGrid('refresh');	
         		}
 			}
         );
