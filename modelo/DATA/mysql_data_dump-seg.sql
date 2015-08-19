@@ -15,6 +15,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+use seg_proeza_db;
+
+
 --
 -- Dumping data for table `rol`
 --
@@ -43,11 +46,11 @@ UNLOCK TABLES;
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` VALUES
-(00000000000000000100,'user_admin','user_admin','user_admin','user_admin@proeza.com.ar','$2a$10$oTBcDbxPZlyEhjK4/Q8.o.PCiqc.LwOg5IgF7e4VWAzkDMlVr0cvW'),
-(00000000000000000101,'prod_admin','prod_admin','prod_admin','prod_admin@proeza.com.ar','$2a$10$gstdn6.1OVcOmjSxx36kJuHoH9seRgbSNYQjVTNavTBVGGxcrT6VC'),
-(00000000000000000102,'prod_viewer','prod_viewer','prod_viewer','prod_viewer@proeza.com.ar','$2a$10$WwVnE7OeUpe1a892TJrbEOUEzTFKWiHLIM0w9WNKyxZmyGM8vmwk2'),
-(00000000000000000103,'prod_stat','prod_stat','prod_stat','prod_stat@proeza.com.ar','$2a$10$LGpaazPGhg3U8cqTEb5bq.65GKpqYlEoRG7xEBEtnJ0ZiNN5CFz/S'),
-(00000000000000000104,'admin','admin','admin', 'admin@proeza.com.ar', '$2a$10$N9ba82wZVlNGgMgcO24XBeGwcE6LkEPkWvuFI8I7efa5F8VgOWXEq');
+(00000000000000000100,'user_admin','user_admin','user_admin','user_admin@proeza.com.ar','$2a$10$oTBcDbxPZlyEhjK4/Q8.o.PCiqc.LwOg5IgF7e4VWAzkDMlVr0cvW', null),
+(00000000000000000101,'prod_admin','prod_admin','prod_admin','prod_admin@proeza.com.ar','$2a$10$gstdn6.1OVcOmjSxx36kJuHoH9seRgbSNYQjVTNavTBVGGxcrT6VC', null),
+(00000000000000000102,'prod_viewer','prod_viewer','prod_viewer','prod_viewer@proeza.com.ar','$2a$10$WwVnE7OeUpe1a892TJrbEOUEzTFKWiHLIM0w9WNKyxZmyGM8vmwk2', null),
+(00000000000000000103,'prod_stat','prod_stat','prod_stat','prod_stat@proeza.com.ar','$2a$10$LGpaazPGhg3U8cqTEb5bq.65GKpqYlEoRG7xEBEtnJ0ZiNN5CFz/S', null),
+(00000000000000000104,'admin','admin','admin', 'admin@proeza.com.ar', '$2a$10$N9ba82wZVlNGgMgcO24XBeGwcE6LkEPkWvuFI8I7efa5F8VgOWXEq', null);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
