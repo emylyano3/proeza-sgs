@@ -15,10 +15,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
+
+import com.proeza.security.entity.builder.Foto;
 
 import static javax.persistence.GenerationType.*;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
@@ -43,6 +46,7 @@ public class Usuario implements Serializable {
     private String            email;
     private String            password;
     private Set<Rol>          roles            = new HashSet<>(0);
+    private Foto              foto;
 
     public Usuario () {
     }
@@ -107,6 +111,16 @@ public class Usuario implements Serializable {
 
     public void setPassword (String password) {
         this.password = password;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_foto")
+    public Foto getFoto () {
+        return this.foto;
+    }
+
+    public void setFoto (Foto foto) {
+        this.foto = foto;
     }
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
