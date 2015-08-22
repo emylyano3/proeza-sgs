@@ -2409,7 +2409,7 @@ a:hover, a:focus {
     float: left;
     height: 52px;
     padding: 0;
-    width: 760px
+    width: auto
 }
 
 .navbar-form-custom .form-control {
@@ -2610,7 +2610,7 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 }
 
 @media (max-width: 768px) {
-    .navbar-form-custom, .navbar-right, #logo {
+    .navbar-right, #logo {
         display: none
     }
 
