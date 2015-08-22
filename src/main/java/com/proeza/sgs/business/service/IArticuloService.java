@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.http.MediaType;
 
-import com.proeza.sgs.business.dto.ArticuloDTO;
-import com.proeza.sgs.business.dto.ResourceDTO;
+import com.proeza.sgs.business.entity.dto.ArticuloDTO;
+import com.proeza.sgs.business.entity.dto.ResourceDTO;
 
 public interface IArticuloService {
 

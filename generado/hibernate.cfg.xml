@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+"hibernate-configuration-3.0.dtd">
+
 <hibernate-configuration>
 	<!-- a SessionFactory instance -->
 	<session-factory name="sgs-proeza">
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.url">jdbc:mysql://localhost:3306</property>
-		<property name="hibernate.default_schema">seg_proeza_db</property>
+<!-- 		<property name="hibernate.default_schema">sgs_proeza_db</property> -->
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.hbm2ddl.auto">true</property>
 		<property name="hibernate.connection.username">root</property>
@@ -24,6 +25,7 @@
 		<mapping class="com.proeza.security.entity.Rol"/>
 		<mapping class="com.proeza.security.entity.Usuario"/>
 		<mapping class="com.proeza.security.entity.UsuarioRol"/>
+		<mapping class="com.proeza.security.entity.Foto"/>
 		
 		<mapping class="com.proeza.sgs.business.entity.Articulo"/>
 		<mapping class="com.proeza.sgs.business.entity.ArticuloCliente"/>

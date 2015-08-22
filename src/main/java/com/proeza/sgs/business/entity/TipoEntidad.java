@@ -4,7 +4,10 @@ import java.io.Serializable;
 
 public enum TipoEntidad implements Serializable {
 
-    ARTICULO("Articulo", "Entidad de artículo");
+    ARTICULO("Articulo", "Entidad artículo"),
+    MARCA("Marca", "Entidad marca de artículo"),
+    RUBRO("Rubro", "Entidad rubro de artículo"),
+    ;
 
     private TipoEntidad (String nombre, String desc) {
         this.nombre = nombre;

@@ -24,14 +24,14 @@ import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
 import com.proeza.sgs.business.dao.impl.MarcaDao;
 import com.proeza.sgs.business.dao.impl.RubroDao;
 import com.proeza.sgs.business.dao.impl.TipoDao;
-import com.proeza.sgs.business.dto.ArticuloDTO;
-import com.proeza.sgs.business.dto.ResourceDTO;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.business.entity.Marca;
 import com.proeza.sgs.business.entity.Resource;
 import com.proeza.sgs.business.entity.Rubro;
 import com.proeza.sgs.business.entity.Tipo;
+import com.proeza.sgs.business.entity.dto.ArticuloDTO;
+import com.proeza.sgs.business.entity.dto.ResourceDTO;
 import com.proeza.sgs.business.service.IArticuloService;
 
 @Service

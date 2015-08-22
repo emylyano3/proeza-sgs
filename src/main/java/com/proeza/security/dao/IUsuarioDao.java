@@ -1,12 +1,9 @@
 package com.proeza.security.dao;
 
-import java.util.List;
-
+import com.proeza.core.persistence.Dao;
 import com.proeza.security.entity.Usuario;
 
-public interface IUsuarioDao {
+public interface IUsuarioDao extends Dao<Usuario> {
 
     Usuario findByAlias (String alias);
-
-    List<Usuario> findAll ();
 }

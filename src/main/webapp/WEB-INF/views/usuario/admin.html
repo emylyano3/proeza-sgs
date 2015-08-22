@@ -7,63 +7,69 @@
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
-
+        <link rel="stylesheet" href="../../../resources/fileinput/css/fileinput.css" th:href="@{/resources/fileinput/css/fileinput.css}" media="all" type="text/css" />
+        <p/>
 		<!-- Grilla de usuarios -->
-		<div class="row">
+		<div id="gridPanel" class="row animated zoomIn">
 			<div class="col-md-12">
 				<div id="usuarios" />
 			</div> 
 		</div>
-		<!-- Modal de edicion -->
-		<div class="modal fade" id="editionPopup" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-        				<h4 class="modal-title"><span th:text="#{usu.admin.popup.edit}" text="Editar Usuario" /></h4>
-      				</div>
-					<div id="editpanel" class="modal-body" >
-						<form class="form-horizontal" style="width: 500px">
-							<div class="form-group">
-								<label for="alias" class="col-sm-2 control-label" th:text="#{control.username}" />
-								<div class="col-sm-10">
-									<input id="alias" class="form-control input-sm" disabled="disabled"/>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="nombre" class="col-sm-2 control-label" th:text="#{control.name}" />
-								<div class="col-sm-10">
-									<input id="nombre" class="form-control input-sm" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="apellido" class="col-sm-2 control-label" th:text="#{control.lastname}" />
-								<div class="col-sm-10">
-									<input id="apellido" class="form-control input-sm" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="email" class="col-sm-2 control-label" th:text="#{control.email}" />
-								<div class="col-sm-10">
-									<input id="email" class="form-control input-sm" />
-								</div>
-							</div>							
-						</form>
+		<form class="form-horizontal" >
+    		<div id="editionPanel" hidden="true" class="row animated fadeInUp">
+    			<div class="col-md-6">                           
+					<div class="form-group">
+						<label for="alias" class="col-sm-2 control-label" th:text="#{control.username}" />
+						<div class="col-sm-10">
+							<input id="alias" class="form-control input-sm" />
+						</div>
 					</div>
-					<div class="modal-footer">
-						<button id="cancel" type="button" class="btn btn-default" th:text="#{control.cancel}" data-dismiss="modal"/>
-						<button id="save" type="button" class="btn btn-primary" th:text="#{control.save}" data-dismiss="modal"/>
-			      	</div>
-				</div>
-			</div>
-		</div>
+                    <div class="form-group">
+                        <label for="photo" class="col-sm-2 control-label" th:text="#{control.photo}" />
+                        <div class="col-sm-10">
+                            <img id="photo" th:src="@{/resources/app/img/user-avatar.jpg}" />
+                            <p/>
+                            <input id="photoBrowse" type="file" accept="image/jpeg" />
+                        </div>
+                    </div>
+					<div class="form-group">
+						<label for="nombre" class="col-sm-2 control-label" th:text="#{control.name}" />
+						<div class="col-sm-10">
+							<input id="nombre" class="form-control input-sm" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="apellido" class="col-sm-2 control-label" th:text="#{control.lastname}" />
+						<div class="col-sm-10">
+							<input id="apellido" class="form-control input-sm" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="email" class="col-sm-2 control-label" th:text="#{control.email}" />
+						<div class="col-sm-10">
+							<input id="email" class="form-control input-sm" />
+						</div>
+    				</div>
+					<div class="form-group">
+						<label for="roles" class="col-sm-2 control-label" th:text="#{control.roles}" />
+						<div class="col-sm-10">
+							<input id="roles" class="form-control input-sm" />
+                            <p/>
+                            <p/>
+                            <button id="cancel" type="button" class="btn btn-default" th:text="#{control.cancel}" />
+                            <button id="save" type="button" class="btn btn-primary" th:text="#{control.save}" />
+						</div>
+    				</div>
+    			</div>
+    		</div>
+		</form>
+        
 		<!-- Menu Contextual -->
 		<div id="gridMenu">
 	        <ul>
 	            <li id="editUsu" th:text="#{usu.admin.menu.edit}"/>
 	            <li id="deleteUsu" th:text="#{usu.admin.menu.delete}"/>
+	            <li id="newUsu" th:text="#{usu.admin.menu.new}"/>
 	        </ul>
        </div>
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
@@ -82,162 +88,255 @@
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
 		<script type="text/javascript" src="../../../resources/jquery/jquery.inputmask.bundle.js" th:src="@{/resources/jquery/jquery.inputmask.bundle.js}" />
 		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
-		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}" />
-		<script type="text/javascript">
-			// Inicializacion de la tabla de arículos
-			$(document).ready(
-					function() {
-						// prepare the data
-						var source = {
-							datatype : "json",
-							id : "id",
-							url : "/proeza-sgs/rest/usuario/findAll",
-							dataFields: [
-				     	                    { name: 'alias', type: 'string' },
-				     	                    { name: 'nombre', type: 'string' },
-				     	                    { name: 'apellido', type: 'string' },
-				     	                    { name: 'email', type: 'string' },
-				     	    ],
-							updaterow : function(rowid, rowdata, commit) {
-								$.ajax({
-									type : 'POST',
-									url : '/proeza-sgs/rest/usuario/update',
-									dataType: 'json',
-									contentType: 'application/json',
-									data : JSON.stringify(rowdata),
-									success : function() {
-										$.notify({
-											title: '<strong>Modificación de usuario:</strong>',
-											message: 'La modificación se realizó correctamente'
-										},{
-											type: 'success'
-										});
-										commit(true);
-									},
-									error: function () {            
-										$.notify({
-											title: '<strong>Modificación de usuario:</strong>',
-											message: 'Ocurrió un error en la actualización del usuario'
-										},{
-											type: 'danger'
-										});
-										commit(false);
-							        }
-								});
-							},
-							deleterow : function(rowid, commit) {
-								// Hacer aca la logica de sincronizar con el servidor (usando ajax).
-								// Enviar datos, comitear con true si la sincronizacion fue exitosa, false si hubo fallo
-								commit(true);
+        <script type="text/javascript" src="../../../resources/fileinput/js/fileinput.js" th:src="@{/resources/fileinput/js/fileinput.js}" />
+        <script type="text/javascript" src="../../../resources/fileinput/js/fileinput_locale_es.js" th:src="@{/resources/fileinput/js/fileinput_locale_es.js}" />
+		<script th:inline="javascript">
+		 	/*<![CDATA[*/
+			// Inicializacion de la tabla de usuarios
+			var popupMode;
+			$(document).ready(function() {
+					// prepare the data
+					var source = {
+						datatype : "json",
+						id : "id",
+						url : "/proeza-sgs/rest/usuario/findAll",
+						dataFields: [
+     	                    { name: 'alias', type: 'string' },
+     	                    { name: 'nombre', type: 'string' },
+     	                    { name: 'apellido', type: 'string' },
+     	                    { name: 'email', type: 'string' },
+			     	    ],
+			     	    addrow : function(rowid, rowdata, commit) {
+							$.ajax({
+								type : 'POST',
+								url : '/proeza-sgs/rest/usuario/create',
+								dataType: 'json',
+								contentType: 'application/json',
+								data : JSON.stringify(rowdata),
+								success : function() {
+									$.notify({
+										title: '<strong>Creación de usuario:</strong>',
+										message: 'Se creó el usuario correctamente'
+									},{
+										type: 'success'
+									});
+									commit(true);
+								},
+								error: function () {            
+									$.notify({
+										title: '<strong>Modificación de usuario:</strong>',
+										message: 'Ocurrió un error durante la creación del usuario'
+									},{
+										type: 'danger'
+									});
+									commit(false);
+						        }
+							});
+						},
+						updaterow : function(rowid, rowdata, commit) {
+							$.ajax({
+								type : 'POST',
+								url : '/proeza-sgs/rest/usuario/update',
+								dataType: 'json',
+								contentType: 'application/json',
+								data : JSON.stringify(rowdata),
+								success : function() {
+									$.notify({
+										title: '<strong>Modificación de usuario:</strong>',
+										message: 'Se creó el usuario correctamente'
+									},{
+										type: 'success'
+									});
+									commit(true);
+								},
+								error: function () {
+									$.notify({
+										title: '<strong>Modificación de usuario:</strong>',
+										message: 'Ocurrió un error durante la actualización del usuario'
+									},{
+										type: 'danger'
+									});
+									commit(false);
+						        }
+							});
+						},
+						deleterow : function(rowid, rowdata, commit) {
+							$.ajax({
+								type : 'POST',
+								url : '/proeza-sgs/rest/usuario/delete',
+								dataType: 'json',
+								contentType: 'application/json',
+								data : JSON.stringify(rowdata.alias),
+								success : function() {
+									$.notify({
+										title: '<strong>Eliminación de usuario:</strong>',
+										message: 'Se eliminó el usuario correctamente'
+									},{
+										type: 'success'
+									});
+									commit(true);
+								},
+								error: function () {
+									$.notify({
+										title: '<strong>Eliminación de usuario:</strong>',
+										message: 'Ocurrió un error durante la elimninación del usuario'
+									},{
+										type: 'danger'
+									});
+									commit(false);
+						        }
+							});
+						}
+					};
+		         	
+					var dataAdapter = new $.jqx.dataAdapter(source);
+					var editrow = -1;
+
+					// initializa la grilla de usuarios
+					$("#usuarios").jqxGrid({
+						width : '100%',
+						theme : 'energyblue',
+						source : dataAdapter,
+						pageable : false,
+						autoheight : false,
+						altrows : true,
+						sortable : true,
+						enabletooltips : true,
+						columns : [ {
+							text : 'Alias',
+							dataField : 'alias',
+							width : '20%'
+						}, {
+							text : 'Nombre',
+							dataField : 'nombre',
+							width : '25%'
+						}, {
+							text : 'Apellido',
+							dataField : 'apellido',
+							width : '25%'
+						}, {
+							text : 'Mail',
+							dataField : 'email',
+							width : '30%'
+						} ]
+					});
+					// create context menu
+					var contextMenu = $("#gridMenu").jqxMenu({
+						width : 180,
+						height : 80,
+						autoOpenPopup : false,
+						mode : 'popup'
+
+					});
+					$("#usuarios").on('contextmenu', function() {
+						return false;
+					});
+
+					// handle context menu clicks.
+					$("#gridMenu").on('itemclick', function(event) {
+						var args = event.args;
+						var rowindex = $("#usuarios").jqxGrid('getselectedrowindex');
+						if ($.trim($(args).text()) == [[#{usu.admin.menu.edit}]]) {
+							// open the popup window when the user clicks a button.
+							editrow = rowindex;
+							popupMode = 'edition';
+							var offset = $("#usuarios").offset();
+							// get the clicked row's data and initialize the input fields.
+							var dataRecord = $("#usuarios").jqxGrid('getrowdata', editrow);
+							// Inicializacion del input de la imagen
+							var fileInputOptions = {
+									showCaption: true,
+									showUpload : false,
+									showRemove : false,
+									showPreview: false,
+									showUploadedThumbs: false,
+									dropZoneEnabled: false,
+					        	    uploadAsync: false,
+									maxFileCount : 1,
+					                allowedFileExtensions : ['jpg', 'png','gif'],
+									allowedFileTypes : ["image"],
+					                uploadUrl: '/proeza-sgs/rest/usuario/setPhoto?alias=' + dataRecord.alias
+							};
+				         	// File input plugin options
+				            $("#photoBrowse").fileinput(fileInputOptions);
+							$("#alias").prop('disabled', true);
+							$("#alias").val(dataRecord.alias);
+							$("#nombre").val(dataRecord.nombre);
+							$("#apellido").val(dataRecord.apellido);
+							$("#email").val(dataRecord.email);
+							$("#gridPanel").hide();
+							$("#editionPanel").show();
+						} else if ($.trim($(args).text()) == [[#{usu.admin.menu.delete}]]) {
+							var rowid = $("#usuarios").jqxGrid('getrowid', rowindex);
+							$("#usuarios").jqxGrid('deleterow', rowid);
+						} else if ($.trim($(args).text()) == [[#{usu.admin.menu.new}]]) {
+							editrow = rowindex;
+							popupMode = 'creation';
+							var offset = $("#usuarios").offset();
+							// get the clicked row's data and initialize the input fields.
+							var dataRecord = $("#usuarios").jqxGrid('getrowdata', editrow);
+							$("#alias").prop('disabled', false);
+							$("#alias").val("");
+							$("#nombre").val("");
+							$("#apellido").val("");
+							$("#email").val("");
+							$("#gridPanel").hide();
+							$("#editionPanel").show();
+						}
+					});
+					$("#usuarios").on(
+						'rowclick',
+						function(event) {	
+							if (event.args.rightclick) {	
+								$("#usuarios").jqxGrid('selectrow', event.args.rowindex);
+								var scrollTop = $(window).scrollTop();
+								var scrollLeft = $(window).scrollLeft();
+								contextMenu.jqxMenu(
+									'open', 
+									parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+									parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
+								);
+								return false;
 							}
-						};
+						}
+					);
 
-						var dataAdapter = new $.jqx.dataAdapter(source);
-						var editrow = -1;
-
-						// initializa la grilla de usuarios
-						$("#usuarios").jqxGrid({
-							width : '100%',
-							height : '100%',
-							theme : 'energyblue',
-							source : dataAdapter,
-							pageable : false,
-							autoheight : false,
-							altrows : true,
-							sortable : true,
-							enabletooltips : true,
-							columns : [ {
-								text : 'Alias',
-								dataField : 'alias',
-								width : '20%'
-							}, {
-								text : 'Nombre',
-								dataField : 'nombre',
-								width : '20%'
-							}, {
-								text : 'Apellido',
-								dataField : 'apellido',
-								width : '20%'
-							}, {
-								text : 'Mail',
-								dataField : 'email',
-								width : '30%'
-							} ]
-						});
-						// create context menu
-						var contextMenu = $("#gridMenu").jqxMenu({
-							width : 180,
-							height : 60,
-							autoOpenPopup : false,
-							mode : 'popup'
-
-						});
-						$("#usuarios").on('contextmenu', function() {
-							return false;
-						});
-
-						// handle context menu clicks.
-						$("#gridMenu").on('itemclick', function(event) {
-							var args = event.args;
-							var rowindex = $("#usuarios").jqxGrid('getselectedrowindex');
-							if ($.trim($(args).text()) == "Editar Usuario") {
-								// open the popup window when the user clicks a button.
-								editrow = rowindex;
-								var offset = $("#usuarios").offset();
-								// get the clicked row's data and initialize the input fields.
-								var dataRecord = $("#usuarios").jqxGrid('getrowdata', editrow);
-								$("#alias").val(dataRecord.alias);
-								$("#nombre").val(dataRecord.nombre);
-								$("#apellido").val(dataRecord.apellido);
-								$("#email").val(dataRecord.email);
-								$("#editionPopup").modal('show');
-							} else if ($.trim($(args).text()) == "Eliminar Usuario") {
-								var rowid = $("#usuarios").jqxGrid('getrowid', rowindex);
-								$("#usuarios").jqxGrid('deleterow', rowid);
-							}
-						});
-						$("#usuarios").on(
-							'rowclick',
-							function(event) {	
-								if (event.args.rightclick) {	
-									$("#usuarios").jqxGrid('selectrow', event.args.rowindex);
-									var scrollTop = $(window).scrollTop();
-									var scrollLeft = $(window).scrollLeft();
-									contextMenu.jqxMenu('open', parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
-											parseInt(event.args.originalEvent.clientY) + 5 + scrollTop);
-									return false;
-								}
-							}
-						);
-
-						// update the edited row when the user clicks the 'save' button.
-						$("#save").click(function() {
-							if (editrow >= 0) {
-								var row = {
-									alias : $("#alias").val(),
-									nombre : $("#nombre").val(),
-									apellido : $("#apellido").val(),
-									email : $("#email").val()
-								};
-								var rowID = $('#usuarios').jqxGrid('getrowid', editrow);
+					// update the edited row when the user clicks the 'save' button.
+					$("#save").click(function() {
+						if (editrow >= 0) {
+							var row = {
+								alias : $("#alias").val(),
+								nombre : $("#nombre").val(),
+								apellido : $("#apellido").val(),
+								email : $("#email").val()
+							};
+							var rowID = $('#usuarios').jqxGrid('getrowid', editrow);
+							if (popupMode = 'creation') {
+								$('#usuarios').jqxGrid('addrow', rowID, row);
+							} else if (popupMode = 'creation') {
 								$('#usuarios').jqxGrid('updaterow', rowID, row);
 							}
-							$("#editionPopup").modal('hide');
-						});
-
-						// Hide popup when cancel
-						$("#cancel").click(function() {
-							$("#editionPopup").modal('hide');
-						});
-
-						// Configuracion del control de ingreso del precio
-						$("#precio").inputmask("currency", {
-							"autoUnmask" : true
-						});
-						$("#costo").inputmask("currency", {
-							"autoUnmask" : true
-						});
+						}
+						$("#editionPanel").hide();
+						$("#gridPanel").show();
 					});
+
+					// Hide popup when cancel
+					$("#cancel").click(function() {
+						$("#editionPanel").hide();
+						$("#gridPanel").show();
+					});
+
+					// Configuracion del control de ingreso del precio
+					$("#precio").inputmask("currency", {
+						"autoUnmask" : true
+					});
+					$("#costo").inputmask("currency", {
+						"autoUnmask" : true
+					});
+				}
+			);
+			/*]]>*/
 		</script>
 	</div>
 </body>

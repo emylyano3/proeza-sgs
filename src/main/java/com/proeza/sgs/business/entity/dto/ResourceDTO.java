@@ -1,4 +1,4 @@
-package com.proeza.sgs.business.dto;
+package com.proeza.sgs.business.entity.dto;
 
 import java.io.Serializable;
 import java.sql.SQLException;

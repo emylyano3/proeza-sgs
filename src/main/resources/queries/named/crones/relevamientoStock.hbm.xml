@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"src/main/resources/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+ 
+    <query name="relevamientoStock.porMarca">
+        <![CDATA[
+select
+	a.marca.id as id,
+	a.marca.codigo as codigo,
+	a.marca.nombre as nombre,
+	a.marca.descripcion as descripcion,
+	sum(a.stock) as stock
+from Articulo a
+group by 
+	a.marca.id,
+	a.marca.codigo,
+	a.marca.nombre,
+	a.marca.descripcion
+order by stock desc
+        ]]>
+    </query>
+    <query name="relevamientoStock.porRubro">
+        <![CDATA[
+select
+	a.rubro.id as id,
+	a.rubro.codigo as codigo,
+	a.rubro.nombre as nombre,
+	a.rubro.descripcion as descripcion,
+	sum(a.stock) as stock
+from Articulo a
+group by 
+	a.rubro.id,
+	a.rubro.codigo,
+	a.rubro.nombre,
+	a.rubro.descripcion
+order by stock desc
+        ]]>
+    </query>
+</hibernate-mapping>

@@ -1,4 +1,4 @@
-package com.proeza.sgs.business.dto.service;
+package com.proeza.sgs.business.service.dto;
 
 import java.io.Serializable;
 import java.util.List;

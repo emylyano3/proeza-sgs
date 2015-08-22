@@ -5,13 +5,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.proeza.core.tracking.entity.Movimiento;
-import com.proeza.sgs.business.dto.ArticuloDTO;
 import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.business.entity.Marca;
 import com.proeza.sgs.business.entity.Proveedor;
 import com.proeza.sgs.business.entity.Rubro;
 import com.proeza.sgs.business.entity.Tipo;
+import com.proeza.sgs.business.entity.dto.ArticuloDTO;
 
 public class ArticuloBuilder {
 

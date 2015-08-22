@@ -14,12 +14,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import static com.proeza.core.util.Constants.*;
+
 @Entity
 @Table(catalog = "sgs_proeza_db", name = "art_resource")
 public class Resource implements Serializable {
-
-    public static final int   _100KB           = 1024 * 100;
-    public static final int   _5MB             = 1024 * 1024 * 5;
 
     private static final long serialVersionUID = 1L;
 
@@ -92,7 +91,7 @@ public class Resource implements Serializable {
         this.descripcion = descripcion;
     }
 
-    @Column(name = "preview", length = _5MB)
+    @Column(name = "preview", length = 5 * MB)
     public Blob getPreview () {
         return this.preview;
     }
@@ -101,7 +100,7 @@ public class Resource implements Serializable {
         this.preview = preview;
     }
 
-    @Column(name = "data", length = _100KB, nullable = false)
+    @Column(name = "data", length = 100 * KB, nullable = false)
     public Blob getData () {
         return this.data;
     }

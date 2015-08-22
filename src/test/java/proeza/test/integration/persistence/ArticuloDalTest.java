@@ -10,15 +10,11 @@ import proeza.test.integration.IntegrationTest;
 
 import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.entity.Articulo;
-import com.proeza.sgs.business.service.IArticuloChartService;
 
 public class ArticuloDalTest extends IntegrationTest {
 
     @Autowired
-    private IArticuloChartService chartService;
-
-    @Autowired
-    private IArticuloDao          articleDao;
+    private IArticuloDao articleDao;
 
     @Test
     public void findAll () {

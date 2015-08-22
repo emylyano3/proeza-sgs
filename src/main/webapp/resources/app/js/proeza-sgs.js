@@ -1,15 +1,19 @@
 $(document).ready(function () {
 
 	updateSideBarStatus();
-	
+
     // Add special class to minimalize page elements when screen is less than 768px
     setBodySmall();
+
+    $("#eraser").click(function () {
+        $("#filter").val("");
+    });
 
     // Initialize metsiMenu plugin to sidebar menu
     if ($('#side-menu') != null) {
     	$('#side-menu').metisMenu();
     }
-    
+
     // Initialize iCheck plugin
     $('.i-checks').iCheck({
         checkboxClass: 'icheckbox_square-green',
@@ -128,8 +132,8 @@ function fixWrapperHeight() {
 }
 
 /**
- * Actualiza el estado de la barra de menu lateral. 
- * Adicionalmente refresca las grilla de la pantalla en caso de existir alguna. 
+ * Actualiza el estado de la barra de menu lateral.
+ * Adicionalmente refresca las grilla de la pantalla en caso de existir alguna.
  */
 function updateSideBarStatus () {
 	$('.hide-menu').click(function(event){
@@ -139,13 +143,13 @@ function updateSideBarStatus () {
         } else {
             $("body").toggleClass("hide-sidebar");
         }
-        $("#wrapper").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", 
+        $("#wrapper").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd",
         	function(){
         		if (document.getElementById('articulos') != null) {
-        			$("#articulos").jqxGrid('refresh');	
+        			$("#articulos").jqxGrid('refresh');
         		}
         		if (document.getElementById('usuarios') != null) {
-        			$("#usuarios").jqxGrid('refresh');	
+        			$("#usuarios").jqxGrid('refresh');
         		}
 			}
         );

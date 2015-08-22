@@ -59,10 +59,15 @@ public class JpaConfig {
             "com.proeza.sgs.business.entity",
             "com.proeza.sgs.system.entity",
             "com.proeza.core.i18n.entity",
-            "com.proeza.core.tracking.entity");
+            "com.proeza.core.error.entity",
+            "com.proeza.core.tracking.entity"
+        );
         em.setDataSource(ds);
         em.setJpaVendorAdapter(jpaAdapter);
         em.setJpaProperties(jpaProperties);
+        em.setMappingResources(
+            "queries/named/crones/relevamientoStock.hbm.xml"
+        );
         return em;
     }
 

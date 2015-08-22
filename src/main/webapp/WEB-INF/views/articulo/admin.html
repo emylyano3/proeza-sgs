@@ -158,27 +158,27 @@
 		 	/*<![CDATA[*/
 			// Inicializacion de la tabla de arículos
 			$(document).ready(function() {
-					// prepare the data
-					var source = {
-						datatype : "json",
-						id : "id",
-						url : "/proeza-sgs/rest/articulo/search?filter=",
-						dataFields : [ 
-						               {name : 'codigo', type : 'string'},
-						               {name : 'modelo', type : 'string'},
-						               {name : 'descripcion', type : 'string' }, 
-						               {name : 'clase', type : 'string'},
-						               {name : 'tipo', type : 'string'}, 
-						               {name : 'marca', type : 'string'}, 
-						               {name : 'rubro', type : 'string'}, 
-						               {name : 'precio', type : 'double'}, 
-						               {name : 'costo', type : 'double'}, 
-						               {name : 'cantidad', type : 'int'}, 
-						               {name : 'codClase', type : 'string'}, 
-						               {name : 'codTipo', type : 'string'},
-						               {name : 'codMarca', type : 'string'}, 
-						               {name : 'codRubro', type : 'string'},
-						               ],
+				// prepare the data
+				var source = {
+					datatype : "json",
+					id : "id",
+					url : "/proeza-sgs/rest/articulo/search?filter=",
+					dataFields : [ 
+		               {name : 'codigo', type : 'string'},
+		               {name : 'modelo', type : 'string'},
+		               {name : 'descripcion', type : 'string' }, 
+		               {name : 'clase', type : 'string'},
+		               {name : 'tipo', type : 'string'}, 
+		               {name : 'marca', type : 'string'}, 
+		               {name : 'rubro', type : 'string'}, 
+		               {name : 'precio', type : 'double'}, 
+		               {name : 'costo', type : 'double'}, 
+		               {name : 'cantidad', type : 'int'}, 
+		               {name : 'codClase', type : 'string'}, 
+		               {name : 'codTipo', type : 'string'},
+		               {name : 'codMarca', type : 'string'}, 
+		               {name : 'codRubro', type : 'string'},
+		            ],
 					updaterow : function(rowid, rowdata, commit) {
 						$.ajax({
 							type : 'POST',
@@ -359,7 +359,6 @@
 	            });
 	            $("#eraser").click(function () {
 	                $("#articulos").jqxGrid('clear');
-	                $("#filter").val("");
 	            });
 			});
 			/*]]>*/

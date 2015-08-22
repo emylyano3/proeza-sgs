@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proeza.sgs.business.dao.impl.ClaseDao;
-import com.proeza.sgs.business.dto.ClaseDTO;
 import com.proeza.sgs.business.entity.Clase;
+import com.proeza.sgs.business.entity.dto.ClaseDTO;
 import com.proeza.sgs.business.service.IClaseService;
 
 @Service

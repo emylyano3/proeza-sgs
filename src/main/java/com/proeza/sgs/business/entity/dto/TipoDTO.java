@@ -1,12 +1,12 @@
-package com.proeza.sgs.business.dto;
+package com.proeza.sgs.business.entity.dto;
 
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-import com.proeza.sgs.business.entity.Marca;
+import com.proeza.sgs.business.entity.Tipo;
 
-public class MarcaDTO implements Serializable {
+public class TipoDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,11 +20,11 @@ public class MarcaDTO implements Serializable {
 
     private String            descripcion;
 
-    public MarcaDTO (Marca marca) {
-        this.id = marca.getId();
-        this.codigo = marca.getCodigo();
-        this.nombre = marca.getNombre();
-        this.descripcion = marca.getDescripcion();
+    public TipoDTO (Tipo clase) {
+        this.id = clase.getId();
+        this.codigo = clase.getCodigo();
+        this.nombre = clase.getNombre();
+        this.descripcion = clase.getDescripcion();
     }
 
     public Long getId () {
@@ -61,6 +61,6 @@ public class MarcaDTO implements Serializable {
 
     @Override
     public String toString () {
-        return "MarcaDTO [codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
+        return "ClaseDTO [codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
     }
 }

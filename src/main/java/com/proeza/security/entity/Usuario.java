@@ -21,8 +21,6 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 
-import com.proeza.security.entity.builder.Foto;
-
 import static javax.persistence.GenerationType.*;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 

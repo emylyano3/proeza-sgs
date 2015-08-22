@@ -1,12 +1,12 @@
-package com.proeza.sgs.business.dto;
+package com.proeza.sgs.business.entity.dto;
 
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-import com.proeza.sgs.business.entity.Rubro;
+import com.proeza.sgs.business.entity.Clase;
 
-public class RubroDTO implements Serializable {
+public class ClaseDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,11 +20,14 @@ public class RubroDTO implements Serializable {
 
     private String            descripcion;
 
-    public RubroDTO (Rubro rubro) {
-        this.id = rubro.getId();
-        this.codigo = rubro.getCodigo();
-        this.nombre = rubro.getNombre();
-        this.descripcion = rubro.getDescripcion();
+    private String            rubro;
+
+    public ClaseDTO (Clase clase) {
+        this.id = clase.getId();
+        this.codigo = clase.getCodigo();
+        this.nombre = clase.getNombre();
+        this.descripcion = clase.getDescripcion();
+        this.rubro = clase.getRubro() != null ? clase.getRubro().getNombre() : null;
     }
 
     public Long getId () {
@@ -59,8 +62,16 @@ public class RubroDTO implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public String getRubro () {
+        return this.rubro;
+    }
+
+    public void setRubro (String rubro) {
+        this.rubro = rubro;
+    }
+
     @Override
     public String toString () {
-        return "RubroDTO [codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
+        return "ClaseDTO [codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
     }
 }

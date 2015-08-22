@@ -1,4 +1,4 @@
-package com.proeza.security.entity.builder;
+package com.proeza.security.entity;
 
 import java.sql.Blob;
 

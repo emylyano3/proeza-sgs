@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proeza.sgs.business.dao.impl.MarcaDao;
-import com.proeza.sgs.business.dto.MarcaDTO;
 import com.proeza.sgs.business.entity.Marca;
+import com.proeza.sgs.business.entity.dto.MarcaDTO;
 import com.proeza.sgs.business.service.IMarcaService;
 
 @Service

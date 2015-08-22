@@ -9,6 +9,7 @@ import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 
 import com.proeza.core.resources.message.IMessageResolver;
 import com.proeza.core.resources.message.MessageResolver;
+import com.proeza.core.service.IErrorService;
 import com.proeza.core.service.IMailService;
 import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.service.IUserService;
@@ -55,6 +56,11 @@ public class UnitTestContext {
     @Bean
     public IClaseService claseService () {
         return Mockito.mock(IClaseService.class);
+    }
+
+    @Bean
+    public IErrorService errorService () {
+        return Mockito.mock(IErrorService.class);
     }
 
     @Bean

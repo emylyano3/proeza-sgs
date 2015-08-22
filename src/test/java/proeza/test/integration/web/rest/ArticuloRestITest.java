@@ -11,8 +11,8 @@ import proeza.test.integration.WebMvcIntegrationTest;
 import proeza.test.unit.TestUtil;
 
 import com.proeza.sgs.business.dao.IArticuloDao;
-import com.proeza.sgs.business.dto.ArticuloDTO;
 import com.proeza.sgs.business.entity.Articulo;
+import com.proeza.sgs.business.entity.dto.ArticuloDTO;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;

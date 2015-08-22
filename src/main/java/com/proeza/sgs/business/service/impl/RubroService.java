@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proeza.sgs.business.dao.impl.RubroDao;
-import com.proeza.sgs.business.dto.RubroDTO;
 import com.proeza.sgs.business.entity.Rubro;
+import com.proeza.sgs.business.entity.dto.RubroDTO;
 import com.proeza.sgs.business.service.IRubroService;
 
 @Service
