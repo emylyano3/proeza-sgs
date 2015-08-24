@@ -8,8 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.proeza.sgs.system.dao.IPageDao;
-import com.proeza.sgs.system.entity.Page;
+import com.proeza.sgs.system.service.IPageService;
+import com.proeza.sgs.system.service.dto.PageDTO;
 import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
@@ -21,12 +21,12 @@ public class UsuarioController {
     private IViewMenuManager   menuManager;
 
     @Autowired
-    private IPageDao           pageDao;
+    private IPageService       pageService;
 
     @RequestMapping({"/usuario/{page}"})
     public String home (ModelMap model, Principal principal, @PathVariable("page") String pageName) {
         model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, pageName, principal));
-        Page pagina = this.pageDao.findByGroupAndName(PAGE_GROUP, pageName);
+        PageDTO pagina = this.pageService.findByGroupAndName(PAGE_GROUP, pageName);
         model.addAttribute("pageTitle", pagina.getTitle());
         model.addAttribute("pageSubtitle", pagina.getSubtitle());
         return PAGE_GROUP + "/" + pageName + ".html";

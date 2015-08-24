@@ -40,6 +40,9 @@ public class ArticuloService implements IArticuloService {
 
     public static final Logger    log            = Logger.getLogger(ArticuloService.class);
 
+    // @Autowired
+    // private ValidatorFactory validatorFactory;
+
     @Autowired
     private IArticuloDao          articuloDao;
 
@@ -75,6 +78,27 @@ public class ArticuloService implements IArticuloService {
         long time = System.currentTimeMillis() - init;
         log.info("findByStringFilter - Tiempo insumido: " + time + "ms.");
         return data;
+    }
+
+    @Override
+    public void create (ArticuloDTO dto) {
+        // this.validatorFactory.getValidator().validate(dto);
+        Tipo tipo = this.tipoDao.findByCode(dto.getCodTipo());
+        Rubro rubro = this.rubroDao.findByCode(dto.getCodRubro());
+        Marca marca = this.marcaDao.findByCode(dto.getCodMarca());
+        Clase clase = this.claseDao.findByCode(dto.getCodClase());
+        Articulo art = new Articulo();
+        art.setCodigo(createProductCode(dto));
+        art.setClase(clase);
+        art.setRubro(rubro);
+        art.setMarca(marca);
+        art.setTipo(tipo);
+        art.setCosto(BigDecimal.valueOf(dto.getCosto()));
+        art.setPrecio(BigDecimal.valueOf(dto.getPrecio()));
+        art.setDescripcion(dto.getDescripcion());
+        art.setModelo(dto.getModelo());
+        art.setStock(dto.getCantidad());
+        this.articuloDao.persist(art);
     }
 
     @Override
@@ -172,5 +196,15 @@ public class ArticuloService implements IArticuloService {
             result.add(resource);
         }
         return result;
+    }
+
+    private String createProductCode (ArticuloDTO art) {
+        StringBuilder builder = new StringBuilder(10);
+        builder
+            .append(art.getRubro().substring(0, 2).toUpperCase())
+            .append(art.getTipo().substring(0, 2).toUpperCase())
+            .append(art.getMarca().substring(0, 2).toUpperCase())
+            .append(this.articuloDao.getNextId());
+        return builder.toString();
     }
 }

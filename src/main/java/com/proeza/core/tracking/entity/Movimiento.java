@@ -3,7 +3,6 @@ package com.proeza.core.tracking.entity;
 // Generated 23/08/2014 10:46:17 by Hibernate Tools 3.4.0.CR1
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -29,7 +28,7 @@ public class Movimiento implements Serializable {
     private String            tipoMov;
     private Long              idEntidad;
     private String            tipoEntidad;
-    private Timestamp         fechaMovimiento;
+    private Date              fecha;
     private String            valorAnte;
     private String            valorPost;
 
@@ -48,16 +47,16 @@ public class Movimiento implements Serializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "f_movimiento", nullable = false, length = 10)
-    public Date getFechaMovimiento () {
-        return this.fechaMovimiento;
+    @Column(name = "fecha", nullable = false, length = 10)
+    public Date getFecha () {
+        return this.fecha;
     }
 
-    public void setFechaMovimiento (Timestamp fechaMovimiento) {
-        this.fechaMovimiento = fechaMovimiento;
+    public void setFecha (Date fecha) {
+        this.fecha = fecha;
     }
 
-    @Column(name = "valor_ant", nullable = false, length = 100)
+    @Column(name = "valor_ant", length = 100)
     public String getValorAnte () {
         return this.valorAnte;
     }

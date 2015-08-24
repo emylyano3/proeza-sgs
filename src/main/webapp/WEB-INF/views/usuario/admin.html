@@ -92,7 +92,7 @@
 		<script th:inline="javascript">
 		 	/*<![CDATA[*/
 			// Inicializacion de la tabla de usuarios
-			var popupMode;
+			var formMode;
 			$(document).ready(function() {
 					// prepare the data
 					var source = {
@@ -238,7 +238,7 @@
 						if ($.trim($(args).text()) == [[#{usu.admin.menu.edit}]]) {
 							// open the popup window when the user clicks a button.
 							editrow = rowindex;
-							popupMode = 'edition';
+							formMode = 'edition';
 							var offset = $("#usuarios").offset();
 							// get the clicked row's data and initialize the input fields.
 							var dataRecord = $("#usuarios").jqxGrid('getrowdata', editrow);
@@ -258,11 +258,12 @@
 							};
 				         	// File input plugin options
 				            $("#photoBrowse").fileinput(fileInputOptions);
-							$("#alias").prop('disabled', true);
 							$("#alias").val(dataRecord.alias);
 							$("#nombre").val(dataRecord.nombre);
 							$("#apellido").val(dataRecord.apellido);
 							$("#email").val(dataRecord.email);
+
+							$("#alias").prop('disabled', true);
 							$("#gridPanel").hide();
 							$("#editionPanel").show();
 						} else if ($.trim($(args).text()) == [[#{usu.admin.menu.delete}]]) {
@@ -270,7 +271,7 @@
 							$("#usuarios").jqxGrid('deleterow', rowid);
 						} else if ($.trim($(args).text()) == [[#{usu.admin.menu.new}]]) {
 							editrow = rowindex;
-							popupMode = 'creation';
+							formMode = 'creation';
 							var offset = $("#usuarios").offset();
 							// get the clicked row's data and initialize the input fields.
 							var dataRecord = $("#usuarios").jqxGrid('getrowdata', editrow);
@@ -310,9 +311,9 @@
 								email : $("#email").val()
 							};
 							var rowID = $('#usuarios').jqxGrid('getrowid', editrow);
-							if (popupMode = 'creation') {
+							if (formMode = 'creation') {
 								$('#usuarios').jqxGrid('addrow', rowID, row);
-							} else if (popupMode = 'creation') {
+							} else if (formMode = 'creation') {
 								$('#usuarios').jqxGrid('updaterow', rowID, row);
 							}
 						}

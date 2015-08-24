@@ -28,6 +28,13 @@
 	insert into sgs_proeza_db.cmn_i18n (id) values (12);
 	insert into sgs_proeza_db.cmn_i18n (id) values (13);
 	insert into sgs_proeza_db.cmn_i18n (id) values (14);
+	insert into sgs_proeza_db.cmn_i18n (id) values (15);
+	insert into sgs_proeza_db.cmn_i18n (id) values (16);
+	insert into sgs_proeza_db.cmn_i18n (id) values (17);
+	insert into sgs_proeza_db.cmn_i18n (id) values (18);
+	insert into sgs_proeza_db.cmn_i18n (id) values (19);
+	insert into sgs_proeza_db.cmn_i18n (id) values (20);
+	insert into sgs_proeza_db.cmn_i18n (id) values (21);
 	
 	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (1,1,'Home','en_US');
 	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (2,1,'Home','es_AR');
@@ -57,4 +64,18 @@
 	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (26,13,'Para acceder a la administración de articulos','es_AR');
 	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (27,14,'Article','en_US');
 	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (28,14,'Artículo','es_AR');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (29,15,'Usuario','es_AR');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (30,15,'User','en_US');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (31,16,'Inicio','es_AR');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (32,16,'Home','en_US');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (33,17,'Artículo','es_AR');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (34,17,'Product','en_US');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (35,18,'Inicio','es_AR');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (36,18,'Home','en_US');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (37,19,'Listado','es_AR');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (38,19,'List','en_US');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (39,20,'Administración','es_AR');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (40,20,'Management','en_US');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (41,21,'Estadísticas','es_AR');
+	insert into sgs_proeza_db.cmn_traduccion (id, fk_i18n, texto, locale) values (42,21,'Statistics','en_US');
 /* Internacionalizacion */

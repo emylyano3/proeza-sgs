@@ -4,108 +4,116 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
 	layout:decorator="layout.html">
 <body>
-	<div id="content" layout:fragment="contenido">
-		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
-		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
+    <div id="content" layout:fragment="contenido">
+        <link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
 		<link rel="stylesheet" href="../../../resources/fileinput/css/fileinput.css" th:href="@{/resources/fileinput/css/fileinput.css}" media="all" type="text/css" />
 
 		<!-- Grilla de articulos -->
-		<div class="row">
+		<div id="gridPanel" class="row animated zoomIn">
 			<div class="col-md-12">
-				<div id="articulos" />
+				<div id="gridArticulos" />
 			</div> 
 		</div>
-		<!-- Modal de edicion -->
-		<div class="modal fade" id="editionPopup" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-        				<h4 class="modal-title"><span th:text="#{art.admin.popup.edit}" text="Editar Artículo" /></h4>
-      				</div>
-					<div id="editpanel" class="modal-body" >
-						<form class="form-horizontal" style="width: 500px">
-							<div class="form-group">
-								<label for="codigo" class="col-sm-2 control-label" th:text="#{control.code}" />
-								<div class="col-sm-10">
-									<input id="codigo" class="form-control input-sm" disabled="disabled"/>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="modelo" class="col-sm-2 control-label" th:text="#{control.model}" />
-								<div class="col-sm-10">
-									<input id="modelo" class="form-control input-sm" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="descripcion" class="col-sm-2 control-label" th:text="#{control.description}" />
-								<div class="col-sm-10">
-									<input id="descripcion" class="form-control input-sm" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="clase" class="col-sm-2 control-label" th:text="#{control.class}" />
-								<div class="col-sm-10">
-									<select id="clase" class="form-control input-sm">
-										<option />
-										<option th:each="clase : ${clases}" th:text="${clase.nombre}" th:id="${clase.codigo}" />
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="tipo" class="col-sm-2 control-label" th:text="#{control.type}" />
-								<div class="col-sm-10">
-									<select id="tipo" class="form-control input-sm">
-										<option />
-										<option th:each="tipo : ${tipos}" th:text="${tipo.nombre}" th:id="${tipo.codigo}" />
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="marca" class="col-sm-2 control-label" th:text="#{control.brand}" />
-								<div class="col-sm-10">
-									<select id="marca" class="form-control input-sm">
-										<option />
-										<option th:each="marca : ${marcas}" th:text="${marca.nombre}" th:id="${marca.codigo}" />
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="precio" class="col-sm-2 control-label" th:text="#{control.price}" />
-								<div class="col-sm-10">
-									<input id="precio" class="form-control input-sm" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="costo" class="col-sm-2 control-label" th:text="#{control.cost}" />
-								<div class="col-sm-10">
-									<input id="costo" class="form-control input-sm" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="rubro" class="col-sm-2 control-label" th:text="#{control.category}" />
-								<div class="col-sm-10">
-									<select id="rubro" class="form-control input-sm">
-										<option />
-										<option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:id="${rubro.codigo}" />
-									</select>
-								</div>
-							</div>
-							<div class="hidden" >
-								<input id="cantidad" class="hidden" />
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button id="cancel" type="button" class="btn btn-default" th:text="#{control.cancel}" data-dismiss="modal"/>
-						<button id="save" type="button" class="btn btn-primary" th:text="#{control.save}" data-dismiss="modal"/>
-			      	</div>
-				</div>
-			</div>
-		</div>
-		<!-- Modal de agregado de imagen -->
+        <!-- Panel de edicion -->
+        <div id="editionPanel" class="hpanel animated fadeInUp" hidden="true">
+            <div class="panel-heading">
+                <span id="formTitle" />
+            </div>
+            <div class="panel-body">
+                <form id="formArticulo" class="form-horizontal">
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label id="lblCodigo" for="codigo" class="col-sm-3 control-label" th:text="#{control.code}" />
+                                    <div class="col-sm-9">
+                                        <input id="codigo" class="form-control input-sm" disabled="disabled" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="modelo" class="col-sm-3 control-label" th:text="#{control.model}" />
+                                    <div class="col-sm-9">
+                                        <input id="modelo" class="form-control input-sm" required="required" autofocus="autofocus"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="descripcion" class="col-sm-3 control-label" th:text="#{control.description}" />
+                                    <div class="col-sm-9">
+                                        <input id="descripcion" class="form-control input-sm" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="clase" class="col-sm-3 control-label" th:text="#{control.class}" />
+                                    <div class="col-sm-9">
+                                        <select id="cbClase" name="clase" class="form-control input-sm" >
+                                            <option value="" th:text="#{control.choose}"/>
+                                            <option th:each="clase : ${clases}" th:text="${clase.nombre}" th:id="${clase.codigo}" />
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cbTipo" class="col-sm-3 control-label" th:text="#{control.type}" />
+                                    <div class="col-sm-9">
+                                        <select id="cbTipo" class="form-control input-sm" >
+                                            <option value="" th:text="#{control.choose}"/>
+                                            <option th:each="tipo : ${tipos}" th:text="${tipo.nombre}" th:id="${tipo.codigo}" />
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cbMarca" class="col-sm-3 control-label" th:text="#{control.brand}" />
+                                    <div class="col-sm-9">
+                                        <select id="cbMarca" name="marca" class="form-control input-sm" required="required" >
+                                            <option value="" th:text="#{control.choose}"/>
+                                            <option th:each="marca : ${marcas}" th:text="${marca.nombre}" th:id="${marca.codigo}" />
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cbRubro" class="col-sm-3 control-label" th:text="#{control.category}" />
+                                    <div class="col-sm-9">
+                                        <select id="cbRubro" name="rubro" class="form-control input-sm" required="required" >
+                                            <option value="" th:text="#{control.choose}"/>
+                                            <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:id="${rubro.codigo}" />
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="precio" class="col-sm-3 control-label" th:text="#{control.price}" />
+                                    <div class="col-sm-9">
+                                        <input id="precio" class="form-control input-sm" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="costo" class="col-sm-3 control-label" th:text="#{control.cost}" />
+                                    <div class="col-sm-9">
+                                        <input id="costo" class="form-control input-sm" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cantidad" class="col-sm-3 control-label" th:text="#{control.quantity}" />
+                                    <div class="col-sm-9">
+                                        <input id="cantidad" class="form-control input-sm" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p/>
+                        <div class="col-md-12">
+                            <button id="cancelEdit" type="button" class="btn btn-default" th:text="#{control.cancel}" />
+                            <button id="saveEdit" type="button" class="btn btn-primary" th:text="#{control.save}" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer">
+                <span id="formFooter" />
+            </div>
+        </div>
+        <!-- Modal de agregado de imagen -->
 		<div class="modal fade" id="addImagePopup" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -123,7 +131,7 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button id="cancel" type="button" class="btn btn-default" th:text="#{control.cancel}" data-dismiss="modal"/>
+						<button id="cancelImage" type="button" class="btn btn-default" th:text="#{control.cancel}" data-dismiss="modal"/>
 			      	</div>
 				</div>
 			</div>
@@ -131,8 +139,10 @@
 		<!-- Menu Contextual -->
 		<div id="gridContextMenu">
 	        <ul>
-	            <li id="addImgToArt" th:text="#{art.admin.menu.addImage}"/>
 	            <li id="editArt" th:text="#{art.admin.menu.edit}"/>
+	            <li id="addImgToArt" th:text="#{art.admin.menu.addImage}"/>
+	            <li id="copyArt" th:text="#{art.admin.menu.copy}"/>
+	            <li id="createArt" th:text="#{art.admin.menu.create}"/>
 	            <li id="deleteArt" th:text="#{art.admin.menu.delete}"/>
 	        </ul>
        </div>
@@ -153,8 +163,10 @@
 		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
 		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput.js" th:src="@{/resources/fileinput/js/fileinput.js}" />
 		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput_locale_es.js" th:src="@{/resources/fileinput/js/fileinput_locale_es.js}" />
+		<script type="text/javascript" src="../../../resources/validation/js/jquery.validate.js" th:src="@{/resources/validation/js/jquery.validate.js}" />
 		<script th:inline="javascript">
 		 	/*<![CDATA[*/
+		 	var formMode, formValidator;
 			// Inicializacion de la tabla de arículos
 			$(document).ready(function() {
 				// prepare the data
@@ -178,6 +190,33 @@
 		               {name : 'codMarca', type : 'string'}, 
 		               {name : 'codRubro', type : 'string'},
 		            ],
+		            addrow : function(rowid, rowdata, position, commit) {
+		            	$.ajax({
+							type : 'POST',
+							url : '/proeza-sgs/rest/articulo/create',
+							dataType: 'json',
+							contentType: 'application/json',
+							data : JSON.stringify(rowdata),
+							success : function() {
+								$.notify({
+									title: /*[[#{art.addrow.success.title}]]*/ '<strong>Creación de artículo:</strong>',
+									message: /*[[#{art.addrow.success.message}]]*/ 'La creación se realizó correctamente'
+								},{
+									type: 'success'
+								});
+								commit(true);
+							},
+							error: function () {            
+								$.notify({
+									title: /*[[#{art.addrow.error.title}]]*/ '<strong>Creación de artículo:</strong>',
+									message: /*[[#{art.addrow.error.message}]]*/ 'Ocurrió un error en la creación del artículo'
+								},{
+									type: 'danger'
+								});
+								commit(false);
+					        }
+						});
+		            },
 					updaterow : function(rowid, rowdata, commit) {
 						$.ajax({
 							type : 'POST',
@@ -187,8 +226,8 @@
 							data : JSON.stringify(rowdata),
 							success : function() {
 								$.notify({
-									title: /*[[#{art.alert.updaterow.success.title}]]*/ '<strong>Modificación de artículo:</strong>',
-									message: /*[[#{art.alert.updaterow.success.message}]]*/ 'La modificación se realizó correctamente'
+									title: /*[[#{art.updaterow.success.title}]]*/ '<strong>Modificación de artículo:</strong>',
+									message: /*[[#{art.updaterow.success.message}]]*/ 'La modificación se realizó correctamente'
 								},{
 									type: 'success'
 								});
@@ -196,8 +235,8 @@
 							},
 							error: function () {            
 								$.notify({
-									title: /*[[#{art.alert.updaterow.error.title}]]*/ '<strong>Modificación de artículo:</strong>',
-									message: /*[[art.alert.updaterow.error.message]]*/ 'Ocurrió un error en la actualización del artículo'
+									title: /*[[#{art.updaterow.error.title}]]*/ '<strong>Modificación de artículo:</strong>',
+									message: /*[[#{art.updaterow.error.message}]]*/ 'Ocurrió un error en la actualización del artículo'
 								},{
 									type: 'danger'
 								});
@@ -215,7 +254,7 @@
 				var editrow = -1;
 				
 				// initializa la grilla de articulos
-				$("#articulos").jqxGrid({
+				$("#gridArticulos").jqxGrid({
 					width : '100%',
 					height : '100%',
 					theme : 'energyblue',
@@ -226,60 +265,66 @@
 					sortable : true,
 					enabletooltips : true,
 					columns : [ {
-						text : /*[[#{art.grid.model}]]*/ 'Modelo',
-						dataField : 'modelo',
-						width : '30%'
-					}, {
-						text : /*[[#{art.grid.class}]]*/ 'Clase',
-						dataField : 'clase',
-						width : '30%'
-					}, {
-						text : /*[[#{art.grid.trademark}]]*/ 'Marca',
-						dataField : 'marca',
-						width : '30%'
-					}, {
-						text : /*[[#{art.grid.price}]]*/ 'Precio',
-						dataField : 'precio',
-						cellsalign : 'right',
-						cellsformat : 'c2',
-						minwidth : '10%'
-					} ]
+    						text : /*[[#{art.grid.model}]]*/ 'Modelo',
+    						dataField : 'modelo',
+    						width : '28%'
+    					},{
+    						text : /*[[#{art.grid.class}]]*/ 'Clase',
+    						dataField : 'clase',
+    						width : '28%'
+    					},{
+    						text : /*[[#{art.grid.trademark}]]*/ 'Marca',
+    						dataField : 'marca',
+    						width : '22%'
+    					},{
+    						text : /*[[#{art.grid.cost}]]*/ 'Costo',
+    						dataField : 'costo',
+    						cellsalign : 'right',
+    						cellsformat : 'c2',
+    						minwidth : '10%'
+    					},{
+    						text : /*[[#{art.grid.price}]]*/ 'Precio',
+    						dataField : 'precio',
+    						cellsalign : 'right',
+    						cellsformat : 'c2',
+    						minwidth : '10%'
+    					},{
+							text: /*[[#{art.grid.quantity}]]*/ 'Cantidad', 
+							dataField: 'cantidad', 
+							cellsalign: 'center', 
+							minwidth: '2%' 
+						}
+    				]
 				});
 				// create context menu
 				var contextMenu = $("#gridContextMenu").jqxMenu({
-					width : 180,
-					height : 90,
+					width : 190,
+					height : 140,
 					autoOpenPopup : false,
 					mode : 'popup'
 
 				});
-				$("#articulos").on('contextmenu', function() {
+				$("#gridArticulos").on('contextmenu', function() {
 					return false;
 				});
 
 				// handle context menu clicks.
 				$("#gridContextMenu").on('itemclick', function(event) {
 					var args = event.args;
-					var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
+					var rowindex = $("#gridArticulos").jqxGrid('getselectedrowindex');
 					editrow = rowindex;
-					var offset = $("#articulos").offset();
+					var offset = $("#gridArticulos").offset();
 					// get the clicked row's data and initialize the input fields.
-					var dataRecord = $("#articulos").jqxGrid('getrowdata', rowindex);
+					var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', rowindex);
 					if ($.trim($(args).text()) == [[#{art.admin.menu.edit}]]) {
-						$("#codigo").val(dataRecord.codigo);
-						$("#modelo").val(dataRecord.modelo);
-						$("#descripcion").val(dataRecord.descripcion);
-						$("#clase").val(dataRecord.clase);
-						$("#tipo").val(dataRecord.tipo);
-						$("#marca").val(dataRecord.marca);
-						$("#rubro").val(dataRecord.rubro);
-						$("#precio").val(dataRecord.precio);
-						$("#costo").val(dataRecord.costo);
-						$("#cantidad").val(dataRecord.cantidad);
-						$("#editionPopup").modal('show');
+						initEditionForm(dataRecord);
+					} else if ($.trim($(args).text()) == [[#{art.admin.menu.create}]]) { 
+						initCreationForm(dataRecord);
+					} else if ($.trim($(args).text()) == [[#{art.admin.menu.copy}]]) { 
+						initCopyCreationForm(dataRecord);
 					} else if ($.trim($(args).text()) == [[#{art.admin.menu.delete}]]) {
-						var rowid = $("#articulos").jqxGrid('getrowid', rowindex);
-						$("#articulos").jqxGrid('deleterow', rowid);
+						var rowid = $("#gridArticulos").jqxGrid('getrowid', rowindex);
+						$("#gridArticulos").jqxGrid('deleterow', rowid);
 					} else if ($.trim($(args).text()) == [[#{art.admin.menu.addImage}]]) {
 				         var fileInputOptions = {
 								showUpload : true,
@@ -295,57 +340,74 @@
 						$("#addImagePopup").modal('show');
 					}
 				});
-				$("#articulos").on('rowclick', function(event) {	
+				$("#gridArticulos").on('rowclick', function(event) {	
 					if (event.args.rightclick) {	
-						$("#articulos").jqxGrid('selectrow', event.args.rowindex);
+						$("#gridArticulos").jqxGrid('selectrow', event.args.rowindex);
 						var scrollTop = $(window).scrollTop();
 						var scrollLeft = $(window).scrollLeft();
 						contextMenu.jqxMenu(
-								'open', 
-								parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
-								parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
+							'open', 
+							parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+							parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
 						);
 						return false;
 					}
 				});
 
 				// update the edited row when the user clicks the 'save' button.
-				$("#save").click(function() {
-					if (editrow >= 0) {
+				$("#saveEdit").click(function() {
+					if ($("#formArticulo").valid()) {
 						var row = {
 							codigo : $("#codigo").val(),
 							modelo : $("#modelo").val(),
 							descripcion : $("#descripcion").val(),
-							clase : $("#clase").val(),
-							tipo : $("#tipo").val(),
-							rubro : $("#rubro").val(),
-							marca : $("#marca").val(),
+							clase : $("#cbClase").val(),
+							tipo : $("#cbTipo").val(),
+							rubro : $("#cbRubro").val(),
+							marca : $("#cbMarca").val(),
 							precio : $("#precio").val(),
 							costo : $("#costo").val(),
 							cantidad : $("#cantidad").val(),
-							codClase : $( "#clase option:selected" ).attr('id'),
-							codTipo : $( "#tipo option:selected" ).attr('id'),
-							codMarca : $( "#marca option:selected" ).attr('id'),
-							codRubro : $( "#rubro option:selected" ).attr('id')
-						};
-						var rowID = $('#articulos').jqxGrid('getrowid', editrow);
-						$('#articulos').jqxGrid('updaterow', rowID, row);
+							codClase : $("#cbClase option:selected").attr('id'),
+							codTipo : $("#cbTipo option:selected").attr('id'),
+							codMarca : $("#cbMarca option:selected").attr('id'),
+							codRubro : $("#cbRubro option:selected").attr('id')
+    					};
+						if (formMode == 'creation') {
+							row.codigo = '';
+    						$('#gridArticulos').jqxGrid('addrow', null, row, 0);
+						} else if (formMode == 'edition' && editrow >= 0) {
+    						var rowid = $('#gridArticulos').jqxGrid('getrowid', editrow);
+    						$('#gridArticulos').jqxGrid('updaterow', rowid, row);
+						}
+    					$("#editionPanel").hide();
+    					$("#gridPanel").show();
+					} else {
+						$.notify({
+							title: /*[[#{art.form.error.title}]]*/ '<strong>Creación de artículo:</strong>',
+							message: /*[[#{art.form.error.message}]]*/ 'Ocurrió un error en la creación del artículo'
+						},{
+							type: 'danger'
+						});
 					}
-					$("#editionPopup").modal('hide');
 				});
 
 				// Hide popup when cancel
-				$("#cancel").click(function() {
-					$("#editionPopup").modal('hide');
+				$("#cancelEdit").click(function() {
+					formValidator.resetForm();
+					$("#editionPanel").hide();
+					$("#gridPanel").show();
+				});
+				$("#cancelImage").click(function() {
 					$("#addImagePopup").modal('hide');
 				});
 
 				// Configuracion del control de ingreso del precio
 				$("#precio").inputmask("currency", {
-					"autoUnmask" : true
+					autoUnmask : true, rightAlign: false 
 				});
 				$("#costo").inputmask("currency", {
-					"autoUnmask" : true
+					autoUnmask : true, rightAlign: false 
 				});
 				
 				 // Inicializa los controles del filto
@@ -354,12 +416,90 @@
 	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
 	                source.url = "/proeza-sgs/rest/articulo/search?" + params;
 					// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
-	                $("#articulos").jqxGrid('updatebounddata', 'cells');
+	                $("#gridArticulos").jqxGrid('updatebounddata', 'cells');
 	            });
 	            $("#eraser").click(function () {
-	                $("#articulos").jqxGrid('clear');
+	                $("#gridArticulos").jqxGrid('clear');
 	            });
 			});
+			
+			function initCreationForm (dataRecord) {
+				formMode = 'creation';
+				$("#modelo").val('');
+				$("#descripcion").val('');
+				$("#cbClase").val('');
+				$("#cbTipo").val('');
+				$("#cbMarca").val();
+				$("#cbRubro").val('');
+				$("#precio").val('0');
+				$("#costo").val('0');
+				$("#cantidad").val('0');
+				// Setting the form controls
+				$("#formTitle").text([[#{art.admin.creation.title}]]);
+				$("#formFooter").text([[#{art.admin.creating}]]);
+				$("#codigo").hide();
+				$("#lblCodigo").hide();
+				showForm();
+			}
+			
+			function showForm() {
+				$("#gridPanel").hide();
+				$("#editionPanel").show();	
+			}
+			
+			function initCopyCreationForm (dataRecord) {
+				formMode = 'creation';
+				$("#codigo").val('');
+				$("#codigo").hide();
+				$("#lblCodigo").hide();
+				$("#modelo").val(dataRecord.modelo);
+				$("#descripcion").val(dataRecord.descripcion);
+				$("#cbClase").val(dataRecord.clase);
+				$("#cbTipo").val(dataRecord.tipo);
+				$("#cbMarca").val(dataRecord.marca);
+				$("#cbRubro").val(dataRecord.rubro);
+				$("#precio").val(dataRecord.precio);
+				$("#costo").val(dataRecord.costo);
+				$("#cantidad").val('0');
+				// Setting the form controls
+				$("#formTitle").text([[#{art.admin.creation.title}]]);
+				$("#formFooter").text([[#{art.admin.copying}]] + dataRecord.clase + " " + dataRecord.marca + " " + dataRecord.modelo);
+				$("#codigo").hide();
+				$("#lblCodigo").hide();
+				showForm();
+			}
+			
+			function initEditionForm (dataRecord) {
+				formMode = 'edition';
+				$("#codigo").val(dataRecord.codigo);
+				$("#modelo").val(dataRecord.modelo);
+				$("#descripcion").val(dataRecord.descripcion);
+				$("#cbClase").val(dataRecord.clase);
+				$("#cbTipo").val(dataRecord.tipo);
+				$("#cbMarca").val(dataRecord.marca);
+				$("#cbRubro").val(dataRecord.rubro);
+				$("#precio").val(dataRecord.precio);
+				$("#costo").val(dataRecord.costo);
+				$("#cantidad").val(dataRecord.cantidad);
+				// Setting the form controls
+				$("#formTitle").text([[#{art.admin.edition.title}]]);
+				$("#formFooter").text([[#{art.admin.editing}]] + dataRecord.codigo);
+				$("#codigo").show();
+				$("#lblCodigo").show();
+				showForm();
+			}
+			
+			// configure your validation
+			var formValidator = $("#formArticulo").validate( 
+				{
+					rules: {
+					    clase: {
+					        required: true
+					    }
+					},
+				}
+			);
+				
 			/*]]>*/
 		</script>
 	</div>

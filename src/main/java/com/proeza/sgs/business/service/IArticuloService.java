@@ -15,6 +15,8 @@ public interface IArticuloService {
 
     void update (ArticuloDTO articulo);
 
+    void create (ArticuloDTO articulo);
+
     /**
      * Agrega una imagen a un articulo determinado
      */

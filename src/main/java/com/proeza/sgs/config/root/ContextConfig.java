@@ -54,7 +54,8 @@ import com.proeza.sgs.business.chart.ChartColorManager;
         "com.proeza.security.dao",
         "com.proeza.security.service",
         "com.proeza.sgs.business",
-        "com.proeza.sgs.system"
+        "com.proeza.sgs.system",
+        "com.proeza.sgs.system.service",
     },
     excludeFilters = {
         @Filter(Configuration.class),

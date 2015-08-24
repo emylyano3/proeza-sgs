@@ -34,9 +34,10 @@ public abstract class BaseDao<Entity> implements Dao<Entity> {
     @Override
     public List<Entity> findAll () {
         @SuppressWarnings("unchecked")
-        final List<Entity> resultList = this.entityManager
-            .createQuery(" select x from " + getEntityClass().getName() + " x")
-            .getResultList();
+        final List<Entity> resultList =
+            this.entityManager
+                .createQuery(" select x from " + getEntityClass().getName() + " x")
+                .getResultList();
         return resultList;
     }
 
@@ -54,6 +55,7 @@ public abstract class BaseDao<Entity> implements Dao<Entity> {
         return entities;
     }
 
+    @Override
     public EntityManager getEntityManager () {
         return this.entityManager;
     }

@@ -34,7 +34,7 @@ public class ArticulosStatsRestController {
         return this.productChartService.worstSellers(n);
     }
 
-    @RequestMapping(value = "brandPresence/{n}", method = RequestMethod.POST)
+    @RequestMapping(value = "brandPresence/{n}", method = RequestMethod.POST, produces = {"application/json; charset=UTF-8","*/*;charset=UTF-8"})
     public List<SingleDataSetChartDefinition> brandPresence (@PathVariable Integer n) {
         return this.productChartService.presenciaMarca(n);
     }

@@ -15,11 +15,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 
+import com.proeza.core.i18n.I18nHelper;
+import com.proeza.core.i18n.entity.I18n;
 import com.proeza.security.entity.Rol;
 
 import static javax.persistence.GenerationType.*;
@@ -44,11 +48,13 @@ public class Page implements Serializable {
     private String            group;
     private String            name;
     private String            description;
-    private String            title;
-    private String            subtitle;
+    private I18n              titleI18n;
+    private I18n              subtitleI18n;
 
     private Set<Menu>         menues           = new TreeSet<>();
     private Set<Rol>          roles            = new TreeSet<>();
+
+    private I18nHelper        i18nHelper       = new I18nHelper();
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -88,22 +94,14 @@ public class Page implements Serializable {
         this.description = description;
     }
 
-    @Column(name = "titulo")
+    @Transient
     public String getTitle () {
-        return this.title;
+        return this.i18nHelper.getTextoLocalizado(this.titleI18n);
     }
 
-    public void setTitle (String title) {
-        this.title = title;
-    }
-
-    @Column(name = "subtitulo")
+    @Transient
     public String getSubtitle () {
-        return this.subtitle;
-    }
-
-    public void setSubtitle (String subtitle) {
-        this.subtitle = subtitle;
+        return this.i18nHelper.getTextoLocalizado(this.subtitleI18n);
     }
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
@@ -133,6 +131,26 @@ public class Page implements Serializable {
 
     public void setRoles (Set<Rol> roles) {
         this.roles = roles;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_i18n_titulo")
+    public I18n getTitleI18n () {
+        return this.titleI18n;
+    }
+
+    public void setTitleI18n (I18n titleI18n) {
+        this.titleI18n = titleI18n;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_i18n_subtitulo")
+    public I18n getSubtitleI18n () {
+        return this.subtitleI18n;
+    }
+
+    public void setSubtitleI18n (I18n subtitleI18n) {
+        this.subtitleI18n = subtitleI18n;
     }
 
     @Override

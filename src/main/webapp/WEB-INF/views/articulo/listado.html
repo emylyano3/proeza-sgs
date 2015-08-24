@@ -8,9 +8,9 @@
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" />
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
 		
-		<div class="row">
+		<div id="gridPanel" class="row animated zoomIn">
 			<div class="col-md-12">
-		        <div id="articulos"/>
+		        <div id="gridArticulos"/>
 			</div>
 		</div>
         <p/>
@@ -63,16 +63,16 @@
 					autoOpenPopup : false,
 					mode : 'popup'
 				});
-				$("#articulos").on('contextmenu', function() {
+				$("#gridArticulos").on('contextmenu', function() {
 					return false;
 				});
 				// Manejo los eventos sobre el context menu de la grilla
 				$("#gridContextMenu").on('itemclick', function(event) {
 					var args = event.args;
-					var rowindex = $("#articulos").jqxGrid('getselectedrowindex');
-					var offset = $("#articulos").offset();
+					var rowindex = $("#gridArticulos").jqxGrid('getselectedrowindex');
+					var offset = $("#gridArticulos").offset();
 					// get the clicked row's data and initialize the input fields.
-					var dataRecord = $("#articulos").jqxGrid('getrowdata', rowindex);
+					var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', rowindex);
 					if ($.trim($(args).text()) == [[#{art.list.menu.seeImages}]]) {
 						 // Initialize image gallery
 						blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
@@ -87,13 +87,14 @@
 		            url: "/proeza-sgs/rest/articulo/search?filter=",
 		            datatype: "json",
 		            dataFields: [
-							{name: 'codigo', type : 'string'},
-     	                    {name: 'modelo', type: 'string'},
-     	                    {name: 'descripcion', type: 'string'},
-     	                    {name: 'clase', type: 'string'},
-     	                    {name: 'tipo', type: 'string'},
-     	                    {name: 'marca', type: 'string'},
-     	                    {name: 'precio', type: 'double'},
+						{name: 'codigo', type : 'string'},
+ 	                    {name: 'modelo', type: 'string'},
+ 	                    {name: 'descripcion', type: 'string'},
+ 	                    {name: 'clase', type: 'string'},
+ 	                    {name: 'tipo', type: 'string'},
+ 	                    {name: 'marca', type: 'string'},
+ 	                    {name: 'precio', type: 'double'},
+ 	                    {name: 'cantidad', type: 'integer'},
 		            ]
 		        };	
 	        }
@@ -105,11 +106,11 @@
 	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
 	                source.url = "/proeza-sgs/rest/articulo/search?" + params;
 					// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
-	                $("#articulos").jqxGrid('updatebounddata', 'cells');
+	                $("#gridArticulos").jqxGrid('updatebounddata', 'cells');
 	            });
 	            $("#eraser").click(function () {
 	                cleanThumbnailsContainer();
-	                $("#articulos").jqxGrid('clear');
+	                $("#gridArticulos").jqxGrid('clear');
 	                $("#filter").val("");
 	            });	
 	        }
@@ -125,8 +126,9 @@
 	        function initGrid(source) {
 	            var dataAdapter = new $.jqx.dataAdapter(source);
 	            // initializa la grilla de articulos
-	            $("#articulos").jqxGrid({
+	            $("#gridArticulos").jqxGrid({
 	                width: '100%',
+					height : '100%',
 	                source: dataAdapter,
 					theme : 'energyblue',
 	                columnsresize: true,
@@ -136,40 +138,45 @@
 						{ 
 							text: /*[[#{art.grid.model}]]*/ 'Modelo', 
 							dataField: 'modelo', 
-							width: '20%' 
+							width: '21%' 
 						},{ 
 							text: /*[[#{art.grid.desc}]]*/ 'Descripción', 
 							dataField: 'descripcion', 
-							width: '20%' 
+							width: '21%' 
 						},{ 
 							text: /*[[#{art.grid.class}]]*/ 'Clase', 
 							dataField: 'clase',
-							width: '15%' 
+							width: '14%' 
 						},{ 
 							text: /*[[#{art.grid.type}]]*/ 'Tipo', 
 							dataField: 'tipo', 
-							width: '20%' 
+							width: '18%' 
 						},{
 							text: /*[[#{art.grid.trademark}]]*/ 'Marca', 
 							dataField: 'marca', 
-							width: '15%' 
+							width: '14%' 
 						},{
 							text: /*[[#{art.grid.price}]]*/ 'Precio', 
 							dataField: 'precio', 
 							cellsalign: 'right', 
 							cellsformat: 'c2', 
 							minwidth: '10%' 
+						},{
+							text: /*[[#{art.grid.quantity}]]*/ 'Cantidad', 
+							dataField: 'cantidad', 
+							cellsalign: 'center', 
+							minwidth: '2%' 
 						}
 	                ]
 	            });
 	            var contextMenu = initGridContextMenu();
-	            $("#articulos").on('rowselect', function (event) {
+	            $("#gridArticulos").on('rowselect', function (event) {
 	                var rowIndex = event.args.rowindex;
 		            if (lastSelectedRow != rowIndex) {
 		            	lastSelectedRow = rowIndex;
 		             	// Row select: Load thumbnails from server
 						// get the clicked row's data and initialize the input fields.
-						var dataRecord = $("#articulos").jqxGrid('getrowdata', rowIndex);
+						var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', rowIndex);
 						var imagesUrl = '/proeza-sgs/rest/articulo/getImages/' + dataRecord.codigo;
 				        // Add the demo images as links with thumbnails to the page
 				        var linksContainer = cleanThumbnailsContainer();
@@ -197,8 +204,8 @@
 					    );
 		            }
 	            });
-				$("#articulos").on('rowclick', function(event) {
-					$("#articulos").jqxGrid('selectrow', event.args.rowindex);
+				$("#gridArticulos").on('rowclick', function(event) {
+					$("#gridArticulos").jqxGrid('selectrow', event.args.rowindex);
 					if (event.args.rightclick) {
 						var scrollTop = $(window).scrollTop();
 						var scrollLeft = $(window).scrollLeft();

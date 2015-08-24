@@ -109,10 +109,10 @@ public class HistorialPrecioChartManager extends MultiDataSetChartManager<Movimi
 
     private void groupByDate () {
         for (Movimiento mov : this.source) {
-            if (this.groupedData.get(mov.getFechaMovimiento()) == null) {
-                this.groupedData.put(mov.getFechaMovimiento(), new ArrayList<Movimiento>());
+            if (this.groupedData.get(mov.getFecha()) == null) {
+                this.groupedData.put(mov.getFecha(), new ArrayList<Movimiento>());
             }
-            this.groupedData.get(mov.getFechaMovimiento()).add(mov);
+            this.groupedData.get(mov.getFecha()).add(mov);
         }
     }
 
@@ -132,7 +132,7 @@ public class HistorialPrecioChartManager extends MultiDataSetChartManager<Movimi
             if (m2 == null) {
                 return 1;
             }
-            return m1.getFechaMovimiento().compareTo(m2.getFechaMovimiento());
+            return m1.getFecha().compareTo(m2.getFecha());
         }
     }
 
@@ -155,7 +155,7 @@ public class HistorialPrecioChartManager extends MultiDataSetChartManager<Movimi
     }
 
     private Date getLastPriceUpdate () {
-        return this.source.get(this.source.size() - 1).getFechaMovimiento();
+        return this.source.get(this.source.size() - 1).getFecha();
     }
 
     private Integer getUpdates () {

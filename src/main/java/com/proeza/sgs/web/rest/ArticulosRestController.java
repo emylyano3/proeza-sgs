@@ -47,6 +47,12 @@ public class ArticulosRestController {
         this.productService.update(articulo);
     }
 
+    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void create (@RequestBody ArticuloDTO articulo) {
+        this.productService.create(articulo);
+    }
+
     @RequestMapping(value = "addImage", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void uploadImage (ModelMap model, Principal principal, @RequestParam("artCode") String code, @RequestParam("file") MultipartFile file) {

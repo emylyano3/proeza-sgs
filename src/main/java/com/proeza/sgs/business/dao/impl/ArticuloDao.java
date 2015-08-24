@@ -37,7 +37,14 @@ public class ArticuloDao extends BaseDao<Articulo> implements IArticuloDao {
         criteria.select(root);
         criteria.where(builder.equal(root.get(Movimiento_.tipoMov), tipoMov));
         criteria.where(builder.equal(root.get(Movimiento_.idEntidad), art.getId()));
-        criteria.orderBy(builder.asc(root.get(Movimiento_.fechaMovimiento)));
+        criteria.orderBy(builder.asc(root.get(Movimiento_.fecha)));
         return this.entityManager.createQuery(criteria).getResultList();
+    }
+
+    @Override
+    public Long getNextId () {
+        return (Long) this.entityManager
+            .createQuery(" select max(x.id) from " + Articulo.class.getName() + " x")
+            .getSingleResult();
     }
 }

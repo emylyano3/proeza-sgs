@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.proeza.sgs.system.dao.IPageDao;
-import com.proeza.sgs.system.entity.Page;
+import com.proeza.sgs.system.service.IPageService;
+import com.proeza.sgs.system.service.dto.PageDTO;
 import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
@@ -23,7 +23,7 @@ public class HomeController {
     private IViewMenuManager   menuManager;
 
     @Autowired
-    private IPageDao           pageDao;
+    private IPageService       pageService;
 
     @ModelAttribute
     public void menues (final ModelMap model, final Principal principal) {
@@ -33,7 +33,7 @@ public class HomeController {
     @RequestMapping({"/", "/index", "/home"})
     public ModelAndView home (ModelAndView model) {
         model.setViewName(PAGE_GROUP + "/" + PAGE_NAME + ".html");
-        Page pagina = this.pageDao.findByGroupAndName(PAGE_GROUP, PAGE_NAME);
+        PageDTO pagina = this.pageService.findByGroupAndName(PAGE_GROUP, PAGE_NAME);
         model.addObject("pageTitle", pagina.getTitle());
         model.addObject("pageSubtitle", pagina.getSubtitle());
         return model;

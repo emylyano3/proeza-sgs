@@ -1,17 +1,17 @@
 package com.proeza.core.tracking.entity.builder;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import com.proeza.core.tracking.entity.Movimiento;
 
 public class MovimientoBuilder {
-    private Long      id;
-    private String    tipoMov;
-    private Long      idEntidad;
-    private String    tipoEntidad;
-    private Timestamp fechaMovimiento;
-    private String    valorAnte;
-    private String    valorPost;
+    private Long   id;
+    private String tipoMov;
+    private Long   idEntidad;
+    private String tipoEntidad;
+    private Date   fecha;
+    private String valorAnte;
+    private String valorPost;
 
     public MovimientoBuilder withId (Long id) {
         this.id = id;
@@ -33,8 +33,8 @@ public class MovimientoBuilder {
         return this;
     }
 
-    public MovimientoBuilder withFechaMovimiento (Timestamp fechaMovimiento) {
-        this.fechaMovimiento = fechaMovimiento;
+    public MovimientoBuilder withFecha (Date fecha) {
+        this.fecha = fecha;
         return this;
     }
 
@@ -54,7 +54,7 @@ public class MovimientoBuilder {
         mov.setIdEntidad(this.idEntidad);
         mov.setTipoEntidad(this.tipoEntidad);
         mov.setTipoMov(this.tipoMov);
-        mov.setFechaMovimiento(this.fechaMovimiento);
+        mov.setFecha(this.fecha);
         mov.setValorAnte(this.valorAnte);
         mov.setValorPost(this.valorPost);
         return mov;

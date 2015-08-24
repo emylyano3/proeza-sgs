@@ -86,10 +86,10 @@
 	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (6, 104, 6);
 	
 	/* Movimiento sobre articulos */ 	
-	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, f_movimiento, valor_ant, valor_post) values (100, 'MOD_PRECIO', 1, 'ARTICULO', '2015-01-12 11:34:31.923', '250', '270');
-	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, f_movimiento, valor_ant, valor_post) values (101, 'MOD_PRECIO', 1, 'ARTICULO', '2015-02-10 11:34:31.923', '270', '275');
-	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, f_movimiento, valor_ant, valor_post) values (102, 'MOD_PRECIO', 1, 'ARTICULO', '2015-03-19 11:34:31.923', '275', '290');
-	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, f_movimiento, valor_ant, valor_post) values (103, 'MOD_PRECIO', 1, 'ARTICULO', '2015-04-13 11:34:31.923', '290', '305');
-	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, f_movimiento, valor_ant, valor_post) values (104, 'MOD_PRECIO', 1, 'ARTICULO', '2015-05-12 11:34:31.923', '305', '325');
+	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, fecha, valor_ant, valor_post) values (100, 'MOD_PRECIO', 1, 'ARTICULO', '2015-01-12 11:34:31.923', '250', '270');
+	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, fecha, valor_ant, valor_post) values (101, 'MOD_PRECIO', 1, 'ARTICULO', '2015-02-10 11:34:31.923', '270', '275');
+	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, fecha, valor_ant, valor_post) values (102, 'MOD_PRECIO', 1, 'ARTICULO', '2015-03-19 11:34:31.923', '275', '290');
+	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, fecha, valor_ant, valor_post) values (103, 'MOD_PRECIO', 1, 'ARTICULO', '2015-04-13 11:34:31.923', '290', '305');
+	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, fecha, valor_ant, valor_post) values (104, 'MOD_PRECIO', 1, 'ARTICULO', '2015-05-12 11:34:31.923', '305', '325');
 	
 	update sgs_proeza_db.art_articulo set precio = 325 where id = 1;

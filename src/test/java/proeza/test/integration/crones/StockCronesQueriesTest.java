@@ -1,34 +1,35 @@
 package proeza.test.integration.crones;
 
-import java.util.List;
+import javax.transaction.Transactional;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import proeza.test.integration.IntegrationTest;
+import com.proeza.sgs.business.scheduling.RelevamientoStockJob;
+import com.proeza.sgs.config.env.Environments;
+import com.proeza.sgs.config.root.ContextConfig;
 
-import com.proeza.sgs.business.dao.IArticuloDao;
-
-public class StockCronesQueriesTest extends IntegrationTest {
+@Transactional
+@ActiveProfiles("prod")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {Environments.class, ContextConfig.class})
+public class StockCronesQueriesTest // extends IntegrationTest
+{
 
     @Autowired
-    private IArticuloDao articleDao;
+    private RelevamientoStockJob job;
 
     @Test
     public void countStock_POR_MARCA () {
-        @SuppressWarnings("rawtypes")
-        List result = this.articleDao.getEntityManager()
-            .createNamedQuery("relevamientoStock.porMarca")
-            .getResultList();
-        System.out.println(result);
+        this.job.countStockByBrand();
     }
 
     @Test
     public void countStock_POR_RUBRO () {
-        @SuppressWarnings("rawtypes")
-        List result = this.articleDao.getEntityManager()
-            .createNamedQuery("relevamientoStock.porRubro")
-            .getResultList();
-        System.out.println(result);
+        this.job.countStockByBrand();
     }
 }

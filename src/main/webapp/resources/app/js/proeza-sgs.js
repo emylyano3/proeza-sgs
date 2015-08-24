@@ -146,7 +146,7 @@ function updateSideBarStatus () {
         $("#wrapper").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd",
         	function(){
         		if (document.getElementById('articulos') != null) {
-        			$("#articulos").jqxGrid('refresh');
+        			$("#gridArticulos").jqxGrid('refresh');
         		}
         		if (document.getElementById('usuarios') != null) {
         			$("#usuarios").jqxGrid('refresh');

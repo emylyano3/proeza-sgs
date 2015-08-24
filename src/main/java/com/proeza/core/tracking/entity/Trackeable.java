@@ -49,7 +49,7 @@ public abstract class Trackeable implements Identifiable {
         String valorAnteFinal = getAntiguoValorPrevio(tipoMov, valorAnte);
         if (!equivalentValue(valorPoste, valorAnteFinal)) {
             Movimiento mov = new Movimiento();
-            mov.setFechaMovimiento(toTimestamp(createNow()));
+            mov.setFecha(toTimestamp(createNow()));
             mov.setIdEntidad(getId());
             mov.setTipoMov(tipoMov);
             mov.setTipoEntidad(getTipoEntidad());
