@@ -145,7 +145,7 @@ function updateSideBarStatus () {
         }
         $("#wrapper").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd",
         	function(){
-        		if (document.getElementById('articulos') != null) {
+        		if (document.getElementById('gridArticulos') != null) {
         			$("#gridArticulos").jqxGrid('refresh');
         		}
         		if (document.getElementById('usuarios') != null) {

@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label for="modelo" class="col-sm-3 control-label" th:text="#{control.model}" />
                                     <div class="col-sm-9">
-                                        <input id="modelo" class="form-control input-sm" required="required" autofocus="autofocus"/>
+                                        <input id="modelo" name="modelo" class="form-control input-sm" required="required" autofocus="autofocus"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <label for="clase" class="col-sm-3 control-label" th:text="#{control.class}" />
                                     <div class="col-sm-9">
-                                        <select id="cbClase" name="clase" class="form-control input-sm" >
+                                        <select id="cbClase" name="clase" class="form-control input-sm" required="required" >
                                             <option value="" th:text="#{control.choose}"/>
                                             <option th:each="clase : ${clases}" th:text="${clase.nombre}" th:id="${clase.codigo}" />
                                         </select>
@@ -490,16 +490,14 @@
 			}
 			
 			// configure your validation
-			var formValidator = $("#formArticulo").validate( 
-				{
-					rules: {
-					    clase: {
-					        required: true
-					    }
-					},
-				}
-			);
-				
+			var formValidator = $("#formArticulo").validate({
+				messages : {
+					clase : [[#{control.requiredfield}]],
+					marca : [[#{control.requiredfield}]],
+					rubro : [[#{control.requiredfield}]],
+					modelo : [[#{control.requiredfield}]]
+				}					
+			});
 			/*]]>*/
 		</script>
 	</div>
