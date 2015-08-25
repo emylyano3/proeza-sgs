@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import proeza.test.integration.IntegrationTest;
 
-import com.proeza.security.dao.UsuarioDao;
+import com.proeza.security.dao.impl.UsuarioDao;
 import com.proeza.security.entity.Usuario;
 import com.proeza.sgs.business.dao.IClaseDao;
 import com.proeza.sgs.system.entity.Page;

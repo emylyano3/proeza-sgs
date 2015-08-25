@@ -28,25 +28,25 @@
                                 <div class="form-group">
                                     <label id="lblCodigo" for="codigo" class="col-sm-3 control-label" th:text="#{control.code}" />
                                     <div class="col-sm-9">
-                                        <input id="codigo" class="form-control input-sm" disabled="disabled" />
+                                        <input id="codigo" class="form-control input-md" disabled="disabled" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="modelo" class="col-sm-3 control-label" th:text="#{control.model}" />
                                     <div class="col-sm-9">
-                                        <input id="modelo" name="modelo" class="form-control input-sm" required="required" autofocus="autofocus"/>
+                                        <input id="modelo" name="modelo" class="form-control input-md" required="required" autofocus="autofocus"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="descripcion" class="col-sm-3 control-label" th:text="#{control.description}" />
                                     <div class="col-sm-9">
-                                        <input id="descripcion" class="form-control input-sm" />
+                                        <input id="descripcion" class="form-control input-md" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="clase" class="col-sm-3 control-label" th:text="#{control.class}" />
                                     <div class="col-sm-9">
-                                        <select id="cbClase" name="clase" class="form-control input-sm" required="required" >
+                                        <select id="cbClase" name="clase" class="form-control input-md" required="required" >
                                             <option value="" th:text="#{control.choose}"/>
                                             <option th:each="clase : ${clases}" th:text="${clase.nombre}" th:id="${clase.codigo}" />
                                         </select>
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label for="cbTipo" class="col-sm-3 control-label" th:text="#{control.type}" />
                                     <div class="col-sm-9">
-                                        <select id="cbTipo" class="form-control input-sm" >
+                                        <select id="cbTipo" class="form-control input-md" >
                                             <option value="" th:text="#{control.choose}"/>
                                             <option th:each="tipo : ${tipos}" th:text="${tipo.nombre}" th:id="${tipo.codigo}" />
                                         </select>
@@ -66,7 +66,7 @@
                                 <div class="form-group">
                                     <label for="cbMarca" class="col-sm-3 control-label" th:text="#{control.brand}" />
                                     <div class="col-sm-9">
-                                        <select id="cbMarca" name="marca" class="form-control input-sm" required="required" >
+                                        <select id="cbMarca" name="marca" class="form-control input-md" required="required" >
                                             <option value="" th:text="#{control.choose}"/>
                                             <option th:each="marca : ${marcas}" th:text="${marca.nombre}" th:id="${marca.codigo}" />
                                         </select>
@@ -75,7 +75,7 @@
                                 <div class="form-group">
                                     <label for="cbRubro" class="col-sm-3 control-label" th:text="#{control.category}" />
                                     <div class="col-sm-9">
-                                        <select id="cbRubro" name="rubro" class="form-control input-sm" required="required" >
+                                        <select id="cbRubro" name="rubro" class="form-control input-md" required="required" >
                                             <option value="" th:text="#{control.choose}"/>
                                             <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:id="${rubro.codigo}" />
                                         </select>
@@ -84,19 +84,19 @@
                                 <div class="form-group">
                                     <label for="precio" class="col-sm-3 control-label" th:text="#{control.price}" />
                                     <div class="col-sm-9">
-                                        <input id="precio" class="form-control input-sm" />
+                                        <input id="precio" class="form-control input-md" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="costo" class="col-sm-3 control-label" th:text="#{control.cost}" />
                                     <div class="col-sm-9">
-                                        <input id="costo" class="form-control input-sm" />
+                                        <input id="costo" class="form-control input-md" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="cantidad" class="col-sm-3 control-label" th:text="#{control.quantity}" />
                                     <div class="col-sm-9">
-                                        <input id="cantidad" class="form-control input-sm" />
+                                        <input id="cantidad" class="form-control input-md" />
                                     </div>
                                 </div>
                             </div>
@@ -299,7 +299,7 @@
 				// create context menu
 				var contextMenu = $("#gridContextMenu").jqxMenu({
 					width : 190,
-					height : 140,
+					height : 138,
 					autoOpenPopup : false,
 					mode : 'popup'
 

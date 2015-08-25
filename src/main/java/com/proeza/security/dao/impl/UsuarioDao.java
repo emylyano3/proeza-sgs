@@ -1,4 +1,4 @@
-package com.proeza.security.dao;
+package com.proeza.security.dao.impl;
 
 // Generated 26/08/2014 22:19:35 by Hibernate Tools 4.0.0
 
@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.proeza.core.persistence.BaseDao;
+import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.entity.Usuario;
 
 /**

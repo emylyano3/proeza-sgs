@@ -12,8 +12,9 @@ import com.proeza.core.resources.message.MessageResolver;
 import com.proeza.core.service.IErrorService;
 import com.proeza.core.service.IMailService;
 import com.proeza.security.dao.IUsuarioDao;
+import com.proeza.security.service.IRoleService;
 import com.proeza.security.service.IUserService;
-import com.proeza.security.service.UserService;
+import com.proeza.security.service.impl.UserService;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartManager;
 import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.service.IArticuloChartService;
@@ -24,6 +25,7 @@ import com.proeza.sgs.business.service.IRubroService;
 import com.proeza.sgs.business.service.ITipoService;
 import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.mail.IMailManager;
+import com.proeza.sgs.system.service.IPageService;
 
 @Configuration
 public class UnitTestContext {
@@ -56,6 +58,16 @@ public class UnitTestContext {
     @Bean
     public IClaseService claseService () {
         return Mockito.mock(IClaseService.class);
+    }
+
+    @Bean
+    public IPageService pageService () {
+        return Mockito.mock(IPageService.class);
+    }
+
+    @Bean
+    public IRoleService roleService () {
+        return Mockito.mock(IRoleService.class);
     }
 
     @Bean

@@ -1,4 +1,4 @@
-package com.proeza.security.service;
+package com.proeza.security.service.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.proeza.security.dao.IUsuarioDao;
-import com.proeza.security.dao.UsuarioDao;
+import com.proeza.security.dao.impl.UsuarioDao;
+import com.proeza.security.dto.UsuarioDTO;
 import com.proeza.security.entity.Foto;
 import com.proeza.security.entity.Usuario;
 import com.proeza.security.entity.builder.UsuarioBuilder;
-import com.proeza.security.form.UsuarioDTO;
 import com.proeza.security.form.UsuarioForm;
+import com.proeza.security.service.IUserService;
 
 @Transactional
 @Service("userService")

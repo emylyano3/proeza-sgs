@@ -22,7 +22,12 @@
     maxElementsInMemory="500"
     eternal="true"
     statistics="true" />
-    
+
+<cache
+    name="com.proeza.security.entity.Rol"
+    maxElementsInMemory="50"
+    eternal="true"
+    statistics="true" />
     
 <cache
     name="com.proeza.sgs.system.entity.Page"
