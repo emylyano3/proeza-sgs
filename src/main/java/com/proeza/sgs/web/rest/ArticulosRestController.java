@@ -1,6 +1,5 @@
 package com.proeza.sgs.web.rest;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +53,7 @@ public class ArticulosRestController {
 
     @RequestMapping(value = "addImage", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void uploadImage (ModelMap model, Principal principal, @RequestParam("artCode") String code, @RequestParam("file") MultipartFile file) {
+    public void addImage (@RequestParam("artCode") String code, @RequestParam("file") MultipartFile file) {
         try {
             this.productService.addImage(code, "Imagen", "Imagen del artículo", MediaType.IMAGE_JPEG, file.getBytes());
         } catch (Exception e) {
