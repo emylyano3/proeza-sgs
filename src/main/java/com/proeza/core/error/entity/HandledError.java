@@ -37,7 +37,7 @@ public class HandledError {
         this.id = id;
     }
 
-    @Column(name = "excepcion", length = 200)
+    @Column(name = "excepcion", length = 300)
     public String getExcepcion () {
         return this.excepcion;
     }
@@ -46,7 +46,7 @@ public class HandledError {
         this.excepcion = excepcion;
     }
 
-    @Column(name = "mensaje", length = 500)
+    @Column(name = "mensaje", length = 999)
     public String getMensaje () {
         return this.mensaje;
     }
@@ -55,7 +55,7 @@ public class HandledError {
         this.mensaje = mensaje;
     }
 
-    @Column(name = "stack", length = 9999)
+    @Column(name = "stack", length = 99999)
     public String getStack () {
         return this.stack;
     }
