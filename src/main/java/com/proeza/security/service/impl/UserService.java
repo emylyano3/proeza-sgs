@@ -2,17 +2,20 @@ package com.proeza.security.service.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.proeza.security.dao.IRolDao;
 import com.proeza.security.dao.IUsuarioDao;
-import com.proeza.security.dao.impl.UsuarioDao;
 import com.proeza.security.dto.UsuarioDTO;
 import com.proeza.security.entity.Foto;
+import com.proeza.security.entity.Rol;
 import com.proeza.security.entity.Usuario;
 import com.proeza.security.entity.builder.UsuarioBuilder;
 import com.proeza.security.form.UsuarioForm;
@@ -28,16 +31,11 @@ public class UserService implements IUserService {
     private IUsuarioDao        usuarioDao;
 
     @Autowired
-    public UserService (UsuarioDao dao) {
-        log.debug("Inicializando el servicio de detalle de usuarios para integracion con Spring Security");
-        this.userDao = dao;
-    }
-
-    private UsuarioDao userDao;
+    private IRolDao            rolDao;
 
     @Override
     public UsuarioForm create (UsuarioForm user) {
-        Usuario created = this.userDao.persist(user.getUsuario());
+        Usuario created = this.usuarioDao.persist(user.getUsuario());
         return new UsuarioForm(created);
     }
 
@@ -45,10 +43,16 @@ public class UserService implements IUserService {
     public void create (UsuarioDTO user) {
         UsuarioBuilder builder = new UsuarioBuilder();
         builder.withAlias(user.getAlias());
+        builder.withPassword(user.getPassword());
         builder.withApellido(user.getApellido());
         builder.withEmail(user.getEmail());
         builder.withNombre(user.getNombre());
-        this.userDao.persist(builder.build());
+        Set<Rol> roles = new HashSet<>();
+        for (String codRol : user.getRoles()) {
+            roles.add(this.rolDao.findByCode(codRol));
+        }
+        builder.withRoles(roles);
+        this.usuarioDao.persist(builder.build());
     }
 
     @Override
@@ -66,7 +70,7 @@ public class UserService implements IUserService {
 
     @Override
     public List<UsuarioDTO> findAll () {
-        return hideEntites(this.userDao.findAll());
+        return hideEntites(this.usuarioDao.findAll());
     }
 
     private List<UsuarioDTO> hideEntites (List<Usuario> usuarios) {
@@ -79,7 +83,7 @@ public class UserService implements IUserService {
 
     @Override
     public byte[] getFoto (String alias) {
-        Usuario user = this.userDao.find(alias);
+        Usuario user = this.usuarioDao.find(alias);
         Foto foto = user.getFoto();
         if (foto != null) {
             try {
