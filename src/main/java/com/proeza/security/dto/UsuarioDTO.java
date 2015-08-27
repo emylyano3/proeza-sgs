@@ -1,9 +1,6 @@
 package com.proeza.security.dto;
 
 import java.io.Serializable;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import javax.validation.constraints.NotNull;
 
@@ -12,23 +9,27 @@ import com.proeza.security.entity.Usuario;
 
 public class UsuarioDTO implements Serializable {
 
-    private static final long   serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-    private Long                id;
-
-    @NotNull
-    private String              alias;
+    private Long              id;
 
     @NotNull
-    private String              nombre;
+    private String            alias;
 
     @NotNull
-    private String              apellido;
+    private String            nombre;
 
     @NotNull
-    private String              email;
+    private String            apellido;
 
-    private Map<String, String> roles;
+    @NotNull
+    private String            email;
+
+    private String            password;
+
+    private byte[]            foto;
+
+    private String[]          roles;
 
     public UsuarioDTO () {
 
@@ -40,10 +41,10 @@ public class UsuarioDTO implements Serializable {
         this.nombre = usuario.getNombre();
         this.apellido = usuario.getApellido();
         this.email = usuario.getEmail();
-        Set<Rol> userRoles = usuario.getRoles();
-        this.roles = new TreeMap<String, String>();
-        for (Rol rol : userRoles) {
-            this.roles.put(rol.getCodigo(), rol.getNombre());
+        this.roles = new String[usuario.getRoles().size()];
+        int i = 0;
+        for (Rol rol : usuario.getRoles()) {
+            this.roles[i++] = rol.getCodigo();
         }
     }
 
@@ -87,11 +88,27 @@ public class UsuarioDTO implements Serializable {
         this.email = email;
     }
 
-    public Map<String, String> getRoles () {
+    public String getPassword () {
+        return this.password;
+    }
+
+    public void setPassword (String password) {
+        this.password = password;
+    }
+
+    public byte[] getFoto () {
+        return this.foto;
+    }
+
+    public void setFoto (byte[] foto) {
+        this.foto = foto;
+    }
+
+    public String[] getRoles () {
         return this.roles;
     }
 
-    public void setRoles (Map<String, String> roles) {
+    public void setRoles (String[] roles) {
         this.roles = roles;
     }
 
