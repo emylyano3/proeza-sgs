@@ -2,7 +2,7 @@ package com.proeza.security.dto;
 
 import com.proeza.security.entity.Rol;
 
-public class RolDTO {
+public class RolDTO implements Comparable<RolDTO> {
 
     private long   id;
     private String codigo;
@@ -46,5 +46,22 @@ public class RolDTO {
 
     public void setDescripcion (String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Override
+    public int compareTo (RolDTO o) {
+        if (o == null) {
+            return 1;
+        }
+        if (getNombre() == null && o.getNombre() == null) {
+            return 0;
+        }
+        if (getNombre() == null) {
+            return -1;
+        }
+        if (getNombre() == null) {
+            return 1;
+        }
+        return getNombre().compareTo(o.getNombre());
     }
 }

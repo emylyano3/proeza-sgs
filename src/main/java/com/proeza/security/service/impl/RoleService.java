@@ -1,6 +1,7 @@
 package com.proeza.security.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -27,6 +28,7 @@ public class RoleService implements IRoleService {
         for (Rol rol : roles) {
             result.add(new RolDTO(rol));
         }
+        Collections.sort(result);
         return result;
     }
 }
