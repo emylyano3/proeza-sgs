@@ -1,6 +1,8 @@
 package proeza.test.integration.persistence;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManagerFactory;
 
@@ -15,12 +17,16 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.EntityManagerFactoryInfo;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import proeza.test.integration.IntegrationTest;
 
-import com.proeza.security.dao.impl.UsuarioDao;
+import com.proeza.security.dao.IRolDao;
+import com.proeza.security.dao.IUsuarioDao;
+import com.proeza.security.entity.Rol;
 import com.proeza.security.entity.Usuario;
+import com.proeza.security.entity.builder.UsuarioBuilder;
 import com.proeza.sgs.business.dao.IClaseDao;
 import com.proeza.sgs.system.entity.Page;
 
@@ -33,7 +39,10 @@ public class SeguridadDalTest extends IntegrationTest {
     private IClaseDao     claseDao;
 
     @Autowired
-    private UsuarioDao    userDao;
+    private IUsuarioDao   userDao;
+
+    @Autowired
+    private IRolDao       rolDao;
 
     @Test
     public void usuario_FIND_ALL () {
@@ -58,6 +67,26 @@ public class SeguridadDalTest extends IntegrationTest {
         final Usuario usuario = this.userDao.findByAlias("user_admin");
         assertNotNull(usuario);
         assertEquals("user_admin", usuario.getAlias());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void usuario_CREATE () {
+        log.info("Inicia usuario_FIND_BY_ALIAS");
+        UsuarioBuilder builder = new UsuarioBuilder();
+        Set<Rol> roles = new HashSet<>(this.rolDao.findAll());
+        Usuario user = builder
+            .withAlias("alias")
+            .withApellido("apellido")
+            .withEmail("email@gmail.com")
+            .withNombre("nombre")
+            .withPassword("password")
+            .withRoles(roles)
+            .build();
+        this.userDao.persist(user);
+        assertNotNull(user);
+        assertNotNull(user.getId());
     }
 
     @Test
