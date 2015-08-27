@@ -9,8 +9,8 @@
 	
 	/* Roles */
 	/* Venta */
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (01,'ROLE_VENTA_ADMIN','Administrador de ventas','');
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (02,'ROLE_VENTA_ESTAD','Estadista de ventas','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (51,'ROLE_VENTA_ADMIN','Administrador de ventas','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (52,'ROLE_VENTA_ESTAD','Estadista de ventas','');
 	/* Compra */
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (11,'ROLE_COMPR_ADMIN','Administrador de compras','');
 	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (12,'ROLE_COMPR_ESTAD','Estadista de compras','');
