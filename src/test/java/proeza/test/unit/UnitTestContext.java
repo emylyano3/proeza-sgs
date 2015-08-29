@@ -11,6 +11,7 @@ import com.proeza.core.resources.message.IMessageResolver;
 import com.proeza.core.resources.message.MessageResolver;
 import com.proeza.core.service.IErrorService;
 import com.proeza.core.service.IMailService;
+import com.proeza.security.dao.IRolDao;
 import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.service.IRoleService;
 import com.proeza.security.service.IUserService;
@@ -53,6 +54,11 @@ public class UnitTestContext {
     @Bean
     public IArticuloDao articuloDao () {
         return Mockito.mock(IArticuloDao.class);
+    }
+
+    @Bean
+    public IRolDao rolDao () {
+        return Mockito.mock(IRolDao.class);
     }
 
     @Bean
