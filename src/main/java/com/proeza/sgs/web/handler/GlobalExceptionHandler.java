@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.proeza.core.error.builder.HandledErrorBuilder;
 import com.proeza.core.error.dto.HandledErrorDTO;
+import com.proeza.core.error.entity.HandledError;
 import com.proeza.core.service.IErrorService;
 import com.proeza.core.util.date.DateUtil;
 
@@ -46,7 +47,8 @@ public class GlobalExceptionHandler {
 
     private void trackError (Exception e) {
         HandledErrorBuilder errorBuilder = new HandledErrorBuilder();
-        errorBuilder.withStack(ExceptionUtils.getStackTrace(e));
+        String stack = ExceptionUtils.getStackTrace(e);
+        errorBuilder.withStack(stack.substring(HandledError.STACK_LENGTH));
         errorBuilder.withExcepcion(e.getClass().getName());
         errorBuilder.withFecha(DateUtil.createNow());
         errorBuilder.withMensaje(e.getMessage());

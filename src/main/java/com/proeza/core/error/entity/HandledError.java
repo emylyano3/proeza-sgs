@@ -15,19 +15,19 @@ import javax.persistence.UniqueConstraint;
 @Table(
     catalog = "sgs_proeza_db",
     name = "cmn_error",
-    uniqueConstraints = @UniqueConstraint(columnNames = "id")
-)
+    uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 @Entity
 public class HandledError {
 
-    private Long   id;
-    private String excepcion;
-    private String mensaje;
-    private String stack;
-    private Date   fecha;
+    public static final int STACK_LENGTH = 9999;
+    private Long            id;
+    private String          excepcion;
+    private String          mensaje;
+    private String          stack;
+    private Date            fecha;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, scale = 0, precision = 20, unique = true)
     public Long getId () {
         return this.id;
@@ -55,7 +55,7 @@ public class HandledError {
         this.mensaje = mensaje;
     }
 
-    @Column(name = "stack", length = 99999)
+    @Column(name = "stack", length = STACK_LENGTH)
     public String getStack () {
         return this.stack;
     }
