@@ -20,7 +20,7 @@ public class MailServiceTest extends IntegrationTest {
     @Test
     public void mailService () throws MessagingException {
         this.mailManager.sendRegisterEmail(
-            new UsuarioBuilder().withId(1)
+            new UsuarioBuilder().withId(1L)
                 .withAlias("emylyano3")
                 .withNombre("Emiliano")
                 .withApellido("Schiano")
