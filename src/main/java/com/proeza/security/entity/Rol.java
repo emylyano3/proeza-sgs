@@ -2,10 +2,13 @@ package com.proeza.security.entity;
 
 // Generated 26/08/2014 22:15:54 by Hibernate Tools 4.0.0
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -27,10 +30,11 @@ public class Rol implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private long              id;
+    private Long              id;
     private String            codigo;
     private String            nombre;
     private String            descripcion;
+    private Set<Usuario>      users;
 
     public Rol () {
     }
@@ -38,11 +42,11 @@ public class Rol implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    public long getId () {
+    public Long getId () {
         return this.id;
     }
 
-    public void setId (long id) {
+    public void setId (Long id) {
         this.id = id;
     }
 
@@ -71,6 +75,15 @@ public class Rol implements java.io.Serializable {
 
     public void setDescripcion (String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @ManyToMany(mappedBy = "roles")
+    public Set<Usuario> getUsers () {
+        return this.users;
+    }
+
+    public void setUsers (Set<Usuario> users) {
+        this.users = users;
     }
 
     @Override

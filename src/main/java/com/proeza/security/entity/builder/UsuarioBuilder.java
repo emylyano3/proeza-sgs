@@ -8,7 +8,7 @@ import com.proeza.security.entity.Usuario;
 
 public class UsuarioBuilder {
 
-    private long     id;
+    private Long     id;
     private String   alias;
     private String   nombre;
     private String   apellido;
@@ -16,7 +16,7 @@ public class UsuarioBuilder {
     private String   password;
     private Set<Rol> roles = new HashSet<>(0);
 
-    public UsuarioBuilder withId (long id) {
+    public UsuarioBuilder withId (Long id) {
         this.id = id;
         return this;
     }

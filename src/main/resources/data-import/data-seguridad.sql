@@ -27,26 +27,26 @@
 
 	/* Asociacion de Usuarios y roles */
 	/* user_admin */
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (1, 100, 41);
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (2, 100, 42);
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (3, 100, 43);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (100, 41);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (100, 42);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (100, 43);
 	
 	/* prod_admin */
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (4, 101, 31);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (101, 31);
 	
 	/* prod_stat */
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (5, 102, 32);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (102, 32);
 	
 	/* prod_viewer */
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (6, 103, 33);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (103, 33);
 	
 	/* admin */
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (7, 104, 41);
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (8, 104, 42);
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (9, 104, 43);
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (10, 104, 31);
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (11, 104, 32);
-	insert into seg_proeza_db.usuario_rol (id, fk_usuario, fk_rol) values (12, 104, 33);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (104, 41);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (104, 42);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (104, 43);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (104, 31);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (104, 32);
+	insert into seg_proeza_db.usuario_rol (fk_usuario, fk_rol) values (104, 33);
 	
 	
 /* Seguridad */
