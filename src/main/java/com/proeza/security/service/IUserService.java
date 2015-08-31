@@ -13,6 +13,8 @@ public interface IUserService {
 
     void update (UsuarioDTO articulo);
 
+    UsuarioDTO findByAlias (String ali);
+
     void delete (UsuarioDTO articulo);
 
     void create (UsuarioDTO articulo);

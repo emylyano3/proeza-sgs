@@ -31,7 +31,8 @@ public class UsuarioDao extends BaseDao<Usuario> implements IUsuarioDao {
 
     @Override
     public Usuario findByAlias (String alias) {
-        return this.entityManager.createQuery("select u from Usuario u where alias = :alias", Usuario.class)
+        return this.entityManager
+            .createQuery("select u from Usuario u where alias = :alias", Usuario.class)
             .setParameter("alias", alias)
             .getSingleResult();
     }

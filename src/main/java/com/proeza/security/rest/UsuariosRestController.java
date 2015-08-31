@@ -45,6 +45,11 @@ public class UsuariosRestController {
         this.userService.create(usuario);
     }
 
+    @RequestMapping(value = "find", method = RequestMethod.POST)
+    public void find (@RequestBody String alias) {
+        this.userService.findByAlias(alias);
+    }
+
     @RequestMapping(value = "getPhoto/{alias}", produces = {MediaType.IMAGE_JPEG_VALUE})
     public byte[] getPhoto (@PathVariable String alias) {
         return this.userService.getFoto(alias);

@@ -83,7 +83,7 @@ public class UserService implements IUserService {
 
     @Override
     public byte[] getFoto (String alias) {
-        Usuario user = this.usuarioDao.find(alias);
+        Usuario user = this.usuarioDao.findByAlias(alias);
         Foto foto = user.getFoto();
         if (foto != null) {
             try {
@@ -93,5 +93,10 @@ public class UserService implements IUserService {
             }
         }
         return null;
+    }
+
+    @Override
+    public UsuarioDTO findByAlias (String alias) {
+        return new UsuarioDTO(this.usuarioDao.findByAlias(alias));
     }
 }
