@@ -52,14 +52,19 @@
         					<div class="form-group">
         						<label for="email" class="col-sm-2 control-label" th:text="#{control.email}" />
         						<div class="col-sm-10">
-        							<input id="email" class="form-control input-md" required="required" />
+        							<input id="email" type="email" class="form-control input-md" required="required" />
         						</div>
             				</div>
         					<div id="passwordGroup" class="form-group" >
         						<label for="password" class="col-sm-2 control-label" th:text="#{control.password}" />
         						<div class="col-sm-10">
-        							<input id="password" class="form-control input-md" type="password" required="required" />
-        						</div>
+                                    <div class="input-group">
+            							<input id="password" class="form-control input-md" disabled="disabled" />
+                                        <span class="input-group-btn">
+                                            <button id="btnGenerate" class="btn btn-default" th:text="#{control.generatepass}" type="button" />
+                                        </span>
+            						</div>
+                                </div>
             				</div>
         					<div class="form-group">
         						<label for="roles" class="col-sm-2 control-label" th:text="#{control.roles}" />
@@ -106,6 +111,7 @@
 		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
         <script type="text/javascript" src="../../../resources/fileinput/js/fileinput.js" th:src="@{/resources/fileinput/js/fileinput.js}" />
         <script type="text/javascript" src="../../../resources/fileinput/js/fileinput_locale_es.js" th:src="@{/resources/fileinput/js/fileinput_locale_es.js}" />
+        <script type="text/javascript" src="../../../resources/password/js/pGenerator.jquery.js" th:src="@{/resources/password/js/pGenerator.jquery.js}" />
 		<script th:inline="javascript">
 		 	/*<![CDATA[*/
 			// Inicializacion de la tabla de usuarios
@@ -253,15 +259,28 @@
 	            $("#eraser").click(function () {
 	                $('#gridUsuarios').jqxGrid('clear');
 	            });
+	            $('#btnGenerate').pGenerator({
+	                'bind': 'click',
+	                'passwordElement': null,
+	                'displayElement': $('#password'),
+	                'passwordLength': 8,
+	                'uppercase': true,
+	                'lowercase': true,
+	                'numbers':   true,
+	                'specialChars': false,
+	                'onPasswordGenerated': function (pwd) {} 
+	            });
 			});
 			
 			function initCreationForm () {
 				formMode = 'creation';
 				$("#alias").prop('disabled', false);
-				$("#alias").val("");
-				$("#nombre").val("");
-				$("#apellido").val("");
-				$("#email").val("");
+				$("#alias").val('');
+				$("#nombre").val('');
+				$("#apellido").val('');
+				$("#password").val('');
+				$("#btnGenerate").trigger('click');
+				$("#email").val('');
 				$("#formTitle").text([[#{usu.admin.creation.title}]]);
 				$("#formFooter").text([[#{usu.admin.creating}]]);
 				$("#roles").val([]);
@@ -278,6 +297,7 @@
 				$("#nombre").val(dataRecord.nombre);
 				$("#apellido").val(dataRecord.apellido);
 				$("#email").val(dataRecord.email);
+				$("#password").val('');
 				$("#formTitle").text([[#{usu.admin.edition.title}]]);
 				$("#formFooter").text([[#{usu.admin.editing}]] + dataRecord.nombre + " " + dataRecord.apellido);
 				$("#gridPanel").hide();
@@ -307,7 +327,6 @@
 						},{
 							type: 'danger'
 						});
-						commit(false);
 			        }
 				});
 			}
@@ -384,8 +403,8 @@
 					},
 					error: function (jqXHR, status) {
 						$.notify({
-							title: '<strong>Eliminación de usuario:</strong>',
-							message: 'Ocurrió un error durante la elimninación del usuario'
+							title: [[#{usu.find.error.title}]],
+							message: [[#{usu.find.error.message}]] + alias
 						},{
 							type: 'danger'
 						});

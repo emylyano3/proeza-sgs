@@ -49,12 +49,6 @@ public class Usuario implements Serializable {
     public Usuario () {
     }
 
-    public Usuario (String alias, String email, String password) {
-        setAlias(alias);
-        setEmail(email);
-        setPassword(password);
-    }
-
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)

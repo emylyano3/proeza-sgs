@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,9 @@ public class UserService implements IUserService {
     @Autowired
     private IRolDao            rolDao;
 
+    @Autowired
+    private PasswordEncoder    passwordEncoder;
+
     @Override
     public UsuarioForm create (UsuarioForm user) {
         Usuario created = this.usuarioDao.persist(user.getUsuario());
@@ -41,15 +45,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void create (UsuarioDTO user) {
+    public void create (UsuarioDTO dto) {
         UsuarioBuilder builder = new UsuarioBuilder();
-        builder.withAlias(user.getAlias());
-        builder.withPassword(user.getPassword());
-        builder.withApellido(user.getApellido());
-        builder.withEmail(user.getEmail());
-        builder.withNombre(user.getNombre());
+        builder.withAlias(dto.getAlias());
+        builder.withPassword(this.passwordEncoder.encode(dto.getPassword()));
+        builder.withApellido(dto.getApellido());
+        builder.withEmail(dto.getEmail());
+        builder.withNombre(dto.getNombre());
         Set<Rol> roles = new HashSet<>();
-        for (String codRol : user.getRoles()) {
+        for (String codRol : dto.getRoles()) {
             roles.add(this.rolDao.findByCode(codRol));
         }
         builder.withRoles(roles);
@@ -62,6 +66,7 @@ public class UserService implements IUserService {
         usuario.setNombre(dto.getNombre());
         usuario.setApellido(dto.getApellido());
         usuario.setEmail(dto.getEmail());
+        usuario.setPassword(getFinalPassword(dto, usuario));
         Set<String> selectedRoles = new HashSet<>(Arrays.asList(dto.getRoles()));
         List<Rol> allRoles = this.rolDao.findAll();
         Set<Rol> roles = new HashSet<Rol>(selectedRoles.size());
@@ -71,6 +76,14 @@ public class UserService implements IUserService {
             }
         }
         usuario.setRoles(roles);
+    }
+
+    private String getFinalPassword (UsuarioDTO dto, Usuario usuario) {
+        if (dto.getPassword() != null && !"".equals(dto.getPassword())) {
+            return this.passwordEncoder.encode(dto.getPassword());
+        } else {
+            return usuario.getPassword();
+        }
     }
 
     @Override
