@@ -2,6 +2,7 @@ package com.proeza.security.service.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,11 +62,20 @@ public class UserService implements IUserService {
         usuario.setNombre(dto.getNombre());
         usuario.setApellido(dto.getApellido());
         usuario.setEmail(dto.getEmail());
+        Set<String> selectedRoles = new HashSet<>(Arrays.asList(dto.getRoles()));
+        List<Rol> allRoles = this.rolDao.findAll();
+        Set<Rol> roles = new HashSet<Rol>(selectedRoles.size());
+        for (Rol rol : allRoles) {
+            if (selectedRoles.contains(rol.getCodigo())) {
+                roles.add(rol);
+            }
+        }
+        usuario.setRoles(roles);
     }
 
     @Override
-    public void delete (UsuarioDTO dto) {
-        this.usuarioDao.delete(this.usuarioDao.findByAlias(dto.getAlias()));
+    public void delete (String alias) {
+        this.usuarioDao.delete(this.usuarioDao.findByAlias(alias));
     }
 
     @Override

@@ -9,21 +9,19 @@
 	
 	/* Roles */
 	/* Venta */
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (51,'ROLE_VENTA_ADMIN','Administrador de ventas','');
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (52,'ROLE_VENTA_ESTAD','Estadista de ventas','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (51,'ROLE_VENTA_ADMIN','Ventas Administrador','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (52,'ROLE_VENTA_ESTAD','Ventas Estadista','');
 	/* Compra */
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (11,'ROLE_COMPR_ADMIN','Administrador de compras','');
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (12,'ROLE_COMPR_ESTAD','Estadista de compras','');
-	/* Stock */
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (21,'ROLE_STOCK_ADMIN','Administrador de stock','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (11,'ROLE_COMPR_ADMIN','Compras Administrador','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (12,'ROLE_COMPR_ESTAD','Compras Estadista','');
 	/* Producto */
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (31,'ROLE_PRODU_ADMIN','Administrador de productos','');
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (32,'ROLE_PRODU_CATAL','Catálogo de productos','');
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (33,'ROLE_PRODU_ESTAD','Estadista de productos','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (31,'ROLE_PRODU_ADMIN','Productos Administrador','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (32,'ROLE_PRODU_CATAL','Productos Catálogo','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (33,'ROLE_PRODU_ESTAD','Productos Estadista','');
 	/* Usuario */
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (41,'ROLE_USUAR_ADMIN','Administrador de la seguridad del sistema','');
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (42,'ROLE_USUAR_ESTAD','Estadista de usuarios','');
-	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (43,'ROLE_USUAR_LISTA','Listado de usuarios','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (41,'ROLE_USUAR_ADMIN','Usuarios Administrador','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (42,'ROLE_USUAR_ESTAD','Usuarios Estadista','');
+	insert into seg_proeza_db.rol (id, codigo, nombre, descripcion) values (43,'ROLE_USUAR_LISTA','Usuarios Listado','');
 
 	/* Asociacion de Usuarios y roles */
 	/* user_admin */

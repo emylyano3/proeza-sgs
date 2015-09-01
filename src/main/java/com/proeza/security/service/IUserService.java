@@ -15,7 +15,7 @@ public interface IUserService {
 
     UsuarioDTO findByAlias (String ali);
 
-    void delete (UsuarioDTO articulo);
+    void delete (String alias);
 
     void create (UsuarioDTO articulo);
 

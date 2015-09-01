@@ -110,6 +110,7 @@
 		 	/*<![CDATA[*/
 			// Inicializacion de la tabla de usuarios
 			var formMode;
+			var currentrow = -1;
 			$(document).ready(function() {
 				// prepare the data
 				var source = {
@@ -123,43 +124,17 @@
  	                    { name: 'email', type: 'string' },
 		     	    ],
 		     	   	addrow : function(rowid, rowdata, position, commit) {
-		     	   		commit(false);
+		     	   		commit(true);
 					},
 					updaterow : function(rowid, rowdata, commit) {
 						commit(true);
 					},
-					deleterow : function(rowid, rowdata, commit) {
-						$.ajax({
-							type : 'POST',
-							url : '/proeza-sgs/rest/usuario/delete',
-							dataType: 'json',
-							contentType: 'application/json',
-							data : JSON.stringify(rowdata.alias),
-							success : function() {
-								$.notify({
-									title: '<strong>Eliminación de usuario:</strong>',
-									message: 'Se eliminó el usuario correctamente'
-								},{
-									type: 'success'
-								});
-								commit(true);
-							},
-							error: function () {
-								$.notify({
-									title: '<strong>Eliminación de usuario:</strong>',
-									message: 'Ocurrió un error durante la elimninación del usuario'
-								},{
-									type: 'danger'
-								});
-								commit(false);
-					        }
-						});
+					deleterow : function(rowid, commit) {
+						commit(true);
 					}
 				};
-	         	
+				
 				var dataAdapter = new $.jqx.dataAdapter(source);
-				var editrow = -1;
-
 				// initializa la grilla de usuarios
 				$("#gridUsuarios").jqxGrid({
 					width : '100%',
@@ -203,16 +178,13 @@
 				// handle context menu clicks.
 				$("#gridMenu").on('itemclick', function(event) {
 					var args = event.args;
-					var rowindex = $("#gridUsuarios").jqxGrid('getselectedrowindex');// open the popup window when the user clicks a button.
-					editrow = rowindex;
+					currentrow = $('#gridUsuarios').jqxGrid('getselectedrowindex');// open the popup window when the user clicks a button.
 					var offset = $("#gridUsuarios").offset();
 					// get the clicked row's data and initialize the input fields.
-					var dataRecord = $("#gridUsuarios").jqxGrid('getrowdata', editrow);
 					if ($.trim($(args).text()) == [[#{usu.admin.menu.edit}]]) {
-						initEditionForm(dataRecord);
+						initEditionForm();
 					} else if ($.trim($(args).text()) == [[#{usu.admin.menu.delete}]]) {
-						var rowid = $("#gridUsuarios").jqxGrid('getrowid', rowindex);
-						$("#gridUsuarios").jqxGrid('deleterow', rowid);
+						deleteUser();
 					} else if ($.trim($(args).text()) == [[#{usu.admin.menu.create}]]) {
 						initCreationForm();
 					}
@@ -221,7 +193,7 @@
 					'rowclick',
 					function(event) {	
 						if (event.args.rightclick) {	
-							$("#gridUsuarios").jqxGrid('selectrow', event.args.rowindex);
+							$('#gridUsuarios').jqxGrid('selectrow', event.args.rowindex);
 							var scrollTop = $(window).scrollTop();
 							var scrollLeft = $(window).scrollLeft();
 							contextMenu.jqxMenu(
@@ -255,7 +227,7 @@
    							addUser(rowdata, formData);
     						break;
     					case 'edition':
-       	 					updateUser(editrow, rowdata, formData);
+       	 					updateUser(rowdata, formData);
 							break;
     					default:
     						break;
@@ -279,7 +251,7 @@
 					"autoUnmask" : true
 				});
 	            $("#eraser").click(function () {
-	                $("#gridUsuarios").jqxGrid('clear');
+	                $('#gridUsuarios').jqxGrid('clear');
 	            });
 			});
 			
@@ -297,7 +269,8 @@
 				$("#editionPanel").show();
 			}
 			
-			function initEditionForm (dataRecord) {
+			function initEditionForm () {
+				var dataRecord = $('#gridUsuarios').jqxGrid('getrowdata', currentrow);
 				formMode = 'edition';
 				findUser(dataRecord.alias);
 				$("#alias").prop('disabled', true);
@@ -339,23 +312,7 @@
 				});
 			}
 			
-			function findUser (alias) {
-				$.ajax({
-					type : 'POST',
-					url : '/proeza-sgs/rest/usuario/find',
-					dataType: 'json',
-					contentType: 'application/json',
-					data : alias,
-				})
-				.done(function(response) {
-					console.log('User: ' + response)
-				})
-				.fail(function(response) {
-					console.log('Fail finding user')
-				});
-			}
-			
-			function updateUser (editrow, rowdata, formData) {
+			function updateUser (rowdata, formData) {
 				$.ajax({
 					type : 'POST',
 					url : '/proeza-sgs/rest/usuario/update',
@@ -369,8 +326,8 @@
 						},{
 							type: 'success'
 						});
-						if (editrow >= 0) {
-    						var rowid = $('#gridUsuarios').jqxGrid('getrowid', editrow);
+						if (currentrow >= 0) {
+    						var rowid = $('#gridUsuarios').jqxGrid('getrowid', currentrow);
    							$('#gridUsuarios').jqxGrid('updaterow', rowid, rowdata);
     					}
 					},
@@ -382,6 +339,57 @@
 							type: 'danger'
 						});
 			        }
+				});
+			}
+		
+			function deleteUser () {
+				var dataRecord = $('#gridUsuarios').jqxGrid('getrowdata', currentrow);
+				$.ajax({
+					type : 'POST',
+					url : '/proeza-sgs/rest/usuario/delete/' + dataRecord.alias,
+					dataType: 'json',
+					contentType: 'application/json',
+					success : function() {
+						$.notify({
+							title: [[#{usu.delete.success.title}]],
+							message: [[#{usu.delete.success.message}]]
+						},{
+							type: 'success'
+						});
+						if (currentrow >= 0) {
+    						var rowid = $('#gridUsuarios').jqxGrid('getrowid', currentrow);
+    						$('#gridUsuarios').jqxGrid('deleterow', rowid);
+						}
+					},
+					error: function () {
+						$.notify({
+							title: [[#{usu.delete.error.title}]],
+							message: [[#{usu.delete.error.message}]]
+						},{
+							type: 'danger'
+						});
+			        }
+				});
+			}
+			
+			function findUser (alias) {
+				$.ajax({
+					url : '/proeza-sgs/rest/usuario/find/' + alias,
+					type : 'POST',
+					dataType: 'json',
+					contentType : 'application/json',
+					success : function (data, status, jqXHR) {
+						console.log('User: ' + data)
+						$("#roles").val(data.roles);
+					},
+					error: function (jqXHR, status) {
+						$.notify({
+							title: '<strong>Eliminación de usuario:</strong>',
+							message: 'Ocurrió un error durante la elimninación del usuario'
+						},{
+							type: 'danger'
+						});
+					}
 				});
 			}
 			/*]]>*/

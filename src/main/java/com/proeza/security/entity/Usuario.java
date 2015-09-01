@@ -121,7 +121,7 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         catalog = "seg_proeza_db",
         name = "usuario_rol",

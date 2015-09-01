@@ -33,10 +33,10 @@ public class UsuariosRestController {
         this.userService.update(usuario);
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @RequestMapping(value = "delete/{alias}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete (@RequestBody UsuarioDTO usuario) {
-        this.userService.delete(usuario);
+    public void delete (@PathVariable String alias) {
+        this.userService.delete(alias);
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
@@ -45,9 +45,9 @@ public class UsuariosRestController {
         this.userService.create(usuario);
     }
 
-    @RequestMapping(value = "find", method = RequestMethod.POST)
-    public void find (@RequestBody String alias) {
-        this.userService.findByAlias(alias);
+    @RequestMapping(value = "find/{alias}", method = RequestMethod.POST)
+    public UsuarioDTO find (@PathVariable String alias) {
+        return this.userService.findByAlias(alias);
     }
 
     @RequestMapping(value = "getPhoto/{alias}", produces = {MediaType.IMAGE_JPEG_VALUE})

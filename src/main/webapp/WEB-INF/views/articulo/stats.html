@@ -218,7 +218,7 @@
 						var ctx = $('#bestsellersArticles').get(0).getContext('2d');
 						var bestsellersArticlesChart = new Chart(ctx).Doughnut(data,{responsive: false});
 			        },
-			        error: function (jqXHR, status) {            
+			        error: function (jqXHR, status) {
 						console.log(jqXHR.statusText);
 						console.err('Error: No se pudo obtener la data de los articulos "best seller"');
 			        }
