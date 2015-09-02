@@ -92,6 +92,7 @@
 	            <li id="editUsu" th:text="#{usu.admin.menu.edit}"/>
 	            <li id="deleteUsu" th:text="#{usu.admin.menu.delete}"/>
 	            <li id="newUsu" th:text="#{usu.admin.menu.create}"/>
+	            <li id="setImage" th:text="#{usu.admin.menu.setImage}"/>
 	        </ul>
        </div>
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
@@ -193,6 +194,8 @@
 						deleteUser();
 					} else if ($.trim($(args).text()) == [[#{usu.admin.menu.create}]]) {
 						initCreationForm();
+					} else if ($.trim($(args).text()) == [[#{usu.admin.menu.setImage}]]) {
+						
 					}
 				});
 				$("#gridUsuarios").on(

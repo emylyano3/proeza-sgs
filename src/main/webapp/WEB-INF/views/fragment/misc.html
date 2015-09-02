@@ -1,0 +1,55 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- Galeria de imagenes -->
+    <div th:fragment="imageGallery" id="blueimp-gallery" class="blueimp-gallery">
+        <!-- The container for the modal slides -->
+        <div class="slides"/>
+        <!-- Controls for the borderless lightbox -->
+        <h3 class="title"/>
+        <a class="prev">&lsaquo;</a><!-- Single left side angle quotation (U+2039) -->
+        <a class="next">&rsaquo;</a><!-- Single right side angle quotation (U+203a) -->
+        <a class="close">×</a>
+        <a class="play-pause"/>
+        <ol class="indicator"></ol>
+    </div>
+    
+    <!-- Simple splash screen-->
+    <div th:fragment="splash" class="splash"> 
+        <div class="color-line"></div>
+        <div class="splash-title">
+            <h1 th:text="#{app.splash.title}">Proeza - Sistema de Gestíon de Stock</h1>
+            <p th:text="#{app.splash.detail}">Sistema de administración de recursos empresariales</p>
+            <img th:src="@{/resources/app/img/loading-bars.svg}" width="64" height="64" /> 
+        </div> 
+    </div>
+    
+    <!-- Popup para cargar imagenes -->
+    <div th:fragment="loadImagePopup">
+        <!-- Modal de agregado de imagen -->
+        <div class="modal fade" id="addImagePopup" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">
+                            <span th:text="#{control.addImage}" text="Agregar Imagen" />
+                        </h4>
+                    </div>
+                    <div id="addImagePanel" class="modal-body" >
+                        <form enctype="multipart/form-data">
+                            <input id="uploadImage" name="file" type="file" accept="image/jpeg" class="file-loading" multiple="multiple"/>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancelImage" type="button" class="btn btn-default" th:text="#{control.cancel}" data-dismiss="modal"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
