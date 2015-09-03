@@ -36,7 +36,6 @@ public class ArticuloDTO implements Serializable {
     @NotNull
     private String            clase;
 
-    @NotNull
     private String            tipo;
 
     @NotNull
@@ -57,7 +56,6 @@ public class ArticuloDTO implements Serializable {
     @NotNull
     private String            codClase;
 
-    @NotNull
     private String            codTipo;
 
     @NotNull

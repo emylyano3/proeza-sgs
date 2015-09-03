@@ -21,7 +21,7 @@
                 <span id="formTitle" />
             </div>
             <div class="panel-body">
-                <form id="formArticulo" class="form-horizontal">
+                <form id="productForm" class="form-horizontal">
                     <div class="row text-center">
                         <div class="col-md-12">
                             <div class="col-md-6">
@@ -104,7 +104,7 @@
                         <p/>
                         <div class="col-md-12">
                             <button id="cancelEdit" type="button" class="btn btn-default" th:text="#{control.cancel}" />
-                            <button id="saveEdit" type="button" class="btn btn-primary" th:text="#{control.save}" />
+                            <button id="saveEdit" type="submit" class="btn btn-primary" th:text="#{control.save}" />
                         </div>
                     </div>
                 </form>
@@ -142,12 +142,11 @@
 		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
 		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput.js" th:src="@{/resources/fileinput/js/fileinput.js}" />
 		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput_locale_es.js" th:src="@{/resources/fileinput/js/fileinput_locale_es.js}" />
-		<script type="text/javascript" src="../../../resources/validation/js/jquery.validate.js" th:src="@{/resources/validation/js/jquery.validate.js}" />
         <script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}"/>
         
 		<script th:inline="javascript">
 		 	/*<![CDATA[*/
-		 	var formMode, formValidator;
+		 	var formMode;
 			// Inicializacion de la tabla de arículos
 			$(document).ready(function() {
 				// prepare the data
@@ -335,47 +334,37 @@
 					}
 				});
 
-				// update the edited row when the user clicks the 'save' button.
-				$("#saveEdit").click(function() {
-					if ($("#formArticulo").valid()) {
-						var row = {
-							codigo : $("#codigo").val(),
-							modelo : $("#modelo").val(),
-							descripcion : $("#descripcion").val(),
-							clase : $("#cbClase").val(),
-							tipo : $("#cbTipo").val(),
-							rubro : $("#cbRubro").val(),
-							marca : $("#cbMarca").val(),
-							precio : $("#precio").val(),
-							costo : $("#costo").val(),
-							cantidad : $("#cantidad").val(),
-							codClase : $("#cbClase option:selected").attr('id'),
-							codTipo : $("#cbTipo option:selected").attr('id'),
-							codMarca : $("#cbMarca option:selected").attr('id'),
-							codRubro : $("#cbRubro option:selected").attr('id')
-    					};
-						if (formMode == 'creation') {
-							row.codigo = '';
-    						$('#gridArticulos').jqxGrid('addrow', null, row, 0);
-						} else if (formMode == 'edition' && editrow >= 0) {
-    						var rowid = $('#gridArticulos').jqxGrid('getrowid', editrow);
-    						$('#gridArticulos').jqxGrid('updaterow', rowid, row);
-						}
-    					$("#editionPanel").hide();
-    					$("#gridPanel").show();
-					} else {
-						$.notify({
-							title: /*[[#{art.form.error.title}]]*/ '<strong>Creación de artículo:</strong>',
-							message: /*[[#{art.form.error.message}]]*/ 'Ocurrió un error en la creación del artículo'
-						},{
-							type: 'danger'
-						});
+				$("#productForm").submit(function( e ) {
+    			    e.preventDefault();
+					var row = {
+						codigo : $("#codigo").val(),
+						modelo : $("#modelo").val(),
+						descripcion : $("#descripcion").val(),
+						clase : $("#cbClase").val(),
+						tipo : $("#cbTipo").val(),
+						rubro : $("#cbRubro").val(),
+						marca : $("#cbMarca").val(),
+						precio : $("#precio").val(),
+						costo : $("#costo").val(),
+						cantidad : $("#cantidad").val(),
+						codClase : $("#cbClase option:selected").attr('id'),
+						codTipo : $("#cbTipo option:selected").attr('id'),
+						codMarca : $("#cbMarca option:selected").attr('id'),
+						codRubro : $("#cbRubro option:selected").attr('id')
+					};
+					if (formMode == 'creation') {
+						row.codigo = '';
+						$('#gridArticulos').jqxGrid('addrow', null, row, 0);
+					} else if (formMode == 'edition' && editrow >= 0) {
+						var rowid = $('#gridArticulos').jqxGrid('getrowid', editrow);
+						$('#gridArticulos').jqxGrid('updaterow', rowid, row);
 					}
+					$("#editionPanel").hide();
+					$("#gridPanel").show();
 				});
 
 				// Hide popup when cancel
 				$("#cancelEdit").click(function() {
-					formValidator.resetForm();
 					$("#editionPanel").hide();
 					$("#gridPanel").show();
 				});
@@ -469,16 +458,6 @@
 				$("#lblCodigo").show();
 				showForm();
 			}
-			
-			// configure your validation
-			var formValidator = $("#formArticulo").validate({
-				messages : {
-					clase : [[#{control.requiredfield}]],
-					marca : [[#{control.requiredfield}]],
-					rubro : [[#{control.requiredfield}]],
-					modelo : [[#{control.requiredfield}]]
-				}					
-			});
 			/*]]>*/
 		</script>
 	</div>

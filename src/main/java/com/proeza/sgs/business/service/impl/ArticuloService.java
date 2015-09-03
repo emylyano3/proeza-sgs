@@ -40,9 +40,6 @@ public class ArticuloService implements IArticuloService {
 
     public static final Logger    log            = Logger.getLogger(ArticuloService.class);
 
-    // @Autowired
-    // private ValidatorFactory validatorFactory;
-
     @Autowired
     private IArticuloDao          articuloDao;
 
@@ -82,8 +79,7 @@ public class ArticuloService implements IArticuloService {
 
     @Override
     public void create (ArticuloDTO dto) {
-        // this.validatorFactory.getValidator().validate(dto);
-        Tipo tipo = this.tipoDao.findByCode(dto.getCodTipo());
+        Tipo tipo = dto.getCodTipo() == null ? null : this.tipoDao.findByCode(dto.getCodTipo());
         Rubro rubro = this.rubroDao.findByCode(dto.getCodRubro());
         Marca marca = this.marcaDao.findByCode(dto.getCodMarca());
         Clase clase = this.claseDao.findByCode(dto.getCodClase());
@@ -202,7 +198,7 @@ public class ArticuloService implements IArticuloService {
         StringBuilder builder = new StringBuilder(10);
         builder
             .append(art.getRubro().substring(0, 2).toUpperCase())
-            .append(art.getTipo().substring(0, 2).toUpperCase())
+            .append(art.getClase().substring(0, 2).toUpperCase())
             .append(art.getMarca().substring(0, 2).toUpperCase())
             .append(this.articuloDao.getNextId());
         return builder.toString();

@@ -133,7 +133,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_tipo", nullable = false)
+    @JoinColumn(name = "fk_tipo")
     public Tipo getTipo () {
         return this.tipo;
     }
@@ -151,7 +151,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
         this.modelo = modelo;
     }
 
-    @Column(name = "descripcion", nullable = false, length = 300)
+    @Column(name = "descripcion", length = 300)
     public String getDescripcion () {
         return this.descripcion;
     }
