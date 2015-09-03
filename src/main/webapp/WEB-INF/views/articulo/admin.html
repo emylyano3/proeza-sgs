@@ -15,6 +15,12 @@
 				<div id="gridArticulos" />
 			</div> 
 		</div>
+        <p/>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="links"></div>
+            </div>
+        </div>
         <!-- Panel de edicion -->
         <div id="editionPanel" class="hpanel animated fadeInUp" hidden="true">
             <div class="panel-heading">
@@ -142,11 +148,15 @@
 		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
 		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput.js" th:src="@{/resources/fileinput/js/fileinput.js}" />
 		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput_locale_es.js" th:src="@{/resources/fileinput/js/fileinput_locale_es.js}" />
+        <script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery.js" th:src="@{/resources/gallery/js/blueimp-gallery.js}"/>
+        <script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery-indicator.js" th:src="@{/resources/gallery/js/blueimp-gallery-indicator.js}"/>
+        <script type="text/javascript" src="../../../resources/gallery/js/jquery.blueimp-gallery.js" th:src="@{/resources/gallery/js/jquery.blueimp-gallery.js}"/>
         <script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}"/>
         
 		<script th:inline="javascript">
 		 	/*<![CDATA[*/
 		 	var formMode;
+        	var lastSelectedRow = -1;
 			// Inicializacion de la tabla de arículos
 			$(document).ready(function() {
 				// prepare the data
@@ -231,7 +241,6 @@
 					}
 				};
 				var dataAdapter = new $.jqx.dataAdapter(source);
-				var editrow = -1;
 				
 				// initializa la grilla de articulos
 				$("#gridArticulos").jqxGrid({
@@ -291,11 +300,10 @@
 				// handle context menu clicks.
 				$("#gridContextMenu").on('itemclick', function(event) {
 					var args = event.args;
-					var rowindex = $("#gridArticulos").jqxGrid('getselectedrowindex');
-					editrow = rowindex;
+					var lastSelectedRow = $("#gridArticulos").jqxGrid('getselectedrowindex');
 					var offset = $("#gridArticulos").offset();
 					// get the clicked row's data and initialize the input fields.
-					var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', rowindex);
+					var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', lastSelectedRow);
 					if ($.trim($(args).text()) == [[#{art.admin.menu.edit}]]) {
 						initEditionForm(dataRecord);
 					} else if ($.trim($(args).text()) == [[#{art.admin.menu.create}]]) { 
@@ -303,7 +311,7 @@
 					} else if ($.trim($(args).text()) == [[#{art.admin.menu.copy}]]) { 
 						initCopyCreationForm(dataRecord);
 					} else if ($.trim($(args).text()) == [[#{art.admin.menu.delete}]]) {
-						var rowid = $("#gridArticulos").jqxGrid('getrowid', rowindex);
+						var rowid = $("#gridArticulos").jqxGrid('getrowid', lastSelectedRow);
 						$("#gridArticulos").jqxGrid('deleterow', rowid);
 					} else if ($.trim($(args).text()) == [[#{art.admin.menu.addImage}]]) {
 				         var fileInputOptions = {
@@ -320,6 +328,15 @@
 						$("#addImagePopup").modal('show');
 					}
 				});
+				$("#gridArticulos").on('rowselect', function (event) {
+	            	var rowIndex = event.args.rowindex;
+	            	var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', rowIndex);
+	            	if (lastSelectedRow != rowIndex) {
+	            		lastSelectedRow = rowIndex;
+	            		cleanContainer('links');
+	            		updateGaleryPreview(dataRecord.codigo, 'links');
+	            	}
+	            });
 				$("#gridArticulos").on('rowclick', function(event) {	
 					if (event.args.rightclick) {	
 						$("#gridArticulos").jqxGrid('selectrow', event.args.rowindex);
@@ -355,8 +372,8 @@
 					if (formMode == 'creation') {
 						row.codigo = '';
 						$('#gridArticulos').jqxGrid('addrow', null, row, 0);
-					} else if (formMode == 'edition' && editrow >= 0) {
-						var rowid = $('#gridArticulos').jqxGrid('getrowid', editrow);
+					} else if (formMode == 'edition' && lastSelectedRow >= 0) {
+						var rowid = $('#gridArticulos').jqxGrid('getrowid', lastSelectedRow);
 						$('#gridArticulos').jqxGrid('updaterow', rowid, row);
 					}
 					$("#editionPanel").hide();
@@ -390,6 +407,7 @@
 	            });
 	            $("#eraser").click(function () {
 	                $("#gridArticulos").jqxGrid('clear');
+		            cleanContainer('links');
 	            });
 			});
 			
