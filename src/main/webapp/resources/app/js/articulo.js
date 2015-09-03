@@ -1,15 +1,16 @@
 var articulo = {
 	rest : {
-		getImages : '/proeza-sgs/rest/articulo/getImages/',
-		addImage : '/proeza-sgs/rest/articulo/addImage/',
-		getImage : '/proeza-sgs/rest/articulo/getImage/',
-		getThumbnail : '/proeza-sgs/rest/articulo/getThumbnail/',
-		search : '/proeza-sgs/rest/articulo/search'
+		getImages : '/proeza-sgs/rest/articulo/getImages',
+		addImage : '/proeza-sgs/rest/articulo/addImage',
+		getImage : '/proeza-sgs/rest/articulo/getImage',
+		getThumbnail : '/proeza-sgs/rest/articulo/getThumbnail',
+		search : '/proeza-sgs/rest/articulo/search',
+		create : '/proeza-sgs/rest/articulo/create',
 	}
 }
 
 function updateGaleryPreview (productCode, containerId) {
-	var imagesUrl = articulo.rest.getImages + productCode;
+	var imagesUrl = articulo.rest.getImages + '/' + productCode;
 	var linksContainer = $("#" + containerId);
     // Add the demo images as links with thumbnails to the page
     $.ajax({
@@ -21,8 +22,8 @@ function updateGaleryPreview (productCode, containerId) {
 	        var thumbnailUrl, imageUrl;
 	        $.each(result,
 	        	function (index, result) {
-		            thumbnailUrl = articulo.rest.getThumbnail + productCode + "/" + result.id;
-		            imageUrl = articulo.rest.getImage + productCode + "/" + result.id;
+		            thumbnailUrl = articulo.rest.getThumbnail + '/' + productCode + '/' + result.id;
+		            imageUrl = articulo.rest.getImage + '/' + productCode + '/' + result.id;
 		            $('<a/>')
 		                .append($('<img/>')
 						.prop('src', thumbnailUrl))

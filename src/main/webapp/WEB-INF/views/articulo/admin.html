@@ -143,6 +143,8 @@
 		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput.js" th:src="@{/resources/fileinput/js/fileinput.js}" />
 		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput_locale_es.js" th:src="@{/resources/fileinput/js/fileinput_locale_es.js}" />
 		<script type="text/javascript" src="../../../resources/validation/js/jquery.validate.js" th:src="@{/resources/validation/js/jquery.validate.js}" />
+        <script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}"/>
+        
 		<script th:inline="javascript">
 		 	/*<![CDATA[*/
 		 	var formMode, formValidator;
@@ -152,7 +154,7 @@
 				var source = {
 					datatype : "json",
 					id : "id",
-					url : "/proeza-sgs/rest/articulo/search?filter=",
+					url : articulo.rest.search + '?filter=',
 					dataFields : [ 
 		               {name : 'codigo', type : 'string'},
 		               {name : 'modelo', type : 'string'},
@@ -172,7 +174,7 @@
 		            addrow : function(rowid, rowdata, position, commit) {
 		            	$.ajax({
 							type : 'POST',
-							url : '/proeza-sgs/rest/articulo/create',
+							url : articulo.rest.create,
 							dataType: 'json',
 							contentType: 'application/json',
 							data : JSON.stringify(rowdata),
@@ -312,7 +314,7 @@
 								maxFileCount : 5,
 				                allowedFileExtensions : ['jpg', 'png','gif'],
 								allowedFileTypes : ["image"],
-				                uploadUrl: '/proeza-sgs/rest/articulo/addImage?artCode=' + dataRecord.codigo
+				                uploadUrl: articulo.rest.addImage + '?artCode=' + dataRecord.codigo
 						};
 			         	// File input plugin options
 			            $("#uploadImage").fileinput(fileInputOptions);
@@ -393,7 +395,7 @@
 	            $('#filter').on('input', function() {
 	                var filter = $(this).val();
 	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
-	                source.url = "/proeza-sgs/rest/articulo/search?" + params;
+	                source.url = articulo.rest.search + "?" + params;
 					// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
 	                $("#gridArticulos").jqxGrid('updatebounddata', 'cells');
 	            });
