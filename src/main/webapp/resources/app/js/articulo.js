@@ -1,0 +1,44 @@
+var articulo = {
+	rest : {
+		getImages : '/proeza-sgs/rest/articulo/getImages/',
+		addImage : '/proeza-sgs/rest/articulo/addImage/',
+		getImage : '/proeza-sgs/rest/articulo/getImage/',
+		getThumbnail : '/proeza-sgs/rest/articulo/getThumbnail/',
+		search : '/proeza-sgs/rest/articulo/search'
+	}
+}
+
+function updateGaleryPreview (productCode, containerId) {
+	var imagesUrl = articulo.rest.getImages + productCode;
+	var linksContainer = $("#" + containerId);
+    // Add the demo images as links with thumbnails to the page
+    $.ajax({
+		type : 'POST',
+        url: imagesUrl,
+        dataType: 'json'
+    }).done(
+    	function (result) {
+	        var thumbnailUrl, imageUrl;
+	        $.each(result,
+	        	function (index, result) {
+		            thumbnailUrl = articulo.rest.getThumbnail + productCode + "/" + result.id;
+		            imageUrl = articulo.rest.getImage + productCode + "/" + result.id;
+		            $('<a/>')
+		                .append($('<img/>')
+						.prop('src', thumbnailUrl))
+		                .prop('href', imageUrl)
+		                .prop('title', result.nombre)
+		                .attr('data-gallery', '')
+		                .appendTo(linksContainer);
+		        }
+	        );
+	    }
+    );
+}
+
+function cleanContainer(containerId) {
+    var linksContainer = document.getElementById(containerId);
+	while (linksContainer.hasChildNodes()) {
+		linksContainer.removeChild(linksContainer.lastChild);
+	}
+}

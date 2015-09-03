@@ -38,6 +38,7 @@
 		<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery.js" th:src="@{/resources/gallery/js/blueimp-gallery.js}"/>
 		<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery-indicator.js" th:src="@{/resources/gallery/js/blueimp-gallery-indicator.js}"/>
 		<script type="text/javascript" src="../../../resources/gallery/js/jquery.blueimp-gallery.js" th:src="@{/resources/gallery/js/jquery.blueimp-gallery.js}"/>
+		<script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}"/>
 
 	    <script th:inline="javascript">
 
@@ -84,7 +85,7 @@
 	        function configSource() {
 	        	return {
                 	id: "id",
-		            url: "/proeza-sgs/rest/articulo/search?filter=",
+		            url: articulo.rest.search + "?filter=",
 		            datatype: "json",
 		            dataFields: [
 						{name: 'codigo', type : 'string'},
@@ -104,25 +105,17 @@
 	            $('#filter').on('input', function() {
 	                var filter = $(this).val();
 	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
-	                source.url = "/proeza-sgs/rest/articulo/search?" + params;
+	                source.url = articulo.rest.search + "?" + params;
 					// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
 	                $("#gridArticulos").jqxGrid('updatebounddata', 'cells');
 	            });
 	            $("#eraser").click(function () {
-	                cleanThumbnailsContainer();
+	                cleanContainer('links');
 	                $("#gridArticulos").jqxGrid('clear');
 	                $("#filter").val("");
 	            });	
 	        }
 	        
-	        function cleanThumbnailsContainer() {
-		        var linksContainer = document.getElementById('links');
-				while (linksContainer.hasChildNodes()) {
-					linksContainer.removeChild(linksContainer.lastChild);
-				}
-				return $('#links');
-	        }
-			
 	        function initGrid(source) {
 	            var dataAdapter = new $.jqx.dataAdapter(source);
 	            // initializa la grilla de articulos
@@ -171,38 +164,13 @@
 	            });
 	            var contextMenu = initGridContextMenu();
 	            $("#gridArticulos").on('rowselect', function (event) {
-	                var rowIndex = event.args.rowindex;
-		            if (lastSelectedRow != rowIndex) {
-		            	lastSelectedRow = rowIndex;
-		             	// Row select: Load thumbnails from server
-						// get the clicked row's data and initialize the input fields.
-						var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', rowIndex);
-						var imagesUrl = '/proeza-sgs/rest/articulo/getImages/' + dataRecord.codigo;
-				        // Add the demo images as links with thumbnails to the page
-				        var linksContainer = cleanThumbnailsContainer();
-					    $.ajax({
-							type : 'POST',
-					        url: imagesUrl,
-					        dataType: 'json'
-					    }).done(
-					    	function (result) {
-						        var thumbnailUrl, imageUrl;
-						        $.each(result, 
-						        	function (index, result) {
-							            thumbnailUrl = '/proeza-sgs/rest/articulo/getThumbnail/' + dataRecord.codigo + "/" + result.id;
-							            imageUrl = '/proeza-sgs/rest/articulo/getImage/' + dataRecord.codigo + "/" + result.id;
-							            $('<a/>')
-							                .append($('<img/>')
-											.prop('src', thumbnailUrl))
-							                .prop('href', imageUrl)
-							                .prop('title', result.nombre)
-							                .attr('data-gallery', '')
-							                .appendTo(linksContainer);
-							        }
-						        );
-						    }
-					    );
-		            }
+	            	var rowIndex = event.args.rowindex;
+	            	var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', rowIndex);
+	            	if (lastSelectedRow != rowIndex) {
+	            		lastSelectedRow = rowIndex;
+	            		cleanContainer('links');
+	            		updateGaleryPreview(dataRecord.codigo, 'links');
+	            	}
 	            });
 				$("#gridArticulos").on('rowclick', function(event) {
 					$("#gridArticulos").jqxGrid('selectrow', event.args.rowindex);
