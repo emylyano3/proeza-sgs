@@ -10,17 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.Cache;
-
 import static com.proeza.core.util.Constants.*;
-import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 
 @Entity
 @Table(
     catalog = "seg_proeza_db",
     name = "foto",
     uniqueConstraints = @UniqueConstraint(columnNames = "id"))
-@Cache(usage = NONSTRICT_READ_WRITE)
 public class Foto {
 
     private long   id;

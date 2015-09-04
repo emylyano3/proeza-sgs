@@ -7,12 +7,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.proeza.core.service.IImageService;
 import com.proeza.security.dao.IRolDao;
 import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.dto.UsuarioDTO;
@@ -27,7 +31,7 @@ import com.proeza.security.service.IUserService;
 @Service("userService")
 public class UserService implements IUserService {
 
-    public static final Logger log = Logger.getLogger(UserService.class);
+    public static final Logger log             = Logger.getLogger(UserService.class);
 
     @Autowired
     private IUsuarioDao        usuarioDao;
@@ -37,6 +41,11 @@ public class UserService implements IUserService {
 
     @Autowired
     private PasswordEncoder    passwordEncoder;
+
+    @Autowired
+    private IImageService      imageService;
+
+    public static final int    USER_PHOTO_SIZE = 80;
 
     @Override
     public UsuarioForm create (UsuarioForm user) {
@@ -121,5 +130,20 @@ public class UserService implements IUserService {
     @Override
     public UsuarioDTO findByAlias (String alias) {
         return new UsuarioDTO(this.usuarioDao.findByAlias(alias));
+    }
+
+    @Override
+    public void setPhoto (String alias, MediaType type, byte[] data) {
+        Usuario user = this.usuarioDao.findByAlias(alias);
+        if (user.getFoto() == null) {
+            user.setFoto(new Foto());
+        }
+        try {
+            data = this.imageService.getThumbnail(data, USER_PHOTO_SIZE, type);
+            user.getFoto().setData(new SerialBlob(data));
+            user.getFoto().setMediaType(type.getSubtype());
+        } catch (Exception e) {
+            throw new RuntimeException("No se pudo completar el servicio de asignacion de foto al usuario: " + alias, e);
+        }
     }
 }

@@ -27,7 +27,7 @@ public class UsuarioDTO implements Serializable {
 
     private String            password;
 
-    private byte[]            foto;
+    private boolean           tieneFoto;
 
     private String[]          roles;
 
@@ -42,6 +42,7 @@ public class UsuarioDTO implements Serializable {
         this.apellido = usuario.getApellido();
         this.email = usuario.getEmail();
         this.roles = new String[usuario.getRoles().size()];
+        this.tieneFoto = usuario.getFoto() != null;
         int i = 0;
         for (Rol rol : usuario.getRoles()) {
             this.roles[i++] = rol.getCodigo();
@@ -96,20 +97,20 @@ public class UsuarioDTO implements Serializable {
         this.password = password;
     }
 
-    public byte[] getFoto () {
-        return this.foto;
-    }
-
-    public void setFoto (byte[] foto) {
-        this.foto = foto;
-    }
-
     public String[] getRoles () {
         return this.roles;
     }
 
     public void setRoles (String[] roles) {
         this.roles = roles;
+    }
+
+    public boolean hasFoto () {
+        return this.tieneFoto;
+    }
+
+    public void setHasFoto (boolean tieneFoto) {
+        this.tieneFoto = tieneFoto;
     }
 
     @Override

@@ -7,7 +7,8 @@
          <div id="navigation">
             <div sec:authorize="isAuthenticated()" class="profile-picture">
                 <a href="#">
-                    <img src="http://localhost:8080/proeza-sgs/resources/app/img/user-avatar_76x76.jpg" class="img-circle m-b" alt="logo" />
+                    <img th:if="${user.hasFoto()} == true" th:src="@{/rest/usuario/getPhoto/}+${user.alias}" class="img-circle m-b" />
+                    <img th:if="${user.hasFoto()} == false" th:src="@{/resources/app/img/user-avatar_76x76.jpg}" class="img-circle m-b" />
                 </a>
                 <div class="stats-label text-color">
                     <span class="font-extra-bold font-uppercase" sec:authentication="name">Usuario</span>
