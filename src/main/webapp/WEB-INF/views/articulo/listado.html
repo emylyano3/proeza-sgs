@@ -22,7 +22,10 @@
 		</div>
 		<div id="gridContextMenu">
 		    <ul>
-				<li id="seeArtImages" th:text="#{art.list.menu.seeImages}"/>
+				<li id="seeArtImages" th:text="#{art.menu.seeImages}"/>
+				<li id="quickCashSale" th:text="#{art.menu.quickCashSale}"/>
+				<li id="quickCreditSale" th:text="#{art.menu.quickCreditSale}"/>
+				<li id="quickDebitSale" th:text="#{art.menu.quickDebitSale}"/>
 			</ul>
 		</div>
 	    
@@ -35,7 +38,7 @@
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.selection.js" th:src="@{/resources/jqx/js/jqxgrid.selection.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.columnsresize.js" th:src="@{/resources/jqx/js/jqxgrid.columnsresize.js}" />
-		
+        <script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
 		<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery.js" th:src="@{/resources/gallery/js/blueimp-gallery.js}"/>
 		<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery-indicator.js" th:src="@{/resources/gallery/js/blueimp-gallery-indicator.js}"/>
 		<script type="text/javascript" src="../../../resources/gallery/js/jquery.blueimp-gallery.js" th:src="@{/resources/gallery/js/jquery.blueimp-gallery.js}"/>
@@ -44,12 +47,13 @@
 	    <script th:inline="javascript">
 
         	var lastSelectedRow = -1;
-
+        	var source;
+        	
         	$(document).ready(function () {
-	        	var source = configSource();
 	        	initImageGallery();
-				initGrid(source);            
-	            initControls(source);
+	        	configSource();
+				initGrid();            
+	            initControls();
 	        });
 			
 	        function initImageGallery() {
@@ -57,34 +61,8 @@
 		        $('#blueimp-gallery').toggleClass('blueimp-gallery-controls', true);	
 	        }
 	        
-	        function initGridContextMenu() {
-				// crea el menu contextual
-				var contextMenu = $("#gridContextMenu").jqxMenu({
-					width : 180,
-					height : 35,
-					autoOpenPopup : false,
-					mode : 'popup'
-				});
-				$("#gridArticulos").on('contextmenu', function() {
-					return false;
-				});
-				// Manejo los eventos sobre el context menu de la grilla
-				$("#gridContextMenu").on('itemclick', function(event) {
-					var args = event.args;
-					var rowindex = $("#gridArticulos").jqxGrid('getselectedrowindex');
-					var offset = $("#gridArticulos").offset();
-					// get the clicked row's data and initialize the input fields.
-					var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', rowindex);
-					if ($.trim($(args).text()) == [[#{art.list.menu.seeImages}]]) {
-						 // Initialize image gallery
-						blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
-					}
-				})
-				return contextMenu;
-	        }
-	        
 	        function configSource() {
-	        	return {
+	        	source = {
                 	id: "id",
 		            url: articulo.rest.search + "?filter=",
 		            datatype: "json",
@@ -104,11 +82,7 @@
 	        function initControls(source) {
 	        	// Inicializa los controles del filtro
 	            $('#filter').on('input', function() {
-	                var filter = $(this).val();
-	                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
-	                source.url = articulo.rest.search + "?" + params;
-					// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
-	                $("#gridArticulos").jqxGrid('updatebounddata', 'cells');
+	                refreshGrid(source);
 	            });
 	            $("#eraser").click(function () {
 	                cleanContainer('links');
@@ -117,7 +91,15 @@
 	            });	
 	        }
 	        
-	        function initGrid(source) {
+	        function refreshGrid() {
+	        	var filter = $('#filter').val();
+                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
+                source.url = articulo.rest.search + "?" + params;
+				// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
+                $("#gridArticulos").jqxGrid('updatebounddata', 'cells');
+	        }
+	        
+	        function initGrid() {
 	            var dataAdapter = new $.jqx.dataAdapter(source);
 	            // initializa la grilla de articulos
 	            $("#gridArticulos").jqxGrid({
@@ -185,6 +167,68 @@
 						);
 						return false;
 					}
+				});
+	        }
+
+	        function initGridContextMenu() {
+				// crea el menu contextual
+				var contextMenu = $("#gridContextMenu").jqxMenu({
+					width : 180,
+					height : 106,
+					autoOpenPopup : false,
+					mode : 'popup'
+				});
+				$("#gridArticulos").on('contextmenu', function() {
+					return false;
+				});
+				// Manejo los eventos sobre el context menu de la grilla
+				$("#gridContextMenu").on('itemclick', function(event) {
+					var args = event.args;
+					var rowindex = $("#gridArticulos").jqxGrid('getselectedrowindex');
+					var offset = $("#gridArticulos").offset();
+					// get the clicked row's data and initialize the input fields.
+					var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', rowindex);
+					switch ($.trim($(args).text())) {
+						case [[#{art.menu.seeImages}]] :						
+							blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
+							break;
+						case [[#{art.menu.quickCashSale}]] :
+							quickSale (dataRecord.codigo, 'EFT', notifyQuickSaleDone);
+							break;
+						case [[#{art.menu.quickCreditSale}]] :
+							quickSale (dataRecord.codigo, 'TCR', notifyQuickSaleDone);
+							break;
+						case [[#{art.menu.quickDebitSale}]] :
+							quickSale (dataRecord.codigo, 'TDE', notifyQuickSaleDone);
+							break;
+						default:
+							break;
+					}
+				})
+				return contextMenu;
+	        }
+	        
+	        function notifyQuickSaleDone (productCode, status) {
+	        	var title, message, type;
+	        	switch (status) {
+	        		case 'success':
+    	        		title = [[#{art.quickSale.success.title}]]; 
+    	        		message = [[#{art.quickSale.success.message}]];
+    	        		type = 'success';
+    	        		refreshGrid();
+    	        		
+	        		break;
+	        		case 'error':
+    	        		title = [[#{art.quickSale.error.title}]]; 
+    	        		message = [[#{art.quickSale.error.message}]];
+    	        		type = 'error';
+	        		break;
+	        	}
+	        	$.notify({
+					title: title,
+					message: message
+				},{
+					type: type
 				});
 	        }
 	    </script>

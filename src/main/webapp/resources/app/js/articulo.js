@@ -6,6 +6,7 @@ var articulo = {
 		getThumbnail : '/proeza-sgs/rest/articulo/getThumbnail',
 		search : '/proeza-sgs/rest/articulo/search',
 		create : '/proeza-sgs/rest/articulo/create',
+		quickSale : '/proeza-sgs/rest/venta/quickSale',
 	}
 }
 
@@ -42,4 +43,24 @@ function cleanContainer(containerId) {
 	while (linksContainer.hasChildNodes()) {
 		linksContainer.removeChild(linksContainer.lastChild);
 	}
+}
+
+function quickSale (productCode, type, notifyCallback) {
+	var saleData = {
+		productCode : productCode,
+		type : type
+	};
+	$.ajax({
+		type : 'POST',
+		url : articulo.rest.quickSale,
+		dataType: 'json',
+		contentType: 'application/json',
+		data : JSON.stringify(saleData),
+		success : function() {
+			notifyCallback(productCode, 'success');
+		},
+		error: function () {
+			notifyCallback(productCode, 'error');
+        }
+	});
 }

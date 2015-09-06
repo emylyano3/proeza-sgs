@@ -18,4 +18,6 @@ public interface Dao<Entity> {
     void delete (Entity entity);
 
     EntityManager getEntityManager ();
+
+    Long getNextId ();
 }

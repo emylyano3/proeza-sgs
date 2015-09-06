@@ -124,11 +124,11 @@
 		<!-- Menu Contextual -->
 		<div id="gridContextMenu">
 	        <ul>
-	            <li id="editArt" th:text="#{art.admin.menu.edit}"/>
-	            <li id="addImgToArt" th:text="#{art.admin.menu.addImage}"/>
-	            <li id="copyArt" th:text="#{art.admin.menu.copy}"/>
-	            <li id="createArt" th:text="#{art.admin.menu.create}"/>
-	            <li id="deleteArt" th:text="#{art.admin.menu.delete}"/>
+	            <li id="editArt" th:text="#{art.menu.edit}"/>
+	            <li id="addImgToArt" th:text="#{art.menu.addImage}"/>
+	            <li id="copyArt" th:text="#{art.menu.copy}"/>
+	            <li id="createArt" th:text="#{art.menu.create}"/>
+	            <li id="deleteArt" th:text="#{art.menu.remove}"/>
 	        </ul>
        </div>
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
@@ -288,7 +288,7 @@
 				// create context menu
 				var contextMenu = $("#gridContextMenu").jqxMenu({
 					width : 190,
-					height : 138,
+					height : 135,
 					autoOpenPopup : false,
 					mode : 'popup'
 
@@ -304,16 +304,16 @@
 					var offset = $("#gridArticulos").offset();
 					// get the clicked row's data and initialize the input fields.
 					var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', lastSelectedRow);
-					if ($.trim($(args).text()) == [[#{art.admin.menu.edit}]]) {
+					if ($.trim($(args).text()) == [[#{art.menu.edit}]]) {
 						initEditionForm(dataRecord);
-					} else if ($.trim($(args).text()) == [[#{art.admin.menu.create}]]) { 
+					} else if ($.trim($(args).text()) == [[#{art.menu.create}]]) { 
 						initCreationForm(dataRecord);
-					} else if ($.trim($(args).text()) == [[#{art.admin.menu.copy}]]) { 
+					} else if ($.trim($(args).text()) == [[#{art.menu.copy}]]) { 
 						initCopyCreationForm(dataRecord);
-					} else if ($.trim($(args).text()) == [[#{art.admin.menu.delete}]]) {
+					} else if ($.trim($(args).text()) == [[#{art.menu.remove}]]) {
 						var rowid = $("#gridArticulos").jqxGrid('getrowid', lastSelectedRow);
 						$("#gridArticulos").jqxGrid('deleterow', rowid);
-					} else if ($.trim($(args).text()) == [[#{art.admin.menu.addImage}]]) {
+					} else if ($.trim($(args).text()) == [[#{art.menu.addImage}]]) {
 				         var fileInputOptions = {
 								showUpload : true,
 								showRemove : true,

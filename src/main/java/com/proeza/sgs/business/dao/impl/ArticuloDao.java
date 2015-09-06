@@ -41,10 +41,4 @@ public class ArticuloDao extends BaseDao<Articulo> implements IArticuloDao {
         return this.entityManager.createQuery(criteria).getResultList();
     }
 
-    @Override
-    public Long getNextId () {
-        return (Long) this.entityManager
-            .createQuery(" select max(x.id) from " + Articulo.class.getName() + " x")
-            .getSingleResult();
-    }
 }

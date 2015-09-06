@@ -42,6 +42,14 @@ public abstract class BaseDao<Entity> implements Dao<Entity> {
     }
 
     @Override
+    public Long getNextId () {
+        Long id = (Long) this.entityManager
+            .createQuery(" select max(x.id) from " + getEntityClass().getName() + " x")
+            .getSingleResult();
+        return ++id;
+    }
+
+    @Override
     public Entity persist (Entity entity) {
         this.entityManager.persist(entity);
         return entity;
