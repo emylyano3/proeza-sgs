@@ -1553,6 +1553,12 @@ body {
     min-height: 100%
 }
 
+.floating {
+	position: fixed;
+	bottom: 60px;
+	right: 12px;
+}
+
 .pageTitle {
 	font-size: 18px;
     font-weight: 800;
@@ -1567,7 +1573,7 @@ body {
 }
 
 .content {
-    padding: 10px 30px 30px 30px;
+    padding: 20px 30px 30px 50px;
     min-width: 320px
 }
 

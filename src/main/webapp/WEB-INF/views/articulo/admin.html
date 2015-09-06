@@ -16,9 +16,9 @@
 			</div> 
 		</div>
         <p/>
-        <div class="row">
+        <div id="thumbnailsPanel" class="row">
             <div class="col-md-12">
-                <div id="links"></div>
+                <div id="links" />
             </div>
         </div>
         <!-- Panel de edicion -->
@@ -130,7 +130,13 @@
 	            <li id="createArt" th:text="#{art.menu.create}"/>
 	            <li id="deleteArt" th:text="#{art.menu.remove}"/>
 	        </ul>
-       </div>
+        </div>
+        <div id="commandBar" class="floating">
+            <label id="newProduct" style="cursor: pointer">
+                <i class="fa fa-plus fa-3x" style="color:green"/>
+            </label>
+        </div>
+        
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
@@ -296,7 +302,9 @@
 				$("#gridArticulos").on('contextmenu', function() {
 					return false;
 				});
-
+				$("#newProduct").click(function(){
+					initCreationForm();
+				});
 				// handle context menu clicks.
 				$("#gridContextMenu").on('itemclick', function(event) {
 					var args = event.args;
@@ -307,7 +315,7 @@
 					if ($.trim($(args).text()) == [[#{art.menu.edit}]]) {
 						initEditionForm(dataRecord);
 					} else if ($.trim($(args).text()) == [[#{art.menu.create}]]) { 
-						initCreationForm(dataRecord);
+						initCreationForm();
 					} else if ($.trim($(args).text()) == [[#{art.menu.copy}]]) { 
 						initCopyCreationForm(dataRecord);
 					} else if ($.trim($(args).text()) == [[#{art.menu.remove}]]) {
@@ -376,14 +384,18 @@
 						var rowid = $('#gridArticulos').jqxGrid('getrowid', lastSelectedRow);
 						$('#gridArticulos').jqxGrid('updaterow', rowid, row);
 					}
-					$("#editionPanel").hide();
+					$("#commandBar").show();
 					$("#gridPanel").show();
+					$("#thumbnailsPanel").show();
+					$("#editionPanel").hide();
 				});
 
 				// Hide popup when cancel
 				$("#cancelEdit").click(function() {
-					$("#editionPanel").hide();
 					$("#gridPanel").show();
+					$("#commandBar").show();
+					$("#thumbnailsPanel").show();
+					$("#editionPanel").hide();
 				});
 				$("#cancelImage").click(function() {
 					$("#addImagePopup").modal('hide');
@@ -411,7 +423,7 @@
 	            });
 			});
 			
-			function initCreationForm (dataRecord) {
+			function initCreationForm () {
 				formMode = 'creation';
 				$("#modelo").val('');
 				$("#descripcion").val('');
@@ -432,7 +444,9 @@
 			
 			function showForm() {
 				$("#gridPanel").hide();
-				$("#editionPanel").show();	
+				$("#commandBar").hide();
+				$("#thumbnailsPanel").hide();
+				$("#editionPanel").show();
 			}
 			
 			function initCopyCreationForm (dataRecord) {
