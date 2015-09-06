@@ -1,6 +1,5 @@
 CREATE DATABASE  IF NOT EXISTS `sgs_proeza_db` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */;
 USE `sgs_proeza_db`;
-
 -- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: sgs_proeza_db
@@ -29,7 +28,7 @@ CREATE TABLE `art_articulo` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Codigo clave subrrogada unica de artículo',
   `modelo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(300) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fk_rubro` bigint(20) unsigned zerofill NOT NULL,
   `fk_clase` bigint(20) unsigned zerofill NOT NULL,
   `fk_tipo` bigint(20) unsigned zerofill DEFAULT NULL,
@@ -202,6 +201,26 @@ CREATE TABLE `art_proveedor` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `art_resource`
+--
+
+DROP TABLE IF EXISTS `art_resource`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `art_resource` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_owner` bigint(20) unsigned zerofill NOT NULL,
+  `media_type` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `f_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `descripcion` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `data` longblob NOT NULL,
+  `preview` longblob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `art_rubro`
 --
 
@@ -259,7 +278,7 @@ CREATE TABLE `art_venta` (
   KEY `cliente_idx` (`fk_cliente`),
   CONSTRAINT `venta_cliente` FOREIGN KEY (`fk_cliente`) REFERENCES `art_cliente` (`fk_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `venta_mp` FOREIGN KEY (`fk_medio_pago`) REFERENCES `cmn_medio_pago` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -279,7 +298,7 @@ CREATE TABLE `art_venta_articulo` (
   KEY `articulo_idx` (`fk_articulo`),
   CONSTRAINT `va_articulo` FOREIGN KEY (`fk_articulo`) REFERENCES `art_articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `va_venta` FOREIGN KEY (`fk_venta`) REFERENCES `art_venta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -300,6 +319,39 @@ CREATE TABLE `cmn_email` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `cmn_error`
+--
+
+DROP TABLE IF EXISTS `cmn_error`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cmn_error` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `mensaje` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `excepcion` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `stack` varchar(9999) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_excepcion` (`excepcion`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cmn_i18n`
+--
+
+DROP TABLE IF EXISTS `cmn_i18n`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cmn_i18n` (
+  `id` bigint(20) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  KEY `id_idx` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `cmn_medio_pago`
 --
 
@@ -317,6 +369,23 @@ CREATE TABLE `cmn_medio_pago` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `cmn_moneda`
+--
+
+DROP TABLE IF EXISTS `cmn_moneda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cmn_moneda` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `signo` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
+  `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `cmn_movimiento`
 --
 
@@ -328,13 +397,13 @@ CREATE TABLE `cmn_movimiento` (
   `tipo_mov` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `fk_entidad` bigint(20) unsigned zerofill NOT NULL,
   `tipo_entidad` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `f_movimiento` date NOT NULL,
-  `valor_ant` varchar(100) COLLATE utf8_spanish_ci NOT NULL DEFAULT '""',
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `valor_ant` varchar(100) COLLATE utf8_spanish_ci,
   `valor_post` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `entidad_idx` (`fk_entidad`),
   KEY `tipo_mov` (`tipo_mov`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=375 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -393,6 +462,26 @@ CREATE TABLE `cmn_telefono_tipo` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `cmn_traduccion`
+--
+
+DROP TABLE IF EXISTS `cmn_traduccion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cmn_traduccion` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_i18n` bigint(20) unsigned zerofill NOT NULL,
+  `locale` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
+  `texto` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_i18n_locale` (`fk_i18n`,`locale`),
+  KEY `idx_i18n_locale` (`fk_i18n`,`locale`),
+  KEY `fk_trad_loca_idx` (`locale`),
+  CONSTRAINT `fk_trad_i18n` FOREIGN KEY (`fk_i18n`) REFERENCES `cmn_i18n` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `sys_item`
 --
 
@@ -400,15 +489,15 @@ DROP TABLE IF EXISTS `sys_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_item` (
-  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'Pk de la tabla',
+  `id` bigint(20) unsigned zerofill NOT NULL COMMENT 'Pk de la tabla',
   `codigo` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Clave unica de la tabla',
-  `texto` varchar(200) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Texto del item',
-  `tooltip` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Tooltip del item de menu',
+  `fk_i18n_texto` bigint(20) NOT NULL COMMENT 'Texto del item',
+  `fk_i18n_tooltip` bigint(20) DEFAULT NULL COMMENT 'Tooltip del item de menu',
   `icono` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Ruta al icono del item',
   `link` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Enlace del item de menu',
   PRIMARY KEY (`id`),
   UNIQUE KEY `item_uk` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene todos los items de los menus de la aplicacion. La asociacion menu item se realiza a traves de la tabla sys_menu_item';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene todos los items de los menus de la aplicacion. La asociacion menu item se realiza a traves de la tabla sys_menu_item';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -427,7 +516,7 @@ CREATE TABLE `sys_item_rol` (
   KEY `ir_item_idx` (`fk_item`),
   CONSTRAINT `ir_item` FOREIGN KEY (`fk_item`) REFERENCES `sys_item` (`id`),
   CONSTRAINT `ir_rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_proeza_db`.`rol` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene la relacion de los item de menus con los roles de acceso.\r\nDe esta forma se puede saber que item se deben mostrar a cada rol y por ende a cada usuario.';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene la relacion de los item de menus con los roles de acceso.\r\nDe esta forma se puede saber que item se deben mostrar a cada rol y por ende a cada usuario.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -448,7 +537,7 @@ CREATE TABLE `sys_item_subitem` (
   KEY `subitem_idx` (`fk_subitem`),
   CONSTRAINT `isi_item` FOREIGN KEY (`fk_item`) REFERENCES `sys_item` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `isi_subitem` FOREIGN KEY (`fk_subitem`) REFERENCES `sys_item` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -502,11 +591,11 @@ CREATE TABLE `sys_pagina` (
   `grupo` varchar(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Grupo al que pertenece la pagina. Indica funcionalidad de un conjunto de paginas.',
   `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL COMMENT 'El nombre legible que tiene la pagina',
   `descripcion` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion de la pagina',
-  `titulo` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Título de la pagina. Corresponde a una version legible por usuario del grupo al que pertenece la página',
-  `subtitulo` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Subtitulo de la página. Corresponde a una versión legible por usuario del nombre de la página',
+  `fk_i18n_titulo` bigint(20) unsigned zerofill DEFAULT NULL COMMENT 'Título de la pagina. Corresponde a una version legible por usuario del grupo al que pertenece la página',
+  `fk_i18n_subtitulo` bigint(20) unsigned zerofill DEFAULT NULL COMMENT 'Subtitulo de la página. Corresponde a una versión legible por usuario del nombre de la página',
   PRIMARY KEY (`id`),
   UNIQUE KEY `grupo_nombre` (`grupo`,`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene todas las paginas que componen la aplicacion.';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene todas las paginas que componen la aplicacion.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -525,7 +614,7 @@ CREATE TABLE `sys_pagina_menu` (
   KEY `menu_idx` (`fk_menu`),
   CONSTRAINT `pm_menu` FOREIGN KEY (`fk_menu`) REFERENCES `sys_menu` (`id`),
   CONSTRAINT `pm_pagina` FOREIGN KEY (`fk_pagina`) REFERENCES `sys_pagina` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Asociacion entre las paginas y los menues';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Asociacion entre las paginas y los menues';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -544,7 +633,7 @@ CREATE TABLE `sys_pagina_rol` (
   KEY `rol_idx` (`fk_rol`),
   CONSTRAINT `pr_pagina` FOREIGN KEY (`fk_pagina`) REFERENCES `sys_pagina` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `pr_rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_proeza_db`.`rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Relaciona las paginas de la aplicacion con los roles de usuario. Permite saber que usuario puede acceder a que pagina.';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Relaciona las paginas de la aplicacion con los roles de usuario. Permite saber que usuario puede acceder a que pagina.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -556,4 +645,4 @@ CREATE TABLE `sys_pagina_rol` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-02 17:43:43
+-- Dump completed on 2015-09-06 14:55:00

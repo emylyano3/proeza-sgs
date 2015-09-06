@@ -1,6 +1,5 @@
 CREATE DATABASE  IF NOT EXISTS `seg_proeza_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `seg_proeza_db`;
-
 -- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: seg_proeza_db
@@ -50,10 +49,13 @@ CREATE TABLE `usuario` (
   `apellido` varchar(50) DEFAULT 'N/A',
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
+  `fk_foto` bigint(20) unsigned zerofill DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `alias_UNIQUE` (`alias`)
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `alias_UNIQUE` (`alias`),
+  KEY `fk_usua_foto_idx` (`fk_foto`),
+  CONSTRAINT `fk_usua_foto` FOREIGN KEY (`fk_foto`) REFERENCES `foto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +75,7 @@ CREATE TABLE `usuario_rol` (
   KEY `rol_idx` (`fk_rol`),
   CONSTRAINT `rol` FOREIGN KEY (`fk_rol`) REFERENCES `rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `usuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -85,4 +87,4 @@ CREATE TABLE `usuario_rol` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-02 17:46:24
+-- Dump completed on 2015-09-06 15:10:08
