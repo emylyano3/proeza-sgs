@@ -97,6 +97,10 @@
 	            <li id="setPhoto" th:text="#{usu.admin.menu.setPhoto}"/>
 	        </ul>
        </div>
+        <div id="commandBar" class="floating">
+            <button id="newUser" class="btn fa fa-plus fa-3x btn-plus" th:title="#{usu.add.tooltip}"/>
+        </div>
+        
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
@@ -184,7 +188,9 @@
 				$("#gridUsuarios").on('contextmenu', function() {
 					return false;
 				});
-
+				$("#newUser").click(function(){
+					initCreationForm();
+				});
 				// handle context menu clicks.
 				$("#gridMenu").on('itemclick', function(event) {
 					var args = event.args;
@@ -244,15 +250,12 @@
     					default:
     						break;
 					}
-					$("#editionPanel").hide();
-					$("#gridPanel").show();
 			        return false; 
 				});
-
+				
 				// Hide popup when cancel
 				$("#cancel").click(function() {
-					$("#editionPanel").hide();
-					$("#gridPanel").show();
+					hideForm();
 				});
 
 				// Configuracion del control de ingreso del precio
@@ -277,6 +280,18 @@
 	                'onPasswordGenerated': function (pwd) {} 
 	            });
 			});
+
+			function showForm () {
+				$("#editionPanel").show();
+				$("#commandBar").hide();
+				$("#gridPanel").hide();	
+			}
+
+			function hideForm () {
+				$("#editionPanel").hide();
+				$("#commandBar").show();
+				$("#gridPanel").show();	
+			}
 			
 			function openBrowseImageDialog() {
 				var dataRecord = $('#gridUsuarios').jqxGrid('getrowdata', currentrow);
@@ -306,8 +321,7 @@
 				$("#formTitle").text([[#{usu.admin.creation.title}]]);
 				$("#formFooter").text([[#{usu.admin.creating}]]);
 				$("#roles").val([]);
-				$("#gridPanel").hide();
-				$("#editionPanel").show();
+				showForm();
 			}
 			
 			function initEditionForm () {
@@ -322,8 +336,7 @@
 				$("#password").val('');
 				$("#formTitle").text([[#{usu.admin.edition.title}]]);
 				$("#formFooter").text([[#{usu.admin.editing}]] + dataRecord.nombre + " " + dataRecord.apellido);
-				$("#gridPanel").hide();
-				$("#editionPanel").show();
+				showForm();
 			}
 			
 			function addUser (rowdata, formData) {

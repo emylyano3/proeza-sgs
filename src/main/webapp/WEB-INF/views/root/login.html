@@ -40,6 +40,7 @@
 	            </div>
 	            <div class="hpanel">
 	                <div class="panel-body">
+                        <div th:if="${errorMsg != null}" class="alert alert-danger" role="alert" th:text="${errorMsg}">Error en el ingreso</div>
                         <form id="loginForm" action="#" th:action="@{/login/authenticate}" method="post">
 <!-- 							<input type="hidden" name="_csrf" th:value="${_csrf.token}"/> -->
                             <div class="form-group">
@@ -76,9 +77,6 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}"/>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../../resources/metismenu/js/metisMenu.js" th:src="@{/resources/metismenu/js/metisMenu.js}"/>
 
     <!-- iCheck JavaScript -->
     <script src="../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"/>

@@ -10,7 +10,7 @@ $(document).ready(function () {
     });
 
     // Initialize metsiMenu plugin to sidebar menu
-    if ($('#side-menu') != null) {
+    if (document.getElementById('side-menu') != null) {
     	$('#side-menu').metisMenu();
     }
 
