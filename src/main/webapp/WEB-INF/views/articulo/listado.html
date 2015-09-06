@@ -11,7 +11,7 @@
         <!-- Grilla de articulos -->
 		<div id="gridPanel" class="row animated zoomIn">
 			<div class="col-md-12">
-		        <div id="gridArticulos"/>
+		        <div id="productGrid"/>
 			</div>
 		</div>
         <p/>
@@ -22,10 +22,10 @@
 		</div>
 		<div id="gridContextMenu">
 		    <ul>
-				<li id="seeArtImages" th:text="#{art.menu.seeImages}"/>
-				<li id="quickCashSale" th:text="#{art.menu.quickCashSale}"/>
-				<li id="quickCreditSale" th:text="#{art.menu.quickCreditSale}"/>
-				<li id="quickDebitSale" th:text="#{art.menu.quickDebitSale}"/>
+				<li id="seeArtImages" th:text="#{prod.menu.seeImages}"/>
+				<li id="quickCashSale" th:text="#{prod.menu.quickCashSale}"/>
+				<li id="quickCreditSale" th:text="#{prod.menu.quickCreditSale}"/>
+				<li id="quickDebitSale" th:text="#{prod.menu.quickDebitSale}"/>
 			</ul>
 		</div>
 	    
@@ -86,7 +86,7 @@
 	            });
 	            $("#eraser").click(function () {
 	                cleanContainer('links');
-	                $("#gridArticulos").jqxGrid('clear');
+	                $("#productGrid").jqxGrid('clear');
 	                $("#filter").val("");
 	            });	
 	        }
@@ -96,13 +96,13 @@
                 var params = "filter=" + replaceAll(filter.trim(), ' ',',');
                 source.url = articulo.rest.search + "?" + params;
 				// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
-                $("#gridArticulos").jqxGrid('updatebounddata', 'cells');
+                $("#productGrid").jqxGrid('updatebounddata', 'cells');
 	        }
 	        
 	        function initGrid() {
 	            var dataAdapter = new $.jqx.dataAdapter(source);
 	            // initializa la grilla de articulos
-	            $("#gridArticulos").jqxGrid({
+	            $("#productGrid").jqxGrid({
 	                width: '100%',
 					height : '100%',
 	                source: dataAdapter,
@@ -112,33 +112,33 @@
 			        sortable: true,
 	                columns: [
 						{ 
-							text: /*[[#{art.grid.model}]]*/ 'Modelo', 
+							text: /*[[#{prod.grid.model}]]*/ 'Modelo', 
 							dataField: 'modelo', 
 							width: '21%' 
 						},{ 
-							text: /*[[#{art.grid.desc}]]*/ 'Descripción', 
+							text: /*[[#{prod.grid.desc}]]*/ 'Descripción', 
 							dataField: 'descripcion', 
 							width: '21%' 
 						},{ 
-							text: /*[[#{art.grid.class}]]*/ 'Clase', 
+							text: /*[[#{prod.grid.class}]]*/ 'Clase', 
 							dataField: 'clase',
 							width: '14%' 
 						},{ 
-							text: /*[[#{art.grid.type}]]*/ 'Tipo', 
+							text: /*[[#{prod.grid.type}]]*/ 'Tipo', 
 							dataField: 'tipo', 
 							width: '18%' 
 						},{
-							text: /*[[#{art.grid.trademark}]]*/ 'Marca', 
+							text: /*[[#{prod.grid.trademark}]]*/ 'Marca', 
 							dataField: 'marca', 
 							width: '14%' 
 						},{
-							text: /*[[#{art.grid.price}]]*/ 'Precio', 
+							text: /*[[#{prod.grid.price}]]*/ 'Precio', 
 							dataField: 'precio', 
 							cellsalign: 'right', 
 							cellsformat: 'c2', 
 							minwidth: '10%' 
 						},{
-							text: /*[[#{art.grid.quantity}]]*/ 'Cantidad', 
+							text: /*[[#{prod.grid.quantity}]]*/ 'Cantidad', 
 							dataField: 'cantidad', 
 							cellsalign: 'center', 
 							minwidth: '2%' 
@@ -146,17 +146,17 @@
 	                ]
 	            });
 	            var contextMenu = initGridContextMenu();
-	            $("#gridArticulos").on('rowselect', function (event) {
+	            $("#productGrid").on('rowselect', function (event) {
 	            	var rowIndex = event.args.rowindex;
-	            	var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', rowIndex);
+	            	var dataRecord = $("#productGrid").jqxGrid('getrowdata', rowIndex);
 	            	if (lastSelectedRow != rowIndex) {
 	            		lastSelectedRow = rowIndex;
 	            		cleanContainer('links');
 	            		updateGaleryPreview(dataRecord.codigo, 'links');
 	            	}
 	            });
-				$("#gridArticulos").on('rowclick', function(event) {
-					$("#gridArticulos").jqxGrid('selectrow', event.args.rowindex);
+				$("#productGrid").on('rowclick', function(event) {
+					$("#productGrid").jqxGrid('selectrow', event.args.rowindex);
 					if (event.args.rightclick) {
 						var scrollTop = $(window).scrollTop();
 						var scrollLeft = $(window).scrollLeft();
@@ -178,27 +178,27 @@
 					autoOpenPopup : false,
 					mode : 'popup'
 				});
-				$("#gridArticulos").on('contextmenu', function() {
+				$("#productGrid").on('contextmenu', function() {
 					return false;
 				});
 				// Manejo los eventos sobre el context menu de la grilla
 				$("#gridContextMenu").on('itemclick', function(event) {
 					var args = event.args;
-					var rowindex = $("#gridArticulos").jqxGrid('getselectedrowindex');
-					var offset = $("#gridArticulos").offset();
+					var rowindex = $("#productGrid").jqxGrid('getselectedrowindex');
+					var offset = $("#productGrid").offset();
 					// get the clicked row's data and initialize the input fields.
-					var dataRecord = $("#gridArticulos").jqxGrid('getrowdata', rowindex);
+					var dataRecord = $("#productGrid").jqxGrid('getrowdata', rowindex);
 					switch ($.trim($(args).text())) {
-						case [[#{art.menu.seeImages}]] :						
+						case [[#{prod.menu.seeImages}]] :						
 							blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
 							break;
-						case [[#{art.menu.quickCashSale}]] :
+						case [[#{prod.menu.quickCashSale}]] :
 							quickSale (dataRecord.codigo, 'EFT', notifyQuickSaleDone);
 							break;
-						case [[#{art.menu.quickCreditSale}]] :
+						case [[#{prod.menu.quickCreditSale}]] :
 							quickSale (dataRecord.codigo, 'TCR', notifyQuickSaleDone);
 							break;
-						case [[#{art.menu.quickDebitSale}]] :
+						case [[#{prod.menu.quickDebitSale}]] :
 							quickSale (dataRecord.codigo, 'TDE', notifyQuickSaleDone);
 							break;
 						default:
@@ -212,15 +212,15 @@
 	        	var title, message, type;
 	        	switch (status) {
 	        		case 'success':
-    	        		title = [[#{art.quickSale.success.title}]]; 
-    	        		message = [[#{art.quickSale.success.message}]];
+    	        		title = [[#{prod.quickSale.success.title}]]; 
+    	        		message = [[#{prod.quickSale.success.message}]];
     	        		type = 'success';
     	        		refreshGrid();
     	        		
 	        		break;
 	        		case 'error':
-    	        		title = [[#{art.quickSale.error.title}]]; 
-    	        		message = [[#{art.quickSale.error.message}]];
+    	        		title = [[#{prod.quickSale.error.title}]]; 
+    	        		message = [[#{prod.quickSale.error.message}]];
     	        		type = 'error';
 	        		break;
 	        	}

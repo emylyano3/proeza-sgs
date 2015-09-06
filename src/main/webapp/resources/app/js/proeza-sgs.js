@@ -136,8 +136,8 @@ function updateSideBarStatus () {
         }
         $("#wrapper").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd",
         	function(){
-        		if (document.getElementById('gridArticulos') != null) {
-        			$("#gridArticulos").jqxGrid('refresh');
+        		if (document.getElementById('productGrid') != null) {
+        			$("#productGrid").jqxGrid('refresh');
         		}
         		if (document.getElementById('gridUsuarios') != null) {
         			$("#gridUsuarios").jqxGrid('refresh');

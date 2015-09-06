@@ -54,17 +54,17 @@ public class ArticuloRestITest extends WebMvcIntegrationTest {
         assertNotNull(articulo);
         articulo.setPrecio(BigDecimal.valueOf(330.12));
         this.articuloDao.persist(articulo);
-        Thread.sleep(1000);
+        Thread.sleep(100);
         articulo.setPrecio(BigDecimal.valueOf(350.0));
         this.articuloDao.persist(articulo);
-        Thread.sleep(1000);
+        Thread.sleep(100);
         articulo.setPrecio(BigDecimal.valueOf(900));
         this.articuloDao.persist(articulo);
         this.mockMvc.perform(post("/rest/articulo/stats/priceHistory/PRRS000001"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.labels", hasSize(8)))
-            .andExpect(jsonPath("$.data", hasSize(8)))
+            .andExpect(jsonPath("$.labels", hasSize(9)))
+            .andExpect(jsonPath("$.data", hasSize(9)))
             .andExpect(jsonPath("$.data[0]", is(270D)))
             .andExpect(jsonPath("$.data[7]", is(900D)));
     }

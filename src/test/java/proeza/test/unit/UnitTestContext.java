@@ -3,6 +3,7 @@ package proeza.test.unit;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 import com.proeza.core.resources.message.IMessageResolver;
 import com.proeza.core.resources.message.MessageResolver;
 import com.proeza.core.service.IErrorService;
+import com.proeza.core.service.IImageService;
 import com.proeza.core.service.IMailService;
 import com.proeza.security.dao.IRolDao;
 import com.proeza.security.dao.IUsuarioDao;
@@ -18,12 +20,14 @@ import com.proeza.security.service.IUserService;
 import com.proeza.security.service.impl.UserService;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartManager;
 import com.proeza.sgs.business.dao.IArticuloDao;
+import com.proeza.sgs.business.dao.IVentaDao;
 import com.proeza.sgs.business.service.IArticuloChartService;
 import com.proeza.sgs.business.service.IArticuloService;
 import com.proeza.sgs.business.service.IClaseService;
 import com.proeza.sgs.business.service.IMarcaService;
 import com.proeza.sgs.business.service.IRubroService;
 import com.proeza.sgs.business.service.ITipoService;
+import com.proeza.sgs.business.service.IVentaService;
 import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.mail.IMailManager;
 import com.proeza.sgs.system.service.IPageService;
@@ -32,8 +36,28 @@ import com.proeza.sgs.system.service.IPageService;
 public class UnitTestContext {
 
     @Bean
+    public IVentaService ventaService () {
+        return Mockito.mock(IVentaService.class);
+    }
+
+    @Bean
+    public IVentaDao ventaDao () {
+        return Mockito.mock(IVentaDao.class);
+    }
+
+    @Bean
     public IUserService userService () {
         return Mockito.mock(UserService.class);
+    }
+
+    @Bean
+    public PasswordEncoder sasswordEncoder () {
+        return Mockito.mock(PasswordEncoder.class);
+    }
+
+    @Bean
+    public IImageService imageService () {
+        return Mockito.mock(IImageService.class);
     }
 
     @Bean
