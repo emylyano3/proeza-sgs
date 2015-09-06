@@ -132,9 +132,7 @@
 	        </ul>
         </div>
         <div id="commandBar" class="floating">
-            <label id="newProduct" style="cursor: pointer">
-                <i class="fa fa-plus fa-3x" style="color:green"/>
-            </label>
+            <button id="newProduct" class="btn fa fa-plus fa-3x btn-plus" th:title="#{art.add.tooltip}"/>
         </div>
         
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
@@ -384,18 +382,12 @@
 						var rowid = $('#gridArticulos').jqxGrid('getrowid', lastSelectedRow);
 						$('#gridArticulos').jqxGrid('updaterow', rowid, row);
 					}
-					$("#commandBar").show();
-					$("#gridPanel").show();
-					$("#thumbnailsPanel").show();
-					$("#editionPanel").hide();
+					hideForm();
 				});
 
 				// Hide popup when cancel
 				$("#cancelEdit").click(function() {
-					$("#gridPanel").show();
-					$("#commandBar").show();
-					$("#thumbnailsPanel").show();
-					$("#editionPanel").hide();
+					hideForm();
 				});
 				$("#cancelImage").click(function() {
 					$("#addImagePopup").modal('hide');
@@ -423,6 +415,20 @@
 	            });
 			});
 			
+			function showForm() {
+				$("#gridPanel").hide();
+				$("#commandBar").hide();
+				$("#thumbnailsPanel").hide();
+				$("#editionPanel").show();
+			}
+			
+			function hideForm() {
+				$("#gridPanel").show();
+				$("#commandBar").show();
+				$("#thumbnailsPanel").show();
+				$("#editionPanel").hide();
+			}
+			
 			function initCreationForm () {
 				formMode = 'creation';
 				$("#modelo").val('');
@@ -440,13 +446,6 @@
 				$("#codigo").hide();
 				$("#lblCodigo").hide();
 				showForm();
-			}
-			
-			function showForm() {
-				$("#gridPanel").hide();
-				$("#commandBar").hide();
-				$("#thumbnailsPanel").hide();
-				$("#editionPanel").show();
 			}
 			
 			function initCopyCreationForm (dataRecord) {

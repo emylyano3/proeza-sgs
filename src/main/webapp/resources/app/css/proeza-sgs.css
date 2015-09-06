@@ -1556,7 +1556,11 @@ body {
 .floating {
 	position: fixed;
 	bottom: 60px;
-	right: 12px;
+	right: 13px;
+}
+
+.btn-plus {
+    color: green;    
 }
 
 .pageTitle {
@@ -1573,7 +1577,7 @@ body {
 }
 
 .content {
-    padding: 20px 30px 30px 50px;
+    padding: 10px 30px 30px 30px;
     min-width: 320px
 }
 
