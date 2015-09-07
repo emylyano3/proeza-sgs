@@ -231,21 +231,30 @@
 				});
 				// handle context menu clicks.
 				$('#gridContextMenu').on('itemclick', function(event) {
+			        event.preventDefault();
 					var args = event.args;
 					var currentRow = $('#productGrid').jqxGrid('getselectedrowindex');
 					var offset = $('#productGrid').offset();
-					// get the clicked row's data and initialize the input fields.
 					var dataRecord = $('#productGrid').jqxGrid('getrowdata', currentRow);
-					if ($.trim($(args).text()) == [[#{prod.menu.edit}]]) {
+					var command = $.trim($(args).text());
+					switch (command) {
+					case [[#{prod.menu.edit}]] :
 						initEditionForm(dataRecord);
-					} else if ($.trim($(args).text()) == [[#{prod.menu.create}]]) { 
+						break;
+					case [[#{prod.menu.create}]] :
 						initCreationForm();
-					} else if ($.trim($(args).text()) == [[#{prod.menu.copy}]]) { 
+						break;
+					case [[#{prod.menu.copy}]] :
 						initCopyCreationForm(dataRecord);
-					} else if ($.trim($(args).text()) == [[#{prod.menu.remove}]]) {
+						break;
+					case [[#{prod.menu.remove}]] :
 						showRemoveConfirmation();
-					} else if ($.trim($(args).text()) == [[#{prod.menu.addImage}]]) {
+						break;
+					case [[#{prod.menu.addImage}]] :
 						showLoadImagePopup(dataRecord);
+						break;
+					default:
+						break;
 					}
 				});
 				$('#productGrid').on('rowselect', function (event) {
@@ -312,6 +321,9 @@
 	                $('#productGrid').jqxGrid('clear');
 		            cleanContainer('links');
 	            });
+    			$('#confirmAction').click(function() {
+    				removeProduct();
+    			});
 			});
 			
 			function configSource() {
@@ -374,7 +386,6 @@
 							type: 'success'
 						});
 						refreshGrid(gridSource, 'productGrid');
-// 						$('#productGrid').jqxGrid('updaterow', rowid, rowData);
 					},
 					error: function () {            
 						$.notify({
@@ -404,7 +415,6 @@
 							type: 'success'
 						});
 						refreshGrid(gridSource, 'productGrid');
-// 						$('#productGrid').jqxGrid('addrow', null, formData, 0);
 					},
 					error: function () {            
 						$.notify({
@@ -434,9 +444,6 @@
 			
 			function showRemoveConfirmation () {
     			$('#confirmationText').text([[#{prod.confirm.remove}]]);
-    			$('#confirmAction').click(function() {
-    				removeProduct();
-    			});
     			$('#confirmPopup').modal('show');
 			}
 			
