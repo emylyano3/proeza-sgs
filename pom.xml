@@ -8,7 +8,7 @@
 	<name>Sistema de Gestión de Stock Proeza</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<java-version>1.8</java-version>
+		<java-version>1.7</java-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- Versiones de dependencias -->
 		<org.slf4j-version>1.7.12</org.slf4j-version>
@@ -360,7 +360,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
+				<version>3.3</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
