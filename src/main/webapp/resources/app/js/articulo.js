@@ -47,6 +47,18 @@ function cleanContainer(containerId) {
 	}
 }
 
+function refreshGrid(source, gridName) {
+	var filter = $('#filter').val();
+    var params = 'filter=' + replaceAll(filter.trim(), ' ',',');
+    source.url = articulo.rest.search + '?' + params;
+	/*
+	 * pasando "cells" al comando 'updatebounddata' solo se refrescan los
+	 * valores de las celdas cuando la cantidad nueva de filas es igual a la
+	 * anterior
+	 */
+	$('#' + gridName).jqxGrid('updatebounddata', 'cells');
+}
+
 function quickSale (productCode, type, notifyCallback) {
 	var saleData = {
 		productCode : productCode,

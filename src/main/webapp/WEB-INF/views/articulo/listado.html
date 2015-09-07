@@ -45,9 +45,10 @@
 		<script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}"/>
 
 	    <script th:inline="javascript">
+	 		/*<![CDATA[*/
 
         	var lastSelectedRow = -1;
-        	var source;
+        	var gridSource;
         	
         	$(document).ready(function () {
 	        	initImageGallery();
@@ -62,10 +63,10 @@
 	        }
 	        
 	        function configSource() {
-	        	source = {
-                	id: "id",
-		            url: articulo.rest.search + "?filter=",
-		            datatype: "json",
+	        	gridSource = {
+                	id: 'id',
+		            url: articulo.rest.search + '?filter=',
+		            datatype: 'json',
 		            dataFields: [
 						{name: 'codigo', type : 'string'},
  	                    {name: 'modelo', type: 'string'},
@@ -79,30 +80,22 @@
 		        };	
 	        }
 	        
-	        function initControls(source) {
+	        function initControls() {
 	        	// Inicializa los controles del filtro
 	            $('#filter').on('input', function() {
-	                refreshGrid(source);
+	                refreshGrid(gridSource, 'productGrid');
 	            });
-	            $("#eraser").click(function () {
+	            $('#eraser').click(function () {
 	                cleanContainer('links');
-	                $("#productGrid").jqxGrid('clear');
-	                $("#filter").val("");
+	                $('#productGrid').jqxGrid('clear');
+	                $('#filter').val('');
 	            });	
 	        }
 	        
-	        function refreshGrid() {
-	        	var filter = $('#filter').val();
-                var params = "filter=" + replaceAll(filter.trim(), ' ',',');
-                source.url = articulo.rest.search + "?" + params;
-				// pasando "cells" al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
-                $("#productGrid").jqxGrid('updatebounddata', 'cells');
-	        }
-	        
 	        function initGrid() {
-	            var dataAdapter = new $.jqx.dataAdapter(source);
+	            var dataAdapter = new $.jqx.dataAdapter(gridSource);
 	            // initializa la grilla de articulos
-	            $("#productGrid").jqxGrid({
+	            $('#productGrid').jqxGrid({
 	                width: '100%',
 					height : '100%',
 	                source: dataAdapter,
@@ -146,17 +139,17 @@
 	                ]
 	            });
 	            var contextMenu = initGridContextMenu();
-	            $("#productGrid").on('rowselect', function (event) {
+	            $('#productGrid').on('rowselect', function (event) {
 	            	var rowIndex = event.args.rowindex;
-	            	var dataRecord = $("#productGrid").jqxGrid('getrowdata', rowIndex);
+	            	var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowIndex);
 	            	if (lastSelectedRow != rowIndex) {
 	            		lastSelectedRow = rowIndex;
 	            		cleanContainer('links');
 	            		updateGaleryPreview(dataRecord.codigo, 'links');
 	            	}
 	            });
-				$("#productGrid").on('rowclick', function(event) {
-					$("#productGrid").jqxGrid('selectrow', event.args.rowindex);
+				$('#productGrid').on('rowclick', function(event) {
+					$('#productGrid').jqxGrid('selectrow', event.args.rowindex);
 					if (event.args.rightclick) {
 						var scrollTop = $(window).scrollTop();
 						var scrollLeft = $(window).scrollLeft();
@@ -172,22 +165,22 @@
 
 	        function initGridContextMenu() {
 				// crea el menu contextual
-				var contextMenu = $("#gridContextMenu").jqxMenu({
+				var contextMenu = $('#gridContextMenu').jqxMenu({
 					width : 180,
 					height : 106,
 					autoOpenPopup : false,
 					mode : 'popup'
 				});
-				$("#productGrid").on('contextmenu', function() {
+				$('#productGrid').on('contextmenu', function() {
 					return false;
 				});
 				// Manejo los eventos sobre el context menu de la grilla
-				$("#gridContextMenu").on('itemclick', function(event) {
+				$('#gridContextMenu').on('itemclick', function(event) {
 					var args = event.args;
-					var rowindex = $("#productGrid").jqxGrid('getselectedrowindex');
-					var offset = $("#productGrid").offset();
+					var rowindex = $('#productGrid').jqxGrid('getselectedrowindex');
+					var offset = $('#productGrid').offset();
 					// get the clicked row's data and initialize the input fields.
-					var dataRecord = $("#productGrid").jqxGrid('getrowdata', rowindex);
+					var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowindex);
 					switch ($.trim($(args).text())) {
 						case [[#{prod.menu.seeImages}]] :						
 							blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
@@ -215,8 +208,7 @@
     	        		title = [[#{prod.quickSale.success.title}]]; 
     	        		message = [[#{prod.quickSale.success.message}]];
     	        		type = 'success';
-    	        		refreshGrid();
-    	        		
+    	        		refreshGrid(gridSource, 'productGrid');
 	        		break;
 	        		case 'error':
     	        		title = [[#{prod.quickSale.error.title}]]; 
@@ -231,6 +223,7 @@
 					type: type
 				});
 	        }
+			/*]]>*/
 	    </script>
 	</div>
 </body>

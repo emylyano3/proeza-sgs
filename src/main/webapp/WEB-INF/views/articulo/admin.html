@@ -22,7 +22,7 @@
             </div>
         </div>
         <!-- Panel de edicion -->
-        <div id="editionPanel" class="hpanel animated fadeInUp" hidden="true">
+        <div id="editionPanel" class="hpanel animated zoomIn" hidden="true">
             <div class="panel-heading">
                 <span id="formTitle" />
             </div>
@@ -165,32 +165,13 @@
 		<script th:inline="javascript">
 		 	/*<![CDATA[*/
 		 	var formMode;
+		 	var gridSource;
         	var currentRow = -1;
 			// Inicializacion de la tabla de arículos
 			$(document).ready(function() {
-				// prepare the data
-				var source = {
-					datatype : 'json',
-					id : 'id',
-					url : articulo.rest.search + '?filter=',
-					dataFields : [ 
-		               {name : 'codigo', type : 'string'},
-		               {name : 'modelo', type : 'string'},
-		               {name : 'descripcion', type : 'string' }, 
-		               {name : 'clase', type : 'string'},
-		               {name : 'tipo', type : 'string'}, 
-		               {name : 'marca', type : 'string'}, 
-		               {name : 'rubro', type : 'string'}, 
-		               {name : 'precio', type : 'double'}, 
-		               {name : 'costo', type : 'double'}, 
-		               {name : 'cantidad', type : 'int'}, 
-		               {name : 'codClase', type : 'string'}, 
-		               {name : 'codTipo', type : 'string'},
-		               {name : 'codMarca', type : 'string'}, 
-		               {name : 'codRubro', type : 'string'},
-		            ]
-				};
-				var dataAdapter = new $.jqx.dataAdapter(source);
+				configSource();
+				
+				var dataAdapter = new $.jqx.dataAdapter(gridSource);
 				
 				// initializa la grilla de articulos
 				$('#productGrid').jqxGrid({
@@ -325,17 +306,37 @@
 				
 				 // Inicializa los controles del filto
 	            $('#filter').on('input', function() {
-	                var filter = $(this).val();
-	                var params = 'filter=' + replaceAll(filter.trim(), ' ',',');
-	                source.url = articulo.rest.search + '?' + params;
-					// pasando 'cells' al comando 'updatebounddata' solo se refrescan los valores de las celdas cuando la cantidad nueva de filas es igual a la anterior
-	                $('#productGrid').jqxGrid('updatebounddata', 'cells');
+	            	refreshGrid(gridSource, 'productGrid');
 	            });
 	            $('#eraser').click(function () {
 	                $('#productGrid').jqxGrid('clear');
 		            cleanContainer('links');
 	            });
 			});
+			
+			function configSource() {
+				gridSource = {
+					datatype : 'json',
+					id : 'id',
+					url : articulo.rest.search + '?filter=',
+					dataFields : [ 
+		               {name : 'codigo', type : 'string'},
+		               {name : 'modelo', type : 'string'},
+		               {name : 'descripcion', type : 'string' }, 
+		               {name : 'clase', type : 'string'},
+		               {name : 'tipo', type : 'string'}, 
+		               {name : 'marca', type : 'string'}, 
+		               {name : 'rubro', type : 'string'}, 
+		               {name : 'precio', type : 'double'}, 
+		               {name : 'costo', type : 'double'}, 
+		               {name : 'cantidad', type : 'int'}, 
+		               {name : 'codClase', type : 'string'}, 
+		               {name : 'codTipo', type : 'string'},
+		               {name : 'codMarca', type : 'string'}, 
+		               {name : 'codRubro', type : 'string'},
+		            ]
+				};
+			}
 			
 			function getFormData () {
 				return  {
@@ -372,7 +373,8 @@
 						},{
 							type: 'success'
 						});
-						$('#productGrid').jqxGrid('updaterow', rowid, formData);
+						refreshGrid(gridSource, 'productGrid');
+// 						$('#productGrid').jqxGrid('updaterow', rowid, rowData);
 					},
 					error: function () {            
 						$.notify({
@@ -401,7 +403,8 @@
 						},{
 							type: 'success'
 						});
-						$('#productGrid').jqxGrid('addrow', null, formData, 0);
+						refreshGrid(gridSource, 'productGrid');
+// 						$('#productGrid').jqxGrid('addrow', null, formData, 0);
 					},
 					error: function () {            
 						$.notify({
