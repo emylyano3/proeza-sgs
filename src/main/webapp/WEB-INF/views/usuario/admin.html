@@ -8,7 +8,6 @@
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
         <link rel="stylesheet" href="../../../resources/fileinput/css/fileinput.css" th:href="@{/resources/fileinput/css/fileinput.css}" media="all" type="text/css" />
-        <p/>
 		<!-- Grilla de usuarios -->
 		<div id="gridPanel" class="row animated zoomIn">
 			<div class="col-md-12">
@@ -29,14 +28,6 @@
         							<input id="alias" class="form-control input-md" required="required" />
         						</div>
         					</div>
-        <!--                     <div class="form-group"> -->
-        <!--                         <label for="photo" class="col-sm-2 control-label" th:text="#{control.photo}" /> -->
-        <!--                         <div class="col-sm-10"> -->
-        <!--                             <img id="photo" th:src="@{/resources/app/img/user-avatar_76x76.jpg}" /> -->
-        <!--                             <p/> -->
-        <!--                             <input id="foto" type="file" accept="image/jpeg" /> -->
-        <!--                         </div> -->
-        <!--                     </div> -->
         					<div class="form-group">
         						<label for="nombre" class="col-sm-2 control-label" th:text="#{control.name}" />
         						<div class="col-sm-10">
@@ -91,14 +82,14 @@
 		<!-- Menu Contextual -->
 		<div id="gridMenu">
 	        <ul>
-	            <li id="editUsu" th:text="#{usu.admin.menu.edit}"/>
-	            <li id="deleteUsu" th:text="#{usu.admin.menu.remove}"/>
-	            <li id="newUsu" th:text="#{usu.admin.menu.create}"/>
-	            <li id="setPhoto" th:text="#{usu.admin.menu.setPhoto}"/>
+	            <li id="editUsu" th:text="#{user.admin.menu.edit}"/>
+	            <li id="deleteUsu" th:text="#{user.admin.menu.remove}"/>
+	            <li id="newUsu" th:text="#{user.admin.menu.create}"/>
+	            <li id="setPhoto" th:text="#{user.admin.menu.setPhoto}"/>
 	        </ul>
        </div>
         <div id="commandBar" class="floating">
-            <button id="newUser" class="btn fa fa-plus fa-3x btn-plus" th:title="#{usu.add.tooltip}"/>
+            <button id="newUser" class="btn fa fa-plus fa-3x btn-plus" th:title="#{user.add.tooltip}"/>
         </div>
         
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
@@ -135,17 +126,8 @@
  	                    { name: 'alias', type: 'string' },
  	                    { name: 'nombre', type: 'string' },
  	                    { name: 'apellido', type: 'string' },
- 	                    { name: 'email', type: 'string' },
-		     	    ],
-		     	   	addrow : function(rowid, rowdata, position, commit) {
-		     	   		commit(true);
-					},
-					updaterow : function(rowid, rowdata, commit) {
-						commit(true);
-					},
-					deleterow : function(rowid, commit) {
-						commit(true);
-					}
+ 	                    { name: 'email', type: 'string' }
+		     	    ]
 				};
 				
 				var dataAdapter = new $.jqx.dataAdapter(source);
@@ -160,19 +142,19 @@
 					sortable : true,
 					enabletooltips : true,
 					columns : [ {
-						text : 'Alias',
+						text : /*[[#{user.grid.alias}]]*/ 'Alias',
 						dataField : 'alias',
 						width : '20%'
 					}, {
-						text : 'Nombre',
+						text : /*[[#{user.grid.name}]]*/ 'Nombre',
 						dataField : 'nombre',
 						width : '25%'
 					}, {
-						text : 'Apellido',
+						text : /*[[#{user.grid.surname}]]*/ 'Apellido',
 						dataField : 'apellido',
 						width : '25%'
 					}, {
-						text : 'Mail',
+						text : /*[[#{user.grid.email}]]*/ 'E-mail',
 						dataField : 'email',
 						width : '30%'
 					} ]
@@ -197,13 +179,13 @@
 					currentrow = $('#gridUsuarios').jqxGrid('getselectedrowindex');// open the popup window when the user clicks a button.
 					var offset = $('#gridUsuarios').offset();
 					// get the clicked row's data and initialize the input fields.
-					if ($.trim($(args).text()) == [[#{usu.admin.menu.edit}]]) {
+					if ($.trim($(args).text()) == [[#{user.admin.menu.edit}]]) {
 						initEditionForm();
-					} else if ($.trim($(args).text()) == [[#{usu.admin.menu.remove}]]) {
+					} else if ($.trim($(args).text()) == [[#{user.admin.menu.remove}]]) {
 						deleteUser();
-					} else if ($.trim($(args).text()) == [[#{usu.admin.menu.create}]]) {
+					} else if ($.trim($(args).text()) == [[#{user.admin.menu.create}]]) {
 						initCreationForm();
-					} else if ($.trim($(args).text()) == [[#{usu.admin.menu.setPhoto}]]) {
+					} else if ($.trim($(args).text()) == [[#{user.admin.menu.setPhoto}]]) {
 						openBrowseImageDialog();
 					}
 				});
@@ -235,14 +217,14 @@
     			        delete formData['undefined'];
     			    });
     			    switch (formMode) {
-    					case 'creation':
-   							addUser(formData);
-    						break;
-    					case 'edition':
-       	 					updateUser(formData);
-							break;
-    					default:
-    						break;
+					case 'creation' :
+						addUser(formData);
+						break;
+					case 'edition' :
+   	 					updateUser(formData);
+						break;
+					default:
+						break;
 					}
 			        return false; 
 				});
@@ -312,8 +294,8 @@
 				$('#password').val('');
 				$('#btnGenerate').trigger('click');
 				$('#email').val('');
-				$('#formTitle').text([[#{usu.admin.creation.title}]]);
-				$('#formFooter').text([[#{usu.admin.creating}]]);
+				$('#formTitle').text([[#{user.admin.creation.title}]]);
+				$('#formFooter').text([[#{user.admin.creating}]]);
 				$('#roles').val([]);
 				showForm();
 			}
@@ -328,8 +310,8 @@
 				$('#apellido').val(dataRecord.apellido);
 				$('#email').val(dataRecord.email);
 				$('#password').val('');
-				$('#formTitle').text([[#{usu.admin.edition.title}]]);
-				$('#formFooter').text([[#{usu.admin.editing}]] + dataRecord.nombre + ' ' + dataRecord.apellido);
+				$('#formTitle').text([[#{user.admin.edition.title}]]);
+				$('#formFooter').text([[#{user.admin.editing}]] + dataRecord.nombre + ' ' + dataRecord.apellido);
 				showForm();
 			}
 			
@@ -342,8 +324,8 @@
 					data : JSON.stringify(formData),
 					success : function() {
 						$.notify({
-							title: [[#{usu.create.success.title}]],
-							message: [[#{usu.create.success.message}]]
+							title: [[#{user.create.success.title}]],
+							message: [[#{user.create.success.message}]]
 						},{
 							type: 'success'
 						});
@@ -351,8 +333,8 @@
 					},
 					error: function () {            
 						$.notify({
-							title: [[#{usu.create.error.title}]],
-							message: [[#{usu.create.error.message}]]
+							title: [[#{user.create.error.title}]],
+							message: [[#{user.create.error.message}]]
 						},{
 							type: 'danger'
 						});
@@ -370,8 +352,8 @@
 					data : JSON.stringify(formData),
 					success : function() {
 						$.notify({
-							title: [[#{usu.update.success.title}]],
-							message: [[#{usu.update.success.message}]]
+							title: [[#{user.update.success.title}]],
+							message: [[#{user.update.success.message}]]
 						},{
 							type: 'success'
 						});
@@ -382,8 +364,8 @@
 					},
 					error: function () {
 						$.notify({
-							title: [[#{usu.update.error.title}]],
-							message: [[#{usu.update.error.message}]]
+							title: [[#{user.update.error.title}]],
+							message: [[#{user.update.error.message}]]
 						},{
 							type: 'danger'
 						});
@@ -410,8 +392,8 @@
 					contentType: 'application/json',
 					success : function() {
 						$.notify({
-							title: [[#{usu.remove.success.title}]],
-							message: [[#{usu.remove.success.message}]]
+							title: [[#{user.remove.success.title}]],
+							message: [[#{user.remove.success.message}]]
 						},{
 							type: 'success'
 						});
@@ -422,8 +404,8 @@
 					},
 					error: function () {
 						$.notify({
-							title: [[#{usu.remove.error.title}]],
-							message: [[#{usu.remove.error.message}]]
+							title: [[#{user.remove.error.title}]],
+							message: [[#{user.remove.error.message}]]
 						},{
 							type: 'danger'
 						});
@@ -438,13 +420,12 @@
 					dataType: 'json',
 					contentType : 'application/json',
 					success : function (data, status, jqXHR) {
-						console.log('User: ' + data)
 						$('#roles').val(data.roles);
 					},
 					error: function (jqXHR, status) {
 						$.notify({
-							title: [[#{usu.find.error.title}]],
-							message: [[#{usu.find.error.message}]] + alias
+							title: [[#{user.find.error.title}]],
+							message: [[#{user.find.error.message}]] + alias
 						},{
 							type: 'danger'
 						});
