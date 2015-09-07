@@ -175,6 +175,11 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
+    public void remove (String productCode) {
+        this.articuloDao.delete(this.articuloDao.findByCode(productCode));
+    }
+
+    @Override
     public List<ResourceDTO> getImagesAvail (String articleCode) {
         Articulo art = this.articuloDao.findByCode(articleCode);
         List<Resource> resources = new ArrayList<Resource>(art.getResources());

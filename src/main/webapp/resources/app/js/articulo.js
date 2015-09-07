@@ -6,6 +6,8 @@ var articulo = {
 		getThumbnail : '/proeza-sgs/rest/articulo/getThumbnail',
 		search : '/proeza-sgs/rest/articulo/search',
 		create : '/proeza-sgs/rest/articulo/create',
+		update : '/proeza-sgs/rest/articulo/update',
+		remove : '/proeza-sgs/rest/articulo/remove',
 		quickSale : '/proeza-sgs/rest/venta/quickSale',
 	}
 }

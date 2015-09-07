@@ -17,14 +17,16 @@ public interface IArticuloService {
 
     void create (ArticuloDTO articulo);
 
+    void remove (String productCode);
+
     /**
      * Agrega una imagen a un articulo determinado
      */
-    void addImage (String articleCode, String imageName, String imageDesc, MediaType type, byte[] image);
+    void addImage (String productCode, String imageName, String imageDesc, MediaType type, byte[] image);
 
-    byte[] getImage (String articleCode, Long id);
+    byte[] getImage (String productCode, Long id);
 
-    byte[] getThumbnail (String articleCode, Long id);
+    byte[] getThumbnail (String productCode, Long id);
 
-    List<ResourceDTO> getImagesAvail (String articleCode);
+    List<ResourceDTO> getImagesAvail (String productCode);
 }

@@ -121,6 +121,8 @@
         </div>
         <!-- Modal de agregado de imagen -->
         <div th:replace="fragment/misc.html::loadImagePopup"/>
+        <!-- Modal de agregado de imagen -->
+        <div th:replace="fragment/misc.html::confirmPopup"/>
 		<!-- Menu Contextual -->
 		<div id="gridContextMenu">
 	        <ul>
@@ -191,19 +193,19 @@
 							dataType: 'json',
 							contentType: 'application/json',
 							data : JSON.stringify(rowdata),
-							success : function(result) {
+							success : function() {
 								$.notify({
 									title: /*[[#{prod.create.title}]]*/ '<strong>Creación de artículo:</strong>',
-									message: result
+									message: /*[[#{prod.create.success.message}]]*/ 'El articulo fue creado correctamente' 
 								},{
 									type: 'success'
 								});
 								commit(true);
 							},
-							error: function (result) {            
+							error: function () {            
 								$.notify({
 									title: /*[[#{prod.create.title}]]*/ '<strong>Creación de artículo:</strong>',
-									message: result.responseText
+									message: /*[[#{prod.create.error.message}]]*/ 'Ocurrió un error durante la creación del artículo',
 								},{
 									type: 'danger'
 								});
@@ -214,7 +216,7 @@
 					updaterow : function(rowid, rowdata, commit) {
 						$.ajax({
 							type : 'POST',
-							url : '/proeza-sgs/rest/articulo/update',
+							url : articulo.rest.update,
 							dataType: 'json',
 							contentType: 'application/json',
 							data : JSON.stringify(rowdata),
@@ -239,9 +241,32 @@
 						});
 					},
 					deleterow : function(rowid, commit) {
-						// Hacer aca la logica de sincronizar con el servidor (usando ajax).
-						// Enviar datos, comitear con true si la sincronizacion fue exitosa, false si hubo fallo
-						commit(true);
+	    				var rowdata = $('#productGrid').jqxGrid('getrowdata', lastSelectedRow);
+						$.ajax({
+							type : 'POST',
+							url : articulo.rest.remove,
+							dataType: 'json',
+							contentType: 'application/json',
+							data : rowdata.codigo,
+							success : function() {
+								$.notify({
+									title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminación de artículo:</strong>',
+									message: /*[[#{prod.remove.success.message}]]*/ 'La eliminación se realizó correctamente'
+								},{
+									type: 'success'
+								});
+								commit(true);
+							},
+							error: function () {            
+								$.notify({
+									title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminación de artículo:</strong>',
+									message: /*[[#{prod.remove.error.message}]]*/ 'Ocurrió un error en la eliminación del artículo'
+								},{
+									type: 'danger'
+								});
+								commit(false);
+					        }
+						});
 					}
 				};
 				var dataAdapter = new $.jqx.dataAdapter(source);
@@ -317,8 +342,7 @@
 					} else if ($.trim($(args).text()) == [[#{prod.menu.copy}]]) { 
 						initCopyCreationForm(dataRecord);
 					} else if ($.trim($(args).text()) == [[#{prod.menu.remove}]]) {
-						var rowid = $("#productGrid").jqxGrid('getrowid', lastSelectedRow);
-						$("#productGrid").jqxGrid('deleterow', rowid);
+						showRemoveConfirmation();
 					} else if ($.trim($(args).text()) == [[#{prod.menu.addImage}]]) {
 				         var fileInputOptions = {
 								showUpload : true,
@@ -359,7 +383,7 @@
 
 				$("#productForm").submit(function( e ) {
     			    e.preventDefault();
-					var row = {
+					var rowdata = {
 						codigo : $("#codigo").val(),
 						modelo : $("#modelo").val(),
 						descripcion : $("#descripcion").val(),
@@ -376,11 +400,11 @@
 						codRubro : $("#cbRubro option:selected").attr('id')
 					};
 					if (formMode == 'creation') {
-						row.codigo = '';
-						$('#productGrid').jqxGrid('addrow', null, row, 0);
+						rowdata.codigo = '';
+						$('#productGrid').jqxGrid('addrow', null, rowdata, 0);
 					} else if (formMode == 'edition' && lastSelectedRow >= 0) {
 						var rowid = $('#productGrid').jqxGrid('getrowid', lastSelectedRow);
-						$('#productGrid').jqxGrid('updaterow', rowid, row);
+						$('#productGrid').jqxGrid('updaterow', rowid, rowdata);
 					}
 					hideForm();
 				});
@@ -415,6 +439,14 @@
 	            });
 			});
 			
+			function showRemoveConfirmation () {
+    			$("#confirmationText").text([[#{prod.confirm.remove}]]);
+    			$("#confirmAction").click(function() {
+    				var rowid = $("#productGrid").jqxGrid('getrowid', lastSelectedRow);
+					$("#productGrid").jqxGrid('deleterow', rowid);	
+    			});
+    			$("#confirmPopup").modal('show');
+			}
 			function showForm() {
 				$("#gridPanel").hide();
 				$("#commandBar").hide();

@@ -44,14 +44,16 @@ public class ArticulosRestController {
         this.productService.update(articulo);
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.POST, produces= {MediaType.TEXT_PLAIN_VALUE})
-    public String create (@RequestBody ArticuloDTO articulo) {
-        try {
-            this.productService.create(articulo);
-            return this.messageResolver.getMessage("prod.create.success.message");
-        } catch (Exception e) {
-            return this.messageResolver.getMessage("prod.create.error.message") + e.getLocalizedMessage();
-        }
+    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void create (@RequestBody ArticuloDTO articulo) {
+        this.productService.create(articulo);
+    }
+
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remove (@RequestBody String code) {
+        this.productService.remove(code);
     }
 
     @RequestMapping(value = "addImage", method = RequestMethod.POST)

@@ -61,13 +61,12 @@
 	<div id="wrapper">
 		<div class="content">
 			<div class="row">
-				<div class="col-lg-12 text-center">
+				<div class="col-lg-12 text-center" style="padding-top: 10px; padding-bottom: 20px">
 					<span class="pageTitle" th:text="${pageTitle}" />
 					<span class="pageTitle" th:if="${not pageSubtitle.isEmpty()}">:</span>
 					<span class="pageSubtitle" th:text="${pageSubtitle}" />
 				</div>
 			</div>
-			<p/><p/>
 			<div class="row">
 				<div id="content" layout:fragment="contenido">Contenido</div>
 			</div>
