@@ -38,6 +38,11 @@ public class ArticulosRestController {
         return this.productService.findByStringFilter(filter);
     }
 
+    @RequestMapping(value = "find", method = RequestMethod.POST)
+    public ArticuloDTO find (@RequestBody String code) {
+        return this.productService.findByCode(code);
+    }
+
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update (@RequestBody ArticuloDTO articulo) {

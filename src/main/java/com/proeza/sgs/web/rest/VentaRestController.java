@@ -1,5 +1,7 @@
 package com.proeza.sgs.web.rest;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +22,7 @@ public class VentaRestController {
 
     @RequestMapping(value = "quickSale", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void quickSale (@RequestBody QuickSaleDTO dto) {
+    public void quickSale (@RequestBody QuickSaleDTO dto, Principal principal) {
         this.ventaService.quickSale(dto);
     }
 }

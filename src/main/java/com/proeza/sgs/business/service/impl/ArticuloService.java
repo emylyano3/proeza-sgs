@@ -69,6 +69,11 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
+    public ArticuloDTO findByCode (String code) {
+        return new ArticuloDTO(this.articuloDao.findByCode(code));
+    }
+
+    @Override
     public List<ArticuloDTO> findByStringFilter (String filter) {
         long init = System.currentTimeMillis();
         List<ArticuloDTO> data = hideEntites(this.filterFactory.create(filter).doFilter());

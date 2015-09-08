@@ -13,6 +13,8 @@ public interface IArticuloService {
 
     List<ArticuloDTO> findByStringFilter (String filter);
 
+    ArticuloDTO findByCode (String code);
+
     void update (ArticuloDTO articulo);
 
     void create (ArticuloDTO articulo);

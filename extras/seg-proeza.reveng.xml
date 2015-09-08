@@ -5,21 +5,21 @@
 	<type-mapping>
 		<sql-type jdbc-type="BIGINT" hibernate-type="long" not-null="true"></sql-type>
 	</type-mapping>
-	<table-filter match-catalog="seg_proeza_db" match-name="rol" />
-	<table-filter match-catalog="seg_proeza_db" match-name="usuario" />
-	<table-filter match-catalog="seg_proeza_db" match-name="usuario_rol" />
-	<table catalog="seg_proeza_db" name="UsuarioRol">
+	<table-filter match-catalog="sgs_proeza_db" match-name="rol" />
+	<table-filter match-catalog="sgs_proeza_db" match-name="usuario" />
+	<table-filter match-catalog="sgs_proeza_db" match-name="usuario_rol" />
+	<table catalog="sgs_proeza_db" name="UsuarioRol">
 		<column name="id"></column>
 		<column name="fk_usuario" property="usuario"></column>
 		<column name="fk_rol" property="rol"></column>
 	</table>
-	<table catalog="seg_proeza_db" name="rol">
+	<table catalog="sgs_proeza_db" name="rol">
 		<column name="id"></column>
 		<column name="codigo"></column>
 		<column name="nombre"></column>
 		<column name="descripcion"></column>
 	</table>
-	<table catalog="seg_proeza_db" name="usuario">
+	<table catalog="sgs_proeza_db" name="usuario">
 		<column name="id"></column>
 		<column name="alias"></column>
 		<column name="nombre"></column>

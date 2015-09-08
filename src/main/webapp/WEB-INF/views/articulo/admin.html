@@ -164,15 +164,65 @@
         
 		<script th:inline="javascript">
 		 	/*<![CDATA[*/
-		 	var formMode;
-		 	var gridSource;
-        	var currentRow = -1;
 			// Inicializacion de la tabla de arículos
 			$(document).ready(function() {
-				configSource();
+				configGridSource();
+				configGrid(); 
+				configControls();				
+			});
+
+			function configControls() {
+				$('#newProduct').click(function(){
+					initCreationForm();
+				});
+				$('#productForm').submit(function( e ) {
+    			    e.preventDefault();
+    			    switch (formMode) {
+    		    	case 'creation' : 
+						addProduct();
+    					break;
+    		    	case 'edition' :
+						if (currentRow >= 0) {
+							updateProduct();
+						}
+    					break;
+    				default:
+    					break;
+					}
+					hideForm();
+				});
+
+				// Hide popup when cancel
+				$('#cancelEdit').click(function() {
+					hideForm();
+				});
+				$('#cancelImage').click(function() {
+					$('#addImagePopup').modal('hide');
+				});
+
+				// Configuracion del control de ingreso del precio
+				$('#precio').inputmask('currency', {
+					autoUnmask : true, rightAlign: false 
+				});
+				$('#costo').inputmask('currency', {
+					autoUnmask : true, rightAlign: false 
+				});
 				
+				 // Inicializa los controles del filto
+	            $('#filter').on('input', function() {
+	            	refreshGrid(gridSource, 'productGrid');
+	            });
+	            $('#eraser').click(function () {
+	                $('#productGrid').jqxGrid('clear');
+		            cleanContainer('links');
+	            });
+    			$('#confirmAction').click(function() {
+    				removeProduct();
+    			});
+			}
+			
+			function configGrid () {
 				var dataAdapter = new $.jqx.dataAdapter(gridSource);
-				
 				// initializa la grilla de articulos
 				$('#productGrid').jqxGrid({
 					width : '100%',
@@ -226,9 +276,6 @@
 				$('#productGrid').on('contextmenu', function() {
 					return false;
 				});
-				$('#newProduct').click(function(){
-					initCreationForm();
-				});
 				// handle context menu clicks.
 				$('#gridContextMenu').on('itemclick', function(event) {
 			        event.preventDefault();
@@ -279,75 +326,6 @@
 						return false;
 					}
 				});
-
-				$('#productForm').submit(function( e ) {
-    			    e.preventDefault();
-    			    switch (formMode) {
-    		    	case 'creation' : 
-						addProduct();
-    					break;
-    		    	case 'edition' :
-						if (currentRow >= 0) {
-							updateProduct();
-						}
-    					break;
-    				default:
-    					break;
-					}
-					hideForm();
-				});
-
-				// Hide popup when cancel
-				$('#cancelEdit').click(function() {
-					hideForm();
-				});
-				$('#cancelImage').click(function() {
-					$('#addImagePopup').modal('hide');
-				});
-
-				// Configuracion del control de ingreso del precio
-				$('#precio').inputmask('currency', {
-					autoUnmask : true, rightAlign: false 
-				});
-				$('#costo').inputmask('currency', {
-					autoUnmask : true, rightAlign: false 
-				});
-				
-				 // Inicializa los controles del filto
-	            $('#filter').on('input', function() {
-	            	refreshGrid(gridSource, 'productGrid');
-	            });
-	            $('#eraser').click(function () {
-	                $('#productGrid').jqxGrid('clear');
-		            cleanContainer('links');
-	            });
-    			$('#confirmAction').click(function() {
-    				removeProduct();
-    			});
-			});
-			
-			function configSource() {
-				gridSource = {
-					datatype : 'json',
-					id : 'id',
-					url : articulo.rest.search + '?filter=',
-					dataFields : [ 
-		               {name : 'codigo', type : 'string'},
-		               {name : 'modelo', type : 'string'},
-		               {name : 'descripcion', type : 'string' }, 
-		               {name : 'clase', type : 'string'},
-		               {name : 'tipo', type : 'string'}, 
-		               {name : 'marca', type : 'string'}, 
-		               {name : 'rubro', type : 'string'}, 
-		               {name : 'precio', type : 'double'}, 
-		               {name : 'costo', type : 'double'}, 
-		               {name : 'cantidad', type : 'int'}, 
-		               {name : 'codClase', type : 'string'}, 
-		               {name : 'codTipo', type : 'string'},
-		               {name : 'codMarca', type : 'string'}, 
-		               {name : 'codRubro', type : 'string'},
-		            ]
-				};
 			}
 			
 			function getFormData () {
@@ -374,7 +352,7 @@
 				var rowid = $('#productGrid').jqxGrid('getrowid', currentRow);
 				$.ajax({
 					type : 'POST',
-					url : articulo.rest.update,
+					url : product.rest.update,
 					dataType: 'json',
 					contentType: 'application/json',
 					data : JSON.stringify(rowData),
@@ -403,7 +381,7 @@
 				formData.codigo = '';
             	$.ajax({
 					type : 'POST',
-					url : articulo.rest.create,
+					url : product.rest.create,
 					dataType: 'json',
 					contentType: 'application/json',
 					data : JSON.stringify(formData),
@@ -435,7 +413,7 @@
 					maxFileCount : 5,
 	                allowedFileExtensions : ['jpg', 'png'],
 					allowedFileTypes : ['image'],
-	                uploadUrl: articulo.rest.addImage + '?artCode=' + dataRecord.codigo
+	                uploadUrl: product.rest.addImage + '?artCode=' + dataRecord.codigo
 				};
 	         	// File input plugin options
 	            $('#uploadImage').fileinput(fileInputOptions);
@@ -452,7 +430,7 @@
 				var rowid = $('#productGrid').jqxGrid('getrowid', currentRow);
 				$.ajax({
 					type : 'POST',
-					url : articulo.rest.remove,
+					url : product.rest.remove,
 					dataType: 'json',
 					contentType: 'application/json',
 					data : rowdata.codigo,
@@ -533,7 +511,34 @@
 			
 			function initEditionForm (dataRecord) {
 				formMode = 'edition';
-				$('#codigo').val(dataRecord.codigo);
+				findProduct(dataRecord.codigo, findProductCallback);
+				$('#formTitle').text([[#{prod.admin.edition.title}]]);
+				$('#formFooter').text([[#{prod.admin.editing}]] + dataRecord.codigo);
+				$('#codigo').show();
+				$('#lblCodigo').show();	
+				showForm();
+			}
+			
+			function findProductCallback (productData, status) {
+				switch (status) {
+        		case 'success':
+	        		fillEditionForm(productData);
+        		break;
+        		case 'error':
+        			$.notify({
+    					title: [[#{prod.find.title}]],
+    					message: [[#{prod.find.error.message}]] 
+    				},{
+    					type: 'error'
+    				});
+        		break;
+        		default:
+        			break;
+        		}
+			}
+			
+	        function fillEditionForm(dataRecord) {
+	        	$('#codigo').val(dataRecord.codigo);
 				$('#modelo').val(dataRecord.modelo);
 				$('#descripcion').val(dataRecord.descripcion);
 				$('#cbClase').val(dataRecord.clase);
@@ -543,13 +548,7 @@
 				$('#precio').val(dataRecord.precio);
 				$('#costo').val(dataRecord.costo);
 				$('#cantidad').val(dataRecord.cantidad);
-				// Setting the form controls
-				$('#formTitle').text([[#{prod.admin.edition.title}]]);
-				$('#formFooter').text([[#{prod.admin.editing}]] + dataRecord.codigo);
-				$('#codigo').show();
-				$('#lblCodigo').show();
-				showForm();
-			}
+	        }
 			/*]]>*/
 		</script>
 	</div>

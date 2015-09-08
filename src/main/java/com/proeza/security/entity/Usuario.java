@@ -29,8 +29,8 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
  */
 @Entity
 @Table(
-    catalog = "seg_proeza_db",
-    name = "usuario",
+    catalog = "sgs_proeza_db",
+    name = "seg_usuario",
     uniqueConstraints = @UniqueConstraint(columnNames = "alias"))
 @Cache(usage = NONSTRICT_READ_WRITE)
 public class Usuario implements Serializable {
@@ -117,8 +117,8 @@ public class Usuario implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-        catalog = "seg_proeza_db",
-        name = "usuario_rol",
+        catalog = "sgs_proeza_db",
+        name = "seg_usuario_rol",
         joinColumns = {@JoinColumn(name = "fk_usuario", nullable = false, updatable = false)},
         inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false, updatable = false)
         })

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proeza.core.util.date.DateUtil;
+import com.proeza.security.dao.IUsuarioDao;
+import com.proeza.security.entity.Usuario;
 import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.dao.IMedioPagoDao;
 import com.proeza.sgs.business.dao.IVentaDao;
@@ -31,14 +33,19 @@ public class VentaService implements IVentaService {
     @Autowired
     private IMedioPagoDao medioPagoDao;
 
+    @Autowired
+    private IUsuarioDao   usuarioDao;
+
     @Override
     public void quickSale (QuickSaleDTO dto) {
         MedioPago pago = this.medioPagoDao.findByCode(dto.getSaleType());
         Articulo articulo = this.articulodao.findByCode(dto.getProductCode());
+        Usuario user = this.usuarioDao.findByAlias(dto.getUser());
         VentaBuilder builder = new VentaBuilder();
         builder.withMedioPago(pago);
         builder.withFecha(DateUtil.createNow());
         builder.withImporte(articulo.getPrecio());
+        builder.withUsuario(user);
         Venta venta = builder.build();
         venta.addArticulo(articulo, 1);
         venta.setCodigo(createSaleCode(venta, true));

@@ -47,7 +47,7 @@ CREATE TABLE `art_articulo` (
   CONSTRAINT `articulo_marca` FOREIGN KEY (`fk_marca`) REFERENCES `art_marca` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `articulo_rubro` FOREIGN KEY (`fk_rubro`) REFERENCES `art_rubro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `articulo_tipo` FOREIGN KEY (`fk_tipo`) REFERENCES `art_tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=897 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=902 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,12 +273,15 @@ CREATE TABLE `art_venta` (
   `importe` decimal(10,2) NOT NULL COMMENT 'Importe total de la venta',
   `fk_medio_pago` bigint(20) unsigned zerofill NOT NULL COMMENT 'FK a la tabla de medio de pagos',
   `fk_cliente` bigint(20) unsigned zerofill DEFAULT NULL,
+  `fk_usuario` bigint(20) unsigned zerofill NOT NULL,
   PRIMARY KEY (`id`),
   KEY `medio_pago_idx` (`fk_medio_pago`),
   KEY `cliente_idx` (`fk_cliente`),
+  KEY `venta_usua_idx` (`fk_usuario`),
   CONSTRAINT `venta_cliente` FOREIGN KEY (`fk_cliente`) REFERENCES `art_cliente` (`fk_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `venta_mp` FOREIGN KEY (`fk_medio_pago`) REFERENCES `cmn_medio_pago` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  CONSTRAINT `venta_mp` FOREIGN KEY (`fk_medio_pago`) REFERENCES `cmn_medio_pago` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `venta_usua` FOREIGN KEY (`fk_usuario`) REFERENCES `seg_proeza_db`.`usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -298,7 +301,7 @@ CREATE TABLE `art_venta_articulo` (
   KEY `articulo_idx` (`fk_articulo`),
   CONSTRAINT `va_articulo` FOREIGN KEY (`fk_articulo`) REFERENCES `art_articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `va_venta` FOREIGN KEY (`fk_venta`) REFERENCES `art_venta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -333,7 +336,7 @@ CREATE TABLE `cmn_error` (
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_excepcion` (`excepcion`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -403,7 +406,7 @@ CREATE TABLE `cmn_movimiento` (
   PRIMARY KEY (`id`),
   KEY `entidad_idx` (`fk_entidad`),
   KEY `tipo_mov` (`tipo_mov`)
-) ENGINE=InnoDB AUTO_INCREMENT=375 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=382 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -479,6 +482,83 @@ CREATE TABLE `cmn_traduccion` (
   KEY `fk_trad_loca_idx` (`locale`),
   CONSTRAINT `fk_trad_i18n` FOREIGN KEY (`fk_i18n`) REFERENCES `cmn_i18n` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `seg_foto`
+--
+
+DROP TABLE IF EXISTS `seg_foto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `seg_foto` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `data` longblob NOT NULL,
+  `media_type` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `seg_rol`
+--
+
+DROP TABLE IF EXISTS `seg_rol`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `seg_rol` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo` (`codigo`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `seg_usuario`
+--
+
+DROP TABLE IF EXISTS `seg_usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `seg_usuario` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `alias` varchar(12) NOT NULL,
+  `nombre` varchar(50) DEFAULT 'N/A',
+  `apellido` varchar(50) DEFAULT 'N/A',
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `fk_foto` bigint(20) unsigned zerofill DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `alias_UNIQUE` (`alias`),
+  KEY `fk_usua_foto_idx` (`fk_foto`),
+  CONSTRAINT `fk_usua_foto` FOREIGN KEY (`fk_foto`) REFERENCES `seg_foto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `seg_usuario_rol`
+--
+
+DROP TABLE IF EXISTS `seg_usuario_rol`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `seg_usuario_rol` (
+  `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `fk_usuario` bigint(20) unsigned zerofill NOT NULL,
+  `fk_rol` bigint(20) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_uk` (`id`),
+  KEY `usuario_idx` (`fk_usuario`),
+  KEY `rol_idx` (`fk_rol`),
+  CONSTRAINT `rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `usuario` FOREIGN KEY (`fk_usuario`) REFERENCES `seg_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -645,4 +725,4 @@ CREATE TABLE `sys_pagina_rol` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-06 14:55:00
+-- Dump completed on 2015-09-08  9:23:30

@@ -47,14 +47,11 @@
 	    <script th:inline="javascript">
 	 		/*<![CDATA[*/
 
-        	var lastSelectedRow = -1;
-        	var gridSource;
-        	
         	$(document).ready(function () {
 	        	initImageGallery();
-	        	configSource();
-				initGrid();            
-	            initControls();
+	        	configGridSource();
+				configGrid();            
+	            configControls();
 	        });
 			
 	        function initImageGallery() {
@@ -62,25 +59,7 @@
 		        $('#blueimp-gallery').toggleClass('blueimp-gallery-controls', true);	
 	        }
 	        
-	        function configSource() {
-	        	gridSource = {
-                	id: 'id',
-		            url: articulo.rest.search + '?filter=',
-		            datatype: 'json',
-		            dataFields: [
-						{name: 'codigo', type : 'string'},
- 	                    {name: 'modelo', type: 'string'},
- 	                    {name: 'descripcion', type: 'string'},
- 	                    {name: 'clase', type: 'string'},
- 	                    {name: 'tipo', type: 'string'},
- 	                    {name: 'marca', type: 'string'},
- 	                    {name: 'precio', type: 'double'},
- 	                    {name: 'cantidad', type: 'integer'},
-		            ]
-		        };	
-	        }
-	        
-	        function initControls() {
+	        function configControls() {
 	        	// Inicializa los controles del filtro
 	            $('#filter').on('input', function() {
 	                refreshGrid(gridSource, 'productGrid');
@@ -92,7 +71,7 @@
 	            });	
 	        }
 	        
-	        function initGrid() {
+	        function configGrid() {
 	            var dataAdapter = new $.jqx.dataAdapter(gridSource);
 	            // initializa la grilla de articulos
 	            $('#productGrid').jqxGrid({
@@ -142,8 +121,8 @@
 	            $('#productGrid').on('rowselect', function (event) {
 	            	var rowIndex = event.args.rowindex;
 	            	var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowIndex);
-	            	if (lastSelectedRow != rowIndex) {
-	            		lastSelectedRow = rowIndex;
+	            	if (currentRow != rowIndex) {
+	            		currentRow = rowIndex;
 	            		cleanContainer('links');
 	            		updateGaleryPreview(dataRecord.codigo, 'links');
 	            	}
@@ -186,13 +165,13 @@
 							blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
 							break;
 						case [[#{prod.menu.quickCashSale}]] :
-							quickSale (dataRecord.codigo, 'EFT', notifyQuickSaleDone);
+							quickSale (dataRecord.codigo, 'EFT', [[${user.alias}]], notifyQuickSaleDone);
 							break;
 						case [[#{prod.menu.quickCreditSale}]] :
-							quickSale (dataRecord.codigo, 'TCR', notifyQuickSaleDone);
+							quickSale (dataRecord.codigo, 'TCR', [[${user.alias}]], notifyQuickSaleDone);
 							break;
 						case [[#{prod.menu.quickDebitSale}]] :
-							quickSale (dataRecord.codigo, 'TDE', notifyQuickSaleDone);
+							quickSale (dataRecord.codigo, 'TDE', [[${user.alias}]], notifyQuickSaleDone);
 							break;
 						default:
 							break;
@@ -215,6 +194,8 @@
     	        		message = [[#{prod.quickSale.error.message}]];
     	        		type = 'error';
 	        		break;
+	        		default:
+	        			break;
 	        	}
 	        	$.notify({
 					title: title,

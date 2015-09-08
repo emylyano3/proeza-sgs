@@ -59,16 +59,16 @@
 	insert into sgs_proeza_db.art_articulo_cliente(id, fk_articulo, fk_cliente) values (1, 1, 3);
 	
 	/* Venta */
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente) values ('EFT20150215', '02/15/2015', 1500, 1, 3);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente) values ('EFT20150217', '02/17/2015', 2500, 1, null);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente) values ('EFT20150221', '02/21/2015', 400, 3, null);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente) values ('EFT20150301', '03/01/2015', 735, 1, null);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente) values ('EFT20150303', '03/03/2015', 2730, 2, null);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente) values ('EFT20150217', '02/17/2015', 2500, 1, null);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente) values ('EFT20150221', '02/21/2015', 400, 3, null);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente) values ('EFT20150301', '03/01/2015', 735, 1, null);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente) values ('EFT20150303', '03/03/2015', 2730, 2, null);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente) values ('EFT20150305', '03/05/2015', 2730, 2, null);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150215', '02/15/2015', 1500, 1, 3, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150217', '02/17/2015', 2500, 1, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150221', '02/21/2015', 400, 3, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150301', '03/01/2015', 735, 1, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150303', '03/03/2015', 2730, 2, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150217', '02/17/2015', 2500, 1, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150221', '02/21/2015', 400, 3, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150301', '03/01/2015', 735, 1, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150303', '03/03/2015', 2730, 2, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150305', '03/05/2015', 2730, 2, null, 104);
 		
 	/* Asociacion de venta con articulo */
 	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (1, 1, 1);

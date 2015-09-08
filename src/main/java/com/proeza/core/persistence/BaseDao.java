@@ -46,7 +46,7 @@ public abstract class BaseDao<Entity> implements Dao<Entity> {
         Long id = (Long) this.entityManager
             .createQuery(" select max(x.id) from " + getEntityClass().getName() + " x")
             .getSingleResult();
-        return ++id;
+        return id == null ? 1 : ++id;
     }
 
     @Override

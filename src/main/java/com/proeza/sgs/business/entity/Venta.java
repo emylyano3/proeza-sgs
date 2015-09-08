@@ -23,6 +23,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import com.proeza.security.entity.Usuario;
+
 import static javax.persistence.GenerationType.*;
 
 @Entity
@@ -40,6 +42,7 @@ public class Venta implements Serializable {
     private Date               fecha;
     private BigDecimal         importe;
     private Cliente            cliente;
+    private Usuario            usuario;
 
     private Set<VentaArticulo> articulos        = new HashSet<>(0);
 
@@ -111,6 +114,16 @@ public class Venta implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "venta", cascade = CascadeType.ALL)
     public Set<VentaArticulo> getArticulos () {
         return this.articulos;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName="id", name = "fk_usuario", nullable = false)
+    public Usuario getUsuario () {
+        return this.usuario;
+    }
+
+    public void setUsuario (Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public void setArticulos (Set<VentaArticulo> articulos) {

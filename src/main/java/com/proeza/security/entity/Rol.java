@@ -23,8 +23,8 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
  */
 @Entity
 @Table(
-    catalog = "seg_proeza_db",
-    name = "rol",
+    catalog = "sgs_proeza_db",
+    name = "seg_rol",
     uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 @Cache(usage = NONSTRICT_READ_WRITE)
 public class Rol implements java.io.Serializable {

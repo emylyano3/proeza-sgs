@@ -14,8 +14,8 @@ import static com.proeza.core.util.Constants.*;
 
 @Entity
 @Table(
-    catalog = "seg_proeza_db",
-    name = "foto",
+    catalog = "sgs_proeza_db",
+    name = "seg_foto",
     uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 public class Foto {
 

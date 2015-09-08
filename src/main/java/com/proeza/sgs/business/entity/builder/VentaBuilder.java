@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.proeza.security.entity.Usuario;
 import com.proeza.sgs.business.entity.Cliente;
 import com.proeza.sgs.business.entity.MedioPago;
 import com.proeza.sgs.business.entity.Venta;
@@ -19,6 +20,7 @@ public class VentaBuilder {
     private Date               fecha;
     private BigDecimal         importe;
     private Cliente            cliente;
+    private Usuario            usuario;
 
     private Set<VentaArticulo> articulos = new HashSet<>();
 
@@ -52,6 +54,11 @@ public class VentaBuilder {
         return this;
     }
 
+    public VentaBuilder withUsuario (Usuario usuario) {
+        this.usuario = usuario;
+        return this;
+    }
+
     public VentaBuilder withArticulos (VentaArticulo... vas) {
         this.articulos = new HashSet<>(Arrays.asList(vas));
         return this;
@@ -66,6 +73,7 @@ public class VentaBuilder {
         v.setFecha(this.fecha);
         v.setImporte(this.importe);
         v.setMedioPago(this.medioPago);
+        v.setUsuario(this.usuario);
         return v;
     }
 }
