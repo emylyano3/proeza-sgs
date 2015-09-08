@@ -1,7 +1,5 @@
- select
-	r.nombre as rubro,
-	sum(a.cantidad) as stock
-FROM art_articulo a
-join art_rubro r on r.id = a.fk_rubro
-group by rubro
-order by stock desc
+  SELECT r.nombre AS rubro, sum(a.cantidad) AS stock
+    FROM sgs_proeza_db.art_articulo a
+         JOIN sgs_proeza_db.art_rubro r ON r.id = a.fk_rubro
+GROUP BY r.nombre
+ORDER BY stock DESC

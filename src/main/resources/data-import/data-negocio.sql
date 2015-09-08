@@ -59,31 +59,37 @@
 	insert into sgs_proeza_db.art_articulo_cliente(id, fk_articulo, fk_cliente) values (1, 1, 3);
 	
 	/* Venta */
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150215', '02/15/2015', 1500, 1, 3, 104);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150217', '02/17/2015', 2500, 1, null, 104);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150221', '02/21/2015', 400, 3, null, 104);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150301', '03/01/2015', 735, 1, null, 104);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150303', '03/03/2015', 2730, 2, null, 104);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150217', '02/17/2015', 2500, 1, null, 104);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150221', '02/21/2015', 400, 3, null, 104);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150301', '03/01/2015', 735, 1, null, 104);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150303', '03/03/2015', 2730, 2, null, 104);
-	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('EFT20150305', '03/05/2015', 2730, 2, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('QEFT20150215', '02/15/2015', 1500, 1, 3, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('QEFT20150217', '02/17/2015', 2500, 1, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('QEFT20150221', '02/21/2015', 400, 3, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('QEFT20150301', '03/01/2015', 735, 1, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('QEFT20150303', '03/03/2015', 2730, 2, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('NEFT20150217', '02/17/2015', 2500, 1, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('NEFT20150221', '02/21/2015', 400, 3, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('NEFT20150301', '03/01/2015', 735, 1, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('NEFT20150303', '03/03/2015', 2730, 2, null, 104);
+	insert into sgs_proeza_db.art_venta (codigo, fecha, importe, fk_medio_pago, fk_cliente, fk_usuario) values ('NEFT20150305', '03/05/2015', 2730, 2, null, 104);
 		
 	/* Asociacion de venta con articulo */
 	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (1, 1, 1);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (2, 656, 1);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (2, 37, 2);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (2, 112, 3);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (3, 104, 10);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (3, 796, 1);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (3, 895, 2);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (3, 64, 1);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (3, 316, 2);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (4, 413, 2);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (5, 206, 1);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (5, 140, 2);
-	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (6, 104, 6);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (2, 2, 1);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (2, 5, 2);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (2, 6, 3);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (3, 3, 9);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (3, 4, 1);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (4, 5, 4);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (4, 2, 1);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (5, 5, 2);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (5, 3, 1);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (6, 3, 1);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (7, 4, 1);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (8, 6, 1);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (8, 6, 2);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (8, 1, 1);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (9, 3, 1);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (9, 1, 2);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (10, 4, 1);
+	insert into sgs_proeza_db.art_venta_articulo (fk_venta, fk_articulo, cantidad) values (10, 2, 1);
 	
 	/* Movimiento sobre articulos */ 	
 	insert into sgs_proeza_db.cmn_movimiento (id, tipo_mov, fk_entidad, tipo_entidad, fecha, valor_ant, valor_post) values (100, 'MOD_PRECIO', 1, 'ARTICULO', '2015-01-12 11:34:31.923', '250', '270');
