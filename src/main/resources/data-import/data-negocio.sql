@@ -22,12 +22,12 @@
 
 /* Data de negocio */
 	/* Articulos */
-	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PRRS000001', 1, 1, 1, 1, 'Ocean 1005', '3 rulemanes; antireverse instantaneo; devanador', 200, 250, 2);
-	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PCES000002', 1, 2, 2, 1, 'Energhia 195', 'Pasahilo silicio; Puntero con roldana', 100, 150, 3);
-	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('CCCN000001', 2, 3, 4, 3, '7/8 Personas', 'Sobre techo; Mosquitero Doble', 2500, 4000, 1);
-	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('CCIW000001', 2, 3, 3, 2, 'Aconcagua 4 Personas', '2000mm; Aluminizado; Con Alero', 1300, 2200, 4);
-	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PCES000003', 1, 2, 2, 2, 'Agressor 210', 'Pasahilo silicio; Puntero con roldana', 180, 260, 1);
-	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad) values ('PCES000004', 1, 2, 5, 2, 'Matrix 420', 'Pasahilo silicio', 1500, 2400, 2);
+	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad, habilitado) values ('PRRS000001', 1, 1, 1, 1, 'Ocean 1005', '3 rulemanes; antireverse instantaneo; devanador', 200, 250, 2, 1);
+	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad, habilitado) values ('PCES000002', 1, 2, 2, 1, 'Energhia 195', 'Pasahilo silicio; Puntero con roldana', 100, 150, 3, 1);
+	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad, habilitado) values ('CCCN000001', 2, 3, 4, 3, '7/8 Personas', 'Sobre techo; Mosquitero Doble', 2500, 4000, 1, 1);
+	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad, habilitado) values ('CCIW000001', 2, 3, 3, 2, 'Aconcagua 4 Personas', '2000mm; Aluminizado; Con Alero', 1300, 2200, 4, 1);
+	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad, habilitado) values ('PCES000003', 1, 2, 2, 2, 'Agressor 210', 'Pasahilo silicio; Puntero con roldana', 180, 260, 1, 1);
+	insert into sgs_proeza_db.art_articulo (codigo, fk_rubro, fk_clase, fk_tipo, fk_marca, modelo, descripcion, costo, precio, cantidad, habilitado) values ('PCES000004', 1, 2, 5, 2, 'Matrix 420', 'Pasahilo silicio', 1500, 2400, 2, 1);
 	
 	/* Persona */
 	insert into sgs_proeza_db.cmn_persona (id, nombre, apellido, sexo) values (1, 'Dario','Romero','M');

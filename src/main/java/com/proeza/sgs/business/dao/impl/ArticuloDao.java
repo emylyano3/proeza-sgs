@@ -19,6 +19,11 @@ import com.proeza.sgs.business.entity.Articulo_;
 public class ArticuloDao extends BaseDao<Articulo> implements IArticuloDao {
 
     @Override
+    public void delete (Articulo entity) {
+        entity.setHabilitado(false);
+    }
+
+    @Override
     public Articulo findByCode (String code) {
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<Articulo> criteria = builder.createQuery(Articulo.class);
@@ -29,8 +34,8 @@ public class ArticuloDao extends BaseDao<Articulo> implements IArticuloDao {
     }
 
     @Override
-    public List<Movimiento> findMovimientosAscByDate (String codeArt, String tipoMov) {
-        Articulo art = findByCode(codeArt);
+    public List<Movimiento> findMovimientosAscByDate (String code, String tipoMov) {
+        Articulo art = findByCode(code);
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<Movimiento> criteria = builder.createQuery(Movimiento.class);
         Root<Movimiento> root = criteria.from(Movimiento.class);

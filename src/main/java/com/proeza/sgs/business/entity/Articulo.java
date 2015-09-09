@@ -18,8 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
@@ -31,26 +29,22 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.core.tracking.entity.Trackeable;
-import com.proeza.sgs.business.service.dto.SellerRankingDTO;
+import com.proeza.sgs.business.service.dto.RankingArticuloDTO;
 
 import static com.proeza.core.util.DataTypeConverter.*;
 import static com.proeza.sgs.business.entity.TipoEntidad.*;
 import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 
-@SqlResultSetMapping(name = "SellerRanking",
+@SqlResultSetMapping(name = "Ranking",
     classes = {
         @ConstructorResult(
-            targetClass = SellerRankingDTO.class,
+            targetClass = RankingArticuloDTO.class,
             columns = {
                 @ColumnResult(name = "modelo"),
-                @ColumnResult(name = "cantidad", type=BigDecimal.class)
+                @ColumnResult(name = "cantidad", type = BigDecimal.class)
             }
         )
-    }
-)
-@NamedQueries(value = {
-    @NamedQuery(name = "Articulo.findByCode", query = "from Articulo a where a.codigo = :code")
-})
+    })
 @Entity
 @Table(
     catalog = "sgs_proeza_db",
@@ -72,6 +66,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
     private BigDecimal         costo;
     private BigDecimal         precio;
     private Integer            stock;
+    private boolean            habilitado;
 
     private Set<Movimiento>    movimientos      = new HashSet<>(0);
     private Set<Proveedor>     proveedores      = new HashSet<>(0);
@@ -188,6 +183,15 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
     public void setStock (Integer cantidad) {
         track(MOD_STOCK.getCodigo(), tostring(this.stock), tostring(cantidad));
         this.stock = cantidad;
+    }
+
+    @Column(name = "habilitado", nullable = false, columnDefinition = "BIT", length = 1)
+    public boolean isHabilitado () {
+        return this.habilitado;
+    }
+
+    public void setHabilitado (boolean habilitado) {
+        this.habilitado = habilitado;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

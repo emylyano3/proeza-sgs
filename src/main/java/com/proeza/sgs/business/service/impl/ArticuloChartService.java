@@ -22,7 +22,7 @@ import com.proeza.sgs.business.dao.IMarcaDao;
 import com.proeza.sgs.business.dao.IRubroDao;
 import com.proeza.sgs.business.service.IArticuloChartService;
 import com.proeza.sgs.business.service.dto.PresenciaDTO;
-import com.proeza.sgs.business.service.dto.SellerRankingDTO;
+import com.proeza.sgs.business.service.dto.RankingArticuloDTO;
 
 import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 
@@ -50,14 +50,14 @@ public class ArticuloChartService implements IArticuloChartService {
     @Override
     public List<SingleDataSetChartDefinition> bestSellers (int n) {
         @SuppressWarnings({"unchecked"})
-        List<SellerRankingDTO> queryResult = this.articuloDao.getEntityManager().createNativeQuery(
-            this.regisry.getQuery("bestSellers"),
-            "SellerRanking")
+        List<RankingArticuloDTO> queryResult = this.articuloDao.getEntityManager().createNativeQuery(
+            this.regisry.getQuery("rankingBestSellers"),
+            "Ranking")
             .setMaxResults(n)
             .getResultList();
         List<SingleDataSetChartDefinition> result = new ArrayList<SingleDataSetChartDefinition>(queryResult.size());
         ChartColorManager chartColorManager = this.context.getBean(ChartColorManager.class);
-        for (SellerRankingDTO ws : queryResult) {
+        for (RankingArticuloDTO ws : queryResult) {
             ChartColor chartColor = chartColorManager.nextChartColor();
             SingleDataSetChartDefinition item = new SingleDataSetChartDefinition();
             item.setLabel(ws.getModelo());
@@ -72,14 +72,14 @@ public class ArticuloChartService implements IArticuloChartService {
     @Override
     public List<SingleDataSetChartDefinition> worstSellers (int n) {
         @SuppressWarnings({"unchecked"})
-        List<SellerRankingDTO> queryResult = this.articuloDao.getEntityManager().createNativeQuery(
-            this.regisry.getQuery("worstSellers"),
-            "SellerRanking")
+        List<RankingArticuloDTO> queryResult = this.articuloDao.getEntityManager().createNativeQuery(
+            this.regisry.getQuery("rankingWorstSellers"),
+            "Ranking")
             .setMaxResults(n)
             .getResultList();
         List<SingleDataSetChartDefinition> result = new ArrayList<SingleDataSetChartDefinition>(queryResult.size());
         ChartColorManager chartColorManager = this.context.getBean(ChartColorManager.class);
-        for (SellerRankingDTO ws : queryResult) {
+        for (RankingArticuloDTO ws : queryResult) {
             ChartColor chartColor = chartColorManager.nextChartColor();
             SingleDataSetChartDefinition item = new SingleDataSetChartDefinition();
             item.setLabel(ws.getModelo());

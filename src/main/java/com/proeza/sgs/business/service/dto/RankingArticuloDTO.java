@@ -2,12 +2,12 @@ package com.proeza.sgs.business.service.dto;
 
 import java.math.BigDecimal;
 
-public class SellerRankingDTO {
+public class RankingArticuloDTO {
 
-    public SellerRankingDTO () {
+    public RankingArticuloDTO () {
     }
 
-    public SellerRankingDTO (String modelo, BigDecimal cantidad) {
+    public RankingArticuloDTO (String modelo, BigDecimal cantidad) {
         super();
         this.modelo = modelo;
         this.cantidad = cantidad;

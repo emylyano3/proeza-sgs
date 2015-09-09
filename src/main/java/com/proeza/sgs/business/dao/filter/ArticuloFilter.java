@@ -63,6 +63,8 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
             Join<Articulo, Marca> joinMarca = root.join(Articulo_.marca);
             Join<Articulo, Tipo> joinTipo = root.join(Articulo_.tipo, JoinType.LEFT);
 
+            Expression<Boolean> habilitado = root.get(Articulo_.habilitado);
+
             Expression<String> nombreClase = joinClase.get(Clase_.nombre);
             Expression<String> nombreMarca = joinMarca.get(Marca_.nombre);
             Expression<String> nombreTipo = joinTipo.get(Tipo_.nombre);
@@ -83,7 +85,9 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
                 predicates.add(this.builder.like(lowerDescripcion, element));
             }
             Predicate or = this.builder.or(toArray(predicates));
-            criteria.where(or);
+            Predicate and = this.builder.and(or, this.builder.equal(habilitado, true));
+            criteria.where(and);
+
             List<Articulo> bag = this.articuloDao.getEntityManager().createQuery(criteria).getResultList();
             return reapplyFilters(bag);
         } else {
