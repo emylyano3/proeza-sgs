@@ -19,7 +19,7 @@
     
 <cache
     name="com.proeza.security.entity.Usuario"
-    maxElementsInMemory="500"
+    maxElementsInMemory="100"
     eternal="true"
     statistics="true" />
 
@@ -31,13 +31,13 @@
     
 <cache
     name="com.proeza.sgs.system.entity.Page"
-    maxElementsInMemory="300"
+    maxElementsInMemory="100"
     eternal="true"
     statistics="true" />
     
 <cache
     name="com.proeza.sgs.system.entity.Menu"
-    maxElementsInMemory="100"
+    maxElementsInMemory="50"
     eternal="true"
     statistics="true" />
 
@@ -49,7 +49,7 @@
     
 <cache
     name="com.proeza.sgs.system.entity.Item"
-    maxElementsInMemory="1000"
+    maxElementsInMemory="300"
     eternal="true"
     statistics="true" />
     
@@ -61,19 +61,19 @@
     
 <cache
     name="com.proeza.sgs.business.entity.Clase"
-    maxElementsInMemory="500"
+    maxElementsInMemory="200"
     eternal="true"
     statistics="true" />
     
 <cache
     name="com.proeza.sgs.business.entity.Marca"
-    maxElementsInMemory="500"
+    maxElementsInMemory="300"
     eternal="true"
     statistics="true" />
     
 <cache
     name="com.proeza.sgs.business.entity.Tipo"
-    maxElementsInMemory="500"
+    maxElementsInMemory="300"
     eternal="true"
     statistics="true" />
     
@@ -86,9 +86,9 @@
 
 <cache 
 	name="org.hibernate.cache.internal.StandardQueryCache"
-    maxEntriesLocalHeap="20" 
+    maxEntriesLocalHeap="100" 
     eternal="false" 
-    timeToLiveSeconds="60"
+    timeToLiveSeconds="600"
     statistics="true"/>
 
 <cache 
