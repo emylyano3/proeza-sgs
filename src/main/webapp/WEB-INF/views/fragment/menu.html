@@ -56,12 +56,14 @@
                         <span th:text="#{menu.login}" />
                     </a>
                 </li>
+                <!-- 
                 <li sec:authorize="isAnonymous()">
                     <a href="#" th:href="@{/register}"> 
                         <i class="fa fa-user" /> 
                         <span th:text="#{menu.register}" />
                     </a>
                 </li>
+                 -->
                 <li sec:authorize="isAuthenticated()">
                     <a href="#" th:href="@{/doLogout}"> 
                         <i class="fa fa-sign-out" /> 
