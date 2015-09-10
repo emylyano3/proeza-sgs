@@ -28,15 +28,15 @@ import com.proeza.sgs.business.service.dto.PresenciaDTO;
 import static javax.persistence.GenerationType.*;
 
 @SqlResultSetMapping(name = "PresenciaRubro",
-classes = {
-    @ConstructorResult(
-        targetClass = PresenciaDTO.class,
-        columns = {
-            @ColumnResult(name = "rubro"),
-            @ColumnResult(name = "stock", type = BigDecimal.class)
-        }
+    classes = {
+        @ConstructorResult(
+            targetClass = PresenciaDTO.class,
+            columns = {
+                @ColumnResult(name = "rubro"),
+                @ColumnResult(name = "stock", type = BigDecimal.class)
+            }
         )
-})
+    })
 @Entity
 @Table(
     catalog = "sgs_proeza_db",
