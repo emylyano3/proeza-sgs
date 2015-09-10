@@ -1,4 +1,4 @@
-package com.proeza.sgs.web.rest;
+package com.proeza.sgs.web.rest.chart;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import com.proeza.sgs.business.service.IArticuloChartService;
 
 @RestController
 @RequestMapping("rest/articulo/stats")
-public class ArticulosStatsRestController {
+public class ArticuloStatsRestController {
 
     @Autowired
     private IArticuloChartService productChartService;
