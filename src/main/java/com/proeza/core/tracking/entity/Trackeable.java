@@ -28,7 +28,7 @@ public abstract class Trackeable implements Identifiable {
      * movimiento. En caso de encontrar uno previo, se lo elimina.
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public Movimiento track (String tipoMov, Comparable valorAnte, Comparable valorPoste) {
+    protected Movimiento track (String tipoMov, Comparable valorAnte, Comparable valorPoste) {
         if (getId() == null || valorAnte == null || valorAnte == valorPoste || valorAnte.equals(valorPoste) || valorAnte.compareTo(valorPoste) == 0) {
             return null;
         }
@@ -42,7 +42,7 @@ public abstract class Trackeable implements Identifiable {
      * lo que se hace es llevar cuenta de cuantos movimientos sin id (es decir id con valor cero) hay para cada tipo de
      * movimiento. En caso de encontrar uno previo, se lo elimina.
      */
-    public Movimiento track (String tipoMov, String valorAnte, String valorPoste) {
+    protected Movimiento track (String tipoMov, String valorAnte, String valorPoste) {
         if (getId() == null || valorAnte == null || valorAnte.equals(valorPoste)) {
             return null;
         }
