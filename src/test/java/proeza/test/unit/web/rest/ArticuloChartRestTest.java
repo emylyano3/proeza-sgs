@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class ArticuloRestUTest extends WebMvcUnitTest {
+public class ArticuloChartRestTest extends WebMvcUnitTest {
 
     @Autowired
     private IArticuloChartService chartService;
@@ -38,7 +38,7 @@ public class ArticuloRestUTest extends WebMvcUnitTest {
         data.addAll(Arrays.asList(new Double[] {28D, 48D, 40D, 19D, 86D, 27D, 90D}));
         labels.addAll(Arrays.asList(new String[] {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"}));
         when(this.chartService.priceHistory("1")).thenReturn(precioHistory);
-        this.mockMvc.perform(post("/rest/articulo/stats/priceHistory/1"))
+        this.mockMvc.perform(post("/rest/product/stats/priceHistory/1"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(jsonPath("$.labels", hasSize(7)))

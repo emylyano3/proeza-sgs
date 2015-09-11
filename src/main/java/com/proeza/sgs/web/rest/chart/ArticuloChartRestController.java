@@ -13,8 +13,8 @@ import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.service.IArticuloChartService;
 
 @RestController
-@RequestMapping("rest/articulo/stats")
-public class ArticuloStatsRestController {
+@RequestMapping("rest/product/stats")
+public class ArticuloChartRestController {
 
     @Autowired
     private IArticuloChartService productChartService;
@@ -34,7 +34,7 @@ public class ArticuloStatsRestController {
         return this.productChartService.worstSellers(n);
     }
 
-    @RequestMapping(value = "brandPresence/{n}", method = RequestMethod.POST, produces = {"application/json; charset=UTF-8","*/*;charset=UTF-8"})
+    @RequestMapping(value = "brandPresence/{n}", method = RequestMethod.POST)
     public List<SingleDataSetChartDefinition> brandPresence (@PathVariable Integer n) {
         return this.productChartService.presenciaMarca(n);
     }

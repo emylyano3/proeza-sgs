@@ -12,6 +12,7 @@ import com.proeza.sgs.business.dao.IMedioPagoDao;
 import com.proeza.sgs.business.entity.MedioPago;
 import com.proeza.sgs.business.entity.Venta;
 import com.proeza.sgs.business.entity.builder.VentaBuilder;
+import com.proeza.sgs.business.service.IVentaChartService;
 import com.proeza.sgs.business.service.IVentaService;
 
 import static org.junit.Assert.*;
@@ -19,10 +20,12 @@ import static org.junit.Assert.*;
 public class VentaServiceTest extends IntegrationTest {
 
     @Autowired
-    private IVentaService ventaService;
+    private IVentaService      ventaService;
+    @Autowired
+    private IVentaChartService ventaChartService;
 
     @Autowired
-    private IMedioPagoDao medioPagoDao;
+    private IMedioPagoDao      medioPagoDao;
 
     @Test
     public void createSaleCode () {
@@ -35,5 +38,14 @@ public class VentaServiceTest extends IntegrationTest {
         String code = this.ventaService.createSaleCode(venta);
         assertNotNull(code);
         assertEquals("N15TCR0011", code);
+    }
+
+    @Test
+    public void ventasMensuales () {
+        this.ventaChartService.ventasMensuales(
+            "admin",
+            DateUtil.create(2015, 2, 1),
+            DateUtil.create(2015, 8, 1)
+            );
     }
 }

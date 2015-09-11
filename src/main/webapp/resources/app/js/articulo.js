@@ -4,15 +4,15 @@ var formMode;
 
 var product = {
 	rest : {
-		getImages : '/proeza-sgs/rest/articulo/getImages',
-		addImage : '/proeza-sgs/rest/articulo/addImage',
-		getImage : '/proeza-sgs/rest/articulo/getImage',
-		getThumbnail : '/proeza-sgs/rest/articulo/getThumbnail',
-		search : '/proeza-sgs/rest/articulo/search',
-		create : '/proeza-sgs/rest/articulo/create',
-		update : '/proeza-sgs/rest/articulo/update',
-		remove : '/proeza-sgs/rest/articulo/remove',
-		find : '/proeza-sgs/rest/articulo/find',
+		getImages : '/proeza-sgs/rest/product/getImages',
+		addImage : '/proeza-sgs/rest/product/addImage',
+		getImage : '/proeza-sgs/rest/product/getImage',
+		getThumbnail : '/proeza-sgs/rest/product/getThumbnail',
+		search : '/proeza-sgs/rest/product/search',
+		create : '/proeza-sgs/rest/product/create',
+		update : '/proeza-sgs/rest/product/update',
+		remove : '/proeza-sgs/rest/product/remove',
+		find : '/proeza-sgs/rest/product/find',
 		quickSale : '/proeza-sgs/rest/venta/quickSale',
 	}
 }

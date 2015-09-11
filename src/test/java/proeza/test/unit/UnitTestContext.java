@@ -27,6 +27,7 @@ import com.proeza.sgs.business.service.IClaseService;
 import com.proeza.sgs.business.service.IMarcaService;
 import com.proeza.sgs.business.service.IRubroService;
 import com.proeza.sgs.business.service.ITipoService;
+import com.proeza.sgs.business.service.IVentaChartService;
 import com.proeza.sgs.business.service.IVentaService;
 import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.mail.IMailManager;
@@ -38,6 +39,11 @@ public class UnitTestContext {
     @Bean
     public IVentaService ventaService () {
         return Mockito.mock(IVentaService.class);
+    }
+
+    @Bean
+    public IVentaChartService ventaChartService () {
+        return Mockito.mock(IVentaChartService.class);
     }
 
     @Bean

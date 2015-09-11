@@ -185,7 +185,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
         this.stock = cantidad;
     }
 
-    @Column(name = "habilitado", nullable = false, columnDefinition = "BIT", length = 1)
+    @Column(name = "habilitado", nullable = false, columnDefinition = "BIT")
     public boolean isHabilitado () {
         return this.habilitado;
     }

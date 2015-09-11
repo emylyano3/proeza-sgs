@@ -11,7 +11,7 @@
                     <img th:if="${user.hasFoto()} == false" th:src="@{/resources/app/img/user-avatar_76x76.jpg}" class="img-circle m-b" />
                 </a>
                 <div class="stats-label text-color">
-                    <span class="font-extra-bold font-uppercase" sec:authentication="name">Usuario</span>
+                    <span id="userAlias" class="font-extra-bold font-uppercase" th:text="${user.alias}">Usuario</span>
                     <!-- 
                     <div class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
@@ -25,16 +25,18 @@
                             <li><a href="login.html">Logout</a></li>
                         </ul>
                     </div>
-                    <div id="sparkline1" class="small-chart m-t-sm">
+                     -->
+                    <div id="salesSparkline" class="small-chart m-t-sm">
                         <canvas width="119" height="30" style="display: inline-block; width: 119px; height: 30px; vertical-align: top;"/>
                     </div>
+                    <!--  
                     <div>
                         <h4 class="font-extra-bold m-b-xs">
                             $260 104,200
                         </h4>
                         <small class="text-muted">Your income from the last year in sales product X.</small>
                     </div>
-                     -->
+                    -->
                 </div>
             </div>
             <ul class="nav" id="side-menu">
@@ -72,22 +74,19 @@
                 </li>
             </ul>
         </div>
+        
+         <!-- Sparklines -->
+        <script type="text/javascript" src="../../resources/sparkline/js/sparkline.js" th:src="@{/resources/sparkline/js/sparkline.js}"/>
+        
+        <script type="text/javascript" src="../../resources/app/js/menu.js" th:src="@{/resources/app/js/menu.js}"/>
+        
+        <script th:inline="javascript">
+        /*<![CDATA[*/
+            $(document).ready(function() {
+                loadUserSalesSparkline($("#userAlias").text(), 12, 7);
+            })
+		/*]]>*/
+		</script>
     </aside>
-    
-    <!-- Sparklines -->
-    <script type="text/javascript" src="../../resources/sparkline/js/sparkline.js" th:src="@{/resources/sparkline/js/sparkline.js}"/>
-    
-    <script type="text/javascript">
-        $(document).ready(function() {
-            // Sparkline bar chart data and options used under Profile image on left navigation panel
-            $("#sparkline1").sparkline([5, 6, 7, 2, 0, 4, 2, 4, 5, 7, 2, 4, 12, 11, 4], {
-                type: 'bar',
-                barWidth: 7,
-                height: '30px',
-                barColor: '#62cb31',
-                negBarColor: '#53ac2a'
-            });
-        }
-    </script>
 </body>
 </html>

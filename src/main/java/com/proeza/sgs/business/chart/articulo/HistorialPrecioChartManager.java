@@ -14,7 +14,6 @@ import java.util.TreeMap;
 
 import javax.xml.bind.DatatypeConverter;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -24,7 +23,6 @@ import com.proeza.core.util.date.DateUtil;
 import com.proeza.core.util.date.comparator.MonthRangeDateComparator;
 import com.proeza.sgs.business.chart.MultiDataSetChartDefinition;
 import com.proeza.sgs.business.chart.MultiDataSetChartManager;
-import com.proeza.sgs.business.dao.IArticuloDao;
 
 import static java.util.Calendar.*;
 import static org.apache.commons.lang.StringUtils.*;
@@ -35,9 +33,6 @@ public class HistorialPrecioChartManager extends MultiDataSetChartManager<Movimi
 
     private Map<Date, List<Movimiento>> groupedData = new TreeMap<Date, List<Movimiento>>(new MonthRangeDateComparator());
     private List<Movimiento>            source      = new ArrayList<Movimiento>();
-
-    @Autowired
-    private IArticuloDao                articuloDao;
 
     @Override
     protected void init (List<Movimiento> source) {
