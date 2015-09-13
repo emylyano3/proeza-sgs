@@ -24,7 +24,6 @@
 
 		<mapping class="com.proeza.security.entity.Rol"/>
 		<mapping class="com.proeza.security.entity.Usuario"/>
-		<mapping class="com.proeza.security.entity.UsuarioRol"/>
 		<mapping class="com.proeza.security.entity.Foto"/>
 		
 		<mapping class="com.proeza.sgs.business.entity.Articulo"/>
