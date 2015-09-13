@@ -17,6 +17,7 @@ import com.proeza.core.tracking.dao.IMovimientoDao;
 import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.sgs.business.chart.ChartColor;
 import com.proeza.sgs.business.chart.ChartColorManager;
+import com.proeza.sgs.business.chart.MovimientoChartManager;
 import com.proeza.sgs.business.chart.MultiValueChartData;
 import com.proeza.sgs.business.chart.SingleValueChartData;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
@@ -36,25 +37,29 @@ import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 @Transactional
 public class ArticuloChartService implements IArticuloChartService {
 
-    public static final Logger log = Logger.getLogger(ArticuloChartService.class);
+    private static final String STOCK_CHART_DATA   = "STOCK";
+
+    private static final String CAPITAL_CHART_DATA = "CAPITAL";
+
+    public static final Logger  log                = Logger.getLogger(ArticuloChartService.class);
 
     @Autowired
-    private IArticuloDao       articuloDao;
+    private IArticuloDao        articuloDao;
 
     @Autowired
-    private IMovimientoDao     movimientoDao;
+    private IMovimientoDao      movimientoDao;
 
     @Autowired
-    private IMarcaDao          marcaDao;
+    private IMarcaDao           marcaDao;
 
     @Autowired
-    private IRubroDao          rubroDao;
+    private IRubroDao           rubroDao;
 
     @Autowired
-    private ApplicationContext context;
+    private ApplicationContext  context;
 
     @Autowired
-    private QueryRegistry      regisry;
+    private QueryRegistry       regisry;
 
     @Override
     public List<SingleValueChartData> bestSellers (int n) {
@@ -131,12 +136,15 @@ public class ArticuloChartService implements IArticuloChartService {
     @Override
     public Map<String, MultiValueChartData> stockHistory (int n) {
         List<Movimiento> movs = this.movimientoDao.findByMovAndEntityType(REL_STOCK.codigo(), STOCK_TOTAL.codigo());
-        MultiValueChartData chartData = this.context.getBean(HistorialStockChartManager.class).getChartDefinition(movs);
         Map<String, MultiValueChartData> result = new HashMap<>(1);
-        result.put("STOCK", chartData);
+        MovimientoChartManager chartManager = this.context.getBean(HistorialStockChartManager.class);
+        chartManager.setDateFormat("MM/YYYY");
+        chartManager.setDataLimit(n);
+        MultiValueChartData chartData = chartManager.getChartDefinition(movs);
+        result.put(STOCK_CHART_DATA, chartData);
         movs = this.movimientoDao.findByMovAndEntityType(REL_STOCK.codigo(), CAPITAL.codigo());
-        chartData = this.context.getBean(HistorialStockChartManager.class).getChartDefinition(movs);
-        result.put("CAPITAL", chartData);
+        chartData = chartManager.getChartDefinition(movs);
+        result.put(CAPITAL_CHART_DATA, chartData);
         return result;
     }
 }
