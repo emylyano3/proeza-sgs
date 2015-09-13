@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.proeza.core.persistence.exception.QueryNotFoundException;
+
 public class QueryRegistry {
 
     public static final Map<String, String> REGISTRY = new HashMap<String, String>(0);
@@ -18,6 +20,9 @@ public class QueryRegistry {
     }
 
     public String getQuery (String name) {
+        if (REGISTRY.get(name) == null) {
+            throw new QueryNotFoundException("No existe query registrada bajo el nombre: " + name);
+        }
         return REGISTRY.get(name);
     }
 
