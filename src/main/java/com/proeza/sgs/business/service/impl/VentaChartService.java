@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.proeza.security.entity.Usuario;
 import com.proeza.security.entity.Usuario_;
 import com.proeza.sgs.business.chart.venta.UserSalesChartDefinition;
-import com.proeza.sgs.business.chart.venta.UserSalesChartManager;
+import com.proeza.sgs.business.chart.venta.VentasUsuarioChartManager;
 import com.proeza.sgs.business.dao.IVentaDao;
 import com.proeza.sgs.business.entity.Venta;
 import com.proeza.sgs.business.entity.Venta_;
@@ -46,7 +46,7 @@ public class VentaChartService implements IVentaChartService {
         criteria.where(finalPredicate);
         // Agrupo las ventas por mes y año
         List<Venta> result = this.ventaDao.getEntityManager().createQuery(criteria).getResultList();
-        UserSalesChartManager chartManager = this.context.getBean(UserSalesChartManager.class);
+        VentasUsuarioChartManager chartManager = this.context.getBean(VentasUsuarioChartManager.class);
         chartManager.fromDate(desde);
         chartManager.toDate(hasta);
         chartManager.userAlias(aliasUsuario);

@@ -116,6 +116,7 @@ public class ArticuloService implements IArticuloService {
         art.setCosto(BigDecimal.valueOf(dto.getCosto()));
         art.setPrecio(BigDecimal.valueOf(dto.getPrecio()));
         art.setModelo(dto.getModelo());
+        art.setStock(dto.getCantidad());
         art.setDescripcion(dto.getDescripcion());
     }
 

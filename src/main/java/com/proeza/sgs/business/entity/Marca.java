@@ -39,7 +39,7 @@ import static javax.persistence.GenerationType.*;
     })
 @Entity
 @Table(
-    catalog = "sgs_proeza_db",
+    
     name = "art_marca",
     uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

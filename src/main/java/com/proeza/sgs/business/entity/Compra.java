@@ -27,7 +27,6 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(
-    catalog = "sgs_proeza_db",
     name = "art_compra",
     uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 public class Compra implements Serializable {

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import static javax.persistence.GenerationType.*;
 
 @Entity
-@Table(schema = "sgs_proeza_db", name = "cmn_telefono")
+@Table(name = "cmn_telefono")
 public class Telefono {
 
     private Long         id;

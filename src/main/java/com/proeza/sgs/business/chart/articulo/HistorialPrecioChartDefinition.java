@@ -3,9 +3,9 @@ package com.proeza.sgs.business.chart.articulo;
 import java.util.Date;
 import java.util.List;
 
-import com.proeza.sgs.business.chart.MultiDataSetChartDefinition;
+import com.proeza.sgs.business.chart.MultiValueChartData;
 
-public class HistorialPrecioChartDefinition extends MultiDataSetChartDefinition {
+public class HistorialPrecioChartDefinition extends MultiValueChartData {
     private static final long serialVersionUID = 1L;
 
     private Date              lastStockUpdate;

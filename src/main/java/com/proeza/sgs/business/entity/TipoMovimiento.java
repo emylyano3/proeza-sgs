@@ -8,6 +8,7 @@ public enum TipoMovimiento implements Serializable {
     MOD_COSTO("Modificacion Costo", "Modificación del costo"),
     MOD_PRECIO("Modificacion Precio", "Modificación del precio"),
     REL_STOCK("Relevamiento Stock", "Relevamiento de stock"),
+    REL_PRECIO("Relevamiento Precio", "Relevamiento de Precios"),
     ;
 
     private TipoMovimiento (String nombre, String desc) {
@@ -23,7 +24,7 @@ public enum TipoMovimiento implements Serializable {
         return this.descripcion;
     }
 
-    public String getCodigo () {
+    public String codigo () {
         return name();
     }
 

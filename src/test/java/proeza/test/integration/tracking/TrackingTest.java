@@ -60,7 +60,7 @@ public class TrackingTest extends IntegrationTest {
         Movimiento mov = art.getMovimientos().iterator().next();
         assertEquals("125.1", mov.getValorAnte());
         assertEquals("123", mov.getValorPost());
-        assertEquals(ARTICULO.getCodigo(), mov.getTipoEntidad());
-        assertEquals(MOD_PRECIO.getCodigo(), mov.getTipoMov());
+        assertEquals(ARTICULO.codigo(), mov.getTipoEntidad());
+        assertEquals(MOD_PRECIO.codigo(), mov.getTipoMov());
     }
 }

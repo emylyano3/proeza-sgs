@@ -16,7 +16,7 @@ import com.proeza.security.entity.Rol;
 import static javax.persistence.GenerationType.*;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "sys_item_rol")
+@Table( name = "sys_item_rol")
 public class ItemRol implements Serializable {
 
     private static final long serialVersionUID = 1L;

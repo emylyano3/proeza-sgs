@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class MultiDataSetChartManager<S> {
 
-    public MultiDataSetChartDefinition getChartDefinition (List<S> source) {
+    public MultiValueChartData getChartDefinition (List<S> source) {
         init(source);
         List<?> data = buildData();
         List<String> labels = buildLabels();
@@ -17,5 +17,5 @@ public abstract class MultiDataSetChartManager<S> {
 
     protected abstract List<?> buildData ();
 
-    protected abstract MultiDataSetChartDefinition buildDefinition (List<String> labels, List<?> data);
+    protected abstract MultiValueChartData buildDefinition (List<String> labels, List<?> data);
 }

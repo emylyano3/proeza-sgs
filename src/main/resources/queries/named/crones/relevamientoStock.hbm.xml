@@ -25,4 +25,12 @@ group by
 order by stock desc
         ]]>
     </query>
+    <query name="relevamientoStock.stockTotal">
+        <![CDATA[
+select
+	sum(a.stock) as stock,
+	sum(a.stock * a.costo) as capital
+from Articulo a
+       ]]>
+    </query>
 </hibernate-mapping>

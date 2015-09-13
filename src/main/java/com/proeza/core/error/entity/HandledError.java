@@ -13,7 +13,6 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 @Table(
-    catalog = "sgs_proeza_db",
     name = "cmn_error",
     uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 @Entity

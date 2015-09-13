@@ -12,7 +12,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(schema = "sgs_proeza_db", name = "art_proveedor")
+@Table(name = "art_proveedor")
 @PrimaryKeyJoinColumn(name = "fk_persona", referencedColumnName = "id")
 public class Proveedor extends Persona {
     private static final long serialVersionUID = 1L;
@@ -21,7 +21,7 @@ public class Proveedor extends Persona {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-        catalog = "sgs_proeza_db",
+
         name = "art_articulo_proveedor",
         joinColumns = {@JoinColumn(name = "fk_proveedor")},
         inverseJoinColumns = {@JoinColumn(name = "fk_articulo")})

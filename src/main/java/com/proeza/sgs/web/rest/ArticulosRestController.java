@@ -22,7 +22,7 @@ import com.proeza.sgs.business.entity.dto.ResourceDTO;
 import com.proeza.sgs.business.service.IArticuloService;
 
 @RestController
-@RequestMapping("rest/articulo")
+@RequestMapping("rest/product")
 public class ArticulosRestController {
 
     private static final Logger log = Logger.getLogger(ArticulosRestController.class);

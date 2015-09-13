@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import static javax.persistence.GenerationType.*;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "sys_item_subitem")
+@Table( name = "sys_item_subitem")
 public class ItemSubitem implements Serializable, Comparable<ItemSubitem> {
 
     private static final long serialVersionUID = 1L;

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import proeza.test.integration.IntegrationTest;
 
-import com.proeza.sgs.business.chart.SingleDataSetChartDefinition;
+import com.proeza.sgs.business.chart.SingleValueChartData;
 import com.proeza.sgs.business.service.IArticuloChartService;
 
 import static org.junit.Assert.*;
@@ -19,7 +19,7 @@ public class ArticuloChartServiceTest extends IntegrationTest {
 
     @Test
     public void worstSellers () {
-        List<SingleDataSetChartDefinition> result = this.chartService.worstSellers(10);
+        List<SingleValueChartData> result = this.chartService.worstSellers(10);
         assertNotNull(result);
         assertFalse(result.isEmpty());
     }

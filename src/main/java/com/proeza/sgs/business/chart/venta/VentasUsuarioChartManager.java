@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.proeza.core.util.date.comparator.MonthRangeDateComparator;
-import com.proeza.sgs.business.chart.MultiDataSetChartDefinition;
+import com.proeza.sgs.business.chart.MultiValueChartData;
 import com.proeza.sgs.business.chart.MultiDataSetChartManager;
 import com.proeza.sgs.business.entity.Venta;
 
@@ -25,7 +25,7 @@ import static org.apache.commons.lang.StringUtils.*;
 
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class UserSalesChartManager extends MultiDataSetChartManager<Venta> {
+public class VentasUsuarioChartManager extends MultiDataSetChartManager<Venta> {
 
     private Map<Date, List<Venta>> groupedData  = new TreeMap<>(new MonthRangeDateComparator());
     private Map<Date, Double>      dataRecipent = new TreeMap<>(new MonthRangeDateComparator());
@@ -118,7 +118,7 @@ public class UserSalesChartManager extends MultiDataSetChartManager<Venta> {
     }
 
     @Override
-    protected MultiDataSetChartDefinition buildDefinition (List<String> labels, List<?> data) {
+    protected MultiValueChartData buildDefinition (List<String> labels, List<?> data) {
         UserSalesChartDefinition definition = new UserSalesChartDefinition(labels, data);
         definition.setUserAlias(this.userAlias);
         return definition;

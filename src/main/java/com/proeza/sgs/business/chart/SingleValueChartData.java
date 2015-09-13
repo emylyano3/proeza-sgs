@@ -2,7 +2,7 @@ package com.proeza.sgs.business.chart;
 
 import java.io.Serializable;
 
-public class SingleDataSetChartDefinition implements Serializable {
+public class SingleValueChartData implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -11,10 +11,10 @@ public class SingleDataSetChartDefinition implements Serializable {
     private String            highlight;
     private String            label;
 
-    public SingleDataSetChartDefinition () {
+    public SingleValueChartData () {
     }
 
-    public SingleDataSetChartDefinition (String label, Integer value, String color, String highlight) {
+    public SingleValueChartData (String label, Integer value, String color, String highlight) {
         this.label = label;
         this.value = value;
         this.color = color;

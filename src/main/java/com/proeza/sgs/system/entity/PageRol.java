@@ -1,7 +1,5 @@
 package com.proeza.sgs.system.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -15,8 +13,10 @@ import javax.persistence.Table;
 
 import com.proeza.security.entity.Rol;
 
+import static javax.persistence.GenerationType.*;
+
 @Entity
-@Table(schema = "sgs_proeza_db", name = "sys_pagina_rol")
+@Table(name = "sys_pagina_rol")
 public class PageRol implements Serializable {
     private static final long serialVersionUID = 1L;
 

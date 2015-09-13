@@ -1,6 +1,7 @@
 package com.proeza.sgs.web.rest.chart;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proeza.sgs.business.chart.SingleDataSetChartDefinition;
+import com.proeza.sgs.business.chart.MultiValueChartData;
+import com.proeza.sgs.business.chart.SingleValueChartData;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.service.IArticuloChartService;
 
@@ -25,22 +27,22 @@ public class ArticuloChartRestController {
     }
 
     @RequestMapping(value = "bestSellers/{n}", method = RequestMethod.POST)
-    public List<SingleDataSetChartDefinition> bestSellers (@PathVariable Integer n) {
+    public List<SingleValueChartData> bestSellers (@PathVariable Integer n) {
         return this.productChartService.bestSellers(n);
     }
 
     @RequestMapping(value = "worstSellers/{n}", method = RequestMethod.POST)
-    public List<SingleDataSetChartDefinition> worstSellers (@PathVariable Integer n) {
+    public List<SingleValueChartData> worstSellers (@PathVariable Integer n) {
         return this.productChartService.worstSellers(n);
     }
 
     @RequestMapping(value = "brandPresence/{n}", method = RequestMethod.POST)
-    public List<SingleDataSetChartDefinition> brandPresence (@PathVariable Integer n) {
+    public List<SingleValueChartData> brandPresence (@PathVariable Integer n) {
         return this.productChartService.presenciaMarca(n);
     }
 
-    @RequestMapping(value = "categoryPresence/{n}", method = RequestMethod.POST)
-    public List<SingleDataSetChartDefinition> categoryPresence (@PathVariable Integer n) {
-        return this.productChartService.presenciaRubro(n);
+    @RequestMapping(value = "stockHistory/{n}", method = RequestMethod.POST)
+    public Map<String, MultiValueChartData> stockHistory (@PathVariable Integer n) {
+        return this.productChartService.stockHistory(n);
     }
 }

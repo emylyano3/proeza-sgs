@@ -3,14 +3,14 @@ package com.proeza.sgs.business.chart;
 import java.io.Serializable;
 import java.util.List;
 
-public class MultiDataSetChartDefinition implements Serializable {
+public class MultiValueChartData implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private List<String>      labels;
     private List<?>           data;
 
-    public MultiDataSetChartDefinition (List<String> labels, List<?> data) {
+    public MultiValueChartData (List<String> labels, List<?> data) {
         this.data = data;
         this.labels = labels;
     }

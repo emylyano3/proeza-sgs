@@ -84,7 +84,7 @@ public class NegocioDalTest extends IntegrationTest {
         assertFalse(movimientos.isEmpty());
         Movimiento mov = movimientos.iterator().next();
         assertNotNull(mov);
-        assertEquals(MOD_PRECIO.getCodigo(), mov.getTipoMov());
+        assertEquals(MOD_PRECIO.codigo(), mov.getTipoMov());
     }
 
     @Test

@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -21,23 +20,22 @@ import org.springframework.stereotype.Component;
 import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.core.util.date.DateUtil;
 import com.proeza.core.util.date.comparator.MonthRangeDateComparator;
-import com.proeza.sgs.business.chart.MultiValueChartData;
 import com.proeza.sgs.business.chart.MultiDataSetChartManager;
+import com.proeza.sgs.business.chart.MultiValueChartData;
 
 import static java.util.Calendar.*;
 import static org.apache.commons.lang.StringUtils.*;
 
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class HistorialPrecioChartManager extends MultiDataSetChartManager<Movimiento> {
+public class HistorialStockChartManager extends MultiDataSetChartManager<Movimiento> {
 
-    private Map<Date, List<Movimiento>> groupedData = new TreeMap<Date, List<Movimiento>>(new MonthRangeDateComparator());
-    private List<Movimiento>            source      = new ArrayList<Movimiento>();
+    private Map<Date, List<Movimiento>> groupedData = new TreeMap<>(new MonthRangeDateComparator());
+    private List<Movimiento>            source      = new ArrayList<>();
 
     @Override
     protected void init (List<Movimiento> source) {
         this.source = source;
-        sortAscByDate();
         groupByDate();
     }
 
@@ -96,10 +94,6 @@ public class HistorialPrecioChartManager extends MultiDataSetChartManager<Movimi
             }
         }
         return data;
-    }
-
-    private void sortAscByDate () {
-        Collections.sort(this.source, new MovimientoDateComparator());
     }
 
     private void groupByDate () {

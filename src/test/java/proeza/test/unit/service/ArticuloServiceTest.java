@@ -51,8 +51,8 @@ public class ArticuloServiceTest extends AbstractUnitTest {
         this.movBuilder.withValorAnte("100");
         this.movBuilder.withValorPost("121.31");
         this.movBuilder.withFecha(toTimestamp(create(2015, 01, 15)));
-        this.movBuilder.withTipoEntidad(TipoEntidad.ARTICULO.getCodigo());
-        this.movBuilder.withTipoMov(TipoMovimiento.MOD_PRECIO.getCodigo());
+        this.movBuilder.withTipoEntidad(TipoEntidad.ARTICULO.codigo());
+        this.movBuilder.withTipoMov(TipoMovimiento.MOD_PRECIO.codigo());
         movs.add(this.movBuilder.build());
         this.movBuilder.withId(2L);
         this.movBuilder.withValorAnte("121.31");
@@ -64,7 +64,7 @@ public class ArticuloServiceTest extends AbstractUnitTest {
         this.movBuilder.withValorPost("130");
         this.movBuilder.withFecha(toTimestamp(create(2015, 03, 15)));
         movs.add(this.movBuilder.build());
-        when(this.articuloDao.findMovimientosAscByDate("COD_1", TipoMovimiento.MOD_PRECIO.getCodigo())).thenReturn(movs);
+        when(this.articuloDao.findMovimientosAscByDate("COD_1", TipoMovimiento.MOD_PRECIO.codigo())).thenReturn(movs);
         HistorialPrecioChartDefinition result = this.articuloService.priceHistory("COD_1");
         assertNotNull("La salida NUNCA debe ser null", result);
         assertNotNull("El listado de precios no puede ser null", result.getData());

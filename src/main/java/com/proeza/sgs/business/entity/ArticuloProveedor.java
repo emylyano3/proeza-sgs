@@ -15,7 +15,6 @@ import static javax.persistence.GenerationType.*;
 
 @Entity
 @Table(
-    catalog = "sgs_proeza_db",
     name = "art_articulo_proveedor")
 public class ArticuloProveedor implements Serializable {
 

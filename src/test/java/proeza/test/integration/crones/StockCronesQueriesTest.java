@@ -9,19 +9,19 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.proeza.sgs.business.scheduling.RelevamientoStockJob;
+import com.proeza.sgs.business.scheduling.JobRelevamiento;
 import com.proeza.sgs.config.env.Environments;
 import com.proeza.sgs.config.root.ContextConfig;
 
 @Transactional
-@ActiveProfiles("prod")
+@ActiveProfiles("dev")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {Environments.class, ContextConfig.class})
 public class StockCronesQueriesTest // extends IntegrationTest
 {
 
     @Autowired
-    private RelevamientoStockJob job;
+    private JobRelevamiento job;
 
     @Test
     public void countStock_POR_MARCA () {

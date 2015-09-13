@@ -16,7 +16,7 @@ import com.proeza.sgs.business.exception.StockNoDisponibleException;
 import static javax.persistence.GenerationType.*;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "art_venta_articulo")
+@Table( name = "art_venta_articulo")
 public class VentaArticulo implements Serializable {
 
     private static final long serialVersionUID = 1L;

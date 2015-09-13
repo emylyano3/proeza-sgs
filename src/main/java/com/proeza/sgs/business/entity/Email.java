@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import static javax.persistence.GenerationType.*;
 
 @Entity
-@Table(schema = "sgs_proeza_db", name = "cmn_email")
+@Table(name = "cmn_email")
 public class Email {
 
     private Long    id;

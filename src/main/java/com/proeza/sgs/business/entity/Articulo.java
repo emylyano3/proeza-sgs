@@ -47,7 +47,6 @@ import static com.proeza.sgs.business.entity.TipoMovimiento.*;
     })
 @Entity
 @Table(
-    catalog = "sgs_proeza_db",
     name = "art_articulo",
     uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -66,7 +65,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
     private BigDecimal         costo;
     private BigDecimal         precio;
     private Integer            stock;
-    private boolean            habilitado;
+    private boolean            habilitado       = true;
 
     private Set<Movimiento>    movimientos      = new HashSet<>(0);
     private Set<Proveedor>     proveedores      = new HashSet<>(0);
@@ -161,7 +160,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
     }
 
     public void setCosto (BigDecimal costo) {
-        track(MOD_COSTO.getCodigo(), this.costo, costo);
+        track(MOD_COSTO.codigo(), this.costo, costo);
         this.costo = costo;
     }
 
@@ -171,7 +170,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
     }
 
     public void setPrecio (BigDecimal precio) {
-        track(MOD_PRECIO.getCodigo(), this.precio, precio);
+        track(MOD_PRECIO.codigo(), this.precio, precio);
         this.precio = precio;
     }
 
@@ -181,7 +180,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
     }
 
     public void setStock (Integer cantidad) {
-        track(MOD_STOCK.getCodigo(), tostring(this.stock), tostring(cantidad));
+        track(MOD_STOCK.codigo(), tostring(this.stock), tostring(cantidad));
         this.stock = cantidad;
     }
 
@@ -196,7 +195,6 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-        catalog = "sgs_proeza_db",
         name = "art_articulo_proveedor",
         joinColumns = {@JoinColumn(name = "fk_articulo", nullable = false)},
         inverseJoinColumns = {@JoinColumn(name = "fk_proveedor", nullable = false)})
@@ -260,7 +258,7 @@ public class Articulo extends Trackeable implements Serializable, Comparable<Art
     @Override
     @Transient
     protected String getTipoEntidad () {
-        return ARTICULO.getCodigo();
+        return ARTICULO.codigo();
     }
 
     @Override

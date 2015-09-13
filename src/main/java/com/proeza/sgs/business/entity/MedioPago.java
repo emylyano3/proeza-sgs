@@ -21,7 +21,7 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
  */
 @Entity
 @Table(
-    catalog = "sgs_proeza_db",
+    
     name = "cmn_medio_pago",
     uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 @Cache(usage = READ_ONLY)

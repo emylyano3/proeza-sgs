@@ -29,7 +29,6 @@ import static javax.persistence.GenerationType.*;
  */
 @Entity
 @Table(
-    catalog = "sgs_proeza_db",
     name = "art_clase",
     uniqueConstraints = @UniqueConstraint(columnNames = {"codigo", "fk_rubro"}))
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

@@ -14,9 +14,7 @@ import javax.persistence.Table;
 import com.proeza.core.i18n.I18nHelper;
 
 @Entity
-@Table(
-    schema = "sgs_proeza_db",
-    name = "cmn_i18n")
+@Table(name = "cmn_i18n")
 public class I18n {
 
     public I18n () {

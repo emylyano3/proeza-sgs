@@ -16,7 +16,7 @@ import static javax.persistence.GenerationType.*;
 
 @Entity
 @Table(
-    catalog = "sgs_proeza_db",
+    
     name = "sys_pagina_menu",
     uniqueConstraints = {@UniqueConstraint(columnNames = {"fk_pagina", "fk_menu"})
     })

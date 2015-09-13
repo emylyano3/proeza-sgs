@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"src/main/resources/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <query name="stockCharts.stockHistory">
+        <![CDATA[
+select
+    substring(m.fecha, 1 , 7) as anioMes,
+    sum(m.valorPost) as stock
+from Movimiento m
+where
+    1=1
+    and m.tipoEntidad = 'STOCK_TOTAL'
+    and m.tipoMov = 'REL_STOCK'
+group by substring(m.fecha, 1 , 7)
+       ]]>
+    </query>
+</hibernate-mapping>

@@ -35,7 +35,7 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 })
 @Entity
 @Table(
-    catalog = "sgs_proeza_db",
+    
     name = "sys_pagina",
     uniqueConstraints = {@UniqueConstraint(columnNames = {"grupo", "nombre"})
     })
@@ -106,7 +106,7 @@ public class Page implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinTable(
-        catalog = "sgs_proeza_db",
+        
         name = "sys_pagina_menu",
         joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false, updatable = false)},
         inverseJoinColumns = {@JoinColumn(name = "fk_menu", nullable = false, updatable = false)}
@@ -121,7 +121,7 @@ public class Page implements Serializable {
 
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(
-        catalog = "sgs_proeza_db",
+        
         name = "sys_pagina_rol",
         joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false)},
         inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false)})

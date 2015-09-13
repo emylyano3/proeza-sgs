@@ -8,9 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(
-    schema = "sgs_proeza_db",
-    name = "cmn_traduccion")
+@Table(name = "cmn_traduccion")
 public class Traduccion {
 
     public Traduccion () {

@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import static com.proeza.core.util.Constants.*;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "art_resource")
+@Table( name = "art_resource")
 public class Resource implements Serializable {
 
     private static final long serialVersionUID = 1L;

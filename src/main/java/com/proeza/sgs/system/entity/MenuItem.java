@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import static javax.persistence.GenerationType.*;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "sys_menu_item")
+@Table( name = "sys_menu_item")
 public class MenuItem implements Serializable, Comparable<MenuItem> {
 
     private static final long serialVersionUID = 1L;

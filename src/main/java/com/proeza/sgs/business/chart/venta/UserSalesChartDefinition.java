@@ -2,9 +2,9 @@ package com.proeza.sgs.business.chart.venta;
 
 import java.util.List;
 
-import com.proeza.sgs.business.chart.MultiDataSetChartDefinition;
+import com.proeza.sgs.business.chart.MultiValueChartData;
 
-public class UserSalesChartDefinition extends MultiDataSetChartDefinition {
+public class UserSalesChartDefinition extends MultiValueChartData {
 
     public UserSalesChartDefinition (List<String> labels, List<?> data) {
         super(labels, data);

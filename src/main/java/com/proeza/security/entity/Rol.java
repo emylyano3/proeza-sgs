@@ -23,7 +23,6 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
  */
 @Entity
 @Table(
-    catalog = "sgs_proeza_db",
     name = "seg_rol",
     uniqueConstraints = @UniqueConstraint(columnNames = "codigo"))
 @Cache(usage = NONSTRICT_READ_WRITE)

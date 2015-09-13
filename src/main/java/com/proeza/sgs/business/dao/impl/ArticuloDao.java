@@ -45,5 +45,4 @@ public class ArticuloDao extends BaseDao<Articulo> implements IArticuloDao {
         criteria.orderBy(builder.asc(root.get(Movimiento_.fecha)));
         return this.entityManager.createQuery(criteria).getResultList();
     }
-
 }

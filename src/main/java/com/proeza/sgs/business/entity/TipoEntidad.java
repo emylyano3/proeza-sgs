@@ -7,6 +7,8 @@ public enum TipoEntidad implements Serializable {
     ARTICULO("Articulo", "Entidad artículo"),
     MARCA("Marca", "Entidad marca de artículo"),
     RUBRO("Rubro", "Entidad rubro de artículo"),
+    STOCK_TOTAL("Stock total", "Stock total de productos"),
+    CAPITAL("Capital", "Capital total basado en los productos en stock"),
     ;
 
     private TipoEntidad (String nombre, String desc) {
@@ -18,7 +20,7 @@ public enum TipoEntidad implements Serializable {
         return this.descripcion;
     }
 
-    public String getCodigo () {
+    public String codigo () {
         return name();
     }
 

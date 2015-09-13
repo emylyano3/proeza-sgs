@@ -2,18 +2,24 @@ var gridSource;
 var currentRow = -1;
 var formMode;
 
+var baseRest = '/proeza-sgs/rest/product';
+
 var product = {
 	rest : {
-		getImages : '/proeza-sgs/rest/product/getImages',
-		addImage : '/proeza-sgs/rest/product/addImage',
-		getImage : '/proeza-sgs/rest/product/getImage',
-		getThumbnail : '/proeza-sgs/rest/product/getThumbnail',
-		search : '/proeza-sgs/rest/product/search',
-		create : '/proeza-sgs/rest/product/create',
-		update : '/proeza-sgs/rest/product/update',
-		remove : '/proeza-sgs/rest/product/remove',
-		find : '/proeza-sgs/rest/product/find',
+		getImages : baseRest + '/getImages',
+		addImage : baseRest + '/addImage',
+		getImage : baseRest + '/getImage',
+		getThumbnail : baseRest + '/getThumbnail',
+		search : baseRest + '/search',
+		create : baseRest + '/create',
+		update : baseRest + '/update',
+		remove : baseRest + '/remove',
+		find : baseRest + '/find',
 		quickSale : '/proeza-sgs/rest/venta/quickSale',
+		bestSellers : baseRest + '/stats/bestSellers',
+		worstSellers : baseRest + '/stats/worstSellers',
+		brandPresence : baseRest + '/stats/brandPresence',
+		stockHistory : baseRest + '/stats/stockHistory'
 	}
 }
 

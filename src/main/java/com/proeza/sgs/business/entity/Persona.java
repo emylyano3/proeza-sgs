@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import static javax.persistence.GenerationType.*;
 
 @Entity
-@Table(catalog = "sgs_proeza_db", name = "cmn_persona")
+@Table( name = "cmn_persona")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Persona implements Serializable {
     private static final long serialVersionUID = 1L;
