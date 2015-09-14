@@ -20,6 +20,7 @@ import com.proeza.sgs.business.chart.ChartColorManager;
 import com.proeza.sgs.business.chart.MovimientoChartManager;
 import com.proeza.sgs.business.chart.MultiValueChartData;
 import com.proeza.sgs.business.chart.SingleValueChartData;
+import com.proeza.sgs.business.chart.articulo.HistorialCapitalChartManager;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartDefinition;
 import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartManager;
 import com.proeza.sgs.business.chart.articulo.HistorialStockChartManager;
@@ -142,6 +143,9 @@ public class ArticuloChartService implements IArticuloChartService {
         chartManager.setDataLimit(n);
         MultiValueChartData chartData = chartManager.getChartDefinition(movs);
         result.put(STOCK_CHART_DATA, chartData);
+        chartManager = this.context.getBean(HistorialCapitalChartManager.class);
+        chartManager.setDateFormat("MM/YYYY");
+        chartManager.setDataLimit(n);
         movs = this.movimientoDao.findByMovAndEntityType(REL_STOCK.codigo(), CAPITAL.codigo());
         chartData = chartManager.getChartDefinition(movs);
         result.put(CAPITAL_CHART_DATA, chartData);

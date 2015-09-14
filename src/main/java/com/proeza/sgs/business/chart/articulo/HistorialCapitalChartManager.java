@@ -13,14 +13,14 @@ import com.proeza.sgs.business.chart.StockChartData;
 
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class HistorialStockChartManager extends MovimientoChartManager {
+public class HistorialCapitalChartManager extends MovimientoChartManager {
 
     @Override
     protected StockChartData buildDefinition (List<String> labels, List<?> data) {
         StockChartData definition = new StockChartData(labels, data);
         DateFormat pattern = new SimpleDateFormat("dd/MM/YYYY");
-        definition.setLowestValue("" + getLowestValue().intValue());
-        definition.setHighestValue("" + getHighestValue().intValue());
+        definition.setLowestValue("$ " + getLowestValue());
+        definition.setHighestValue("$ " + getHighestValue());
         definition.setLowestValueDate(pattern.format(getLowestValueDate()));
         definition.setHighestValueDate(pattern.format(getLowestValueDate()));
         return definition;

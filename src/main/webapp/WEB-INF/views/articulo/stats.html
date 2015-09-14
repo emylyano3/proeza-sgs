@@ -107,13 +107,17 @@
 		                    <div class="col-md-3 text-center">
 		                        <div class="small">
 		                            <i class="fa fa-list-alt"/>
-		                            <span text="Stock actual" th:text="#{prod.chart.stockHistory.current}" />
+		                            <span text="Stock más alto" th:text="#{prod.chart.stockHistory.highest}" />
 		                        </div>
 		                        <div>
 		                            <h1 class="font-extra-bold m-t-xl m-b-xs">
-		                                <span id="currentStock" text="No hay datos" th:text="#{common.nodata}" />
+		                                <span id="highestStock" text="No hay datos" th:text="#{common.nodata}" />
 		                            </h1>
 		                        </div>
+                                <div class="small m-t-xl">
+                                   <i class="fa fa-clock-o"/>
+                                   <span id="highestStockDate" /> 
+                                </div>
 		                    </div>
 						</div>
 					</div>
@@ -163,13 +167,17 @@
 		                    <div class="col-md-3 text-center">
 		                        <div class="small">
 		                            <i class="fa fa-list-alt"/>
-		                            <span text="Capital actual" th:text="#{prod.chart.stockValueHistory.current}" />
+		                            <span text="Capital más alto" th:text="#{prod.chart.stockValueHistory.highest}" />
 		                        </div>
 		                        <div>
 		                            <h1 class="font-extra-bold m-t-xl m-b-xs">
-		                                <span id="currentStockValue" text="No hay datos" th:text="#{common.nodata}" />
+		                                <span id="highestStockValue" text="No hay datos" th:text="#{common.nodata}" />
 		                            </h1>
 		                        </div>
+                                <div class="small m-t-xl">
+                                   <i class="fa fa-clock-o"/>
+                                   <span id="highestStockValueDate" /> 
+                                </div>
 		                    </div>
 						</div>
 					</div>
@@ -356,10 +364,13 @@
 						var stockValueHistoryChart = new Chart(ctx).Line(stockValueChartData, {responsive: false});
 						$('#lowestStock').text(data['STOCK'].lowestValue);
 						$('#lowestStockDate').text(data['STOCK'].lowestValueDate);
-						$('#currentStock').text(data['STOCK'].currentValue);
+						$('#highestStock').text(data['STOCK'].highestValue);
+						$('#highestStockDate').text(data['STOCK'].highestValueDate);
+						
 						$('#lowestStockValue').text(data['CAPITAL'].lowestValue);
 						$('#lowestStockValueDate').text(data['CAPITAL'].lowestValueDate);
-						$('#currentStockValue').text(data['CAPITAL'].currentValue);
+						$('#highestStockValue').text(data['CAPITAL'].highestValue);
+						$('#highestStockValueDate').text(data['CAPITAL'].highestValueDate);
 			        },
 			        error: function (jqXHR, status) {            
 						console.log(jqXHR.statusText);

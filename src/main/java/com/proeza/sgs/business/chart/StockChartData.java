@@ -10,19 +10,10 @@ public class StockChartData extends MultiValueChartData {
 
     private static final long serialVersionUID = 1L;
 
-    private String            currentValue;
     private String            lowestValue;
     private String            lowestValueDate;
     private String            highestValue;
     private String            highestValueDate;
-
-    public String getCurrentValue () {
-        return this.currentValue;
-    }
-
-    public void setCurrentValue (String currentValue) {
-        this.currentValue = currentValue;
-    }
 
     public String getLowestValue () {
         return this.lowestValue;

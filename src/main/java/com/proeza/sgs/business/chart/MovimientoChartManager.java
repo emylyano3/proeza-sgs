@@ -31,8 +31,20 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
 
     private Comparator<Date>            dateComparator = new MonthRangeDateComparator();
 
+    private Double                      lowestValue;
+
+    private Date                        lowestValueDate;
+
+    private Double                      highestValue;
+
+    private Date                        highestValueDate;
+
     @Override
     protected void init (List<Movimiento> source) {
+        this.lowestValue = null;
+        this.lowestValueDate = null;
+        this.highestValue = null;
+        this.highestValueDate = null;
         this.source = source;
         groupByDate();
     }
@@ -65,10 +77,6 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
         return limitData(labels);
     }
 
-    private <T> List<T> limitData (List<T> labels) {
-        return labels.size() > this.dataLimit ? labels.subList(labels.size() - this.dataLimit, labels.size()) : labels;
-    }
-
     @Override
     protected List<?> buildData () {
         List<Double> data = new ArrayList<>(this.groupedData.size());
@@ -98,13 +106,30 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
         return limitData(data);
     }
 
+    private <T> List<T> limitData (List<T> labels) {
+        return labels.size() > this.dataLimit ? labels.subList(labels.size() - this.dataLimit, labels.size()) : labels;
+    }
+
     private void groupByDate () {
         this.groupedData = new TreeMap<>(this.dateComparator);
         for (Movimiento mov : this.source) {
             if (this.groupedData.get(mov.getFecha()) == null) {
                 this.groupedData.put(mov.getFecha(), new ArrayList<Movimiento>());
             }
+            updateLowest(mov);
             this.groupedData.get(mov.getFecha()).add(mov);
+        }
+    }
+
+    private void updateLowest (Movimiento mov) {
+        Double movValue = DatatypeConverter.parseDouble(mov.getValorPost());
+        if (this.lowestValue == null || this.lowestValue > movValue) {
+            this.lowestValue = movValue;
+            this.lowestValueDate = mov.getFecha();
+        }
+        if (this.highestValue == null || this.highestValue < movValue) {
+            this.highestValue = movValue;
+            this.highestValueDate = mov.getFecha();
         }
     }
 
@@ -150,5 +175,37 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
 
     public void setDataLimit (Integer dataLimit) {
         this.dataLimit = dataLimit;
+    }
+
+    public Double getLowestValue () {
+        return this.lowestValue;
+    }
+
+    public void setLowestValue (Double lowestValue) {
+        this.lowestValue = lowestValue;
+    }
+
+    public Date getLowestValueDate () {
+        return this.lowestValueDate;
+    }
+
+    public void setLowestValueDate (Date lowestValueDate) {
+        this.lowestValueDate = lowestValueDate;
+    }
+
+    public Double getHighestValue () {
+        return this.highestValue;
+    }
+
+    public void setHighestValue (Double highestValue) {
+        this.highestValue = highestValue;
+    }
+
+    public Date getHighestValueDate () {
+        return this.highestValueDate;
+    }
+
+    public void setHighestValueDate (Date highestValueDate) {
+        this.highestValueDate = highestValueDate;
     }
 }
