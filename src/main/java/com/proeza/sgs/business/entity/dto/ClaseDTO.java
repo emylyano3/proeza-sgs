@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import com.proeza.sgs.business.entity.Clase;
 
-public class ClaseDTO implements Serializable {
+public class ClaseDTO implements Serializable, Comparable<ClaseDTO> {
 
     private static final long serialVersionUID = 1L;
 
@@ -73,5 +73,13 @@ public class ClaseDTO implements Serializable {
     @Override
     public String toString () {
         return "ClaseDTO [codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
+    }
+
+    @Override
+    public int compareTo (ClaseDTO c) {
+        if (c == null) {
+            return -1;
+        }
+        return getCodigo().compareTo(c.getCodigo());
     }
 }

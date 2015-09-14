@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import com.proeza.sgs.business.entity.Rubro;
 
-public class RubroDTO implements Serializable {
+public class RubroDTO implements Serializable, Comparable<RubroDTO> {
 
     private static final long serialVersionUID = 1L;
 
@@ -62,5 +62,13 @@ public class RubroDTO implements Serializable {
     @Override
     public String toString () {
         return "RubroDTO [codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
+    }
+
+    @Override
+    public int compareTo (RubroDTO r) {
+        if (r == null) {
+            return -1;
+        }
+        return getCodigo().compareTo(r.getCodigo());
     }
 }

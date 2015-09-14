@@ -2,6 +2,7 @@ package com.proeza.sgs.business.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -23,7 +24,9 @@ public class ClaseService implements IClaseService {
 
     @Override
     public Collection<ClaseDTO> findAll () {
-        return hideEntites(this.dao.findAll());
+        List<ClaseDTO> result = hideEntites(this.dao.findAll());
+        Collections.sort(result);
+        return result;
     }
 
     private List<ClaseDTO> hideEntites (List<Clase> clases) {

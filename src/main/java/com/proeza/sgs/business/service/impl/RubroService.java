@@ -2,6 +2,7 @@ package com.proeza.sgs.business.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -23,7 +24,9 @@ public class RubroService implements IRubroService {
 
     @Override
     public Collection<RubroDTO> findAll () {
-        return hideEntites(this.dao.findAll());
+        List<RubroDTO> result = hideEntites(this.dao.findAll());
+        Collections.sort(result);
+        return result;
     }
 
     private List<RubroDTO> hideEntites (List<Rubro> rubros) {

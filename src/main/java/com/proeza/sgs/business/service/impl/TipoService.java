@@ -2,6 +2,7 @@ package com.proeza.sgs.business.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -23,7 +24,9 @@ public class TipoService implements ITipoService {
 
     @Override
     public Collection<TipoDTO> findAll () {
-        return hideEntites(this.dao.findAll());
+        List<TipoDTO> result = hideEntites(this.dao.findAll());
+        Collections.sort(result);
+        return result;
     }
 
     private List<TipoDTO> hideEntites (List<Tipo> tipos) {

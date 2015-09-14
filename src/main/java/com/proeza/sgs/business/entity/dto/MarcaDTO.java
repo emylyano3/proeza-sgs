@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import com.proeza.sgs.business.entity.Marca;
 
-public class MarcaDTO implements Serializable {
+public class MarcaDTO implements Serializable, Comparable<MarcaDTO> {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,6 +57,14 @@ public class MarcaDTO implements Serializable {
 
     public void setDescripcion (String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Override
+    public int compareTo (MarcaDTO m) {
+        if (m == null) {
+            return -1;
+        }
+        return getCodigo().compareTo(m.getCodigo());
     }
 
     @Override
