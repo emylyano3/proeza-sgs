@@ -12,13 +12,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Type;
+
 @Table(
     name = "cmn_error",
     uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 @Entity
 public class HandledError {
 
-    public static final int STACK_LENGTH = 9999;
+    public static final int STACK_LENGTH = 65536;
+
     private Long            id;
     private String          excepcion;
     private String          mensaje;
@@ -54,7 +57,8 @@ public class HandledError {
         this.mensaje = mensaje;
     }
 
-    @Column(name = "stack", length = STACK_LENGTH)
+    @Column(name = "stack")
+    @Type(type="text")
     public String getStack () {
         return this.stack;
     }
