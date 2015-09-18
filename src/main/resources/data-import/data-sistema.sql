@@ -35,7 +35,7 @@
 /* Pagina - Rol */
 
 /* Menu */
-	insert into sgs_proeza_test_db.sys_menu(id, codigo, texto, tooltip, tipo, icono) values (1, 'M_LEFT_MAIN','Menú Principal', 'Para acceder al inicio de la aplicación','SIDE_MENU_LEFT', null);
+	insert into sgs_proeza_test_db.sys_menu(id, codigo, texto, tooltip, tipo, icono) values (1, 'MAIN','Menú Principal', 'Para acceder al inicio de la aplicación','SIDE_LEFT', null);
 /* Menu */
 
 /* Asociacion pagina - menu */

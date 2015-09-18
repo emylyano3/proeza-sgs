@@ -22,7 +22,7 @@ public class ItemSubitem implements Serializable, Comparable<ItemSubitem> {
     private long              id;
     private Item              item;
     private Item              subitem;
-    private int               index            = 0;
+    private int               index;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

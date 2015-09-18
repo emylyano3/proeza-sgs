@@ -84,7 +84,7 @@ public class WebMvcTestUtils {
      */
     public static Menu buildBaseLeftMenu () {
         Item itemHome = buildItem("MI_HOME", "inicio");
-        Menu menu = buildMenu("M_LEFT_MAIN", SIDE_MENU_LEFT);
+        Menu menu = buildMenu("MAIN", SIDE_LEFT);
         MenuItem menuItemHome = buildMenuItem(1, itemHome, menu);
         Set<MenuItem> items = new HashSet<>(Arrays.asList(menuItemHome));
         menu.setItems(items);

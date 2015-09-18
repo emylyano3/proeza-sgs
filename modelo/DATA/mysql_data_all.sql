@@ -326,7 +326,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sys_menu` WRITE;
 /*!40000 ALTER TABLE `sys_menu` DISABLE KEYS */;
-INSERT INTO `sys_menu` VALUES (00000000000000000001,'M_LEFT_MAIN','Menú Principal','Para acceder al inicio de la aplicación','SIDE_MENU_LEFT',NULL);
+INSERT INTO `sys_menu` VALUES (00000000000000000001,'MAIN','Menú Principal','Para acceder al inicio de la aplicación','SIDE_LEFT',NULL);
 /*!40000 ALTER TABLE `sys_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 

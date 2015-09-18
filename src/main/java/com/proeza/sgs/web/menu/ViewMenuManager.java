@@ -54,7 +54,7 @@ public class ViewMenuManager implements IViewMenuManager {
                 }
             }
             Collections.sort(viewMenuItems);
-            result.put(menu.getType(), new ViewMenu(viewMenuItems, menu.getCode()));
+            result.put(menu.getType() + "_" + menu.getCode(), new ViewMenu(viewMenuItems, menu.getCode()));
         }
         return result;
     }
@@ -64,7 +64,7 @@ public class ViewMenuManager implements IViewMenuManager {
         Item item = menuItem.getItem();
         boolean roleInCommon = !CollectionUtils.intersection(user.getRoles(), item.getRoles()).isEmpty();
         if (roleInCommon) {
-            List<ItemSubitem> itemSubitemsFilt = new ArrayList<>(0);
+            List<ItemSubitem> itemSubitemsFilt = new ArrayList<>(1);
             Set<ItemSubitem> itemSubitems = item.getSubitems();
             for (ItemSubitem itemSubitem : itemSubitems) {
                 // El subitem debe tener roles en comun con el usuario logueado

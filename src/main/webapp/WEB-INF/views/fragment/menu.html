@@ -40,7 +40,7 @@
                 </div>
             </div>
             <ul class="nav" id="side-menu">
-                <li th:each="item : ${SIDE_MENU_LEFT.items}">
+                <li th:each="item : ${SIDE_LEFT_MAIN.items}">
                     <a href="#" th:href="@{${item.href}}"> 
                         <i class="fa fa-info" th:class="${item.icon}" /> 
                         <span th:text="${item.text}" /> 

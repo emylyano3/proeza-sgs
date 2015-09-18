@@ -20,16 +20,17 @@
 			    <div id="links"></div>
 			</div>
 		</div>
-		<div id="gridContextMenu">
-		    <ul>
-				<li id="seeArtImages" th:text="#{prod.menu.seeImages}"/>
-				<li id="quickCashSale" th:text="#{prod.menu.quickCashSale}"/>
-				<li id="quickCreditSale" th:text="#{prod.menu.quickCreditSale}"/>
-				<li id="quickDebitSale" th:text="#{prod.menu.quickDebitSale}"/>
-			</ul>
-		</div>
-	    
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
+        <div th:if="${CONTEXT_PROD_LIST_GRID} != null" id="gridContextMenu">
+            <ul>
+                <li th:each="item : ${CONTEXT_PROD_LIST_GRID.items}" th:id="${item.code}" >
+                    <span th:text="${item.text}" th:remove="tag"/> 
+                    <ul th:if="${!item.subitems.isEmpty()}" >
+                        <li th:each="subitem : ${item.subitems}" th:id="${subitem.code}" th:text="${subitem.text}"/>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxscrollbar.js" th:src="@{/resources/jqx/js/jqxscrollbar.js}" />
@@ -146,7 +147,6 @@
 				// crea el menu contextual
 				var contextMenu = $('#gridContextMenu').jqxMenu({
 					width : 180,
-					height : 106,
 					autoOpenPopup : false,
 					mode : 'popup'
 				});
@@ -155,22 +155,21 @@
 				});
 				// Manejo los eventos sobre el context menu de la grilla
 				$('#gridContextMenu').on('itemclick', function(event) {
-					var args = event.args;
 					var rowindex = $('#productGrid').jqxGrid('getselectedrowindex');
 					var offset = $('#productGrid').offset();
 					// get the clicked row's data and initialize the input fields.
 					var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowindex);
-					switch ($.trim($(args).text())) {
-						case [[#{prod.menu.seeImages}]] :						
+					switch (event.target.id) {
+						case 'CM_PLG_SEE_IMAGES' :						
 							blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
 							break;
-						case [[#{prod.menu.quickCashSale}]] :
+						case 'CM_PLG_QCASH_SALE' :
 							quickSale (dataRecord.codigo, 'EFT', [[${user.alias}]], notifyQuickSaleDone);
 							break;
-						case [[#{prod.menu.quickCreditSale}]] :
+						case 'CM_PLG_QCRED_SALE' :
 							quickSale (dataRecord.codigo, 'TCR', [[${user.alias}]], notifyQuickSaleDone);
 							break;
-						case [[#{prod.menu.quickDebitSale}]] :
+						case 'CM_PLG_QDEBI_SALE' :
 							quickSale (dataRecord.codigo, 'TDE', [[${user.alias}]], notifyQuickSaleDone);
 							break;
 						default:
