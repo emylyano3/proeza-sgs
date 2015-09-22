@@ -1552,10 +1552,16 @@ body {
     min-height: 100%;
 }
 
-.floating {
+.commandbar-floating {
 	position: fixed;
-	bottom: 45px;
+	bottom: 25px;
 	right: 13px;
+}
+
+.thumbnails-floating {
+	position: fixed;
+	bottom: 25px;
+	left: 197px; /* 	El ancho del menu mas el padding de la grilla */ 
 }
 
 .btn-plus {
