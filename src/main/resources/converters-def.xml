@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<converters>
+	<generics>
+		<converter from="clone">
+			<to class="?" converter="com.proeza.core.classmapper.converter.impl.CloneConverter" method="convert"/>
+		</converter>
+		<converter from="dummy">
+			<to class="?" converter="com.proeza.core.classmapper.converter.impl.DummyConverter" method="convert"/>
+		</converter>
+	</generics>
+	<specifics>
+		<converter from="java.lang.String">
+			<to class="java.lang.Character" converter="com.proeza.core.classmapper.converter.impl.CharConverter" method="toChar" />
+			<to class="java.lang.Boolean" converter="com.proeza.core.classmapper.converter.impl.BooleanConverter" method="toBoolean" />
+			<to class="java.lang.Byte" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toByte" />
+			<to class="java.lang.Short" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toShort" />
+			<to class="java.lang.Integer" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toInteger" />
+			<to class="java.lang.Long" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toLong" />
+			<to class="java.lang.Float" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toFloat" />
+			<to class="java.lang.Double" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toDouble" />
+			<to class="java.math.BigDecimal" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toBigDecimal" />
+			<to class="java.util.Date" converter="com.proeza.core.classmapper.converter.impl.DateConverter" method="toUtilDate" />
+		</converter>
+		<converter from="java.lang.Boolean">
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+		</converter>
+		<converter from="java.lang.Byte">
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+			<to class="java.lang.Short" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toShort"/>
+			<to class="java.lang.Integer" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toInteger"/>
+			<to class="java.lang.Long" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toLong"/>
+			<to class="java.lang.Float" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toFloat"/>
+			<to class="java.lang.Double" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toDouble"/>
+			<to class="java.math.BigDecimal" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toBigDecimal"/>
+		</converter>
+		<converter from="java.lang.Character">
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+		</converter>
+		<converter from="java.lang.Short">
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+			<to class="java.lang.Byte" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toByte"/>
+			<to class="java.lang.Integer" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toInteger"/>
+			<to class="java.lang.Long" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toLong"/>
+			<to class="java.lang.Float" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toFloat"/>
+			<to class="java.lang.Double" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toDouble"/>
+			<to class="java.math.BigDecimal" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toBigDecimal"/>
+		</converter>
+		<converter from="java.lang.Integer">
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+			<to class="java.math.BigDecimal" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toBigDecimal"/>
+			<to class="java.lang.Byte" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toByte" />
+			<to class="java.lang.Short" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toShort" />
+			<to class="java.lang.Long" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toLong" />
+			<to class="java.lang.Float" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toFloat" />
+			<to class="java.lang.Double" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toDouble" />
+			<to class="java.lang.Character" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toChar" />
+		</converter>
+		<converter from="java.lang.Long">
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+			<to class="java.lang.Byte" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toByte"/>
+			<to class="java.lang.Short" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toShort"/>
+			<to class="java.lang.Integer" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toInteger"/>
+			<to class="java.lang.Float" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toFloat"/>
+			<to class="java.lang.Double" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toDouble"/>
+			<to class="java.math.BigDecimal" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toBigDecimal"/>
+		</converter>
+		<converter from="java.lang.Float">
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+			<to class="java.lang.Byte" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toByte"/>
+			<to class="java.lang.Short" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toShort"/>
+			<to class="java.lang.Integer" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toInteger"/>
+			<to class="java.lang.Long" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toLong"/>
+			<to class="java.lang.Double" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toDouble"/>
+			<to class="java.math.BigDecimal" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toBigDecimal"/>
+		</converter>
+		<converter from="java.lang.Double">
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+			<to class="java.lang.Byte" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toByte"/>
+			<to class="java.lang.Short" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toShort"/>
+			<to class="java.lang.Integer" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toInteger"/>
+			<to class="java.lang.Long" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toLong"/>
+			<to class="java.lang.Float" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toFloat"/>
+			<to class="java.math.BigDecimal" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toBigDecimal"/>
+		</converter>
+		<converter from="java.util.Date">
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+			<to class="java.sql.Timestamp" converter="com.proeza.core.classmapper.converter.impl.DateConverter" method="toSqlTimestamp"/>
+			<to class="java.sql.Date" converter="com.proeza.core.classmapper.converter.impl.DateConverter" method="toSqlDate"/>
+		</converter>
+		<converter from="java.sql.Date">
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+			<to class="java.util.Date" converter="com.proeza.core.classmapper.converter.impl.DateConverter" method="toUtilDate"/>
+			<to class="java.sql.Timestamp" converter="com.proeza.core.classmapper.converter.impl.DateConverter" method="toSqlTimestamp"/>
+		</converter>
+		<converter from="java.sql.Timestamp">
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+			<to class="java.util.Date" converter="com.proeza.core.classmapper.converter.impl.DateConverter" method="toUtilDate"/>
+			<to class="java.sql.Date" converter="com.proeza.core.classmapper.converter.impl.DateConverter" method="toSqlDate"/>
+		</converter>
+		<converter from="java.math.BigDecimal">
+			<to class="java.lang.Byte" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toByte"/>
+			<to class="java.lang.Short" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toShort"/>
+			<to class="java.lang.Integer" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toInteger"/>
+			<to class="java.lang.Long" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toLong"/>
+			<to class="java.lang.Float" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toFloat"/>
+			<to class="java.lang.Double" converter="com.proeza.core.classmapper.converter.impl.NumericConverter" method="toDouble"/>
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+		</converter>
+		<converter from="java.util.Collection">
+			<to class="java.util.Collection" converter="com.proeza.core.classmapper.converter.impl.CollectionConverter" method="toCollection"/>
+			<to class="java.lang.String" converter="com.proeza.core.classmapper.converter.impl.StringConverter" method="toString"/>
+		</converter>
+	</specifics>
+</converters>

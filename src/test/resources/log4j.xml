@@ -8,7 +8,7 @@
 		</layout>
 	</appender>
 
-	<category name="com.proeza">
+	<category name="proeza">
 		<priority value="DEBUG" />
 	</category>
 
