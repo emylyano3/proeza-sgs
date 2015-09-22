@@ -20,23 +20,19 @@ import org.springframework.orm.jpa.EntityManagerFactoryInfo;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import proeza.test.integration.IntegrationTest;
-
 import com.proeza.security.dao.IRolDao;
 import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.entity.Rol;
 import com.proeza.security.entity.Usuario;
 import com.proeza.security.entity.builder.UsuarioBuilder;
-import com.proeza.sgs.business.dao.IClaseDao;
 import com.proeza.sgs.system.entity.Page;
 
 import static org.junit.Assert.*;
 
+import proeza.test.integration.IntegrationTest;
+
 public class SeguridadDalTest extends IntegrationTest {
     private static Logger log = Logger.getLogger(SeguridadDalTest.class);
-
-    @Autowired
-    private IClaseDao     claseDao;
 
     @Autowired
     private IUsuarioDao   userDao;

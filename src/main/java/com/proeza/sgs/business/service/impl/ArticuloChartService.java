@@ -26,7 +26,6 @@ import com.proeza.sgs.business.chart.articulo.HistorialPrecioChartManager;
 import com.proeza.sgs.business.chart.articulo.HistorialStockChartManager;
 import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.dao.IMarcaDao;
-import com.proeza.sgs.business.dao.IRubroDao;
 import com.proeza.sgs.business.service.IArticuloChartService;
 import com.proeza.sgs.business.service.dto.PresenciaDTO;
 import com.proeza.sgs.business.service.dto.RankingArticuloDTO;
@@ -52,9 +51,6 @@ public class ArticuloChartService implements IArticuloChartService {
 
     @Autowired
     private IMarcaDao           marcaDao;
-
-    @Autowired
-    private IRubroDao           rubroDao;
 
     @Autowired
     private ApplicationContext  context;

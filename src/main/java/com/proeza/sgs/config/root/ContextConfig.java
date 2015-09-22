@@ -1,7 +1,5 @@
 package com.proeza.sgs.config.root;
 
-import nz.net.ultraq.thymeleaf.LayoutDialect;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.MessageSource;
@@ -33,12 +31,13 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
-import com.proeza.core.config.DataSourceSettings;
 import com.proeza.core.config.MailSettings;
 import com.proeza.core.resources.image.ImageManager;
 import com.proeza.core.resources.message.MessageResolver;
 import com.proeza.sgs.business.chart.ChartColor;
 import com.proeza.sgs.business.chart.ChartColorManager;
+
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 @Import(value = {
@@ -51,6 +50,9 @@ import com.proeza.sgs.business.chart.ChartColorManager;
         "com.proeza.core.config",
         "com.proeza.core.service",
         "com.proeza.core.tracking",
+        "com.proeza.core.datamapper",
+        "com.proeza.core.context",
+        "com.proeza.core.classmapper",
         "com.proeza.security.dao",
         "com.proeza.security.service",
         "com.proeza.sgs.business",
@@ -67,9 +69,6 @@ import com.proeza.sgs.business.chart.ChartColorManager;
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
 public class ContextConfig {
-
-    @Autowired
-    private DataSourceSettings dsSettings;
 
     @Autowired
     private MailSettings       mailSettings;

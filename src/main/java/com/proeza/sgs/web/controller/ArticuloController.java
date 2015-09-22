@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.proeza.sgs.business.service.IArticuloService;
 import com.proeza.sgs.business.service.IClaseService;
 import com.proeza.sgs.business.service.IMarcaService;
 import com.proeza.sgs.business.service.IRubroService;
@@ -38,9 +37,6 @@ public class ArticuloController {
 
     @Autowired
     private IRubroService      rubroService;
-
-    @Autowired
-    private IArticuloService   articuloService;
 
     @Autowired
     private IPageService       pageService;

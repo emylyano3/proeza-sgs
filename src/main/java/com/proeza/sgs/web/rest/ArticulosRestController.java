@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.proeza.core.resources.message.IMessageResolver;
 import com.proeza.sgs.business.entity.dto.ArticuloDTO;
 import com.proeza.sgs.business.entity.dto.ResourceDTO;
 import com.proeza.sgs.business.service.IArticuloService;
@@ -29,9 +28,6 @@ public class ArticulosRestController {
 
     @Autowired
     private IArticuloService    productService;
-
-    @Autowired
-    private IMessageResolver    messageResolver;
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
     public List<ArticuloDTO> search (@RequestParam("filter") String filter) {

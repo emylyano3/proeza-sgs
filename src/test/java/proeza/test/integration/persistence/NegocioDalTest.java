@@ -8,11 +8,8 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import proeza.test.integration.IntegrationTest;
-
 import com.proeza.core.tracking.entity.Movimiento;
 import com.proeza.sgs.business.dao.IArticuloDao;
-import com.proeza.sgs.business.dao.IVentaDao;
 import com.proeza.sgs.business.dao.filter.ArticuloFilterFactory;
 import com.proeza.sgs.business.dao.impl.ClaseDao;
 import com.proeza.sgs.business.dao.impl.ClienteDao;
@@ -28,6 +25,8 @@ import static com.proeza.sgs.business.entity.TipoMovimiento.*;
 import static org.junit.Assert.*;
 import static org.thymeleaf.util.DateUtils.*;
 
+import proeza.test.integration.IntegrationTest;
+
 public class NegocioDalTest extends IntegrationTest {
     private static Logger         log = Logger.getLogger(NegocioDalTest.class);
 
@@ -36,9 +35,6 @@ public class NegocioDalTest extends IntegrationTest {
 
     @Autowired
     private IArticuloDao          articuloDao;
-
-    @Autowired
-    private IVentaDao             ventaDao;
 
     @Autowired
     private ClienteDao            clienteDao;
