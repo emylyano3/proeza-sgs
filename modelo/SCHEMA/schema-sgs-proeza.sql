@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `sgs_proeza_db` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */;
-USE `sgs_proeza_db`;
 -- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: sgs_proeza_db
@@ -184,7 +182,7 @@ CREATE TABLE `art_marca` (
   UNIQUE KEY `codigo_uk` (`codigo`),
   UNIQUE KEY `id_uk` (`id`),
   KEY `nombre_idx` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +216,7 @@ CREATE TABLE `art_resource` (
   `data` longblob NOT NULL,
   `preview` longblob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -282,7 +280,7 @@ CREATE TABLE `art_venta` (
   CONSTRAINT `venta_cliente` FOREIGN KEY (`fk_cliente`) REFERENCES `art_cliente` (`fk_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `venta_mp` FOREIGN KEY (`fk_medio_pago`) REFERENCES `cmn_medio_pago` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `venta_usua` FOREIGN KEY (`fk_usuario`) REFERENCES `seg_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -302,7 +300,7 @@ CREATE TABLE `art_venta_articulo` (
   KEY `articulo_idx` (`fk_articulo`),
   CONSTRAINT `va_articulo` FOREIGN KEY (`fk_articulo`) REFERENCES `art_articulo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `va_venta` FOREIGN KEY (`fk_venta`) REFERENCES `art_venta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -333,7 +331,7 @@ CREATE TABLE `cmn_error` (
   `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `mensaje` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL,
   `excepcion` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `stack` text COLLATE utf8_spanish_ci DEFAULT NULL,
+  `stack` text COLLATE utf8_spanish_ci,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_excepcion` (`excepcion`)
@@ -407,7 +405,7 @@ CREATE TABLE `cmn_movimiento` (
   PRIMARY KEY (`id`),
   KEY `entidad_idx` (`fk_entidad`),
   KEY `tipo_mov` (`tipo_mov`)
-) ENGINE=InnoDB AUTO_INCREMENT=472 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=575 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -482,7 +480,7 @@ CREATE TABLE `cmn_traduccion` (
   KEY `idx_i18n_locale` (`fk_i18n`,`locale`),
   KEY `fk_trad_loca_idx` (`locale`),
   CONSTRAINT `fk_trad_i18n` FOREIGN KEY (`fk_i18n`) REFERENCES `cmn_i18n` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -559,7 +557,7 @@ CREATE TABLE `seg_usuario_rol` (
   KEY `rol_idx` (`fk_rol`),
   CONSTRAINT `rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `usuario` FOREIGN KEY (`fk_usuario`) REFERENCES `seg_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -596,8 +594,8 @@ CREATE TABLE `sys_item_rol` (
   KEY `ir_rol` (`fk_rol`),
   KEY `ir_item_idx` (`fk_item`),
   CONSTRAINT `ir_item` FOREIGN KEY (`fk_item`) REFERENCES `sys_item` (`id`),
-  CONSTRAINT `ir_rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene la relacion de los item de menus con los roles de acceso.\r\nDe esta forma se puede saber que item se deben mostrar a cada rol y por ende a cada usuario.';
+  CONSTRAINT `item_rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene la relacion de los item de menus con los roles de acceso.\r\nDe esta forma se puede saber que item se deben mostrar a cada rol y por ende a cada usuario.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -618,7 +616,7 @@ CREATE TABLE `sys_item_subitem` (
   KEY `subitem_idx` (`fk_subitem`),
   CONSTRAINT `isi_item` FOREIGN KEY (`fk_item`) REFERENCES `sys_item` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `isi_subitem` FOREIGN KEY (`fk_subitem`) REFERENCES `sys_item` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -637,7 +635,7 @@ CREATE TABLE `sys_menu` (
   `icono` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Ruta al icono del menu',
   PRIMARY KEY (`id`),
   UNIQUE KEY `menu_uk` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla con los menues de la aplicacion. Cada menu se puede asociar a diferentes paginas; esa relacion se realiza a través de la tabla sys_pagina_menu';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla con los menues de la aplicacion. Cada menu se puede asociar a diferentes paginas; esa relacion se realiza a través de la tabla sys_pagina_menu';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -657,7 +655,7 @@ CREATE TABLE `sys_menu_item` (
   KEY `mi_item_idx` (`fk_item`),
   CONSTRAINT `mi_item` FOREIGN KEY (`fk_item`) REFERENCES `sys_item` (`id`),
   CONSTRAINT `mi_menu` FOREIGN KEY (`fk_menu`) REFERENCES `sys_menu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene las relaciones entre los menues y los items de menu';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Contiene las relaciones entre los menues y los items de menu';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -695,7 +693,7 @@ CREATE TABLE `sys_pagina_menu` (
   KEY `menu_idx` (`fk_menu`),
   CONSTRAINT `pm_menu` FOREIGN KEY (`fk_menu`) REFERENCES `sys_menu` (`id`),
   CONSTRAINT `pm_pagina` FOREIGN KEY (`fk_pagina`) REFERENCES `sys_pagina` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Asociacion entre las paginas y los menues';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Asociacion entre las paginas y los menues';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -712,10 +710,232 @@ CREATE TABLE `sys_pagina_rol` (
   PRIMARY KEY (`id`),
   KEY `pagina_idx` (`fk_pagina`),
   KEY `rol_idx` (`fk_rol`),
-  CONSTRAINT `pr_rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `pag_rol` FOREIGN KEY (`fk_rol`) REFERENCES `seg_rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `pr_pagina` FOREIGN KEY (`fk_pagina`) REFERENCES `sys_pagina` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Relaciona las paginas de la aplicacion con los roles de usuario. Permite saber que usuario puede acceder a que pagina.';
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary table structure for view `vw_detalle_articulos`
+--
+
+DROP TABLE IF EXISTS `vw_detalle_articulos`;
+/*!50001 DROP VIEW IF EXISTS `vw_detalle_articulos`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vw_detalle_articulos` (
+  `Codigo` tinyint NOT NULL,
+  `Rubro` tinyint NOT NULL,
+  `Clase` tinyint NOT NULL,
+  `Tipo` tinyint NOT NULL,
+  `Marca` tinyint NOT NULL,
+  `Modelo` tinyint NOT NULL,
+  `Descripcion` tinyint NOT NULL,
+  `Costo` tinyint NOT NULL,
+  `Precio` tinyint NOT NULL,
+  `Cantidad` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vw_detalle_compras`
+--
+
+DROP TABLE IF EXISTS `vw_detalle_compras`;
+/*!50001 DROP VIEW IF EXISTS `vw_detalle_compras`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vw_detalle_compras` (
+  `Compra` tinyint NOT NULL,
+  `Articulo` tinyint NOT NULL,
+  `Rubro` tinyint NOT NULL,
+  `Categoria` tinyint NOT NULL,
+  `Clase` tinyint NOT NULL,
+  `Cantidad` tinyint NOT NULL,
+  `Fecha` tinyint NOT NULL,
+  `Medio de Pago` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vw_detalle_ventas`
+--
+
+DROP TABLE IF EXISTS `vw_detalle_ventas`;
+/*!50001 DROP VIEW IF EXISTS `vw_detalle_ventas`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vw_detalle_ventas` (
+  `Venta` tinyint NOT NULL,
+  `Articulo` tinyint NOT NULL,
+  `Rubro` tinyint NOT NULL,
+  `Clase` tinyint NOT NULL,
+  `Tipo` tinyint NOT NULL,
+  `Cantidad` tinyint NOT NULL,
+  `Fecha` tinyint NOT NULL,
+  `Medio de Pago` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vw_menus`
+--
+
+DROP TABLE IF EXISTS `vw_menus`;
+/*!50001 DROP VIEW IF EXISTS `vw_menus`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vw_menus` (
+  `menu` tinyint NOT NULL,
+  `menu_text` tinyint NOT NULL,
+  `item` tinyint NOT NULL,
+  `subitem` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vw_roles_usuario`
+--
+
+DROP TABLE IF EXISTS `vw_roles_usuario`;
+/*!50001 DROP VIEW IF EXISTS `vw_roles_usuario`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vw_roles_usuario` (
+  `alias` tinyint NOT NULL,
+  `codigo` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vw_rubro_clase`
+--
+
+DROP TABLE IF EXISTS `vw_rubro_clase`;
+/*!50001 DROP VIEW IF EXISTS `vw_rubro_clase`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vw_rubro_clase` (
+  `Id Rubro` tinyint NOT NULL,
+  `Nombre Rubro` tinyint NOT NULL,
+  `Id Clase` tinyint NOT NULL,
+  `Nombre Clase` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `vw_detalle_articulos`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vw_detalle_articulos`*/;
+/*!50001 DROP VIEW IF EXISTS `vw_detalle_articulos`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_detalle_articulos` AS select `a`.`codigo` AS `Codigo`,`r`.`nombre` AS `Rubro`,`c`.`nombre` AS `Clase`,`t`.`nombre` AS `Tipo`,`m`.`nombre` AS `Marca`,`a`.`modelo` AS `Modelo`,`a`.`descripcion` AS `Descripcion`,`a`.`costo` AS `Costo`,`a`.`precio` AS `Precio`,`a`.`cantidad` AS `Cantidad` from ((((`art_articulo` `a` join `art_rubro` `r` on((`r`.`id` = `a`.`fk_rubro`))) join `art_clase` `c` on((`c`.`id` = `a`.`fk_clase`))) left join `art_tipo` `t` on((`t`.`id` = `a`.`fk_tipo`))) left join `art_marca` `m` on((`m`.`id` = `a`.`fk_marca`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vw_detalle_compras`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vw_detalle_compras`*/;
+/*!50001 DROP VIEW IF EXISTS `vw_detalle_compras`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_detalle_compras` AS select `c`.`codigo` AS `Compra`,`a`.`codigo` AS `Articulo`,`r`.`nombre` AS `Rubro`,`ca`.`nombre` AS `Categoria`,`cl`.`nombre` AS `Clase`,`va`.`cantidad` AS `Cantidad`,`c`.`fecha` AS `Fecha`,`mp`.`nombre` AS `Medio de Pago` from ((((((`art_compra` `c` join `art_venta_articulo` `va` on((`va`.`fk_venta` = `c`.`id`))) join `art_articulo` `a` on((`a`.`id` = `va`.`fk_articulo`))) join `cmn_medio_pago` `mp` on((`mp`.`id` = `c`.`fk_medio_pago`))) join `art_clase` `cl` on((`cl`.`id` = `a`.`fk_clase`))) join `art_clase` `ca` on((`ca`.`id` = `a`.`fk_clase`))) join `art_rubro` `r` on((`r`.`id` = `a`.`fk_rubro`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vw_detalle_ventas`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vw_detalle_ventas`*/;
+/*!50001 DROP VIEW IF EXISTS `vw_detalle_ventas`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_detalle_ventas` AS select `v`.`codigo` AS `Venta`,`a`.`codigo` AS `Articulo`,`r`.`nombre` AS `Rubro`,`c`.`nombre` AS `Clase`,`t`.`nombre` AS `Tipo`,`va`.`cantidad` AS `Cantidad`,`v`.`fecha` AS `Fecha`,`mp`.`nombre` AS `Medio de Pago` from ((((((`art_venta` `v` join `art_venta_articulo` `va` on((`va`.`fk_venta` = `v`.`id`))) join `art_articulo` `a` on((`a`.`id` = `va`.`fk_articulo`))) join `cmn_medio_pago` `mp` on((`mp`.`id` = `v`.`fk_medio_pago`))) join `art_clase` `c` on((`c`.`id` = `a`.`fk_clase`))) join `art_tipo` `t` on((`t`.`id` = `a`.`fk_tipo`))) join `art_rubro` `r` on((`r`.`id` = `a`.`fk_rubro`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vw_menus`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vw_menus`*/;
+/*!50001 DROP VIEW IF EXISTS `vw_menus`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_menus` AS select `m`.`codigo` AS `menu`,`m`.`texto` AS `menu_text`,`i`.`codigo` AS `item`,`si`.`codigo` AS `subitem` from ((((`sys_menu` `m` join `sys_menu_item` `mi` on((`mi`.`fk_menu` = `m`.`id`))) join `sys_item` `i` on((`mi`.`fk_item` = `i`.`id`))) join `sys_item_subitem` `isi` on((`isi`.`fk_item` = `i`.`id`))) join `sys_item` `si` on((`isi`.`fk_subitem` = `si`.`id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vw_roles_usuario`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vw_roles_usuario`*/;
+/*!50001 DROP VIEW IF EXISTS `vw_roles_usuario`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_roles_usuario` AS select `u`.`alias` AS `alias`,`r`.`codigo` AS `codigo` from ((`seg_usuario` `u` join `seg_usuario_rol` `ur` on((`ur`.`fk_usuario` = `u`.`id`))) join `seg_rol` `r` on((`r`.`id` = `ur`.`fk_rol`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vw_rubro_clase`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vw_rubro_clase`*/;
+/*!50001 DROP VIEW IF EXISTS `vw_rubro_clase`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_rubro_clase` AS select `r`.`id` AS `Id Rubro`,`r`.`nombre` AS `Nombre Rubro`,`c`.`id` AS `Id Clase`,`c`.`nombre` AS `Nombre Clase` from (`art_clase` `c` join `art_rubro` `r` on((`r`.`id` = `c`.`fk_rubro`))) order by `r`.`codigo`,`c`.`codigo` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -726,4 +946,4 @@ CREATE TABLE `sys_pagina_rol` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-16 11:00:47
+-- Dump completed on 2015-09-21 10:00:59
