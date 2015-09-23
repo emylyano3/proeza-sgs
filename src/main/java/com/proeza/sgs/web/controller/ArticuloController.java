@@ -43,8 +43,8 @@ public class ArticuloController {
 
     @ModelAttribute
     public void context (final ModelMap model) {
-        model.addAttribute("clases", this.claseService.findAll());
-        model.addAttribute("tipos", this.tipoService.findAll());
+//        model.addAttribute("clases", this.claseService.findAll());
+//        model.addAttribute("tipos", this.tipoService.findAll());
         model.addAttribute("marcas", this.marcaService.findAll());
         model.addAttribute("rubros", this.rubroService.findAll());
     }

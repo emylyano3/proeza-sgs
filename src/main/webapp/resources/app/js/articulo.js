@@ -14,14 +14,16 @@ var product = {
 		create : baseRest + '/create',
 		update : baseRest + '/update',
 		remove : baseRest + '/remove',
+		classesByCategory : baseRest + '/classesByCategory',
+		typeByclasses : baseRest + '/typeByclasses',
 		find : baseRest + '/find',
 		quickSale : '/proeza-sgs/rest/venta/quickSale',
 		bestSellers : baseRest + '/stats/bestSellers',
 		worstSellers : baseRest + '/stats/worstSellers',
 		brandPresence : baseRest + '/stats/brandPresence',
-		stockHistory : baseRest + '/stats/stockHistory'
+		stockHistory : baseRest + '/stats/stockHistory',
 	}
-}
+};
 
 function configGridSource() {
 	gridSource = {

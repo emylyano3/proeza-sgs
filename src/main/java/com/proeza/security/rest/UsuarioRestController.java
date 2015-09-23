@@ -19,7 +19,7 @@ import com.proeza.security.service.IUserService;
 
 @RestController
 @RequestMapping("rest/usuario")
-public class UsuariosRestController {
+public class UsuarioRestController {
 
     @Autowired
     private IUserService userService;

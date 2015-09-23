@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.proeza.sgs.business.entity.dto.ArticuloDTO;
+import com.proeza.sgs.business.entity.dto.ClaseDTO;
 import com.proeza.sgs.business.entity.dto.ResourceDTO;
+import com.proeza.sgs.business.entity.dto.TipoDTO;
 import com.proeza.sgs.business.service.IArticuloService;
 
 @RestController
@@ -95,5 +97,15 @@ public class ArticulosRestController {
             log.error("Error agregando la imagen al articulo causado por: " + e.getMessage(), e);
             return new ArrayList<ResourceDTO>(0);
         }
+    }
+
+    @RequestMapping(value = "classesByCategory", method = RequestMethod.POST)
+    public List<ClaseDTO> classesByCategory (@RequestBody String categoryCode) {
+        return this.productService.classesByCategory(categoryCode);
+    }
+    
+    @RequestMapping(value = "typeByclasses", method = RequestMethod.POST)
+    public List<TipoDTO> typeByclasses (@RequestBody String classCode) {
+    	return this.productService.typeByclasses(classCode);
     }
 }
