@@ -2,8 +2,7 @@ $(document).ready(function() {
 
 	updateSideBarStatus();
 
-	// Add special class to minimalize page elements when screen is less than
-	// 768px
+	// Add special class to minimalize page elements when screen is less than 768px
 	setBodySmall();
 
 	$('#eraser').click(function() {
@@ -77,6 +76,33 @@ $(document).ready(function() {
 
 });
 
+function initCombo(srcCombo, targetCombo, serviceUrl, notifyCallback, comboName) {
+	var code = $(srcCombo + ' option:selected').attr('value');
+	var choose = $(targetCombo + ' option:first-child');
+	if (!code) {
+		$(targetCombo).empty();
+		$(targetCombo).append(choose);
+		return;
+	}
+	$.ajax({
+		type : 'POST',
+		url : serviceUrl,
+		dataType: 'json',
+		contentType: 'application/json',
+		data : code,
+		success : function(options) {
+			$(targetCombo).empty();
+			$(targetCombo).append(choose);
+			$.each(options, function(index, option) {
+			    $(targetCombo).append(new Option(option.nombre, option.codigo));
+			});
+		},
+		error: function () {
+			notifyCallback(comboName);
+        }
+	});
+}
+
 $(window).bind('load', function() {
 	// Remove splash screen after load
 	$('.splash').css('display', 'none');
@@ -84,12 +110,10 @@ $(window).bind('load', function() {
 
 $(window).bind('resize click', function() {
 
-	// Add special class to minimalize page elements when screen is less than
-	// 768px
+	// Add special class to minimalize page elements when screen is less than 768px
 	setBodySmall();
 
-	// Waint until metsiMenu, collapse and other effect finish and set wrapper
-	// height
+	// Waint until metsiMenu, collapse and other effect finish and set wrapper height
 	setTimeout(function() {
 		fixWrapperHeight();
 	}, 300);
@@ -114,14 +138,12 @@ function fixWrapperHeight() {
 		$('#wrapper').css('min-height', navigationH + 'px');
 	}
 
-	// Set new height when contnet height is less then navigation and navigation
-	// is less then window
+	// Set new height when contnet height is less then navigation and navigation is less then window
 	if (contentH < navigationH && navigationH < $(window).height()) {
 		$('#wrapper').css('min-height', $(window).height() - headerH + 'px');
 	}
 
-	// Set new height when contnet is higher then navigation but less then
-	// window
+	// Set new height when contnet is higher then navigation but less then window
 	if (contentH > navigationH && contentH < $(window).height()) {
 		$('#wrapper').css('min-height', $(window).height() - headerH + 'px');
 	}
@@ -132,31 +154,26 @@ function fixWrapperHeight() {
  * grilla de la pantalla en caso de existir alguna.
  */
 function updateSideBarStatus() {
-	$('.hide-menu')
-	.click(
-			function(event) {
-				event.preventDefault();
-				if ($(window).width() < 769) {
-					$('body').toggleClass('show-sidebar');
-				} else {
-					$('body').toggleClass('hide-sidebar');
-				}
-				$('#wrapper')
-				.on(
-						'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd',
-						function() {
-							if (document
-									.getElementById('productGrid') != null) {
-								$('#productGrid').jqxGrid(
-								'refresh');
-							}
-							if (document
-									.getElementById('gridUsuarios') != null) {
-								$('#gridUsuarios').jqxGrid(
-								'refresh');
-							}
-						});
+	$('.hide-menu').click(
+		function(event) {
+			event.preventDefault();
+			if ($(window).width() < 769) {
+				$('body').toggleClass('show-sidebar');
+			} else {
+				$('body').toggleClass('hide-sidebar');
+			}
+			$('#wrapper').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd',
+				function() {
+					if (document.getElementById('productGrid') != null) {
+						$('#productGrid').jqxGrid(
+						'refresh');
+					}
+					if (document.getElementById('gridUsuarios') != null) {
+						$('#gridUsuarios').jqxGrid(
+						'refresh');
+					}
 			});
+	});
 }
 
 function setBodySmall() {

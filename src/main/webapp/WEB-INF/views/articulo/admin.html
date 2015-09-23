@@ -169,40 +169,14 @@
 				configControls();				
 			});
 
-			function initCombo(srcCombo, targetCombo, serviceUrl) {
-				var code = $(srcCombo + ' option:selected').attr('value');
-				var choose = $(targetCombo + ' option:first-child');
-				if (!code) {
-					$(targetCombo).empty();
-					$(targetCombo).append(choose);
-					return;
-				}
-				$.ajax({
-					type : 'POST',
-					url : serviceUrl,
-					dataType: 'json',
-					contentType: 'application/json',
-					data : code,
-					success : function(options) {
-						$(targetCombo).empty();
-						$(targetCombo).append(choose);
-						$.each(options, function(index, option) {
-						    $(targetCombo).append(new Option(option.nombre, option.codigo));
-						});
-					},
-					error: function () {
-						//notifyCallback(productCode, 'error');
-						console.log("Error cargando tipos por clase");
-			        }
-				});
-			}
-			
 			function configControls() {
 				$('#cbRubro').change(function(){
-					initCombo('#cbRubro', '#cbClase', product.rest.classesByCategory);
+					var label = $("label[for='cbRubro']");
+					initCombo('#cbRubro', '#cbClase', product.rest.classesByCategory, notifyComboError, label.text());
 				});
 				$('#cbClase').change(function(){
-					initCombo('#cbClase', '#cbTipo', product.rest.typeByclasses);
+					var label = $("label[for='cbClase']");
+					initCombo('#cbClase', '#cbTipo', product.rest.typeByclasses, notifyComboError, label.text());
 				});
 				$('#newProduct').click(function(){
 					initCreationForm();
@@ -251,6 +225,14 @@
     			$('#confirmAction').click(function() {
     				removeProduct();
     			});
+			}
+			
+			function notifyComboError (comboName) {
+	        	$.notify({
+					message: [[#{control.combo.data.error}]] + ' ' + comboName
+				},{
+					type: 'danger'
+				});
 			}
 			
 			function configGrid () {
