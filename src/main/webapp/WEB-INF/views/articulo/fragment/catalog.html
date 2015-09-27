@@ -56,7 +56,7 @@
 	<div th:fragment="catalogEditor">
 		<div class="modal fade" id="classModalPopup" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
-				<div class="color-line"></div>
+				<div class="color-line" />
 				<div class="modal-content">
 					<div class="modal-header">
 	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -73,7 +73,7 @@
 								<div class="col-md-10" >
 									<div class="form-group">
 										<label id="clmpClassLabel" for="clmpClass" class="control-label" th:text="#{control.clazz}" />
-	                                    <select id="clmpClass" class="form-control input-md" >
+	                                    <select id="clmpClass" class="form-control input-md" required="required" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                        <option th:each="clase : ${clases}" th:text="${clase.nombre}" th:value="${clase.codigo}" />
 	                                    </select>
@@ -99,7 +99,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{control.close}" />
-							<button id="clmpSave" type="submit" class="btn btn-primary" th:text="#{control.save}" />
+							<button id="clmpSave" type="submit" class="btn btn-primary" />
 						</div>
 					</form>
 				</div>
@@ -152,34 +152,32 @@
 					
 				});
 			}
-			 
+			
 			function initClassForm() {
 				$('#addClass').click(function() {
 					$('#clmpForm').attr('action', 'create')
 					cleanClassForm();
-					$('#clmpClassLabel').hide();
-					$('#clmpClass').hide();
-					$('#clmpTitle').text([[#{prod.clazz.addPopupTitle}]]);
+					setClassFormForCreate();
 					$('#classModalPopup').modal('show');
 				});
 				$('#deleteClass').click(function(){
 					$('#clmpForm').attr('action', 'delete')
 					cleanClassForm();
-					$('#clmpClassLabel').show();
-					$('#clmpClass').show();
-					$('#clmpTitle').text([[#{prod.clazz.deletePopupTitle}]]);
+					setClassFormForDelete();
 					$('#classModalPopup').modal('show');
 				});
 				$('#editClass').click(function(){
 					$('#clmpForm').attr('action', 'edit')
 					cleanClassForm();
-					$('#clmpClassLabel').show();
-					$('#clmpClass').show();
-					$('#clmpTitle').text([[#{prod.clazz.editPopupTitle}]]);
+					setClassFormForUpdate();
 					$('#classModalPopup').modal('show');
 				});
 				$('#clmpClass').change(function(e) {
-					loadEntityData($(this).val(), '/proeza-sgs/rest/product/classByCode', setClassData);	
+					if ($('#clmpClass')[0].selectedIndex > 0) {
+						loadEntityData($(this).val(), '/proeza-sgs/rest/product/classByCode', setClassData);	
+					} else {
+						cleanClassForm();
+					}
 				});
 				$('#clmpForm').submit(function(e) {
 					e.preventDefault();
@@ -204,21 +202,54 @@
 					}
 					if (doAction) {
 						saveEntityData(
-								getClassFormData(), 
-								actionUrl, 
-								actionSuccessMsg,
-								function() {initCombo('#clmpClass', '/proeza-sgs/rest/product/getClasses')}
+							getClassFormData(), 
+							actionUrl, 
+							actionSuccessMsg,
+							function() {initCombo('#clmpClass', '/proeza-sgs/rest/product/getClasses')}
 						);
 					}
 					$('#classModalPopup').modal('hide');
 				});
 			}
+
+			function setClassFormForCreate () {
+				disableClassInput(false);
+				$('#clmpClassLabel').hide();
+				$('#clmpClass').hide();
+				$('#clmpClass').prop('disabled', true);
+				$('#clmpTitle').text([[#{prod.clazz.addPopupTitle}]]);
+				$('#clmpSave').text([[#{control.save}]]);	
+			}
+
+			function setClassFormForDelete () {
+				disableClassInput(true);
+				$('#clmpClassLabel').show();
+				$('#clmpClass').show();
+				$('#clmpClass').prop('disabled', false);
+				$('#clmpTitle').text([[#{prod.clazz.deletePopupTitle}]]);
+				$('#clmpSave').text([[#{control.remove}]]);
+			}
+
+			function setClassFormForUpdate () {
+				disableClassInput(false);
+				$('#clmpClassLabel').show();
+				$('#clmpClass').show();
+				$('#clmpClass').prop('disabled', false);
+				$('#clmpTitle').text([[#{prod.clazz.editPopupTitle}]]);
+				$('#clmpSave').text([[#{control.save}]]);	
+			}
 			
 			function cleanClassForm () {
 				$('#clmpName').val('');
 				$('#clmpDesc').val('');
-				$('#clmpCat').val('');	
+				$('#clmpCat').val('');
 				$('#clmpClass').val('');	
+			}
+			
+			function disableClassInput (value) {
+				$('#clmpName').prop('disabled', value);
+				$('#clmpDesc').prop('disabled', value);
+				$('#clmpCat').prop('disabled', value);
 			}
 			
 			function getClassFormData () {

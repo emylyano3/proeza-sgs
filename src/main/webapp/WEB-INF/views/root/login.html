@@ -54,11 +54,11 @@
                                 <span class="help-block small" th:text="#{login.passwordhelp}" text="Su contraseña de usuario"/>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" class="i-checks" checked="checked" th:text="#{control.rememberme}" text="Recordarme"/>
+                                <input type="checkbox" class="i-checks" checked="checked" th:text="' ' + #{control.rememberme}" text="Recordarme"/>
                                 <p class="help-block small" th:text="#{login.remembermehelp}" text="(si es una computarora privada)" />
                             </div>
                             <button class="btn btn-success btn-block" th:text="#{control.login}" text="Ingresar" />
-                            <a class="btn btn-default btn-block" href="#" th:href="@{/register}" th:text="#{control.register}" text="Registrarme"/>
+<!--                             <a class="btn btn-default btn-block" href="#" th:href="@{/register}" th:text="#{control.register}" text="Registrarme"/> -->
                         </form>
 	                </div>
 	            </div>
