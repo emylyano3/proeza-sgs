@@ -69,6 +69,6 @@ public class RubroDTO implements Serializable, Comparable<RubroDTO> {
         if (r == null) {
             return -1;
         }
-        return getCodigo().compareTo(r.getCodigo());
+        return getNombre().compareTo(r.getNombre());
     }
 }

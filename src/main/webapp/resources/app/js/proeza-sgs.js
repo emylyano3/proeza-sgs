@@ -76,7 +76,7 @@ $(document).ready(function() {
 
 });
 
-function initCombo(srcCombo, targetCombo, serviceUrl, notifyCallback, comboName) {
+function chainCombo(srcCombo, targetCombo, serviceUrl, notifyCallback, callbackParams) {
 	var code = $(srcCombo + ' option:selected').attr('value');
 	var choose = $(targetCombo + ' option:first-child');
 	if (!code) {
@@ -98,8 +98,28 @@ function initCombo(srcCombo, targetCombo, serviceUrl, notifyCallback, comboName)
 			});
 		},
 		error: function () {
-			notifyCallback(comboName);
+			notifyCallback(callbackParams);
         }
+	});
+}
+
+function initCombo(targetCombo, serviceUrl, notifyCallback, callbackParams) {
+	var choose = $(targetCombo + ' option:first-child');
+	$.ajax({
+		type : 'POST',
+		url : serviceUrl,
+		dataType: 'json',
+		contentType: 'application/json',
+		success : function(options) {
+			$(targetCombo).empty();
+			$(targetCombo).append(choose);
+			$.each(options, function(index, option) {
+				$(targetCombo).append(new Option(option.nombre, option.codigo));
+			});
+		},
+		error: function () {
+			notifyCallback(callbackParams);
+		}
 	});
 }
 

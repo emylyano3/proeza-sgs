@@ -64,7 +64,7 @@ public class MarcaDTO implements Serializable, Comparable<MarcaDTO> {
         if (m == null) {
             return -1;
         }
-        return getCodigo().compareTo(m.getCodigo());
+        return getNombre().compareTo(m.getNombre());
     }
 
     @Override

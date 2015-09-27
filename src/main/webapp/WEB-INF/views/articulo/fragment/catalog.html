@@ -1,0 +1,266 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+	<!-- Command Bar -->
+	<div th:fragment="commandBar" id="commandBar" role="group" class="btn-group commandbar-floating">
+		
+		<!-- Add Split button -->
+		<div class="btn-group dropup">
+			<button type="button" class="btn btn-success toolbar-button" id="newProduct" th:title="#{prod.add.tooltip}">
+				<i class="fa fa-lg fa-plus"/>
+			</button>
+			<button type="button" class="btn btn-success dropdown-toggle toolbar-caret-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="caret"/> 
+				<span class="sr-only"/>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a id="addCategory" th:text="#{control.category}" >Rubro</a></li>
+				<li><a id="addClass" th:text="#{control.clazz}">Clase</a></li>
+				<li><a id="addType" th:text="#{control.type}">Tipo</a></li>
+				<li role="separator" class="divider"></li>
+				<li><a id="addBrand" th:text="#{control.brand}">Marca</a></li>
+			</ul>
+		</div>
+
+		<!-- Edit Single button -->
+		<div class="btn-group dropup">
+			<button type="button" class="btn btn-warning toolbar-button dropdown-toggle" id="edit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="fa fa-lg fa-edit"/>
+			</button>
+			<ul class="dropdown-menu dropdown-menu-right">
+				<li><a id="editCategory" th:text="#{control.category}">Rubro</a></li>
+				<li><a id="editClass" th:text="#{control.clazz}">Clase</a></li>
+				<li><a id="editType" th:text="#{control.type}">Tipo</a></li>
+				<li role="separator" class="divider"></li>
+				<li><a id="editBrand" th:text="#{control.brand}">Marca</a></li>
+			</ul>
+		</div>
+
+		<!-- Delete Single button -->
+		<div class="btn-group dropup">
+			<button type="button" class="btn btn-danger toolbar-button dropdown-toggle" id="delete" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="fa fa-lg fa-remove"/>
+			</button>
+			<ul class="dropdown-menu dropdown-menu-right">
+				<li><a id="deleteCategory" th:text="#{control.category}">Rubro</a></li>
+				<li><a id="deleteClass" th:text="#{control.clazz}">Clase</a></li>
+				<li><a id="deleteType" th:text="#{control.type}">Tipo</a></li>
+				<li role="separator" class="divider"></li>
+				<li><a id="deleteBrand" th:text="#{control.brand}">Marca</a></li>
+			</ul>
+		</div>
+	</div>
+	
+    <!-- Modal de edicion maestros de articulo -->
+	<div th:fragment="catalogEditor">
+		<div class="modal fade" id="classModalPopup" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="color-line"></div>
+				<div class="modal-content">
+					<div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                    </button>
+	                    <div class="modal-title">
+	                        <span id="clmpTitle"/>
+	                    </div>
+	                </div>
+					<form id="clmpForm" class="form-horizontal" method="post">
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-1" />
+								<div class="col-md-10" >
+									<div class="form-group">
+										<label id="clmpClassLabel" for="clmpClassCombo" class="control-label" th:text="#{control.clazz}" />
+	                                    <select id="clmpClassCombo" class="form-control input-md" >
+	                                        <option value="" th:text="#{control.choose}"/>
+	                                        <option th:each="clase : ${clases}" th:text="${clase.nombre}" th:value="${clase.codigo}" />
+	                                    </select>
+									</div>
+									<div class="form-group">
+										<label for="clmpName" class="control-label" th:text="#{control.name}">Nombre</label>
+										<input id="clmpName" class="form-control" type="text" required="required" />
+									</div>
+									<div class="form-group">
+										<label for="clmpDesc" class="control-label" th:text="#{control.description}">Descripción</label>
+										<input id="clmpDesc" class="form-control" type="text" />
+									</div>
+									<div class="form-group">
+										<label for="clmpCat" class="control-label" th:text="#{control.category}" />
+	                                    <select id="clmpCat" class="form-control input-md" required="required" >
+	                                        <option value="" th:text="#{control.choose}"/>
+	                                        <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
+	                                    </select>
+									</div>
+								</div>
+								<div class="col-md-1" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{control.close}" />
+							<button id="clmpSave" type="submit" class="btn btn-primary" th:text="#{control.save}" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:fragment="catalogScript" >
+		<script th:inline="javascript">
+			 /*<![CDATA[*/
+			$(document).ready(function() {
+				initClassForm();
+				initCategoryForm();
+				initTypeForm();
+				initBrandForm();
+			})
+			
+			function initBrandForm() {
+				$('#addBrand').click(function(){
+					
+				});
+				$('#deleteBrand').click(function(){
+					
+				});
+				$('#editBrand').click(function(){
+					
+				});
+			}
+			 
+			function initTypeForm() {
+				$('#addType').click(function(){
+					
+				});
+				$('#deleteType').click(function(){
+					
+				});
+				$('#editType').click(function(){
+					
+				});
+			}
+			 
+			function initCategoryForm() {
+				$('#addCategory').click(function(){
+					
+				});
+				$('#editCategory').click(function(){
+					
+				});
+				$('#deleteCategory').click(function(){
+					
+				});
+			}
+			 
+			function initClassForm() {
+				$('#addClass').click(function() {
+					$('#clmpForm').attr('action', 'create')
+					$('#clmpName').val('');
+					$('#clmpDesc').val('');
+					$('#clmpCat').val('');
+					$('#clmpClassLabel').hide();
+					$('#clmpClassCombo').hide();
+					$('#clmpTitle').text([[#{prod.clazz.addPopupTitle}]]);
+					$('#classModalPopup').modal('show');
+				});
+				$('#deleteClass').click(function(){
+					$('#clmpForm').attr('action', 'delete')
+					$('#clmpClassLabel').show();
+					$('#clmpClassCombo').show();
+					$('#clmpTitle').text([[#{prod.clazz.deletePopupTitle}]]);
+					$('#classModalPopup').modal('show');
+				});
+				$('#editClass').click(function(){
+					$('#clmpForm').attr('action', 'edit')
+					$('#clmpClassLabel').show();
+					$('#clmpClassCombo').show();
+					$('#clmpTitle').text([[#{prod.clazz.editPopupTitle}]]);
+					$('#classModalPopup').modal('show');
+				});
+				$('#clmpClassCombo').change(function(e) {
+					loadEntityData($(this).val(), '/proeza-sgs/rest/product/classByCode', setClassData);	
+				});
+				$('#clmpForm').submit(function(e) {
+					e.preventDefault();
+					var action = $(this).attr('action');
+					switch (action) {
+					case 'create':
+						saveEntityData(getClassFormData(), '/proeza-sgs/rest/product/addClass', [[#{rest.datasend.success}]]);
+						break;
+					case 'delete':
+						console.log('Delete class');
+						break;
+					case 'edit':
+						console.log('Edit class');
+						break;
+					default: 
+						break;
+					
+					}
+				});
+			}
+			
+			function getClassFormData () {
+				var data = {
+					nombre : $('#clmpName').val(),
+					descripcion : $('#clmpDesc').val(),
+					codRubro :$('#clmpCat').val()
+				};
+				return data;
+			}
+			
+			function setClassData (data) {
+				$('#clmpName').val(data.nombre);
+				$('#clmpDesc').val(data.descripcion);
+				$('#clmpCat').val(data.codRubro);
+			}
+			
+			function loadEntityData(inputData, restUrl, setData) {
+				$.ajax({
+					type : 'POST',
+					url : restUrl,
+					dataType: 'json',
+					contentType: 'application/json',
+					data : inputData,
+					success : function(data) {
+						setData(data);
+					},
+					error : function(jqXHR, status) {
+						$.notify({
+							message: [[#{rest.dataload.error}]]
+						},{
+							type: 'danger'
+						});
+					}
+				});
+			}	
+
+			function saveEntityData(data, restUrl, successMsg) {
+				$.ajax({
+					type : 'POST',
+					url : restUrl,
+					dataType: 'json',
+					contentType: 'application/json',
+					data : JSON.stringify(data),
+					success : function() {
+						$.notify({
+							message: successMsg
+						},{
+							type: 'success'
+						});
+					},
+					error : function(jqXHR, status) {
+						$.notify({
+							message: [[#{rest.datasend.error}]]
+						},{
+							type: 'danger'
+						});
+					}
+				});
+			}	
+			/*]]>*/
+		</script>
+	</div>
+</body>
+</html>

@@ -21,6 +21,7 @@ import com.proeza.sgs.business.entity.dto.ClaseDTO;
 import com.proeza.sgs.business.entity.dto.ResourceDTO;
 import com.proeza.sgs.business.entity.dto.TipoDTO;
 import com.proeza.sgs.business.service.IArticuloService;
+import com.proeza.sgs.business.service.IClaseService;
 
 @RestController
 @RequestMapping("rest/product")
@@ -29,7 +30,10 @@ public class ArticulosRestController {
     private static final Logger log = Logger.getLogger(ArticulosRestController.class);
 
     @Autowired
-    private IArticuloService    productService;
+    private IArticuloService productService;
+
+    @Autowired
+    private IClaseService claseService;
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
     public List<ArticuloDTO> search (@RequestParam("filter") String filter) {
@@ -103,9 +107,20 @@ public class ArticulosRestController {
     public List<ClaseDTO> classesByCategory (@RequestBody String categoryCode) {
         return this.productService.classesByCategory(categoryCode);
     }
-    
+
+    @RequestMapping(value = "classByCode", method = RequestMethod.POST)
+    public ClaseDTO classByCode (@RequestBody String classCode) {
+        return this.claseService.findByCode(classCode);
+    }
+
+    @RequestMapping(value = "addClass", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addClass (@RequestBody ClaseDTO prodClass) {
+        this.claseService.create(prodClass);
+    }
+
     @RequestMapping(value = "typeByclasses", method = RequestMethod.POST)
     public List<TipoDTO> typeByclasses (@RequestBody String classCode) {
-    	return this.productService.typeByclasses(classCode);
+        return this.productService.typeByclasses(classCode);
     }
 }

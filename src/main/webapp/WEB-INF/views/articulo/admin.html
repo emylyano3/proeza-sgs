@@ -21,123 +21,127 @@
                 <div id="links" />
             </div>
         </div>
+        
         <!-- Panel de edicion -->
-        <div id="editionPanel" class="hpanel animated zoomIn" hidden="true">
-            <div class="panel-heading">
-                <span id="formTitle" />
-            </div>
-            <div class="panel-body">
-                <form id="productForm" class="form-horizontal">
-                    <div class="row text-center">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label id="lblCodigo" for="codigo" class="col-sm-3 control-label" th:text="#{control.code}" />
-                                    <div class="col-sm-9">
-                                        <input id="codigo" class="form-control input-md" disabled="disabled" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="modelo" class="col-sm-3 control-label" th:text="#{control.model}" />
-                                    <div class="col-sm-9">
-                                        <input id="modelo" name="modelo" class="form-control input-md" required="required" autofocus="autofocus"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="descripcion" class="col-sm-3 control-label" th:text="#{control.description}" />
-                                    <div class="col-sm-9">
-                                        <input id="descripcion" class="form-control input-md" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="cbMarca" class="col-sm-3 control-label" th:text="#{control.brand}" />
-                                    <div class="col-sm-9">
-                                        <select id="cbMarca" name="marca" class="form-control input-md" required="required" >
-                                            <option value="" th:text="#{control.choose}"/>
-                                            <option th:each="marca : ${marcas}" th:text="${marca.nombre}" th:value="${marca.codigo}" />
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="cbRubro" class="col-sm-3 control-label" th:text="#{control.category}" />
-                                    <div class="col-sm-9">
-                                        <select id="cbRubro" name="rubro" class="form-control input-md" required="required" >
-                                            <option value="" th:text="#{control.choose}"/>
-                                            <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="clase" class="col-sm-3 control-label" th:text="#{control.class}" />
-                                    <div class="col-sm-9">
-                                        <select id="cbClase" name="clase" class="form-control input-md" required="required" >
-                                            <option value="" th:text="#{control.choose}"/>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="cbTipo" class="col-sm-3 control-label" th:text="#{control.type}" />
-                                    <div class="col-sm-9">
-                                        <select id="cbTipo" class="form-control input-md" >
-                                            <option value="" th:text="#{control.choose}"/>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="precio" class="col-sm-3 control-label" th:text="#{control.price}" />
-                                    <div class="col-sm-9">
-                                        <input id="precio" class="form-control input-md" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="costo" class="col-sm-3 control-label" th:text="#{control.cost}" />
-                                    <div class="col-sm-9">
-                                        <input id="costo" class="form-control input-md" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="cantidad" class="col-sm-3 control-label" th:text="#{control.quantity}" />
-                                    <div class="col-sm-9">
-                                        <input id="cantidad" class="form-control input-md" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p/>
-                        <div class="col-md-12">
-                            <button id="cancelEdit" type="button" class="btn btn-default" th:text="#{control.cancel}" />
-                            <button id="saveEdit" type="submit" class="btn btn-primary" th:text="#{control.save}" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="panel-footer">
-                <span id="formFooter" />
-            </div>
-        </div>
+		<div id="editionPanel" class="hpanel animated zoomIn" hidden="true">
+			<div class="panel-heading">
+				<span id="formTitle" />
+			</div>
+			<div class="panel-body">
+				<form id="productForm" class="form-horizontal">
+					<div class="row text-center">
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label id="lblCodigo" for="codigo" class="col-sm-3 control-label" th:text="#{control.code}" />
+									<div class="col-sm-9">
+										<input id="codigo" class="form-control input-md" disabled="disabled" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="modelo" class="col-sm-3 control-label" th:text="#{control.model}" />
+									<div class="col-sm-9">
+										<input id="modelo" name="modelo" class="form-control input-md" required="required" autofocus="autofocus" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="descripcion" class="col-sm-3 control-label" th:text="#{control.description}" />
+									<div class="col-sm-9">
+										<input id="descripcion" class="form-control input-md" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="cbMarca" class="col-sm-3 control-label" th:text="#{control.brand}" />
+									<div class="col-sm-9">
+										<select id="cbMarca" name="marca" class="form-control input-md" required="required">
+											<option value="" th:text="#{control.choose}" />
+											<option th:each="marca : ${marcas}" th:text="${marca.nombre}" th:value="${marca.codigo}" />
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="cbRubro" class="col-sm-3 control-label" th:text="#{control.category}" />
+									<div class="col-sm-9">
+										<select id="cbRubro" name="rubro" class="form-control input-md" required="required">
+											<option value="" th:text="#{control.choose}" />
+											<option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="clase" class="col-sm-3 control-label" th:text="#{control.clazz}" />
+									<div class="col-sm-9">
+										<select id="cbClase" name="clase" class="form-control input-md" required="required">
+											<option value="" th:text="#{control.choose}" />
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="cbTipo" class="col-sm-3 control-label" th:text="#{control.type}" />
+									<div class="col-sm-9">
+										<select id="cbTipo" class="form-control input-md">
+											<option value="" th:text="#{control.choose}" />
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="precio" class="col-sm-3 control-label" th:text="#{control.price}" />
+									<div class="col-sm-9">
+										<input id="precio" class="form-control input-md" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="costo" class="col-sm-3 control-label" th:text="#{control.cost}" />
+									<div class="col-sm-9">
+										<input id="costo" class="form-control input-md" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="cantidad" class="col-sm-3 control-label" th:text="#{control.quantity}" />
+									<div class="col-sm-9">
+										<input id="cantidad" class="form-control input-md" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<p />
+						<div class="col-md-12">
+							<button id="cancelEdit" type="button" class="btn btn-default" th:text="#{control.cancel}" />
+							<button id="saveEdit" type="submit" class="btn btn-primary" th:text="#{control.save}" />
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="panel-footer">
+				<span id="formFooter" />
+			</div>
+		</div>
+
+		<!-- Modal de edicion de catalogo de articulo -->
+        <div th:replace="articulo/fragment/catalog.html::catalogEditor"/>
         
         <!-- Modal de agregado de imagen -->
         <div th:replace="fragment/misc.html::loadImagePopup"/>
         
         <!-- Modal de agregado de imagen -->
         <div th:replace="fragment/misc.html::confirmPopup"/>
+
+        <!-- Command bar -->
+        <div th:replace="articulo/fragment/catalog.html::commandBar"/>
 		
         <!-- Menu Contextual -->
 		<div id="gridContextMenu">
-	        <ul>
-	            <li id="editProd" th:text="#{prod.menu.edit}"/>
-	            <li id="addImgToProd" th:text="#{prod.menu.addImage}"/>
-	            <li id="copyProd" th:text="#{prod.menu.copy}"/>
-	            <li id="createProd" th:text="#{prod.menu.create}"/>
-	            <li id="deleteProd" th:text="#{prod.menu.remove}"/>
-	        </ul>
-        </div>
-        <div id="commandBar" class="commandbar-floating">
-            <button id="newProduct" class="btn fa fa-plus fa-3x btn-plus" th:title="#{prod.add.tooltip}"/>
-        </div>
-        
+			<ul>
+				<li id="editProd" th:text="#{prod.menu.edit}" />
+				<li id="addImgToProd" th:text="#{prod.menu.addImage}" />
+				<li id="copyProd" th:text="#{prod.menu.copy}" />
+				<li id="createProd" th:text="#{prod.menu.create}" />
+				<li id="deleteProd" th:text="#{prod.menu.remove}" />
+			</ul>
+		</div>
+		
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
 		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
@@ -162,7 +166,7 @@
         
 		<script th:inline="javascript">
 		 	/*<![CDATA[*/
-			// Inicializacion de la tabla de art√≠culos
+			// Inicializacion de la tabla de artÌculos
 			$(document).ready(function() {
 				configGridSource();
 				configGrid(); 
@@ -172,11 +176,11 @@
 			function configControls() {
 				$('#cbRubro').change(function(){
 					var label = $("label[for='cbRubro']");
-					initCombo('#cbRubro', '#cbClase', product.rest.classesByCategory, notifyComboError, label.text());
+					chainCombo('#cbRubro', '#cbClase', product.rest.classesByCategory, notifyComboError, label.text());
 				});
 				$('#cbClase').change(function(){
 					var label = $("label[for='cbClase']");
-					initCombo('#cbClase', '#cbTipo', product.rest.typeByclasses, notifyComboError, label.text());
+					chainCombo('#cbClase', '#cbTipo', product.rest.typeByclasses, notifyComboError, label.text());
 				});
 				$('#newProduct').click(function(){
 					initCreationForm();
@@ -226,10 +230,10 @@
     				removeProduct();
     			});
 			}
-			
+
 			function notifyComboError (comboName) {
 	        	$.notify({
-					message: [[#{control.combo.data.error}]] + ' ' + comboName
+					message: [[#{rest.dataload.error}]]
 				},{
 					type: 'danger'
 				});
@@ -252,7 +256,7 @@
     						dataField : 'modelo',
     						width : '28%'
     					},{
-    						text : /*[[#{prod.grid.class}]]*/ 'Clase',
+    						text : /*[[#{prod.grid.clazz}]]*/ 'Clase',
     						dataField : 'clase',
     						width : '28%'
     					},{
@@ -371,8 +375,8 @@
 					data : JSON.stringify(rowData),
 					success : function() {
 						$.notify({
-							title: /*[[#{prod.update.title}]]*/ '<strong>Modificaci√≥n de art√≠culo:</strong>',
-							message: /*[[#{prod.update.success.message}]]*/ 'La modificaci√≥n se realiz√≥ correctamente'
+							title: /*[[#{prod.update.title}]]*/ '<strong>ModificaciÛn de artÌculo:</strong>',
+							message: /*[[#{prod.update.success.message}]]*/ 'La modificaciÛn se realizÛ correctamente'
 						},{
 							type: 'success'
 						});
@@ -380,8 +384,8 @@
 					},
 					error: function () {            
 						$.notify({
-							title: /*[[#{prod.update.title}]]*/ '<strong>Modificaci√≥n de art√≠culo:</strong>',
-							message: /*[[#{prod.update.error.message}]]*/ 'Ocurri√≥ un error en la actualizaci√≥n del art√≠culo'
+							title: /*[[#{prod.update.title}]]*/ '<strong>ModificaciÛn de artÌculo:</strong>',
+							message: /*[[#{prod.update.error.message}]]*/ 'OcurriÛ un error en la actualizaciÛn del artÌculo'
 						},{
 							type: 'danger'
 						});
@@ -400,7 +404,7 @@
 					data : JSON.stringify(formData),
 					success : function() { 
 						$.notify({
-							title: /*[[#{prod.create.title}]]*/ '<strong>Creaci√≥n de art√≠culo:</strong>',
+							title: /*[[#{prod.create.title}]]*/ '<strong>CreaciÛn de artÌculo:</strong>',
 							message: /*[[#{prod.create.success.message}]]*/ 'El articulo fue creado correctamente' 
 						},{
 							type: 'success'
@@ -409,8 +413,8 @@
 					},
 					error: function () {            
 						$.notify({
-							title: /*[[#{prod.create.title}]]*/ '<strong>Creaci√≥n de art√≠culo:</strong>',
-							message: /*[[#{prod.create.error.message}]]*/ 'Ocurri√≥ un error durante la creaci√≥n del art√≠culo',
+							title: /*[[#{prod.create.title}]]*/ '<strong>CreaciÛn de artÌculo:</strong>',
+							message: /*[[#{prod.create.error.message}]]*/ 'OcurriÛ un error durante la creaciÛn del artÌculo',
 						},{
 							type: 'danger'
 						});
@@ -449,8 +453,8 @@
 					data : rowdata.codigo,
 					success : function() {
 						$.notify({
-							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminaci√≥n de art√≠culo:</strong>',
-							message: /*[[#{prod.remove.success.message}]]*/ 'La eliminaci√≥n se realiz√≥ correctamente'
+							title: /*[[#{prod.remove.title}]]*/ '<strong>EliminaciÛn de artÌculo:</strong>',
+							message: /*[[#{prod.remove.success.message}]]*/ 'La eliminaciÛn se realizÛ correctamente'
 						},{
 							type: 'success'
 						});
@@ -458,8 +462,8 @@
 					},
 					error: function () {            
 						$.notify({
-							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminaci√≥n de art√≠culo:</strong>',
-							message: /*[[#{prod.remove.error.message}]]*/ 'Ocurri√≥ un error en la eliminaci√≥n del art√≠culo'
+							title: /*[[#{prod.remove.title}]]*/ '<strong>EliminaciÛn de artÌculo:</strong>',
+							message: /*[[#{prod.remove.error.message}]]*/ 'OcurriÛ un error en la eliminaciÛn del artÌculo'
 						},{
 							type: 'danger'
 						});
@@ -564,6 +568,7 @@
 	        }
 			/*]]>*/
 		</script>
+		<div th:replace="articulo/fragment/catalog.html::catalogScript"/>
 	</div>
 </body>
 </html>

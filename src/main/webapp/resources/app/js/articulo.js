@@ -14,6 +14,7 @@ var product = {
 		create : baseRest + '/create',
 		update : baseRest + '/update',
 		remove : baseRest + '/remove',
+		classByCode : baseRest + '/classByCode',
 		classesByCategory : baseRest + '/classesByCategory',
 		typeByclasses : baseRest + '/typeByclasses',
 		find : baseRest + '/find',

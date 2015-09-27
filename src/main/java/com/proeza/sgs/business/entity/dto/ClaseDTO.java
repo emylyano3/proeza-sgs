@@ -10,17 +10,22 @@ public class ClaseDTO implements Serializable, Comparable<ClaseDTO> {
 
     private static final long serialVersionUID = 1L;
 
-    private Long              id;
+    private Long id;
 
     @NotNull
-    private String            codigo;
+    private String codigo;
 
     @NotNull
-    private String            nombre;
+    private String nombre;
 
-    private String            descripcion;
+    private String descripcion;
 
-    private String            rubro;
+    private String rubro;
+
+    private String codRubro;
+
+    public ClaseDTO () {
+    }
 
     public ClaseDTO (Clase clase) {
         this.id = clase.getId();
@@ -28,6 +33,7 @@ public class ClaseDTO implements Serializable, Comparable<ClaseDTO> {
         this.nombre = clase.getNombre();
         this.descripcion = clase.getDescripcion();
         this.rubro = clase.getRubro() != null ? clase.getRubro().getNombre() : null;
+        this.codRubro = clase.getRubro() != null ? clase.getRubro().getCodigo() : null;
     }
 
     public Long getId () {
@@ -70,6 +76,14 @@ public class ClaseDTO implements Serializable, Comparable<ClaseDTO> {
         this.rubro = rubro;
     }
 
+    public String getCodRubro () {
+        return this.codRubro;
+    }
+
+    public void setCodRubro (String codRubro) {
+        this.codRubro = codRubro;
+    }
+
     @Override
     public String toString () {
         return "ClaseDTO [codigo=" + this.codigo + ", nombre=" + this.nombre + "]";
@@ -80,6 +94,6 @@ public class ClaseDTO implements Serializable, Comparable<ClaseDTO> {
         if (c == null) {
             return -1;
         }
-        return getCodigo().compareTo(c.getCodigo());
+        return getNombre().compareTo(c.getNombre());
     }
 }

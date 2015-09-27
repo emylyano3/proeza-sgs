@@ -7,4 +7,8 @@ import com.proeza.sgs.business.entity.dto.ClaseDTO;
 public interface IClaseService {
 
     Collection<ClaseDTO> findAll ();
+
+    ClaseDTO findByCode (String classCode);
+
+    void create (ClaseDTO prodClass);
 }

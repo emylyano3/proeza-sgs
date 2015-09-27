@@ -69,6 +69,6 @@ public class TipoDTO implements Serializable, Comparable<TipoDTO> {
         if (t == null) {
             return -1;
         }
-        return getCodigo().compareTo(t.getCodigo());
+        return getNombre().compareTo(t.getNombre());
     }
 }
