@@ -1,7 +1,6 @@
 package com.proeza.sgs.business.service.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class ClaseService implements IClaseService {
     private IRubroDao rubroDao;
 
     @Override
-    public Collection<ClaseDTO> findAll () {
+    public List<ClaseDTO> findAll () {
         List<ClaseDTO> result = hideEntites(this.claseDao.findAll());
         Collections.sort(result);
         return result;
@@ -44,10 +43,22 @@ public class ClaseService implements IClaseService {
         Clase clase = new Clase();
         clase.setNombre(classDTO.getNombre());
         clase.setDescripcion(classDTO.getDescripcion());
-        clase.setNombre(classDTO.getNombre());
         clase.setRubro(this.rubroDao.findByCode(classDTO.getCodRubro()));
         clase.setCodigo(createClassCode(classDTO));
         this.claseDao.persist(clase);
+    }
+
+    @Override
+    public void update (ClaseDTO classDTO) {
+        Clase clase = this.claseDao.findByCode(classDTO.getCodigo());
+        clase.setNombre(classDTO.getNombre());
+        clase.setDescripcion(classDTO.getDescripcion());
+        clase.setRubro(this.rubroDao.findByCode(classDTO.getCodRubro()));
+    }
+
+    @Override
+    public void delete (ClaseDTO classDTO) {
+        this.claseDao.delete(this.claseDao.findByCode(classDTO.getCodigo()));
     }
 
     private String createClassCode (ClaseDTO classDTO) {

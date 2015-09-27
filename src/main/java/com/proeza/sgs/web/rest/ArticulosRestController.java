@@ -108,6 +108,11 @@ public class ArticulosRestController {
         return this.productService.classesByCategory(categoryCode);
     }
 
+    @RequestMapping(value = "getClasses", method = RequestMethod.POST)
+    public List<ClaseDTO> getClasses () {
+        return this.claseService.findAll();
+    }
+
     @RequestMapping(value = "classByCode", method = RequestMethod.POST)
     public ClaseDTO classByCode (@RequestBody String classCode) {
         return this.claseService.findByCode(classCode);
@@ -117,6 +122,18 @@ public class ArticulosRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addClass (@RequestBody ClaseDTO prodClass) {
         this.claseService.create(prodClass);
+    }
+
+    @RequestMapping(value = "deleteClass", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteClass (@RequestBody ClaseDTO prodClass) {
+        this.claseService.delete(prodClass);
+    }
+
+    @RequestMapping(value = "updateClass", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateClass (@RequestBody ClaseDTO prodClass) {
+        this.claseService.update(prodClass);
     }
 
     @RequestMapping(value = "typeByclasses", method = RequestMethod.POST)

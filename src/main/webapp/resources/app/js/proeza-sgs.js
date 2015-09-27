@@ -76,12 +76,12 @@ $(document).ready(function() {
 
 });
 
-function chainCombo(srcCombo, targetCombo, serviceUrl, notifyCallback, callbackParams) {
+function chainCombo(srcCombo, targetCombo, serviceUrl, notifyCallback) {
 	var code = $(srcCombo + ' option:selected').attr('value');
-	var choose = $(targetCombo + ' option:first-child');
+	var optDefault = $(targetCombo + ' option:first-child');
 	if (!code) {
 		$(targetCombo).empty();
-		$(targetCombo).append(choose);
+		$(targetCombo).append(optDefault);
 		return;
 	}
 	$.ajax({
@@ -92,19 +92,21 @@ function chainCombo(srcCombo, targetCombo, serviceUrl, notifyCallback, callbackP
 		data : code,
 		success : function(options) {
 			$(targetCombo).empty();
-			$(targetCombo).append(choose);
+			$(targetCombo).append(optDefault);
 			$.each(options, function(index, option) {
 			    $(targetCombo).append(new Option(option.nombre, option.codigo));
 			});
 		},
 		error: function () {
-			notifyCallback(callbackParams);
+			if (notifyCallback) {
+				notifyCallback();
+			}
         }
 	});
 }
 
-function initCombo(targetCombo, serviceUrl, notifyCallback, callbackParams) {
-	var choose = $(targetCombo + ' option:first-child');
+function initCombo(targetCombo, serviceUrl, notifyCallback) {
+	var optDefault = $(targetCombo + ' option:first-child');
 	$.ajax({
 		type : 'POST',
 		url : serviceUrl,
@@ -112,13 +114,15 @@ function initCombo(targetCombo, serviceUrl, notifyCallback, callbackParams) {
 		contentType: 'application/json',
 		success : function(options) {
 			$(targetCombo).empty();
-			$(targetCombo).append(choose);
+			$(targetCombo).append(optDefault);
 			$.each(options, function(index, option) {
 				$(targetCombo).append(new Option(option.nombre, option.codigo));
 			});
 		},
 		error: function () {
-			notifyCallback(callbackParams);
+			if (notifyCallback) {
+				notifyCallback();
+			}
 		}
 	});
 }

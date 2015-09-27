@@ -72,8 +72,8 @@
 								<div class="col-md-1" />
 								<div class="col-md-10" >
 									<div class="form-group">
-										<label id="clmpClassLabel" for="clmpClassCombo" class="control-label" th:text="#{control.clazz}" />
-	                                    <select id="clmpClassCombo" class="form-control input-md" >
+										<label id="clmpClassLabel" for="clmpClass" class="control-label" th:text="#{control.clazz}" />
+	                                    <select id="clmpClass" class="form-control input-md" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                        <option th:each="clase : ${clases}" th:text="${clase.nombre}" th:value="${clase.codigo}" />
 	                                    </select>
@@ -156,53 +156,74 @@
 			function initClassForm() {
 				$('#addClass').click(function() {
 					$('#clmpForm').attr('action', 'create')
-					$('#clmpName').val('');
-					$('#clmpDesc').val('');
-					$('#clmpCat').val('');
+					cleanClassForm();
 					$('#clmpClassLabel').hide();
-					$('#clmpClassCombo').hide();
+					$('#clmpClass').hide();
 					$('#clmpTitle').text([[#{prod.clazz.addPopupTitle}]]);
 					$('#classModalPopup').modal('show');
 				});
 				$('#deleteClass').click(function(){
 					$('#clmpForm').attr('action', 'delete')
+					cleanClassForm();
 					$('#clmpClassLabel').show();
-					$('#clmpClassCombo').show();
+					$('#clmpClass').show();
 					$('#clmpTitle').text([[#{prod.clazz.deletePopupTitle}]]);
 					$('#classModalPopup').modal('show');
 				});
 				$('#editClass').click(function(){
 					$('#clmpForm').attr('action', 'edit')
+					cleanClassForm();
 					$('#clmpClassLabel').show();
-					$('#clmpClassCombo').show();
+					$('#clmpClass').show();
 					$('#clmpTitle').text([[#{prod.clazz.editPopupTitle}]]);
 					$('#classModalPopup').modal('show');
 				});
-				$('#clmpClassCombo').change(function(e) {
+				$('#clmpClass').change(function(e) {
 					loadEntityData($(this).val(), '/proeza-sgs/rest/product/classByCode', setClassData);	
 				});
 				$('#clmpForm').submit(function(e) {
 					e.preventDefault();
 					var action = $(this).attr('action');
+					var actionUrl, actionSuccessMsg, doAction = true;
 					switch (action) {
 					case 'create':
-						saveEntityData(getClassFormData(), '/proeza-sgs/rest/product/addClass', [[#{rest.datasend.success}]]);
+						actionUrl =	'/proeza-sgs/rest/product/addClass';
+						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'delete':
-						console.log('Delete class');
+						actionUrl =	'/proeza-sgs/rest/product/deleteClass';
+						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'edit':
-						console.log('Edit class');
+						actionUrl =	'/proeza-sgs/rest/product/updateClass'; 
+						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
-					default: 
+					default:
+						doAction = false;
 						break;
-					
 					}
+					if (doAction) {
+						saveEntityData(
+								getClassFormData(), 
+								actionUrl, 
+								actionSuccessMsg,
+								function() {initCombo('#clmpClass', '/proeza-sgs/rest/product/getClasses')}
+						);
+					}
+					$('#classModalPopup').modal('hide');
 				});
+			}
+			
+			function cleanClassForm () {
+				$('#clmpName').val('');
+				$('#clmpDesc').val('');
+				$('#clmpCat').val('');	
+				$('#clmpClass').val('');	
 			}
 			
 			function getClassFormData () {
 				var data = {
+					codigo : $('#clmpClass').val(),
 					nombre : $('#clmpName').val(),
 					descripcion : $('#clmpDesc').val(),
 					codRubro :$('#clmpCat').val()
@@ -236,7 +257,7 @@
 				});
 			}	
 
-			function saveEntityData(data, restUrl, successMsg) {
+			function saveEntityData(data, restUrl, successMsg, callback) {
 				$.ajax({
 					type : 'POST',
 					url : restUrl,
@@ -249,6 +270,9 @@
 						},{
 							type: 'success'
 						});
+						if (callback) {
+							callback();
+						}
 					},
 					error : function(jqXHR, status) {
 						$.notify({
@@ -258,7 +282,7 @@
 						});
 					}
 				});
-			}	
+			}
 			/*]]>*/
 		</script>
 	</div>

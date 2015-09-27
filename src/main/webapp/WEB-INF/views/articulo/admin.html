@@ -176,11 +176,11 @@
 			function configControls() {
 				$('#cbRubro').change(function(){
 					var label = $("label[for='cbRubro']");
-					chainCombo('#cbRubro', '#cbClase', product.rest.classesByCategory, notifyComboError, label.text());
+					chainCombo('#cbRubro', '#cbClase', product.rest.classesByCategory, function() {notifyComboError(label.text())} );
 				});
 				$('#cbClase').change(function(){
 					var label = $("label[for='cbClase']");
-					chainCombo('#cbClase', '#cbTipo', product.rest.typeByclasses, notifyComboError, label.text());
+					chainCombo('#cbClase', '#cbTipo', product.rest.typeByclasses, function() {notifyComboError(label.text())} );
 				});
 				$('#newProduct').click(function(){
 					initCreationForm();
