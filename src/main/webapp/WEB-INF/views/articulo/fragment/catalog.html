@@ -28,7 +28,7 @@
 			<button type="button" class="btn btn-warning toolbar-button dropdown-toggle" id="edit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fa fa-lg fa-edit"/>
 			</button>
-			<ul class="dropdown-menu dropdown-menu-right">
+			<ul class="dropdown-menu dropdown-menu-right" >
 				<li><a id="editCategory" th:text="#{control.category}">Rubro</a></li>
 				<li><a id="editClass" th:text="#{control.clazz}">Clase</a></li>
 				<li><a id="editType" th:text="#{control.type}">Tipo</a></li>
@@ -54,7 +54,7 @@
 	
     <!-- Modal de edicion maestros de articulo -->
 	<div th:fragment="catalogEditor">
-		<div class="modal fade" id="classModalPopup" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal fade" id="classModalPopup" tabindex="-1" role="dialog" aria-hidden="true" >
 			<div class="modal-dialog">
 				<div class="color-line" />
 				<div class="modal-content">
@@ -73,18 +73,18 @@
 								<div class="col-md-10" >
 									<div class="form-group">
 										<label id="clmpClassLabel" for="clmpClass" class="control-label" th:text="#{control.clazz}" />
-	                                    <select id="clmpClass" class="form-control input-md" required="required" >
+	                                    <select id="clmpClass" class="form-control input-md" required="required" autofocus="autofocus" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                        <option th:each="clase : ${clases}" th:text="${clase.nombre}" th:value="${clase.codigo}" />
 	                                    </select>
 									</div>
 									<div class="form-group">
-										<label for="clmpName" class="control-label" th:text="#{control.name}">Nombre</label>
-										<input id="clmpName" class="form-control" type="text" required="required" />
+										<label for="clmpName" class="control-label" th:text="#{control.name}" >Nombre</label>
+										<input id="clmpName" class="form-control" type="text" required="required" maxlength="50"/>
 									</div>
 									<div class="form-group">
 										<label for="clmpDesc" class="control-label" th:text="#{control.description}">Descripción</label>
-										<input id="clmpDesc" class="form-control" type="text" />
+										<input id="clmpDesc" class="form-control" type="text" maxlength="100" />
 									</div>
 									<div class="form-group">
 										<label for="clmpCat" class="control-label" th:text="#{control.category}" />
@@ -188,14 +188,33 @@
 						actionUrl =	'/proeza-sgs/rest/product/addClass';
 						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
-					case 'delete':
-						actionUrl =	'/proeza-sgs/rest/product/deleteClass';
-						actionSuccessMsg = [[#{rest.datasend.success}]];
-						break;
 					case 'edit':
 						actionUrl =	'/proeza-sgs/rest/product/updateClass'; 
 						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
+					case 'delete':
+						swal({
+								title: [[#{prod.clazz.confirmDelete.title}]],
+								text: [[#{prod.clazz.confirmDelete.message}]] + ' ' + $('#clmpClass option:selected').text(),
+								type: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#DD6B55',
+								confirmButtonText: [[#{control.confirmDelete}]],
+								cancelButtonText: [[#{control.cancelDelete}]]
+							}, 
+							function (isConfirm) {
+								if (isConfirm) {
+									saveEntityData(
+										getClassFormData(), 
+										'/proeza-sgs/rest/product/deleteClass', 
+										[[#{rest.datasend.success}]],
+										function() {initCombo('#clmpClass', '/proeza-sgs/rest/product/getClasses')}
+									);
+									cleanClassForm();
+								} 
+								$('#classModalPopup').modal('show');
+							}
+						);
 					default:
 						doAction = false;
 						break;
