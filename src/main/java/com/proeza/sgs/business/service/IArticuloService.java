@@ -36,5 +36,5 @@ public interface IArticuloService {
 
 	List<ClaseDTO> classesByCategory (String categoryCode);
 
-	List<TipoDTO> typeByclasses (String classCode);
+	List<TipoDTO> typeByclass (String classCode);
 }

@@ -14,6 +14,11 @@ public class CodeBuilder {
 
     private StringBuilder code;
 
+    public CodeBuilder append (String token) {
+        this.code.append(normalize(token));
+        return this;
+    }
+
     public CodeBuilder append (String token, int length, char paddChar) {
         this.code.append(formatToken(token, length, paddChar));
         return this;
@@ -29,7 +34,7 @@ public class CodeBuilder {
     }
 
     private String formatToken (String token, int length, char paddChar) {
-        token = removeSpecialChars(token);
+        token = normalize(token);
         int paddLength = length - token.length();
         if (paddLength <= 0) {
             return token.substring(0, length).toUpperCase();
@@ -42,7 +47,7 @@ public class CodeBuilder {
         }
     }
 
-    private String removeSpecialChars(String value) {
+    private String normalize(String value) {
         value = Normalizer.normalize(value, Normalizer.Form.NFD);
         StringBuilder builder = new StringBuilder(value.length());
         for (int i = 0; i < value.length(); i++) {

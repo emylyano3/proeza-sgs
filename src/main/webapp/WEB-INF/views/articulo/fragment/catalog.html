@@ -105,6 +105,50 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="categoryModalPopup" tabindex="-1" role="dialog" aria-hidden="true" >
+			<div class="modal-dialog">
+				<div class="color-line" />
+				<div class="modal-content">
+					<div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                    </button>
+	                    <div class="modal-title">
+	                        <span id="catmpTitle"/>
+	                    </div>
+	                </div>
+					<form id="catmpForm" class="form-horizontal" method="post">
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-1" />
+								<div class="col-md-10" >
+									<div class="form-group">
+										<label id="catmpCategoryLabel" for="catmpCategory" class="control-label" th:text="#{control.category}" />
+	                                    <select id="catmpCategory" class="form-control input-md" required="required" autofocus="autofocus" >
+	                                        <option value="" th:text="#{control.choose}"/>
+	                                        <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
+	                                    </select>
+									</div>
+									<div class="form-group">
+										<label for="catmpName" class="control-label" th:text="#{control.name}" >Nombre</label>
+										<input id="catmpName" class="form-control" type="text" required="required" maxlength="50"/>
+									</div>
+									<div class="form-group">
+										<label for="catmpDesc" class="control-label" th:text="#{control.description}">Descripción</label>
+										<input id="catmpDesc" class="form-control" type="text" maxlength="100" />
+									</div>
+								</div>
+								<div class="col-md-1" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{control.close}" />
+							<button id="catmpSave" type="submit" class="btn btn-primary" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div th:fragment="catalogScript" >
@@ -142,15 +186,133 @@
 			}
 			 
 			function initCategoryForm() {
-				$('#addCategory').click(function(){
-					
-				});
-				$('#editCategory').click(function(){
-					
+				$('#addCategory').click(function() {
+					$('#catmpForm').attr('action', 'create')
+					cleanCategoryForm();
+					setCategoryFormForCreate();
+					$('#categoryModalPopup').modal('show');
 				});
 				$('#deleteCategory').click(function(){
-					
+					$('#catmpForm').attr('action', 'delete')
+					cleanCategoryForm();
+					setCategoryFormForDelete();
+					$('#categoryModalPopup').modal('show');
 				});
+				$('#editCategory').click(function(){
+					$('#catmpForm').attr('action', 'edit')
+					cleanCategoryForm();
+					setCategoryFormForUpdate();
+					$('#categoryModalPopup').modal('show');
+				});
+				$('#catmpCategory').change(function(e) {
+					if ($('#catmpCategory')[0].selectedIndex > 0) {
+						loadEntityData($(this).val(), '/proeza-sgs/rest/product/categoryByCode', setCategoryData);	
+					} else {
+						cleanCategoryForm();
+					}
+				});
+				$('#catmpForm').submit(function(e) {
+					e.preventDefault();
+					var action = $(this).attr('action');
+					var actionUrl, actionSuccessMsg, doAction = true;
+					switch (action) {
+					case 'create':
+						actionUrl =	'/proeza-sgs/rest/product/addCategory';
+						actionSuccessMsg = [[#{rest.datasend.success}]];
+						break;
+					case 'edit':
+						actionUrl =	'/proeza-sgs/rest/product/updateCategory'; 
+						actionSuccessMsg = [[#{rest.datasend.success}]];
+						break;
+					case 'delete':
+						swal({
+								title: [[#{control.confirmDelete.title}]],
+								text: [[#{prod.category.confirmDelete.message}]] + ' ' + $('#catmpCategory option:selected').text(),
+								type: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#DD6B55',
+								confirmButtonText: [[#{control.confirmDelete}]],
+								cancelButtonText: [[#{control.cancelDelete}]]
+							}, 
+							function (isConfirm) {
+								if (isConfirm) {
+									saveEntityData(
+										getCategoryFormData(), 
+										'/proeza-sgs/rest/product/deleteCategory', 
+										[[#{rest.datasend.success}]],
+										function() {initCombo('#catmpCategory', '/proeza-sgs/rest/product/getCategories')}
+									);
+									cleanCategoryForm();
+								} 
+								$('#categoryModalPopup').modal('show');
+							}
+						);
+					default:
+						doAction = false;
+						break;
+					}
+					if (doAction) {
+						saveEntityData(
+							getCategoryFormData(), 
+							actionUrl, 
+							actionSuccessMsg,
+							function() {initCombo('#catmpCategory', '/proeza-sgs/rest/product/getCategories')}
+						);
+					}
+					$('#categoryModalPopup').modal('hide');
+				});
+			}
+			
+			function setCategoryFormForCreate () {
+				disableCategoryInput(false);
+				$('#catmpCategoryLabel').hide();
+				$('#catmpCategory').hide();
+				$('#catmpCategory').prop('disabled', true);
+				$('#catmpTitle').text([[#{prod.category.addPopupTitle}]]);
+				$('#catmpSave').text([[#{control.save}]]);	
+			}
+
+			function setCategoryFormForDelete () {
+				disableCategoryInput(true);
+				$('#catmpCategoryLabel').show();
+				$('#catmpCategory').show();
+				$('#catmpCategory').prop('disabled', false);
+				$('#catmpTitle').text([[#{prod.category.deletePopupTitle}]]);
+				$('#catmpSave').text([[#{control.remove}]]);
+			}
+
+			function setCategoryFormForUpdate () {
+				disableCategoryInput(false);
+				$('#catmpCategoryLabel').show();
+				$('#catmpCategory').show();
+				$('#catmpCategory').prop('disabled', false);
+				$('#catmpTitle').text([[#{prod.category.editPopupTitle}]]);
+				$('#catmpSave').text([[#{control.save}]]);	
+			}
+			
+			function cleanCategoryForm () {
+				$('#catmpName').val('');
+				$('#catmpDesc').val('');
+				$('#catmpCategory').val('');	
+			}
+			
+			function disableCategoryInput (value) {
+				$('#catmpName').prop('disabled', value);
+				$('#catmpDesc').prop('disabled', value);
+			}
+			
+			function getCategoryFormData () {
+				var data = {
+					codigo : $('#catmpCategory').val(),
+					nombre : $('#catmpName').val(),
+					descripcion : $('#catmpDesc').val()
+				};
+				return data;
+			}
+			
+			function setCategoryData (data) {
+				$('#catmpName').val(data.nombre);
+				$('#catmpDesc').val(data.descripcion);
 			}
 			
 			function initClassForm() {
@@ -194,7 +356,7 @@
 						break;
 					case 'delete':
 						swal({
-								title: [[#{prod.clazz.confirmDelete.title}]],
+								title: [[#{control.confirmDelete.title}]],
 								text: [[#{prod.clazz.confirmDelete.message}]] + ' ' + $('#clmpClass option:selected').text(),
 								type: 'warning',
 								showCancelButton: true,

@@ -20,6 +20,8 @@ import com.proeza.sgs.business.service.IClaseService;
 @Transactional
 public class ClaseService implements IClaseService {
 
+    private static final String CLASE_PREFIX = "C";
+
     @Autowired
     private IClaseDao claseDao;
 
@@ -63,6 +65,7 @@ public class ClaseService implements IClaseService {
 
     private String createClassCode (ClaseDTO classDTO) {
         return new CodeBuilder()
+            .append(CLASE_PREFIX)
             .append(classDTO.getCodRubro(), 5, 'X')
             .append(classDTO.getNombre(), 5, 'X')
             .append(this.claseDao.getNextId(), 10, '0')

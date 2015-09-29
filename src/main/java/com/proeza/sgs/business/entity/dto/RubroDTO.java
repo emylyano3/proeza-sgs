@@ -20,6 +20,9 @@ public class RubroDTO implements Serializable, Comparable<RubroDTO> {
 
     private String            descripcion;
 
+    public RubroDTO () {
+    }
+
     public RubroDTO (Rubro rubro) {
         this.id = rubro.getId();
         this.codigo = rubro.getCodigo();

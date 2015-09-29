@@ -19,9 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.proeza.sgs.business.entity.dto.ArticuloDTO;
 import com.proeza.sgs.business.entity.dto.ClaseDTO;
 import com.proeza.sgs.business.entity.dto.ResourceDTO;
+import com.proeza.sgs.business.entity.dto.RubroDTO;
 import com.proeza.sgs.business.entity.dto.TipoDTO;
 import com.proeza.sgs.business.service.IArticuloService;
 import com.proeza.sgs.business.service.IClaseService;
+import com.proeza.sgs.business.service.IRubroService;
 
 @RestController
 @RequestMapping("rest/product")
@@ -34,6 +36,9 @@ public class ArticulosRestController {
 
     @Autowired
     private IClaseService claseService;
+
+    @Autowired
+    private IRubroService rubroService;
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
     public List<ArticuloDTO> search (@RequestParam("filter") String filter) {
@@ -108,6 +113,34 @@ public class ArticulosRestController {
         return this.productService.classesByCategory(categoryCode);
     }
 
+    @RequestMapping(value = "getCategories", method = RequestMethod.POST)
+    public List<RubroDTO> getCategories () {
+        return this.rubroService.findAll();
+    }
+
+    @RequestMapping(value = "categoryByCode", method = RequestMethod.POST)
+    public RubroDTO categoryByCode (@RequestBody String categoryCode) {
+        return this.rubroService.findByCode(categoryCode);
+    }
+
+    @RequestMapping(value = "addCategory", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addCategory (@RequestBody RubroDTO prodCategory) {
+        this.rubroService.create(prodCategory);
+    }
+
+    @RequestMapping(value = "deleteCategory", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCategory (@RequestBody RubroDTO prodCategory) {
+        this.rubroService.delete(prodCategory);
+    }
+
+    @RequestMapping(value = "updateCategory", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateCategory (@RequestBody RubroDTO prodCategory) {
+        this.rubroService.update(prodCategory);
+    }
+
     @RequestMapping(value = "getClasses", method = RequestMethod.POST)
     public List<ClaseDTO> getClasses () {
         return this.claseService.findAll();
@@ -136,8 +169,8 @@ public class ArticulosRestController {
         this.claseService.update(prodClass);
     }
 
-    @RequestMapping(value = "typeByclasses", method = RequestMethod.POST)
-    public List<TipoDTO> typeByclasses (@RequestBody String classCode) {
-        return this.productService.typeByclasses(classCode);
+    @RequestMapping(value = "typeByclass", method = RequestMethod.POST)
+    public List<TipoDTO> typeByclass (@RequestBody String classCode) {
+        return this.productService.typeByclass(classCode);
     }
 }

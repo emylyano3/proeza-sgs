@@ -232,7 +232,7 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
-    public List<TipoDTO> typeByclasses (String classCode) {
+    public List<TipoDTO> typeByclass (String classCode) {
         Clase clase = this.claseDao.findByCode(classCode);
         if (clase != null) {
             List<TipoDTO> result = new ArrayList<TipoDTO>(clase.getTipos().size());
