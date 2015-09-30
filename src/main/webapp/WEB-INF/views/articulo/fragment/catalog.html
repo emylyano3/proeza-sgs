@@ -206,7 +206,7 @@
 				});
 				$('#catmpCategory').change(function(e) {
 					if ($('#catmpCategory')[0].selectedIndex > 0) {
-						loadEntityData($(this).val(), '/proeza-sgs/rest/product/categoryByCode', setCategoryData);	
+						loadEntityData($(this).val(), product.rest.categoryByCode, setCategoryData);	
 					} else {
 						cleanCategoryForm();
 					}
@@ -217,11 +217,11 @@
 					var actionUrl, actionSuccessMsg, doAction = true;
 					switch (action) {
 					case 'create':
-						actionUrl =	'/proeza-sgs/rest/product/addCategory';
+						actionUrl =	product.rest.addCategory;
 						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'edit':
-						actionUrl =	'/proeza-sgs/rest/product/updateCategory'; 
+						actionUrl =	product.rest.updateCategory; 
 						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'delete':
@@ -238,9 +238,9 @@
 								if (isConfirm) {
 									saveEntityData(
 										getCategoryFormData(), 
-										'/proeza-sgs/rest/product/deleteCategory', 
+										product.rest.deleteCategory, 
 										[[#{rest.datasend.success}]],
-										function() {initCombo('#catmpCategory', '/proeza-sgs/rest/product/getCategories')}
+										function() {initCombo('#catmpCategory', product.rest.getCategories)}
 									);
 									cleanCategoryForm();
 								} 
@@ -256,7 +256,7 @@
 							getCategoryFormData(), 
 							actionUrl, 
 							actionSuccessMsg,
-							function() {initCombo('#catmpCategory', '/proeza-sgs/rest/product/getCategories')}
+							function() {initCombo('#catmpCategory', product.rest.getCategories)}
 						);
 					}
 					$('#categoryModalPopup').modal('hide');
@@ -336,7 +336,7 @@
 				});
 				$('#clmpClass').change(function(e) {
 					if ($('#clmpClass')[0].selectedIndex > 0) {
-						loadEntityData($(this).val(), '/proeza-sgs/rest/product/classByCode', setClassData);	
+						loadEntityData($(this).val(), product.rest.classByCode, setClassData);	
 					} else {
 						cleanClassForm();
 					}
@@ -347,11 +347,11 @@
 					var actionUrl, actionSuccessMsg, doAction = true;
 					switch (action) {
 					case 'create':
-						actionUrl =	'/proeza-sgs/rest/product/addClass';
+						actionUrl =	product.rest.addClass;
 						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'edit':
-						actionUrl =	'/proeza-sgs/rest/product/updateClass'; 
+						actionUrl =	product.rest.updateClass; 
 						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'delete':
@@ -368,9 +368,9 @@
 								if (isConfirm) {
 									saveEntityData(
 										getClassFormData(), 
-										'/proeza-sgs/rest/product/deleteClass', 
+										product.rest.deleteClass, 
 										[[#{rest.datasend.success}]],
-										function() {initCombo('#clmpClass', '/proeza-sgs/rest/product/getClasses')}
+										function() {initCombo('#clmpClass', product.rest.getClasses)}
 									);
 									cleanClassForm();
 								} 
@@ -386,7 +386,7 @@
 							getClassFormData(), 
 							actionUrl, 
 							actionSuccessMsg,
-							function() {initCombo('#clmpClass', '/proeza-sgs/rest/product/getClasses')}
+							function() {initCombo('#clmpClass', product.rest.getClasses)}
 						);
 					}
 					$('#classModalPopup').modal('hide');
