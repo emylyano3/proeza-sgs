@@ -93,7 +93,7 @@
 							dataField: 'descripcion', 
 							width: '21%' 
 						},{ 
-							text: /*[[#{prod.grid.class}]]*/ 'Clase', 
+							text: /*[[#{prod.grid.clazz}]]*/ 'Clase', 
 							dataField: 'clase',
 							width: '14%' 
 						},{ 
@@ -160,17 +160,17 @@
 					// get the clicked row's data and initialize the input fields.
 					var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowindex);
 					switch (event.target.id) {
-						case 'CM_PLG_SEE_IMAGES' :						
+						case [[#{menuitem.seeImages}]] :						
 							blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
 							break;
-						case 'CM_PLG_QCASH_SALE' :
-							quickSale (dataRecord.codigo, 'EFT', [[${user.alias}]], notifyQuickSaleDone);
+						case [[#{menuitem.quickCashSale}]] :
+							quickSale (dataRecord.codigo, [[#{saletype.cash}]], [[${user.alias}]], notifyQuickSaleDone);
 							break;
-						case 'CM_PLG_QCRED_SALE' :
-							quickSale (dataRecord.codigo, 'TCR', [[${user.alias}]], notifyQuickSaleDone);
+						case [[#{menuitem.quickCreditSale}]] :
+							quickSale (dataRecord.codigo, [[#{saletype.credit}]], [[${user.alias}]], notifyQuickSaleDone);
 							break;
-						case 'CM_PLG_QDEBI_SALE' :
-							quickSale (dataRecord.codigo, 'TDE', [[${user.alias}]], notifyQuickSaleDone);
+						case [[#{menuitem.quickDebitSale}]] :
+							quickSale (dataRecord.codigo, [[#{saletype.debit}]], [[${user.alias}]], notifyQuickSaleDone);
 							break;
 						default:
 							break;
