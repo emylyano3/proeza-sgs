@@ -18,11 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.proeza.sgs.business.entity.dto.ArticuloDTO;
 import com.proeza.sgs.business.entity.dto.ClaseDTO;
+import com.proeza.sgs.business.entity.dto.MarcaDTO;
 import com.proeza.sgs.business.entity.dto.ResourceDTO;
 import com.proeza.sgs.business.entity.dto.RubroDTO;
 import com.proeza.sgs.business.entity.dto.TipoDTO;
 import com.proeza.sgs.business.service.IArticuloService;
 import com.proeza.sgs.business.service.IClaseService;
+import com.proeza.sgs.business.service.IMarcaService;
 import com.proeza.sgs.business.service.IRubroService;
 
 @RestController
@@ -39,6 +41,9 @@ public class ArticulosRestController {
 
     @Autowired
     private IRubroService rubroService;
+
+    @Autowired
+    private IMarcaService marcaService;
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
     public List<ArticuloDTO> search (@RequestParam("filter") String filter) {
@@ -139,6 +144,34 @@ public class ArticulosRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCategory (@RequestBody RubroDTO prodCategory) {
         this.rubroService.update(prodCategory);
+    }
+
+    @RequestMapping(value = "brandByCode", method = RequestMethod.POST)
+    public MarcaDTO brandByCode (@RequestBody String brandCode) {
+        return this.marcaService.findByCode(brandCode);
+    }
+
+    @RequestMapping(value = "getBrands", method = RequestMethod.POST)
+    public List<MarcaDTO> getBrands () {
+        return this.marcaService.findAll();
+    }
+
+    @RequestMapping(value = "addBrand", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addBrand (@RequestBody MarcaDTO prodBrand) {
+        this.marcaService.create(prodBrand);
+    }
+
+    @RequestMapping(value = "deleteBrand", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBrand (@RequestBody MarcaDTO prodBrand) {
+        this.marcaService.delete(prodBrand);
+    }
+
+    @RequestMapping(value = "updateBrand", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateBrand (@RequestBody MarcaDTO prodBrand) {
+        this.marcaService.update(prodBrand);
     }
 
     @RequestMapping(value = "getClasses", method = RequestMethod.POST)

@@ -98,6 +98,50 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="brandModalPopup" tabindex="-1" role="dialog" aria-hidden="true" >
+			<div class="modal-dialog">
+				<div class="color-line" />
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<div class="modal-title">
+							<span id="branmpTitle"/>
+						</div>
+					</div>
+					<form id="branmpForm" class="form-horizontal" method="post">
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-1" />
+								<div class="col-md-10" >
+									<div class="form-group">
+										<label id="branmpBranSelectLabel" for="branmpBranSelect" class="control-label" th:text="#{control.brand}" />
+										<select id="branmpBranSelect" class="form-control input-md" required="required" autofocus="autofocus" >
+											<option value="" th:text="#{control.choose}"/>
+											<option th:each="marca : ${marcas}" th:text="${marca.nombre}" th:value="${marca.codigo}" />
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="branmpName" class="control-label" th:text="#{control.name}" >Nombre</label>
+										<input id="branmpName" class="form-control" type="text" required="required" maxlength="50"/>
+									</div>
+									<div class="form-group">
+										<label for="branmpDesc" class="control-label" th:text="#{control.description}">Descripción</label>
+										<input id="branmpDesc" class="form-control" type="text" maxlength="100" />
+									</div>
+								</div>
+								<div class="col-md-1" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{control.close}" />
+							<button id="branmpSave" type="submit" class="btn btn-primary" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 		<div class="modal fade" id="classModalPopup" tabindex="-1" role="dialog" aria-hidden="true" >
 			<div class="modal-dialog">
 				<div class="color-line" />
@@ -224,7 +268,7 @@
 										getCategoryFormData(), 
 										product.rest.deleteCategory, 
 										[[#{rest.datasend.success}]],
-										updateClassCombos
+										updateCategoryCombos
 									);
 									cleanCategoryForm();
 								}
@@ -240,14 +284,14 @@
 							getCategoryFormData(), 
 							actionUrl, 
 							actionSuccessMsg,
-							updateClassCombos
+							updateCategoryCombos
 						);
 					}
 					$('#categoryModalPopup').modal('hide');
 				});
 			}
 			
-			function updateClassCombos () {
+			function updateCategoryCombos () {
 				initCombo('#catmpCatSelect', product.rest.getCategories);
 				initCombo('#clmpCatSelect', product.rest.getCategories);
 				initCombo('#clmpCatInput', product.rest.getCategories);
@@ -457,15 +501,137 @@
 			// Administracion de marca
 			
 			function initBrandForm() {
-				$('#addBrand').click(function(){
-					
+				$('#addBrand').click(function() {
+					$('#branmpForm').attr('action', 'create')
+					cleanBrandForm();
+					setBrandFormForCreate();
+					$('#brandModalPopup').modal('show');
 				});
 				$('#deleteBrand').click(function(){
-					
+					$('#branmpForm').attr('action', 'delete')
+					cleanBrandForm();
+					setBrandFormForDelete();
+					$('#brandModalPopup').modal('show');
 				});
 				$('#editBrand').click(function(){
-					
+					$('#branmpForm').attr('action', 'edit')
+					cleanBrandForm();
+					setBrandFormForUpdate();
+					$('#brandModalPopup').modal('show');
 				});
+				$('#branmpBranSelect').change(function(e) {
+					if ($('#branmpBranSelect')[0].selectedIndex > 0) {
+						loadEntityData($(this).val(), product.rest.brandByCode, setBrandData);	
+					} else {
+						cleanBrandForm();
+					}
+				});
+				$('#branmpForm').submit(function(e) {
+					e.preventDefault();
+					var action = $(this).attr('action');
+					var actionUrl, actionSuccessMsg, doAction = true;
+					switch (action) {
+					case 'create':
+						actionUrl =	product.rest.addBrand;
+						actionSuccessMsg = [[#{rest.datasend.success}]];
+						break;
+					case 'edit':
+						actionUrl =	product.rest.updateBrand; 
+						actionSuccessMsg = [[#{rest.datasend.success}]];
+						break;
+					case 'delete':
+						swal({
+								title: [[#{control.confirmDelete.title}]],
+								text: [[#{prod.brand.confirmDelete.message}]] + ' ' + $('#branmpBranSelect option:selected').text(),
+								type: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#DD6B55',
+								confirmButtonText: [[#{control.confirmDelete}]],
+								cancelButtonText: [[#{control.cancelDelete}]]
+							}, 
+							function (isConfirm) {
+								if (isConfirm) {
+									saveEntityData(
+										getBrandFormData(), 
+										product.rest.deleteBrand, 
+										[[#{rest.datasend.success}]],
+										updateBrandCombos
+									);
+									cleanBrandForm();
+								}
+								$('#brandModalPopup').modal('show');
+							}
+						);
+					default:
+						doAction = false;
+						break;
+					}
+					if (doAction) {
+						saveEntityData(
+							getBrandFormData(), 
+							actionUrl, 
+							actionSuccessMsg,
+							updateBrandCombos
+						);
+					}
+					$('#brandModalPopup').modal('hide');
+				});
+			}
+			
+			function updateBrandCombos () {
+				initCombo('#branmpBranSelect', product.rest.getBrands);
+			} 
+			
+			function setBrandFormForCreate () {
+				disableBrandInput(false);
+				$('#branmpBranSelectLabel').hide();
+				$('#branmpBranSelect').hide();
+				$('#branmpBranSelect').prop('disabled', true);
+				$('#branmpTitle').text([[#{prod.brand.addPopupTitle}]]);
+				$('#branmpSave').text([[#{control.save}]]);	
+			}
+
+			function setBrandFormForDelete () {
+				disableBrandInput(true);
+				$('#branmpBranSelectLabel').show();
+				$('#branmpBranSelect').show();
+				$('#branmpBranSelect').prop('disabled', false);
+				$('#branmpTitle').text([[#{prod.brand.deletePopupTitle}]]);
+				$('#branmpSave').text([[#{control.remove}]]);
+			}
+
+			function setBrandFormForUpdate () {
+				disableBrandInput(false);
+				$('#branmpBranSelectLabel').show();
+				$('#branmpBranSelect').show();
+				$('#branmpBranSelect').prop('disabled', false);
+				$('#branmpTitle').text([[#{prod.brand.editPopupTitle}]]);
+				$('#branmpSave').text([[#{control.save}]]);	
+			}
+			
+			function cleanBrandForm () {
+				$('#branmpName').val('');
+				$('#branmpDesc').val('');
+				$('#branmpBranSelect').val('');	
+			}
+			
+			function disableBrandInput (value) {
+				$('#branmpName').prop('disabled', value);
+				$('#branmpDesc').prop('disabled', value);
+			}
+			
+			function getBrandFormData () {
+				var data = {
+					codigo : $('#branmpBranSelect').val(),
+					nombre : $('#branmpName').val(),
+					descripcion : $('#branmpDesc').val()
+				};
+				return data;
+			}
+			
+			function setBrandData (data) {
+				$('#branmpName').val(data.nombre);
+				$('#branmpDesc').val(data.descripcion);
 			}
 			 
 			// Administracion de tipo

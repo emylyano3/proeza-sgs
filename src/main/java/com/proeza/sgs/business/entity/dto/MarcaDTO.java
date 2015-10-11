@@ -20,6 +20,9 @@ public class MarcaDTO implements Serializable, Comparable<MarcaDTO> {
 
     private String            descripcion;
 
+    public MarcaDTO () {
+    }
+
     public MarcaDTO (Marca marca) {
         this.id = marca.getId();
         this.codigo = marca.getCodigo();
