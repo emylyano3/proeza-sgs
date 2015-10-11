@@ -68,7 +68,7 @@ public class ClaseService implements IClaseService {
             .append(CLASE_PREFIX)
             .append(classDTO.getCodRubro(), 5, 'X')
             .append(classDTO.getNombre(), 5, 'X')
-            .append(this.claseDao.getNextId(), 10, '0')
+            .append(this.claseDao.getNextId(), 9, '0')
             .build();
     }
 
