@@ -54,57 +54,6 @@
 	
     <!-- Modal de edicion maestros de articulo -->
 	<div th:fragment="catalogEditor">
-		<div class="modal fade" id="classModalPopup" tabindex="-1" role="dialog" aria-hidden="true" >
-			<div class="modal-dialog">
-				<div class="color-line" />
-				<div class="modal-content">
-					<div class="modal-header">
-	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	                        <span aria-hidden="true">&times;</span>
-	                    </button>
-	                    <div class="modal-title">
-	                        <span id="clmpTitle"/>
-	                    </div>
-	                </div>
-					<form id="clmpForm" class="form-horizontal" method="post">
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-1" />
-								<div class="col-md-10" >
-									<div class="form-group">
-										<label id="clmpClassLabel" for="clmpClass" class="control-label" th:text="#{control.clazz}" />
-	                                    <select id="clmpClass" class="form-control input-md" required="required" autofocus="autofocus" >
-	                                        <option value="" th:text="#{control.choose}"/>
-	                                        <option th:each="clase : ${clases}" th:text="${clase.nombre}" th:value="${clase.codigo}" />
-	                                    </select>
-									</div>
-									<div class="form-group">
-										<label for="clmpName" class="control-label" th:text="#{control.name}" >Nombre</label>
-										<input id="clmpName" class="form-control" type="text" required="required" maxlength="50"/>
-									</div>
-									<div class="form-group">
-										<label for="clmpDesc" class="control-label" th:text="#{control.description}">Descripción</label>
-										<input id="clmpDesc" class="form-control" type="text" maxlength="100" />
-									</div>
-									<div class="form-group">
-										<label for="clmpCat" class="control-label" th:text="#{control.category}" />
-	                                    <select id="clmpCat" class="form-control input-md" required="required" >
-	                                        <option value="" th:text="#{control.choose}"/>
-	                                        <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
-	                                    </select>
-									</div>
-								</div>
-								<div class="col-md-1" />
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{control.close}" />
-							<button id="clmpSave" type="submit" class="btn btn-primary" />
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
 		<div class="modal fade" id="categoryModalPopup" tabindex="-1" role="dialog" aria-hidden="true" >
 			<div class="modal-dialog">
 				<div class="color-line" />
@@ -123,8 +72,8 @@
 								<div class="col-md-1" />
 								<div class="col-md-10" >
 									<div class="form-group">
-										<label id="catmpCategoryLabel" for="catmpCategory" class="control-label" th:text="#{control.category}" />
-	                                    <select id="catmpCategory" class="form-control input-md" required="required" autofocus="autofocus" >
+										<label id="catmpCatSelectLabel" for="catmpCatSelect" class="control-label" th:text="#{control.category}" />
+	                                    <select id="catmpCatSelect" class="form-control input-md" required="required" autofocus="autofocus" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                        <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
 	                                    </select>
@@ -149,6 +98,63 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="classModalPopup" tabindex="-1" role="dialog" aria-hidden="true" >
+			<div class="modal-dialog">
+				<div class="color-line" />
+				<div class="modal-content">
+					<div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                    </button>
+	                    <div class="modal-title">
+	                        <span id="clmpTitle"/>
+	                    </div>
+	                </div>
+					<form id="clmpForm" class="form-horizontal" method="post">
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-1" />
+								<div class="col-md-10" >
+									<div class="form-group">
+										<label id="clmpCatSelectLabel" for="clmpCatSelect" class="control-label" th:text="#{control.category}" />
+	                                    <select id="clmpCatSelect" class="form-control input-md" required="required" autofocus="autofocus" >
+	                                        <option value="" th:text="#{control.choose}"/>
+	                                        <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
+	                                    </select>
+									</div>
+									<div class="form-group">
+										<label id="clmpClaSelectLabel" for="clmpClaSelect" class="control-label" th:text="#{control.clazz}" />
+	                                    <select id="clmpClaSelect" class="form-control input-md" required="required" autofocus="autofocus" >
+	                                        <option value="" th:text="#{control.choose}"/>
+	                                    </select>
+									</div>
+									<div class="form-group">
+										<label for="clmpName" class="control-label" th:text="#{control.name}" >Nombre</label>
+										<input id="clmpName" class="form-control" type="text" required="required" maxlength="50"/>
+									</div>
+									<div class="form-group">
+										<label for="clmpDesc" class="control-label" th:text="#{control.description}">Descripción</label>
+										<input id="clmpDesc" class="form-control" type="text" maxlength="100" />
+									</div>
+									<div class="form-group">
+										<label for="clmpCatInput" class="control-label" th:text="#{control.category}" />
+	                                    <select id="clmpCatInput" class="form-control input-md" required="required" >
+	                                        <option value="" th:text="#{control.choose}"/>
+	                                        <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
+	                                    </select>
+									</div>
+								</div>
+								<div class="col-md-1" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{control.close}" />
+							<button id="clmpSave" type="submit" class="btn btn-primary" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div th:fragment="catalogScript" >
@@ -161,30 +167,8 @@
 				initBrandForm();
 			})
 			
-			function initBrandForm() {
-				$('#addBrand').click(function(){
-					
-				});
-				$('#deleteBrand').click(function(){
-					
-				});
-				$('#editBrand').click(function(){
-					
-				});
-			}
-			 
-			function initTypeForm() {
-				$('#addType').click(function(){
-					
-				});
-				$('#deleteType').click(function(){
-					
-				});
-				$('#editType').click(function(){
-					
-				});
-			}
-			 
+			// Administracion de categoria 
+			
 			function initCategoryForm() {
 				$('#addCategory').click(function() {
 					$('#catmpForm').attr('action', 'create')
@@ -204,8 +188,8 @@
 					setCategoryFormForUpdate();
 					$('#categoryModalPopup').modal('show');
 				});
-				$('#catmpCategory').change(function(e) {
-					if ($('#catmpCategory')[0].selectedIndex > 0) {
+				$('#catmpCatSelect').change(function(e) {
+					if ($('#catmpCatSelect')[0].selectedIndex > 0) {
 						loadEntityData($(this).val(), product.rest.categoryByCode, setCategoryData);	
 					} else {
 						cleanCategoryForm();
@@ -227,7 +211,7 @@
 					case 'delete':
 						swal({
 								title: [[#{control.confirmDelete.title}]],
-								text: [[#{prod.category.confirmDelete.message}]] + ' ' + $('#catmpCategory option:selected').text(),
+								text: [[#{prod.category.confirmDelete.message}]] + ' ' + $('#catmpCatSelect option:selected').text(),
 								type: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#DD6B55',
@@ -240,10 +224,10 @@
 										getCategoryFormData(), 
 										product.rest.deleteCategory, 
 										[[#{rest.datasend.success}]],
-										function() {initCombo('#catmpCategory', product.rest.getCategories)}
+										updateClassCombos
 									);
 									cleanCategoryForm();
-								} 
+								}
 								$('#categoryModalPopup').modal('show');
 							}
 						);
@@ -256,36 +240,42 @@
 							getCategoryFormData(), 
 							actionUrl, 
 							actionSuccessMsg,
-							function() {initCombo('#catmpCategory', product.rest.getCategories)}
+							updateClassCombos
 						);
 					}
 					$('#categoryModalPopup').modal('hide');
 				});
 			}
 			
+			function updateClassCombos () {
+				initCombo('#catmpCatSelect', product.rest.getCategories);
+				initCombo('#clmpCatSelect', product.rest.getCategories);
+				initCombo('#clmpCatInput', product.rest.getCategories);
+			} 
+			
 			function setCategoryFormForCreate () {
 				disableCategoryInput(false);
-				$('#catmpCategoryLabel').hide();
-				$('#catmpCategory').hide();
-				$('#catmpCategory').prop('disabled', true);
+				$('#catmpCatSelectLabel').hide();
+				$('#catmpCatSelect').hide();
+				$('#catmpCatSelect').prop('disabled', true);
 				$('#catmpTitle').text([[#{prod.category.addPopupTitle}]]);
 				$('#catmpSave').text([[#{control.save}]]);	
 			}
 
 			function setCategoryFormForDelete () {
 				disableCategoryInput(true);
-				$('#catmpCategoryLabel').show();
-				$('#catmpCategory').show();
-				$('#catmpCategory').prop('disabled', false);
+				$('#catmpCatSelectLabel').show();
+				$('#catmpCatSelect').show();
+				$('#catmpCatSelect').prop('disabled', false);
 				$('#catmpTitle').text([[#{prod.category.deletePopupTitle}]]);
 				$('#catmpSave').text([[#{control.remove}]]);
 			}
 
 			function setCategoryFormForUpdate () {
 				disableCategoryInput(false);
-				$('#catmpCategoryLabel').show();
-				$('#catmpCategory').show();
-				$('#catmpCategory').prop('disabled', false);
+				$('#catmpCatSelectLabel').show();
+				$('#catmpCatSelect').show();
+				$('#catmpCatSelect').prop('disabled', false);
 				$('#catmpTitle').text([[#{prod.category.editPopupTitle}]]);
 				$('#catmpSave').text([[#{control.save}]]);	
 			}
@@ -293,7 +283,7 @@
 			function cleanCategoryForm () {
 				$('#catmpName').val('');
 				$('#catmpDesc').val('');
-				$('#catmpCategory').val('');	
+				$('#catmpCatSelect').val('');	
 			}
 			
 			function disableCategoryInput (value) {
@@ -303,7 +293,7 @@
 			
 			function getCategoryFormData () {
 				var data = {
-					codigo : $('#catmpCategory').val(),
+					codigo : $('#catmpCatSelect').val(),
 					nombre : $('#catmpName').val(),
 					descripcion : $('#catmpDesc').val()
 				};
@@ -314,6 +304,8 @@
 				$('#catmpName').val(data.nombre);
 				$('#catmpDesc').val(data.descripcion);
 			}
+			
+			// Administracion de clase
 			
 			function initClassForm() {
 				$('#addClass').click(function() {
@@ -334,8 +326,11 @@
 					setClassFormForUpdate();
 					$('#classModalPopup').modal('show');
 				});
-				$('#clmpClass').change(function(e) {
-					if ($('#clmpClass')[0].selectedIndex > 0) {
+				$('#clmpCatSelect').change(function(e) {
+					chainCombo('#clmpCatSelect', '#clmpClaSelect', product.rest.classesByCategory);
+				});
+				$('#clmpClaSelect').change(function(e) {
+					if ($('#clmpClaSelect')[0].selectedIndex > 0) {
 						loadEntityData($(this).val(), product.rest.classByCode, setClassData);	
 					} else {
 						cleanClassForm();
@@ -357,7 +352,7 @@
 					case 'delete':
 						swal({
 								title: [[#{control.confirmDelete.title}]],
-								text: [[#{prod.clazz.confirmDelete.message}]] + ' ' + $('#clmpClass option:selected').text(),
+								text: [[#{prod.clazz.confirmDelete.message}]] + ' ' + $('#clmpClaSelect option:selected').text(),
 								type: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#DD6B55',
@@ -370,7 +365,7 @@
 										getClassFormData(), 
 										product.rest.deleteClass, 
 										[[#{rest.datasend.success}]],
-										function() {initCombo('#clmpClass', product.rest.getClasses)}
+										function() {initCombo('#clmpClaSelect', product.rest.getClasses)}
 									);
 									cleanClassForm();
 								} 
@@ -386,7 +381,7 @@
 							getClassFormData(), 
 							actionUrl, 
 							actionSuccessMsg,
-							function() {initCombo('#clmpClass', product.rest.getClasses)}
+							function() {initCombo('#clmpClaSelect', product.rest.getClasses)}
 						);
 					}
 					$('#classModalPopup').modal('hide');
@@ -395,27 +390,36 @@
 
 			function setClassFormForCreate () {
 				disableClassInput(false);
-				$('#clmpClassLabel').hide();
-				$('#clmpClass').hide();
-				$('#clmpClass').prop('disabled', true);
+				$('#clmpClaSelectLabel').hide();
+				$('#clmpClaSelect').hide();
+				$('#clmpClaSelect').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
+				$('#clmpCatSelectLabel').hide();
+				$('#clmpCatSelect').hide();
+				$('#clmpCatSelect').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
 				$('#clmpTitle').text([[#{prod.clazz.addPopupTitle}]]);
 				$('#clmpSave').text([[#{control.save}]]);	
 			}
 
 			function setClassFormForDelete () {
 				disableClassInput(true);
-				$('#clmpClassLabel').show();
-				$('#clmpClass').show();
-				$('#clmpClass').prop('disabled', false);
+				$('#clmpClaSelectLabel').show();
+				$('#clmpClaSelect').show();
+				$('#clmpClaSelect').prop('disabled', false);
+				$('#clmpCatSelectLabel').show();
+				$('#clmpCatSelect').show();
+				$('#clmpCatSelect').prop('disabled', false); // Se deshabilita para que no se valide en el formulario				
 				$('#clmpTitle').text([[#{prod.clazz.deletePopupTitle}]]);
 				$('#clmpSave').text([[#{control.remove}]]);
 			}
 
 			function setClassFormForUpdate () {
 				disableClassInput(false);
-				$('#clmpClassLabel').show();
-				$('#clmpClass').show();
-				$('#clmpClass').prop('disabled', false);
+				$('#clmpClaSelectLabel').show();
+				$('#clmpClaSelect').show();
+				$('#clmpClaSelect').prop('disabled', false);
+				$('#clmpCatSelectLabel').show();
+				$('#clmpCatSelect').show();
+				$('#clmpCatSelect').prop('disabled', false); // Se deshabilita para que no se valide en el formulario	
 				$('#clmpTitle').text([[#{prod.clazz.editPopupTitle}]]);
 				$('#clmpSave').text([[#{control.save}]]);	
 			}
@@ -423,22 +427,23 @@
 			function cleanClassForm () {
 				$('#clmpName').val('');
 				$('#clmpDesc').val('');
-				$('#clmpCat').val('');
-				$('#clmpClass').val('');	
+				$('#clmpCatInput').val('');
+				$('#clmpClaSelect').val('');	
+				$('#clmpClaSelect').val('');	
 			}
 			
 			function disableClassInput (value) {
 				$('#clmpName').prop('disabled', value);
 				$('#clmpDesc').prop('disabled', value);
-				$('#clmpCat').prop('disabled', value);
+				$('#clmpCatInput').prop('disabled', value);
 			}
 			
 			function getClassFormData () {
 				var data = {
-					codigo : $('#clmpClass').val(),
+					codigo : $('#clmpClaSelect').val(),
 					nombre : $('#clmpName').val(),
 					descripcion : $('#clmpDesc').val(),
-					codRubro :$('#clmpCat').val()
+					codRubro :$('#clmpCatInput').val()
 				};
 				return data;
 			}
@@ -446,7 +451,35 @@
 			function setClassData (data) {
 				$('#clmpName').val(data.nombre);
 				$('#clmpDesc').val(data.descripcion);
-				$('#clmpCat').val(data.codRubro);
+				$('#clmpCatInput').val(data.codRubro);
+			}
+
+			// Administracion de marca
+			
+			function initBrandForm() {
+				$('#addBrand').click(function(){
+					
+				});
+				$('#deleteBrand').click(function(){
+					
+				});
+				$('#editBrand').click(function(){
+					
+				});
+			}
+			 
+			// Administracion de tipo
+			
+			function initTypeForm() {
+				$('#addType').click(function(){
+					
+				});
+				$('#deleteType').click(function(){
+					
+				});
+				$('#editType').click(function(){
+					
+				});
 			}
 			
 			function loadEntityData(inputData, restUrl, setData) {
