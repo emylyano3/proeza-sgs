@@ -47,7 +47,7 @@ public class MarcaDTO implements Serializable, Comparable<MarcaDTO> {
     }
 
     public String getNombre () {
-        return this.nombre;
+        return this.nombre != null ? this.nombre.trim() : null;
     }
 
     public void setNombre (String nombre) {
@@ -67,7 +67,7 @@ public class MarcaDTO implements Serializable, Comparable<MarcaDTO> {
         if (m == null) {
             return -1;
         }
-        return getNombre().compareTo(m.getNombre());
+        return getNombre().toLowerCase().compareTo(m.getNombre().toLowerCase());
     }
 
     @Override

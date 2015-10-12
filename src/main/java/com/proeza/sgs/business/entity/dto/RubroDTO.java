@@ -47,7 +47,7 @@ public class RubroDTO implements Serializable, Comparable<RubroDTO> {
     }
 
     public String getNombre () {
-        return this.nombre;
+        return this.nombre != null ? this.nombre.trim() : null;
     }
 
     public void setNombre (String nombre) {
@@ -72,6 +72,6 @@ public class RubroDTO implements Serializable, Comparable<RubroDTO> {
         if (r == null) {
             return -1;
         }
-        return getNombre().compareTo(r.getNombre());
+        return getNombre().toLowerCase().compareTo(r.getNombre().toLowerCase());
     }
 }

@@ -41,43 +41,43 @@ import com.proeza.sgs.business.service.IArticuloService;
 @Transactional
 public class ArticuloService implements IArticuloService {
 
-    public static final Logger		log				= Logger.getLogger(ArticuloService.class);
+    public static final Logger log = Logger.getLogger(ArticuloService.class);
 
     @Autowired
-    private IArticuloDao			articuloDao;
+    private IArticuloDao articuloDao;
 
     @Autowired
-    private IClaseDao				claseDao;
+    private IClaseDao claseDao;
 
     @Autowired
-    private RubroDao				rubroDao;
+    private RubroDao rubroDao;
 
     @Autowired
-    private MarcaDao				marcaDao;
+    private MarcaDao marcaDao;
 
     @Autowired
-    private TipoDao					tipoDao;
+    private TipoDao tipoDao;
 
     @Autowired
-    private IImageService			imageService;
+    private IImageService imageService;
 
     @Autowired
-    private ArticuloFilterFactory	filterFactory;
+    private ArticuloFilterFactory filterFactory;
 
-    public static final int			THUMBNAIL_SIZE	= 75;
+    public static final int THUMBNAIL_SIZE = 75;
 
     @Override
-    public List<ArticuloDTO> findAll () {
+    public List<ArticuloDTO> findAll() {
         return hideEntites(this.articuloDao.findAll());
     }
 
     @Override
-    public ArticuloDTO findByCode (String code) {
+    public ArticuloDTO findByCode(String code) {
         return new ArticuloDTO(this.articuloDao.findByCode(code));
     }
 
     @Override
-    public List<ArticuloDTO> findByStringFilter (String filter) {
+    public List<ArticuloDTO> findByStringFilter(String filter) {
         long init = System.currentTimeMillis();
         List<ArticuloDTO> data = hideEntites(this.filterFactory.create(filter).doFilter());
         long time = System.currentTimeMillis() - init;
@@ -86,7 +86,7 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
-    public void create (ArticuloDTO dto) {
+    public void create(ArticuloDTO dto) {
         Tipo tipo = dto.getCodTipo() == null ? null : this.tipoDao.findByCode(dto.getCodTipo());
         Rubro rubro = this.rubroDao.findByCode(dto.getCodRubro());
         Marca marca = this.marcaDao.findByCode(dto.getCodMarca());
@@ -106,7 +106,7 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
-    public void update (ArticuloDTO dto) {
+    public void update(ArticuloDTO dto) {
         Articulo art = this.articuloDao.findByCode(dto.getCodigo());
         Tipo tipo = dto.getCodTipo() == null ? null : this.tipoDao.findByCode(dto.getCodTipo());
         Rubro rubro = this.rubroDao.findByCode(dto.getCodRubro());
@@ -123,7 +123,7 @@ public class ArticuloService implements IArticuloService {
         art.setDescripcion(dto.getDescripcion());
     }
 
-    private List<ArticuloDTO> hideEntites (List<Articulo> articulos) {
+    private List<ArticuloDTO> hideEntites(List<Articulo> articulos) {
         List<ArticuloDTO> result = new ArrayList<>(articulos.size());
         for (Articulo art : articulos) {
             result.add(new ArticuloDTO(art));
@@ -132,7 +132,7 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
-    public void addImage (String artCode, String imageName, String imageDesc, MediaType type, byte[] image) {
+    public void addImage(String artCode, String imageName, String imageDesc, MediaType type, byte[] image) {
         if (image != null) {
             Articulo art = this.articuloDao.findByCode(artCode);
             Resource res = new Resource();
@@ -152,7 +152,7 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
-    public byte[] getImage (String articleCode, Long id) {
+    public byte[] getImage(String articleCode, Long id) {
         Articulo art = this.articuloDao.findByCode(articleCode);
         Set<Resource> resources = art.getResources();
         for (Resource res : resources) {
@@ -168,7 +168,7 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
-    public byte[] getThumbnail (String articleCode, Long id) {
+    public byte[] getThumbnail(String articleCode, Long id) {
         Articulo art = this.articuloDao.findByCode(articleCode);
         Set<Resource> resources = art.getResources();
         for (Resource res : resources) {
@@ -184,17 +184,17 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
-    public void remove (String productCode) {
+    public void remove(String productCode) {
         this.articuloDao.delete(this.articuloDao.findByCode(productCode));
     }
 
     @Override
-    public List<ResourceDTO> getImagesAvail (String articleCode) {
+    public List<ResourceDTO> getImagesAvail(String articleCode) {
         Articulo art = this.articuloDao.findByCode(articleCode);
         List<Resource> resources = new ArrayList<Resource>(art.getResources());
         Collections.sort(resources, new Comparator<Resource>() {
             @Override
-            public int compare (Resource r1, Resource r2) {
+            public int compare(Resource r1, Resource r2) {
                 return r1.getId().compareTo(r2.getId());
             };
         });
@@ -208,23 +208,24 @@ public class ArticuloService implements IArticuloService {
         return result;
     }
 
-    private String createProductCode (ArticuloDTO art) {
+    private String createProductCode(ArticuloDTO art) {
         return new CodeBuilder(10)
-            .append(art.getRubro(), 4, 'X')
-            .append(art.getClase(), 4, 'X')
-            .append(art.getMarca(), 4, 'X')
-            .append(this.articuloDao.getNextId(), 8, '0')
-            .build();
+                .append(art.getRubro(), 4, 'X')
+                .append(art.getClase(), 4, 'X')
+                .append(art.getMarca(), 4, 'X')
+                .append(this.articuloDao.getNextId(), 8, '0')
+                .build();
     }
 
     @Override
-    public List<ClaseDTO> classesByCategory (String categoryCode) {
+    public List<ClaseDTO> classesByCategory(String categoryCode) {
         Rubro rubro = this.rubroDao.findByCode(categoryCode);
         if (rubro != null) {
             List<ClaseDTO> result = new ArrayList<ClaseDTO>(rubro.getClases().size());
             for (Clase clase : rubro.getClases()) {
                 result.add(new ClaseDTO(clase));
             }
+            Collections.sort(result);
             return result;
         } else {
             return new ArrayList<ClaseDTO>(0);
@@ -232,13 +233,14 @@ public class ArticuloService implements IArticuloService {
     }
 
     @Override
-    public List<TipoDTO> typeByclass (String classCode) {
+    public List<TipoDTO> typesByClass(String classCode) {
         Clase clase = this.claseDao.findByCode(classCode);
         if (clase != null) {
             List<TipoDTO> result = new ArrayList<TipoDTO>(clase.getTipos().size());
             for (Tipo tipo : clase.getTipos()) {
                 result.add(new TipoDTO(tipo));
             }
+            Collections.sort(result);
             return result;
         } else {
             return new ArrayList<TipoDTO>(0);

@@ -58,10 +58,10 @@ public class RubroService implements IRubroService {
 
     private String createCategoryCode (RubroDTO classDTO) {
         return new CodeBuilder()
-            .append(RUBRO_PREFIX)
-            .append(classDTO.getNombre(), 5, 'X')
-            .append(this.rubroDao.getNextId(), 10, '0')
-            .build();
+                .append(RUBRO_PREFIX)
+                .append(classDTO.getNombre(), 5, 'X')
+                .append(this.rubroDao.getNextId(), 10, '0')
+                .build();
     }
 
     private List<RubroDTO> hideEntites (List<Rubro> rubros) {

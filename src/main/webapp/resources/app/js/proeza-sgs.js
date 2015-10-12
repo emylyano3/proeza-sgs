@@ -76,7 +76,7 @@ $(document).ready(function() {
 
 });
 
-function chainCombo(srcCombo, targetCombo, serviceUrl, notifyCallback) {
+function chainCombo(srcCombo, targetCombo, serviceUrl, selectedValue, notifyCallback) {
 	var code = $(srcCombo + ' option:selected').attr('value');
 	var optDefault = $(targetCombo + ' option:first-child');
 	if (!code) {
@@ -96,6 +96,9 @@ function chainCombo(srcCombo, targetCombo, serviceUrl, notifyCallback) {
 			$.each(options, function(index, option) {
 			    $(targetCombo).append(new Option(option.nombre, option.codigo));
 			});
+			if (selectedValue) {
+				$(targetCombo).val(selectedValue);
+			}
 		},
 		error: function () {
 			if (notifyCallback) {
@@ -103,6 +106,15 @@ function chainCombo(srcCombo, targetCombo, serviceUrl, notifyCallback) {
 			}
         }
 	});
+}
+
+function emptyCombo (targetCombo, hasDefault) {
+	var optDefault = $(targetCombo + ' option:first-child');
+	$(targetCombo).empty();
+	if (hasDefault && optDefault != null) {
+		$(targetCombo).append(optDefault);
+		$(targetCombo).val('');
+	}
 }
 
 function initCombo(targetCombo, serviceUrl, notifyCallback) {

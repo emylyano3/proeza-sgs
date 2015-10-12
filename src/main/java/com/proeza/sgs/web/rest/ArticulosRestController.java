@@ -26,6 +26,7 @@ import com.proeza.sgs.business.service.IArticuloService;
 import com.proeza.sgs.business.service.IClaseService;
 import com.proeza.sgs.business.service.IMarcaService;
 import com.proeza.sgs.business.service.IRubroService;
+import com.proeza.sgs.business.service.ITipoService;
 
 @RestController
 @RequestMapping("rest/product")
@@ -38,6 +39,9 @@ public class ArticulosRestController {
 
     @Autowired
     private IClaseService claseService;
+
+    @Autowired
+    private ITipoService tipoService;
 
     @Autowired
     private IRubroService rubroService;
@@ -202,8 +206,36 @@ public class ArticulosRestController {
         this.claseService.update(prodClass);
     }
 
-    @RequestMapping(value = "typeByclass", method = RequestMethod.POST)
-    public List<TipoDTO> typeByclass (@RequestBody String classCode) {
-        return this.productService.typeByclass(classCode);
+    @RequestMapping(value = "typesByClass", method = RequestMethod.POST)
+    public List<TipoDTO> typesByClass (@RequestBody String classCode) {
+        return this.productService.typesByClass(classCode);
+    }
+
+    @RequestMapping(value = "getTypes", method = RequestMethod.POST)
+    public List<TipoDTO> getTypes () {
+        return this.tipoService.findAll();
+    }
+
+    @RequestMapping(value = "typeByCode", method = RequestMethod.POST)
+    public TipoDTO typeByCode (@RequestBody String typeCode) {
+        return this.tipoService.findByCode(typeCode);
+    }
+
+    @RequestMapping(value = "addType", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addType (@RequestBody TipoDTO prodType) {
+        this.tipoService.create(prodType);
+    }
+
+    @RequestMapping(value = "deleteType", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteType (@RequestBody TipoDTO prodType) {
+        this.tipoService.delete(prodType);
+    }
+
+    @RequestMapping(value = "updateType", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateType (@RequestBody TipoDTO prodType) {
+        this.tipoService.update(prodType);
     }
 }

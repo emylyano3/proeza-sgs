@@ -53,7 +53,7 @@ public class ClaseDTO implements Serializable, Comparable<ClaseDTO> {
     }
 
     public String getNombre () {
-        return this.nombre;
+        return this.nombre != null ? this.nombre.trim() : null;
     }
 
     public void setNombre (String nombre) {
@@ -94,6 +94,6 @@ public class ClaseDTO implements Serializable, Comparable<ClaseDTO> {
         if (c == null) {
             return -1;
         }
-        return getNombre().compareTo(c.getNombre());
+        return getNombre().toLowerCase().compareTo(c.getNombre().toLowerCase());
     }
 }

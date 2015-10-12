@@ -29,19 +29,19 @@ public class ClaseService implements IClaseService {
     private IRubroDao rubroDao;
 
     @Override
-    public List<ClaseDTO> findAll () {
+    public List<ClaseDTO> findAll() {
         List<ClaseDTO> result = hideEntites(this.claseDao.findAll());
         Collections.sort(result);
         return result;
     }
 
     @Override
-    public ClaseDTO findByCode (String classCode) {
+    public ClaseDTO findByCode(String classCode) {
         return new ClaseDTO(this.claseDao.findByCode(classCode));
     }
 
     @Override
-    public void create (ClaseDTO classDTO) {
+    public void create(ClaseDTO classDTO) {
         Clase clase = new Clase();
         clase.setNombre(classDTO.getNombre());
         clase.setDescripcion(classDTO.getDescripcion());
@@ -51,7 +51,7 @@ public class ClaseService implements IClaseService {
     }
 
     @Override
-    public void update (ClaseDTO classDTO) {
+    public void update(ClaseDTO classDTO) {
         Clase clase = this.claseDao.findByCode(classDTO.getCodigo());
         clase.setNombre(classDTO.getNombre());
         clase.setDescripcion(classDTO.getDescripcion());
@@ -59,20 +59,20 @@ public class ClaseService implements IClaseService {
     }
 
     @Override
-    public void delete (ClaseDTO classDTO) {
+    public void delete(ClaseDTO classDTO) {
         this.claseDao.delete(this.claseDao.findByCode(classDTO.getCodigo()));
     }
 
-    private String createClassCode (ClaseDTO classDTO) {
+    private String createClassCode(ClaseDTO classDTO) {
         return new CodeBuilder()
-            .append(CLASE_PREFIX)
-            .append(classDTO.getCodRubro(), 5, 'X')
-            .append(classDTO.getNombre(), 5, 'X')
-            .append(this.claseDao.getNextId(), 9, '0')
-            .build();
+                .append(CLASE_PREFIX)
+                .append(classDTO.getCodRubro(), 5, 'X')
+                .append(classDTO.getNombre(), 5, 'X')
+                .append(this.claseDao.getNextId(), 9, '0')
+                .build();
     }
 
-    private List<ClaseDTO> hideEntites (List<Clase> clases) {
+    private List<ClaseDTO> hideEntites(List<Clase> clases) {
         List<ClaseDTO> result = new ArrayList<>(clases.size());
         for (Clase clase : clases) {
             result.add(new ClaseDTO(clase));
