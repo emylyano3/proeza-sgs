@@ -63,29 +63,29 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 						<div class="modal-title">
-							<span id="branmpTitle"/>
+							<span id="mpBraTitle"/>
 						</div>
 					</div>
-					<form id="branmpForm" class="form-horizontal" method="post">
+					<form id="mpBraForm" class="form-horizontal" method="post">
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-md-1" />
 								<div class="col-md-10" >
 									<div class="form-group">
-										<label id="branmpBranSelectLabel" for="branmpBranSelect" class="control-label" th:text="#{control.brand}" />
-										<select id="branmpBranSelect" class="form-control input-md" required="required" autofocus="autofocus" >
+										<label id="mpBraBrandFilterLabel" for="mpBraBrandFilter" class="control-label" th:text="#{control.brand}" />
+										<select id="mpBraBrandFilter" class="form-control input-md" required="required" autofocus="autofocus" >
 											<option value="" th:text="#{control.choose}"/>
 											<option th:each="marca : ${marcas}" th:text="${marca.nombre}" th:value="${marca.codigo}" />
 										</select>
 									</div>
-									<hr id="branmpInputDivider" />
+									<hr id="mpBraInputDivider" />
 									<div class="form-group">
-										<label for="branmpName" class="control-label" th:text="#{control.name}" >Nombre</label>
-										<input id="branmpName" class="form-control" type="text" required="required" maxlength="50"/>
+										<label for="mpBraName" class="control-label" th:text="#{control.name}" >Nombre</label>
+										<input id="mpBraName" class="form-control" type="text" required="required" maxlength="50"/>
 									</div>
 									<div class="form-group">
-										<label for="branmpDesc" class="control-label" th:text="#{control.description}">Descripción</label>
-										<input id="branmpDesc" class="form-control" type="text" maxlength="100" />
+										<label for="mpBraDesc" class="control-label" th:text="#{control.description}">Descripción</label>
+										<input id="mpBraDesc" class="form-control" type="text" maxlength="100" />
 									</div>
 								</div>
 								<div class="col-md-1" />
@@ -93,7 +93,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{control.close}" />
-							<button id="branmpSave" type="submit" class="btn btn-primary" />
+							<button id="mpBraSave" type="submit" class="btn btn-primary" />
 						</div>
 					</form>
 				</div>
@@ -108,29 +108,29 @@
 	                        <span aria-hidden="true">&times;</span>
 	                    </button>
 	                    <div class="modal-title">
-	                        <span id="catmpTitle"/>
+	                        <span id="mpCatTitle"/>
 	                    </div>
 	                </div>
-					<form id="catmpForm" class="form-horizontal" method="post">
+					<form id="mpCatForm" class="form-horizontal" method="post">
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-md-1" />
 								<div class="col-md-10" >
 									<div class="form-group">
-										<label id="catmpCatSelectLabel" for="catmpCatSelect" class="control-label" th:text="#{control.category}" />
-	                                    <select id="catmpCatSelect" class="form-control input-md" required="required" autofocus="autofocus" >
+										<label id="mpCatCategoryFilterLabel" for="mpCatCategoryFilter" class="control-label" th:text="#{control.category}" />
+	                                    <select id="mpCatCategoryFilter" class="form-control input-md" required="required" autofocus="autofocus" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                        <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
 	                                    </select>
 									</div>
-									<hr id="catmpInputDivider" />
+									<hr id="mpCatInputDivider" />
 									<div class="form-group">
-										<label for="catmpName" class="control-label" th:text="#{control.name}" >Nombre</label>
-										<input id="catmpName" class="form-control" type="text" required="required" maxlength="50"/>
+										<label for="mpCatName" class="control-label" th:text="#{control.name}" >Nombre</label>
+										<input id="mpCatName" class="form-control" type="text" required="required" maxlength="50"/>
 									</div>
 									<div class="form-group">
-										<label for="catmpDesc" class="control-label" th:text="#{control.description}">Descripción</label>
-										<input id="catmpDesc" class="form-control" type="text" maxlength="100" />
+										<label for="mpCatDesc" class="control-label" th:text="#{control.description}">Descripción</label>
+										<input id="mpCatDesc" class="form-control" type="text" maxlength="100" />
 									</div>
 								</div>
 								<div class="col-md-1" />
@@ -138,7 +138,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{control.close}" />
-							<button id="catmpSave" type="submit" class="btn btn-primary" />
+							<button id="mpCatSave" type="submit" class="btn btn-primary" />
 						</div>
 					</form>
 				</div>
@@ -153,39 +153,39 @@
 	                        <span aria-hidden="true">&times;</span>
 	                    </button>
 	                    <div class="modal-title">
-	                        <span id="clmpTitle"/>
+	                        <span id="mpClaTitle"/>
 	                    </div>
 	                </div>
-					<form id="clmpForm" class="form-horizontal" method="post">
+					<form id="mpClaForm" class="form-horizontal" method="post">
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-md-1" />
 								<div class="col-md-10" >
 									<div class="form-group">
-										<label id="clmpCatSelectLabel" for="clmpCatSelect" class="control-label" th:text="#{control.category}" />
-	                                    <select id="clmpCatSelect" class="form-control input-md" required="required" autofocus="autofocus" >
+										<label id="mpClaCatFilterLabel" for="mpClaCatFilter" class="control-label" th:text="#{control.category}" />
+	                                    <select id="mpClaCatFilter" class="form-control input-md" required="required" autofocus="autofocus" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                        <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
 	                                    </select>
 									</div>
 									<div class="form-group">
-										<label id="clmpClassSelectLabel" for="clmpClassSelect" class="control-label" th:text="#{control.clazz}" />
-	                                    <select id="clmpClassSelect" class="form-control input-md" required="required" autofocus="autofocus" >
+										<label id="mpClaClassFilterLabel" for="mpClaClassFilter" class="control-label" th:text="#{control.clazz}" />
+	                                    <select id="mpClaClassFilter" class="form-control input-md" required="required" autofocus="autofocus" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                    </select>
 									</div>
-									<hr id="clmpInputDivider" />
+									<hr id="mpClaInputDivider" />
 									<div class="form-group">
-										<label for="clmpName" class="control-label" th:text="#{control.name}" >Nombre</label>
-										<input id="clmpName" class="form-control" type="text" required="required" maxlength="50"/>
+										<label for="mpClaName" class="control-label" th:text="#{control.name}" >Nombre</label>
+										<input id="mpClaName" class="form-control" type="text" required="required" maxlength="50"/>
 									</div>
 									<div class="form-group">
-										<label for="clmpDesc" class="control-label" th:text="#{control.description}">Descripción</label>
-										<input id="clmpDesc" class="form-control" type="text" maxlength="100" />
+										<label for="mpClaDesc" class="control-label" th:text="#{control.description}">Descripción</label>
+										<input id="mpClaDesc" class="form-control" type="text" maxlength="100" />
 									</div>
 									<div class="form-group">
-										<label for="clmpCatInput" class="control-label" th:text="#{control.category}" />
-	                                    <select id="clmpCatInput" class="form-control input-md" required="required" >
+										<label for="mpClaCatInput" class="control-label" th:text="#{control.category}" />
+	                                    <select id="mpClaCatInput" class="form-control input-md" required="required" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                        <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
 	                                    </select>
@@ -196,7 +196,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{control.close}" />
-							<button id="clmpSave" type="submit" class="btn btn-primary" />
+							<button id="mpClaSave" type="submit" class="btn btn-primary" />
 						</div>
 					</form>
 				</div>
@@ -211,52 +211,52 @@
 	                        <span aria-hidden="true">&times;</span>
 	                    </button>
 	                    <div class="modal-title">
-	                        <span id="tympTitle"/>
+	                        <span id="mpTypTitle"/>
 	                    </div>
 	                </div>
-					<form id="tympForm" class="form-horizontal" method="post">
+					<form id="mpTypForm" class="form-horizontal" method="post">
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-md-1" />
 								<div class="col-md-10" >
 									<div class="form-group">
-										<label id="tympCatSelectLabel" for="tympCatSelect" class="control-label" th:text="#{control.category}" />
-	                                    <select id="tympCatSelect" class="form-control input-md" required="required" autofocus="autofocus" >
+										<label id="mpTypCatFilterLabel" for="mpTypCatFilter" class="control-label" th:text="#{control.category}" />
+	                                    <select id="mpTypCatFilter" class="form-control input-md" required="required" autofocus="autofocus" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                        <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
 	                                    </select>
 									</div>
 									<div class="form-group">
-										<label id="tympClassSelectLabel" for="tympClassSelect" class="control-label" th:text="#{control.clazz}" />
-	                                    <select id="tympClassSelect" class="form-control input-md" required="required" autofocus="autofocus" >
+										<label id="mpTypClassFilterLabel" for="mpTypClassFilter" class="control-label" th:text="#{control.clazz}" />
+	                                    <select id="mpTypClassFilter" class="form-control input-md" required="required" autofocus="autofocus" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                    </select>
 									</div>
 									<div class="form-group">
-										<label id="tympTypeSelectLabel" for="tympTypeSelect" class="control-label" th:text="#{control.type}" />
-	                                    <select id="tympTypeSelect" class="form-control input-md" required="required" autofocus="autofocus" >
+										<label id="mpTypTypeFilterLabel" for="mpTypTypeFilter" class="control-label" th:text="#{control.type}" />
+	                                    <select id="mpTypTypeFilter" class="form-control input-md" required="required" autofocus="autofocus" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                    </select>
 									</div>
-									<hr id="tympInputDivider" />
+									<hr id="mpTypInputDivider" />
 									<div class="form-group">
-										<label for="tympName" class="control-label" th:text="#{control.name}" >Nombre</label>
-										<input id="tympName" class="form-control" type="text" required="required" maxlength="50"/>
+										<label for="mpTypName" class="control-label" th:text="#{control.name}" >Nombre</label>
+										<input id="mpTypName" class="form-control" type="text" required="required" maxlength="50"/>
 									</div>
 									<div class="form-group">
-										<label for="tympDesc" class="control-label" th:text="#{control.description}">Descripción</label>
-										<input id="tympDesc" class="form-control" type="text" maxlength="100" />
+										<label for="mpTypDesc" class="control-label" th:text="#{control.description}">Descripción</label>
+										<input id="mpTypDesc" class="form-control" type="text" maxlength="100" />
 									</div>
 									<div class="form-group">
-										<label for="tympCatInput" class="control-label" th:text="#{control.category}" />
-	                                    <select id="tympCatInput" class="form-control input-md" required="required" >
+										<label for="mpTypCatInput" class="control-label" th:text="#{control.category}" />
+	                                    <select id="mpTypCatInput" class="form-control input-md" required="required" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                        <option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
 	                                    </select>
 									</div>
 									<div class="form-group">
-										<label for="tympClassInput" class="control-label" th:text="#{control.clazz}" />
-	                                    <select id="tympClassInput" class="form-control input-md" required="required" >
+										<label for="mpTypClassInput" class="control-label" th:text="#{control.clazz}" />
+	                                    <select id="mpTypClassInput" class="form-control input-md" required="required" >
 	                                        <option value="" th:text="#{control.choose}"/>
 	                                    </select>
 									</div>
@@ -266,7 +266,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{control.close}" />
-							<button id="tympSave" type="submit" class="btn btn-primary" />
+							<button id="mpTypSave" type="submit" class="btn btn-primary" />
 						</div>
 					</form>
 				</div>
@@ -288,31 +288,31 @@
 			
 			function initBrandForm() {
 				$('#addBrand').click(function() {
-					$('#branmpForm').attr('action', 'create')
+					$('#mpBraForm').attr('action', 'create')
 					cleanBrandForm();
 					setBrandFormForCreate();
 					$('#brandModalPopup').modal('show');
 				});
 				$('#deleteBrand').click(function(){
-					$('#branmpForm').attr('action', 'delete')
+					$('#mpBraForm').attr('action', 'delete')
 					cleanBrandForm();
 					setBrandFormForDelete();
 					$('#brandModalPopup').modal('show');
 				});
 				$('#editBrand').click(function(){
-					$('#branmpForm').attr('action', 'edit')
+					$('#mpBraForm').attr('action', 'edit')
 					cleanBrandForm();
 					setBrandFormForUpdate();
 					$('#brandModalPopup').modal('show');
 				});
-				$('#branmpBranSelect').change(function(e) {
-					if ($('#branmpBranSelect')[0].selectedIndex > 0) {
+				$('#mpBraBrandFilter').change(function(e) {
+					if ($('#mpBraBrandFilter')[0].selectedIndex > 0) {
 						loadEntityData($(this).val(), product.rest.brandByCode, setBrandData);	
 					} else {
 						cleanBrandForm();
 					}
 				});
-				$('#branmpForm').submit(function(e) {
+				$('#mpBraForm').submit(function(e) {
 					e.preventDefault();
 					var action = $(this).attr('action');
 					var actionUrl, actionSuccessMsg, doAction = true;
@@ -328,7 +328,7 @@
 					case 'delete':
 						swal({
 								title: [[#{control.confirmDelete.title}]],
-								text: [[#{prod.brand.confirmDelete.message}]] + ' ' + $('#branmpBranSelect option:selected').text(),
+								text: [[#{prod.brand.confirmDelete.message}]] + ' ' + $('#mpBraBrandFilter option:selected').text(),
 								type: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#DD6B55',
@@ -365,93 +365,94 @@
 			}
 			 
 			function updateBrandCombos () {
-				initCombo('#branmpBranSelect', product.rest.getBrands);
+				initCombo('#mpBraBrandFilter', product.rest.getBrands);
+				initCombo('#cbMarca', product.rest.getBrands);
 			}
 			
 			function setBrandFormForCreate () {
 				disableBrandInput(false);
-				$('#branmpBranSelectLabel').hide();
-				$('#branmpBranSelect').hide();
-				$('#branmpBranSelect').prop('disabled', true);
-				$('#branmpInputDivider').hide();
-				$('#branmpTitle').text([[#{prod.brand.addPopupTitle}]]);
-				$('#branmpSave').text([[#{control.save}]]);	
+				$('#mpBraBrandFilterLabel').hide();
+				$('#mpBraBrandFilter').hide();
+				$('#mpBraBrandFilter').prop('disabled', true);
+				$('#mpBraInputDivider').hide();
+				$('#mpBraTitle').text([[#{prod.brand.addPopupTitle}]]);
+				$('#mpBraSave').text([[#{control.save}]]);	
 			}
 
 			function setBrandFormForDelete () {
 				disableBrandInput(true);
-				$('#branmpBranSelectLabel').show();
-				$('#branmpBranSelect').show();
-				$('#branmpBranSelect').prop('disabled', false);
-				$('#branmpInputDivider').show();
-				$('#branmpTitle').text([[#{prod.brand.deletePopupTitle}]]);
-				$('#branmpSave').text([[#{control.remove}]]);
+				$('#mpBraBrandFilterLabel').show();
+				$('#mpBraBrandFilter').show();
+				$('#mpBraBrandFilter').prop('disabled', false);
+				$('#mpBraInputDivider').show();
+				$('#mpBraTitle').text([[#{prod.brand.deletePopupTitle}]]);
+				$('#mpBraSave').text([[#{control.remove}]]);
 			}
 
 			function setBrandFormForUpdate () {
 				disableBrandInput(false);
-				$('#branmpBranSelectLabel').show();
-				$('#branmpBranSelect').show();
-				$('#branmpBranSelect').prop('disabled', false);
-				$('#branmpInputDivider').show();
-				$('#branmpTitle').text([[#{prod.brand.editPopupTitle}]]);
-				$('#branmpSave').text([[#{control.save}]]);	
+				$('#mpBraBrandFilterLabel').show();
+				$('#mpBraBrandFilter').show();
+				$('#mpBraBrandFilter').prop('disabled', false);
+				$('#mpBraInputDivider').show();
+				$('#mpBraTitle').text([[#{prod.brand.editPopupTitle}]]);
+				$('#mpBraSave').text([[#{control.save}]]);	
 			}
 			
 			function cleanBrandForm () {
-				$('#branmpName').val('');
-				$('#branmpDesc').val('');
-				$('#branmpBranSelect').val('');	
+				$('#mpBraName').val('');
+				$('#mpBraDesc').val('');
+				$('#mpBraBrandFilter').val('');	
 			}
 			
 			function disableBrandInput (value) {
-				$('#branmpName').prop('disabled', value);
-				$('#branmpDesc').prop('disabled', value);
+				$('#mpBraName').prop('disabled', value);
+				$('#mpBraDesc').prop('disabled', value);
 			}
 			
 			function getBrandFormData () {
 				var data = {
-					codigo : $('#branmpBranSelect').val(),
-					nombre : $('#branmpName').val(),
-					descripcion : $('#branmpDesc').val()
+					codigo : $('#mpBraBrandFilter').val(),
+					nombre : $('#mpBraName').val(),
+					descripcion : $('#mpBraDesc').val()
 				};
 				return data;
 			}
 			
 			function setBrandData (data) {
-				$('#branmpName').val(data.nombre);
-				$('#branmpDesc').val(data.descripcion);
+				$('#mpBraName').val(data.nombre);
+				$('#mpBraDesc').val(data.descripcion);
 			}
 			 
 			// Administracion de categoria 
 			
 			function initCategoryForm() {
 				$('#addCategory').click(function() {
-					$('#catmpForm').attr('action', 'create')
+					$('#mpCatForm').attr('action', 'create')
 					cleanCategoryForm();
 					setCategoryFormForCreate();
 					$('#categoryModalPopup').modal('show');
 				});
 				$('#deleteCategory').click(function(){
-					$('#catmpForm').attr('action', 'delete')
+					$('#mpCatForm').attr('action', 'delete')
 					cleanCategoryForm();
 					setCategoryFormForDelete();
 					$('#categoryModalPopup').modal('show');
 				});
 				$('#editCategory').click(function(){
-					$('#catmpForm').attr('action', 'edit')
+					$('#mpCatForm').attr('action', 'edit')
 					cleanCategoryForm();
 					setCategoryFormForUpdate();
 					$('#categoryModalPopup').modal('show');
 				});
-				$('#catmpCatSelect').change(function(e) {
-					if ($('#catmpCatSelect')[0].selectedIndex > 0) {
+				$('#mpCatCategoryFilter').change(function(e) {
+					if ($('#mpCatCategoryFilter')[0].selectedIndex > 0) {
 						loadEntityData($(this).val(), product.rest.categoryByCode, setCategoryData);	
 					} else {
 						cleanCategoryForm();
 					}
 				});
-				$('#catmpForm').submit(function(e) {
+				$('#mpCatForm').submit(function(e) {
 					e.preventDefault();
 					var action = $(this).attr('action');
 					var actionUrl, actionSuccessMsg, doAction = true;
@@ -467,7 +468,7 @@
 					case 'delete':
 						swal({
 								title: [[#{control.confirmDelete.title}]],
-								text: [[#{prod.category.confirmDelete.message}]] + ' ' + $('#catmpCatSelect option:selected').text(),
+								text: [[#{prod.category.confirmDelete.message}]] + ' ' + $('#mpCatCategoryFilter option:selected').text(),
 								type: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#DD6B55',
@@ -504,101 +505,102 @@
 			}
 			
 			function updateCategoryCombos () {
-				initCombo('#catmpCatSelect', product.rest.getCategories);
-				initCombo('#clmpCatSelect', product.rest.getCategories);
-				initCombo('#clmpCatInput', product.rest.getCategories);
-				initCombo('#tympCatSelect', product.rest.getCategories);
-				initCombo('#tympCatInput', product.rest.getCategories);
+				initCombo('#mpCatCategoryFilter', product.rest.getCategories);
+				initCombo('#mpClaCatFilter', product.rest.getCategories);
+				initCombo('#mpClaCatInput', product.rest.getCategories);
+				initCombo('#mpTypCatFilter', product.rest.getCategories);
+				initCombo('#mpTypCatInput', product.rest.getCategories);
+				initCombo('#cbRubro', product.rest.getCategories);
 				cleanCategoryForm();
 			}
 			
 			function setCategoryFormForCreate () {
 				disableCategoryInput(false);
-				$('#catmpCatSelectLabel').hide();
-				$('#catmpCatSelect').hide();
-				$('#catmpInputDivider').hide();
-				$('#catmpCatSelect').prop('disabled', true);
-				$('#catmpTitle').text([[#{prod.category.addPopupTitle}]]);
-				$('#catmpSave').text([[#{control.save}]]);	
+				$('#mpCatCategoryFilterLabel').hide();
+				$('#mpCatCategoryFilter').hide();
+				$('#mpCatInputDivider').hide();
+				$('#mpCatCategoryFilter').prop('disabled', true);
+				$('#mpCatTitle').text([[#{prod.category.addPopupTitle}]]);
+				$('#mpCatSave').text([[#{control.save}]]);	
 			}
 
 			function setCategoryFormForDelete () {
 				disableCategoryInput(true);
-				$('#catmpCatSelectLabel').show();
-				$('#catmpCatSelect').show();
-				$('#catmpCatSelect').prop('disabled', false);
-				$('#catmpInputDivider').show();
-				$('#catmpTitle').text([[#{prod.category.deletePopupTitle}]]);
-				$('#catmpSave').text([[#{control.remove}]]);
+				$('#mpCatCategoryFilterLabel').show();
+				$('#mpCatCategoryFilter').show();
+				$('#mpCatCategoryFilter').prop('disabled', false);
+				$('#mpCatInputDivider').show();
+				$('#mpCatTitle').text([[#{prod.category.deletePopupTitle}]]);
+				$('#mpCatSave').text([[#{control.remove}]]);
 			}
 
 			function setCategoryFormForUpdate () {
 				disableCategoryInput(false);
-				$('#catmpCatSelectLabel').show();
-				$('#catmpCatSelect').show();
-				$('#catmpCatSelect').prop('disabled', false);
-				$('#catmpInputDivider').show();
-				$('#catmpTitle').text([[#{prod.category.editPopupTitle}]]);
-				$('#catmpSave').text([[#{control.save}]]);	
+				$('#mpCatCategoryFilterLabel').show();
+				$('#mpCatCategoryFilter').show();
+				$('#mpCatCategoryFilter').prop('disabled', false);
+				$('#mpCatInputDivider').show();
+				$('#mpCatTitle').text([[#{prod.category.editPopupTitle}]]);
+				$('#mpCatSave').text([[#{control.save}]]);	
 			}
 			
 			function cleanCategoryForm () {
-				$('#catmpName').val('');
-				$('#catmpDesc').val('');
-				$('#catmpCatSelect').val('');	
+				$('#mpCatName').val('');
+				$('#mpCatDesc').val('');
+				$('#mpCatCategoryFilter').val('');	
 			}
 			
 			function disableCategoryInput (value) {
-				$('#catmpName').prop('disabled', value);
-				$('#catmpDesc').prop('disabled', value);
+				$('#mpCatName').prop('disabled', value);
+				$('#mpCatDesc').prop('disabled', value);
 			}
 			
 			function getCategoryFormData () {
 				var data = {
-					codigo : $('#catmpCatSelect').val(),
-					nombre : $('#catmpName').val(),
-					descripcion : $('#catmpDesc').val()
+					codigo : $('#mpCatCategoryFilter').val(),
+					nombre : $('#mpCatName').val(),
+					descripcion : $('#mpCatDesc').val()
 				};
 				return data;
 			}
 			
 			function setCategoryData (data) {
-				$('#catmpName').val(data.nombre);
-				$('#catmpDesc').val(data.descripcion);
+				$('#mpCatName').val(data.nombre);
+				$('#mpCatDesc').val(data.descripcion);
 			}
 			
 			// Administracion de clase
 			
 			function initClassForm() {
 				$('#addClass').click(function() {
-					$('#clmpForm').attr('action', 'create')
+					$('#mpClaForm').attr('action', 'create')
 					cleanClassForm();
 					setClassFormForCreate();
 					$('#classModalPopup').modal('show');
 				});
 				$('#deleteClass').click(function(){
-					$('#clmpForm').attr('action', 'delete')
+					$('#mpClaForm').attr('action', 'delete')
 					cleanClassForm();
 					setClassFormForDelete();
 					$('#classModalPopup').modal('show');
 				});
 				$('#editClass').click(function(){
-					$('#clmpForm').attr('action', 'edit')
+					$('#mpClaForm').attr('action', 'edit')
 					cleanClassForm();
 					setClassFormForUpdate();
 					$('#classModalPopup').modal('show');
 				});
-				$('#clmpCatSelect').change(function(e) {
-					chainCombo('#clmpCatSelect', '#clmpClassSelect', product.rest.classesByCategory);
+				$('#mpClaCatFilter').change(function(e) {
+					chainCombo('#mpClaCatFilter', '#mpClaClassFilter', product.rest.classesByCategory);
 				});
-				$('#clmpClassSelect').change(function(e) {
-					if ($('#clmpClassSelect')[0].selectedIndex > 0) {
+				$('#mpClaClassFilter').change(function(e) {
+					if ($('#mpClaClassFilter')[0].selectedIndex > 0) {
 						loadEntityData($(this).val(), product.rest.classByCode, setClassData);	
 					} else {
 						cleanClassForm();
 					}
 				});
-				$('#clmpForm').submit(function(e) {
+				$('#mpClaForm').submit(function(e) {
 					e.preventDefault();
 					var action = $(this).attr('action');
 					var actionUrl, actionSuccessMsg, doAction = true;
@@ -614,7 +616,7 @@
 					case 'delete':
 						swal({
 								title: [[#{control.confirmDelete.title}]],
-								text: [[#{prod.clazz.confirmDelete.message}]] + ' ' + $('#clmpClassSelect option:selected').text(),
+								text: [[#{prod.clazz.confirmDelete.message}]] + ' ' + $('#mpClaClassFilter option:selected').text(),
 								type: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#DD6B55',
@@ -651,119 +653,119 @@
 			}
 
 			function updateClassCombos () {
-				initCombo('#clmpClassSelect', product.rest.getClasses);
-				initCombo('#tympClassSelect', product.rest.getClasses);
-				initCombo('#tympClassInput', product.rest.getClasses);
+				initCombo('#mpClaClassFilter', product.rest.getClasses);
+				initCombo('#mpTypClassFilter', product.rest.getClasses);
+				initCombo('#mpTypClassInput', product.rest.getClasses);
 				cleanClassForm();
 			}
 			
 			function setClassFormForCreate () {
 				disableClassInput(false);
-				$('#clmpClassSelectLabel').hide();
-				$('#clmpClassSelect').hide();
-				$('#clmpClassSelect').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
-				$('#clmpCatSelectLabel').hide();
-				$('#clmpCatSelect').hide();
-				$('#clmpInputDivider').hide();
-				$('#clmpCatSelect').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
-				$('#clmpTitle').text([[#{prod.clazz.addPopupTitle}]]);
-				$('#clmpSave').text([[#{control.save}]]);	
+				$('#mpClaClassFilterLabel').hide();
+				$('#mpClaClassFilter').hide();
+				$('#mpClaClassFilter').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
+				$('#mpClaCatFilterLabel').hide();
+				$('#mpClaCatFilter').hide();
+				$('#mpClaInputDivider').hide();
+				$('#mpClaCatFilter').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
+				$('#mpClaTitle').text([[#{prod.clazz.addPopupTitle}]]);
+				$('#mpClaSave').text([[#{control.save}]]);	
 			}
 
 			function setClassFormForDelete () {
 				disableClassInput(true);
-				$('#clmpClassSelectLabel').show();
-				$('#clmpClassSelect').show();
-				$('#clmpClassSelect').prop('disabled', false);
-				$('#clmpCatSelectLabel').show();
-				$('#clmpCatSelect').show();
-				$('#clmpInputDivider').show();
-				$('#clmpCatSelect').prop('disabled', false);
-				$('#clmpTitle').text([[#{prod.clazz.deletePopupTitle}]]);
-				$('#clmpSave').text([[#{control.remove}]]);
+				$('#mpClaClassFilterLabel').show();
+				$('#mpClaClassFilter').show();
+				$('#mpClaClassFilter').prop('disabled', false);
+				$('#mpClaCatFilterLabel').show();
+				$('#mpClaCatFilter').show();
+				$('#mpClaInputDivider').show();
+				$('#mpClaCatFilter').prop('disabled', false);
+				$('#mpClaTitle').text([[#{prod.clazz.deletePopupTitle}]]);
+				$('#mpClaSave').text([[#{control.remove}]]);
 			}
 
 			function setClassFormForUpdate () {
 				disableClassInput(false);
-				$('#clmpClassSelectLabel').show();
-				$('#clmpClassSelect').show();
-				$('#clmpClassSelect').prop('disabled', false);
-				$('#clmpCatSelectLabel').show();
-				$('#clmpCatSelect').show();
-				$('#clmpCatSelect').prop('disabled', false);
-				$('#clmpInputDivider').show();
-				$('#clmpTitle').text([[#{prod.clazz.editPopupTitle}]]);
-				$('#clmpSave').text([[#{control.save}]]);	
+				$('#mpClaClassFilterLabel').show();
+				$('#mpClaClassFilter').show();
+				$('#mpClaClassFilter').prop('disabled', false);
+				$('#mpClaCatFilterLabel').show();
+				$('#mpClaCatFilter').show();
+				$('#mpClaCatFilter').prop('disabled', false);
+				$('#mpClaInputDivider').show();
+				$('#mpClaTitle').text([[#{prod.clazz.editPopupTitle}]]);
+				$('#mpClaSave').text([[#{control.save}]]);	
 			}
 			
 			function cleanClassForm () {
-				$('#clmpName').val('');
-				$('#clmpDesc').val('');
-				$('#clmpCatSelect').val('');
-				$('#clmpCatInput').val('');
-				$('#clmpClassSelect').val('');	
+				$('#mpClaName').val('');
+				$('#mpClaDesc').val('');
+				$('#mpClaCatFilter').val('');
+				$('#mpClaCatInput').val('');
+				$('#mpClaClassFilter').val('');	
 			}
 			
 			function disableClassInput (value) {
-				$('#clmpName').prop('disabled', value);
-				$('#clmpDesc').prop('disabled', value);
-				$('#clmpCatInput').prop('disabled', value);
+				$('#mpClaName').prop('disabled', value);
+				$('#mpClaDesc').prop('disabled', value);
+				$('#mpClaCatInput').prop('disabled', value);
 			}
 			
 			function getClassFormData () {
 				var data = {
-					codigo : $('#clmpClassSelect').val(),
-					nombre : $('#clmpName').val(),
-					descripcion : $('#clmpDesc').val(),
-					codRubro :$('#clmpCatInput').val()
+					codigo : $('#mpClaClassFilter').val(),
+					nombre : $('#mpClaName').val(),
+					descripcion : $('#mpClaDesc').val(),
+					codRubro :$('#mpClaCatInput').val()
 				};
 				return data;
 			}
 			
 			function setClassData (data) {
-				$('#clmpName').val(data.nombre);
-				$('#clmpDesc').val(data.descripcion);
-				$('#clmpCatInput').val(data.codRubro);
+				$('#mpClaName').val(data.nombre);
+				$('#mpClaDesc').val(data.descripcion);
+				$('#mpClaCatInput').val(data.codRubro);
 			}
 
 			// Administracion de tipo
 			
 			function initTypeForm() {
 				$('#addType').click(function() {
-					$('#tympForm').attr('action', 'create')
+					$('#mpTypForm').attr('action', 'create')
 					resetTypeForm();
 					setTypeFormForCreate();
 					$('#typeModalPopup').modal('show');
 				});
 				$('#deleteType').click(function(){
-					$('#tympForm').attr('action', 'delete')
+					$('#mpTypForm').attr('action', 'delete')
 					resetTypeForm();
 					setTypeFormForDelete();
 					$('#typeModalPopup').modal('show');
 				});
 				$('#editType').click(function(){
-					$('#tympForm').attr('action', 'edit')
+					$('#mpTypForm').attr('action', 'edit')
 					resetTypeForm();
 					setTypeFormForUpdate();
 					$('#typeModalPopup').modal('show');
 				});
-				$('#tympCatInput').change(function(e) {
-					chainCombo('#tympCatInput', '#tympClassInput', product.rest.classesByCategory);
+				$('#mpTypCatInput').change(function(e) {
+					chainCombo('#mpTypCatInput', '#mpTypClassInput', product.rest.classesByCategory);
 				});
-				$('#tympCatSelect').change(function(e) {
-					chainCombo('#tympCatSelect', '#tympClassSelect', product.rest.classesByCategory);
+				$('#mpTypCatFilter').change(function(e) {
+					chainCombo('#mpTypCatFilter', '#mpTypClassFilter', product.rest.classesByCategory);
 				});
-				$('#tympClassSelect').change(function(e) {
-					chainCombo('#tympClassSelect', '#tympTypeSelect', product.rest.typesByClass);
+				$('#mpTypClassFilter').change(function(e) {
+					chainCombo('#mpTypClassFilter', '#mpTypTypeFilter', product.rest.typesByClass);
 				});
-				$('#tympTypeSelect').change(function(e) {
-					if ($('#tympTypeSelect')[0].selectedIndex > 0) {
+				$('#mpTypTypeFilter').change(function(e) {
+					if ($('#mpTypTypeFilter')[0].selectedIndex > 0) {
 						loadEntityData($(this).val(), product.rest.typeByCode, setTypeData);	
 					} else {
 						cleanTypeFormInput();
 					}
 				});
-				$('#tympForm').submit(function(e) {
+				$('#mpTypForm').submit(function(e) {
 					e.preventDefault();
 					var action = $(this).attr('action');
 					var actionUrl, actionSuccessMsg, doAction = true;
@@ -779,7 +781,7 @@
 					case 'delete':
 						swal({
 								title: [[#{control.confirmDelete.title}]],
-								text: [[#{prod.type.confirmDelete.message}]] + ' ' + $('#tympTypeSelect option:selected').text(),
+								text: [[#{prod.type.confirmDelete.message}]] + ' ' + $('#mpTypTypeFilter option:selected').text(),
 								type: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#DD6B55',
@@ -816,98 +818,98 @@
 			}
 
 			function updateTypeCombos () {
-				initCombo('#tympTypeSelect', product.rest.getTypes);
+				initCombo('#mpTypTypeFilter', product.rest.getTypes);
 			}
 			
 			function setTypeFormForCreate () {
 				disableTypeInput(false);
-				$('#tympCatSelectLabel').hide();
-				$('#tympCatSelect').hide();
-				$('#tympCatSelect').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
-				$('#tympClassSelectLabel').hide();
-				$('#tympClassSelect').hide();
-				$('#tympClassSelect').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
-				$('#tympTypeSelectLabel').hide();
-				$('#tympTypeSelect').hide();
-				$('#tympTypeSelect').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
-				$('#tympInputDivider').hide();
-				$('#tympTitle').text([[#{prod.type.addPopupTitle}]]);
-				$('#tympSave').text([[#{control.save}]]);	
+				$('#mpTypCatFilterLabel').hide();
+				$('#mpTypCatFilter').hide();
+				$('#mpTypCatFilter').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
+				$('#mpTypClassFilterLabel').hide();
+				$('#mpTypClassFilter').hide();
+				$('#mpTypClassFilter').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
+				$('#mpTypTypeFilterLabel').hide();
+				$('#mpTypTypeFilter').hide();
+				$('#mpTypTypeFilter').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
+				$('#mpTypInputDivider').hide();
+				$('#mpTypTitle').text([[#{prod.type.addPopupTitle}]]);
+				$('#mpTypSave').text([[#{control.save}]]);	
 			}
 
 			function setTypeFormForDelete () {
 				disableTypeInput(true);
-				$('#tympCatSelectLabel').show();
-				$('#tympCatSelect').show();
-				$('#tympCatSelect').prop('disabled', false);				
-				$('#tympClassSelectLabel').show();
-				$('#tympClassSelect').show();
-				$('#tympClassSelect').prop('disabled', false);
-				$('#tympTypeSelectLabel').show();
-				$('#tympTypeSelect').show();
-				$('#tympTypeSelect').prop('disabled', false);
-				$('#tympInputDivider').show();
-				$('#tympTitle').text([[#{prod.type.deletePopupTitle}]]);
-				$('#tympSave').text([[#{control.remove}]]);
+				$('#mpTypCatFilterLabel').show();
+				$('#mpTypCatFilter').show();
+				$('#mpTypCatFilter').prop('disabled', false);				
+				$('#mpTypClassFilterLabel').show();
+				$('#mpTypClassFilter').show();
+				$('#mpTypClassFilter').prop('disabled', false);
+				$('#mpTypTypeFilterLabel').show();
+				$('#mpTypTypeFilter').show();
+				$('#mpTypTypeFilter').prop('disabled', false);
+				$('#mpTypInputDivider').show();
+				$('#mpTypTitle').text([[#{prod.type.deletePopupTitle}]]);
+				$('#mpTypSave').text([[#{control.remove}]]);
 			}
 
 			function setTypeFormForUpdate () {
 				disableTypeInput(false);
-				$('#tympCatSelectLabel').show();
-				$('#tympCatSelect').show();
-				$('#tympCatSelect').prop('disabled', false);				
-				$('#tympClassSelectLabel').show();
-				$('#tympClassSelect').show();
-				$('#tympClassSelect').prop('disabled', false);
-				$('#tympTypeSelectLabel').show();
-				$('#tympTypeSelect').show();
-				$('#tympTypeSelect').prop('disabled', false);
-				$('#tympInputDivider').show();
-				$('#tympTitle').text([[#{prod.type.editPopupTitle}]]);
-				$('#tympSave').text([[#{control.save}]]);	
+				$('#mpTypCatFilterLabel').show();
+				$('#mpTypCatFilter').show();
+				$('#mpTypCatFilter').prop('disabled', false);				
+				$('#mpTypClassFilterLabel').show();
+				$('#mpTypClassFilter').show();
+				$('#mpTypClassFilter').prop('disabled', false);
+				$('#mpTypTypeFilterLabel').show();
+				$('#mpTypTypeFilter').show();
+				$('#mpTypTypeFilter').prop('disabled', false);
+				$('#mpTypInputDivider').show();
+				$('#mpTypTitle').text([[#{prod.type.editPopupTitle}]]);
+				$('#mpTypSave').text([[#{control.save}]]);	
 			}
 			
 			function resetTypeForm () {
-				$('#tympName').val('');
-				$('#tympDesc').val('');
-				$('#tympCatSelect').val('');
-				$('#tympCatInput').val('');	
-				emptyCombo('#tympClassSelect', true);
-				emptyCombo('#tympClassInput', true);
-				emptyCombo('#tympTypeSelect', true);
+				$('#mpTypName').val('');
+				$('#mpTypDesc').val('');
+				$('#mpTypCatFilter').val('');
+				$('#mpTypCatInput').val('');	
+				emptyCombo('#mpTypClassFilter', true);
+				emptyCombo('#mpTypClassInput', true);
+				emptyCombo('#mpTypTypeFilter', true);
 			}
 			
 			function cleanTypeFormInput () {
-				$('#tympName').val('');
-				$('#tympDesc').val('');
-				$('#tympCatInput').val('');
-				$('#tympClassInput').val('');
+				$('#mpTypName').val('');
+				$('#mpTypDesc').val('');
+				$('#mpTypCatInput').val('');
+				$('#mpTypClassInput').val('');
 			}
 			
 			function disableTypeInput (value) {
-				$('#tympName').prop('disabled', value);
-				$('#tympDesc').prop('disabled', value);
-				$('#tympCatInput').prop('disabled', value);
-				$('#tympClassInput').prop('disabled', value);
+				$('#mpTypName').prop('disabled', value);
+				$('#mpTypDesc').prop('disabled', value);
+				$('#mpTypCatInput').prop('disabled', value);
+				$('#mpTypClassInput').prop('disabled', value);
 			}
 			
 			function getTypeFormData () {
 				var data = {
-					codigo : $('#tympTypeSelect').val(),
-					nombre : $('#tympName').val(),
-					descripcion : $('#tympDesc').val(),
-					codClase :$('#tympClassInput').val()
+					codigo : $('#mpTypTypeFilter').val(),
+					nombre : $('#mpTypName').val(),
+					descripcion : $('#mpTypDesc').val(),
+					codClase :$('#mpTypClassInput').val()
 				};
 				return data;
 			}
 			
 			function setTypeData (data) {
-				$('#tympName').val(data.nombre);
-				$('#tympDesc').val(data.descripcion);
-				$('#tympCatInput').val(data.codRubro);
+				$('#mpTypName').val(data.nombre);
+				$('#mpTypDesc').val(data.descripcion);
+				$('#mpTypCatInput').val(data.codRubro);
 				chainCombo(
-						'#tympCatInput', 
-						'#tympClassInput', 
+						'#mpTypCatInput', 
+						'#mpTypClassInput', 
 						product.rest.classesByCategory, 
 						data.codClase
 				);

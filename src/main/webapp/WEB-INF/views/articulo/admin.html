@@ -182,7 +182,7 @@
 				});
 				$('#cbClase').change(function(){
 					var label = $("label[for='cbClase']");
-					chainCombo('#cbClase', '#cbTipo', product.rest.typeByclasses, '', function() {notifyComboError(label.text())} );
+					chainCombo('#cbClase', '#cbTipo', product.rest.typesByClass, '', function() {notifyComboError(label.text())} );
 				});
 				$('#newProduct').click(function(){
 					initCreationForm();

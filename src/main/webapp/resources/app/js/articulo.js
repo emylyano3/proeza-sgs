@@ -36,7 +36,6 @@ var product = {
 		updateCategory : baseRest + '/updateCategory',
 		deleteCategory : baseRest + '/deleteCategory',
 		getCategories : baseRest + '/getCategories',
-		typeByclasses : baseRest + '/typeByclasses',
 		find : baseRest + '/find',
 		quickSale : '/proeza-sgs/rest/venta/quickSale',
 		bestSellers : baseRest + '/stats/bestSellers',
