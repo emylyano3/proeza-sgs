@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,10 +29,12 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import com.proeza.core.datamapper.DataSourceMapper;
 import com.proeza.core.datamapper.DataSourceMapperFacade;
 import com.proeza.core.datamapper.exception.DataMappingException;
+import com.proeza.sgs.business.dao.IArticuloDao;
 import com.proeza.sgs.business.dao.IClaseDao;
 import com.proeza.sgs.business.dao.IMarcaDao;
 import com.proeza.sgs.business.dao.IRubroDao;
 import com.proeza.sgs.business.dao.ITipoDao;
+import com.proeza.sgs.business.entity.Articulo;
 import com.proeza.sgs.business.entity.Clase;
 import com.proeza.sgs.business.entity.Marca;
 import com.proeza.sgs.business.entity.Rubro;
@@ -44,124 +47,163 @@ import com.proeza.sgs.config.root.ContextConfig;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {com.proeza.sgs.config.env.Prod.class, ContextConfig.class}, loader = AnnotationConfigContextLoader.class)
 public class MciPescalotodo {
-	private static Logger			log			= Logger.getLogger(MciPescalotodo.class);
+    private static Logger          log         = Logger.getLogger(MciPescalotodo.class);
 
-	@SuppressWarnings("unused")
-	private MvcInitializer			initializer	= new MvcInitializer();
+    @SuppressWarnings("unused")
+    private MvcInitializer         initializer = new MvcInitializer();
 
-	@Autowired
-	private IClaseDao				claseDao;
+    @Autowired
+    private IClaseDao              claseDao;
 
-	@Autowired
-	private IMarcaDao				marcaDao;
+    @Autowired
+    private IMarcaDao              marcaDao;
 
-	@Autowired
-	private ITipoDao				tipoDao;
+    @Autowired
+    private ITipoDao               tipoDao;
 
-	@Autowired
-	private IRubroDao				rubroDao;
+    @Autowired
+    private IRubroDao              rubroDao;
 
-	@Autowired
-	private JpaTransactionManager	txManager;
+    @Autowired
+    private IArticuloDao           artDao;
 
-	private TransactionStatus		tx;
+    @Autowired
+    private JpaTransactionManager  txManager;
 
-	private static final String		EXCEL_PATH	= "/Inventario_01_Agosto_2015.xlsx";
+    private TransactionStatus      tx;
 
-	private DataSourceMapper		mapper;
+    private static final String    EXCEL_PATH  = "/Inventario_01_Agosto_2015_final.xlsx";
 
-	@Autowired
-	private DataSourceMapperFacade	mapperFacade;
+    private DataSourceMapper       mapper;
 
-	@Before
-	public void loadExcel () throws IOException, DataMappingException, RuntimeException {
-		if (this.mapper == null) {
-			InputStream is = MciPescalotodo.class.getResourceAsStream(EXCEL_PATH);
-			byte[] excel = new byte[is.available()];
-			is.read(excel);
-			this.mapper = this.mapperFacade.createExcelAnnotationDescriptorMapper(excel);
-			is.close();
-		}
-	}
+    @Autowired
+    private DataSourceMapperFacade mapperFacade;
 
-	@Before
-	public void before () {
-		this.tx = this.txManager.getTransaction(new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRES_NEW));
-	}
+    @Before
+    public void loadExcel() throws IOException, DataMappingException, RuntimeException {
+        if (this.mapper == null) {
+            InputStream is = MciPescalotodo.class.getResourceAsStream(EXCEL_PATH);
+            byte[] excel = new byte[is.available()];
+            is.read(excel);
+            this.mapper = this.mapperFacade.createExcelAnnotationDescriptorMapper(excel);
+            is.close();
+        }
+    }
 
-	@After
-	public void after () {
-		this.tx.flush();
-		this.txManager.commit(this.tx);
-		// this.txManager.rollback(this.tx);
-	}
+    @Before
+    public void before() {
+        this.tx = this.txManager.getTransaction(new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRES_NEW));
+    }
 
-	@Test
-	public void mci () throws DataMappingException {
-		log.info("Inicia la carga de datos de inventario de Pescalotodo");
-		cargarRubros();
-		cargarMarcas();
-		cargarClases();
-		cargarTipos();
-		cargarArticulos();
-		log.debug("Rubros: " + rubrosCargados);
-		log.debug("Marcas: " + marcasCargadas);
-		log.debug("Clases: " + clasesCargadas);
-		log.debug("Tipos: " + tiposCargados);
-	}
+    @After
+    public void after() {
+        try {
+            this.tx.flush();
+            this.txManager.commit(this.tx);
+        } catch (Exception e) {
+            this.txManager.rollback(this.tx);
+        }
+    }
 
-	private Map<String, Rubro>	rubrosCargados	= new HashMap<>();
-	private Map<String, Marca>	marcasCargadas	= new HashMap<>();
-	private Map<String, Clase>	clasesCargadas	= new HashMap<>();
-	private Map<String, Tipo>	tiposCargados	= new HashMap<>();
+    @Test
+    public void mci() throws DataMappingException {
+        log.info("Inicia la carga de datos de inventario de Pescalotodo");
+        cargarRubros();
+        cargarMarcas();
+        cargarClases();
+        cargarTipos();
+        cargarArticulos();
+        log.debug("Rubros: " + this.rubrosCargados);
+        log.debug("Marcas: " + this.marcasCargadas);
+        log.debug("Clases: " + this.clasesCargadas);
+        log.debug("Tipos: " + this.tiposCargados);
+    }
 
-	private void cargarRubros () throws DataMappingException {
-		Collection<RubroMCI> rubros = this.mapper.mapData(RubroMCI.class);
-		for (RubroMCI rubro : rubros) {
-			Rubro entity = rubro.getEntity();
-			rubrosCargados.put(entity.getCodigo(), this.rubroDao.persist(entity));
-		}
-	}
+    private Map<String, Rubro>    rubrosCargados    = new HashMap<>();
+    private Map<String, Marca>    marcasCargadas    = new HashMap<>();
+    private Map<String, Clase>    clasesCargadas    = new HashMap<>();
+    private Map<String, Tipo>     tiposCargados     = new HashMap<>();
+    private Map<String, Articulo> articulosCargados = new HashMap<>();
 
-	private void cargarMarcas () throws DataMappingException {
-		Set<MarcaMCI> marcas = new HashSet<>(mapper.mapData(MarcaMCI.class));
-		for (MarcaMCI marca : marcas) {
-			Marca entity = marca.getEntity();
-			if (!marcasCargadas.containsKey(entity.getCodigo())) {
-				marcasCargadas.put(entity.getCodigo(), this.marcaDao.persist(entity));
-			}
-		}
-	}
+    private void cargarRubros() throws DataMappingException {
+        Collection<RubroMCI> rubros = this.mapper.mapData(RubroMCI.class);
+        for (RubroMCI rubro : rubros) {
+            Rubro entity = rubro.getEntity();
+            this.rubrosCargados.put(entity.getCodigo(), this.rubroDao.persist(entity));
+        }
+    }
 
-	private void cargarClases () throws DataMappingException {
-		Collection<ClaseMCI> clases = new HashSet<>(mapper.mapData(ClaseMCI.class));
-		for (ClaseMCI clase : clases) {
-			Clase entity = clase.getEntity();
-			entity.setRubro(rubrosCargados.get(clase.getRubro()));
-			if (!clasesCargadas.containsKey(entity.getCodigo())) {
-				clasesCargadas.put(entity.getCodigo(), claseDao.persist(entity));
-			}
-		}
-	}
+    private void cargarMarcas() throws DataMappingException {
+        Set<MarcaMCI> marcas = new HashSet<>(this.mapper.mapData(MarcaMCI.class));
+        for (MarcaMCI marca : marcas) {
+            Marca entity = marca.getEntity();
+            if (!this.marcasCargadas.containsKey(entity.getCodigo())) {
+                this.marcasCargadas.put(entity.getCodigo(), this.marcaDao.persist(entity));
+            }
+        }
+    }
 
-	private void cargarTipos () throws DataMappingException {
-		Set<TipoMCI> tipos = new HashSet<>(this.mapper.mapData(TipoMCI.class));
-		for (TipoMCI tipo : tipos) {
-			if (tipo.getNombre() == null || "".equals(tipo.getNombre())) {
-				continue;
-			}
-			Tipo entity = tipo.getEntity();
-			Clase clase = clasesCargadas.get(tipo.getCodigoClase());
-			entity.setClase(clase);
-			entity.setDescripcion(clase.getNombre() + " " + entity.getDescripcion());
-			if (!tiposCargados.containsKey(entity.getCodigo())) {
-				tiposCargados.put(entity.getCodigo(), tipoDao.persist(entity));
-			}
-		}
-	}
+    private void cargarClases() throws DataMappingException {
+        Collection<ClaseMCI> clases = new HashSet<>(this.mapper.mapData(ClaseMCI.class));
+        for (ClaseMCI clase : clases) {
+            Clase entity = clase.getEntity();
+            Rubro rubro = this.rubrosCargados.get(clase.getRubro());
+            Assert.assertNotNull("El rubro " + clase.getRubro() + " debería existir", rubro);
+            entity.setRubro(rubro);
+            if (!this.clasesCargadas.containsKey(entity.getCodigo())) {
+                this.clasesCargadas.put(entity.getCodigo(), this.claseDao.persist(entity));
+            }
+        }
+    }
 
-	private void cargarArticulos () throws DataMappingException {
-		Set<ArticuloMCI> articulos = new HashSet<>(this.mapper.mapData(ArticuloMCI.class));
-		log.debug("Articulos: " + articulos);
-	}
+    private void cargarTipos() throws DataMappingException {
+        Set<TipoMCI> tipos = new HashSet<>(this.mapper.mapData(TipoMCI.class));
+        for (TipoMCI tipo : tipos) {
+            if (tipo.getNombre() == null || "".equals(tipo.getNombre())) {
+                continue;
+            }
+            Tipo entity = tipo.getEntity();
+            Clase clase = this.clasesCargadas.get(tipo.getCodigoClase());
+            entity.setClase(clase);
+            entity.setDescripcion(clase.getNombre() + " " + entity.getDescripcion());
+            if (!this.tiposCargados.containsKey(entity.getCodigo())) {
+                this.tiposCargados.put(entity.getCodigo(), this.tipoDao.persist(entity));
+            }
+        }
+    }
+
+    private void cargarArticulos() throws DataMappingException {
+        Set<ArticuloMCI> articulos = new HashSet<>(this.mapper.mapData(ArticuloMCI.class));
+        int i = 0;
+        for (ArticuloMCI articulo : articulos) {
+            log.debug("Procesando el articulo [" + ++i + "]: "+ articulo);
+            Articulo entity = articulo.getEntity();
+            entity.setClase(getClase(articulo));
+            entity.setRubro(getRubro(articulo));
+            entity.setMarca(getMarca(articulo));
+            entity.setTipo(getTipo(articulo));
+            this.articulosCargados.put(this.artDao.persist(entity).getCodigo(), entity);
+            log.debug("Se creo el articulo: "+ entity);
+        }
+    }
+
+    private Rubro getRubro(ArticuloMCI articulo) {
+        return this.rubrosCargados.get(articulo.getRubro());
+    }
+
+    private Clase getClase(ArticuloMCI articulo) {
+        return this.claseDao.findByCode(articulo.getClaseMCI().getEntity().getCodigo());
+    }
+
+    private Tipo getTipo(ArticuloMCI articulo) {
+        return articulo.getTipo() == null ? null : this.tiposCargados.get(articulo.getTipoMCI().getEntity().getCodigo());
+    }
+
+    private Marca getMarca(ArticuloMCI articulo) {
+        if (articulo.getMarca() == null) {
+            return this.marcasCargadas.get(MarcaMCI.SIN_MARCA_CODIGO);
+        } else {
+            return this.marcasCargadas.get(articulo.getMarcaMCI().getEntity().getCodigo());
+        }
+    }
 }
