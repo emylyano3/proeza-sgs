@@ -2,7 +2,6 @@ package com.proeza.sgs.business.scheduling;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -26,14 +25,12 @@ public class JobRelevamiento {
     @Autowired
     private IMovimientoService movimientoService;
 
-    private Logger             log = Logger.getLogger(JobRelevamiento.class);
-
     @Scheduled(cron = "${cron.stock.count}")
     public void countStockByBrand () {
         @SuppressWarnings("rawtypes")
         List result = this.articuloDao.getEntityManager()
-            .createNamedQuery("relevamientoStock.porMarca")
-            .getResultList();
+        .createNamedQuery("relevamientoStock.porMarca")
+        .getResultList();
         for (Object object : result) {
             Object[] item = (Object[]) object;
             Marca m = (Marca) item[0];
@@ -45,8 +42,8 @@ public class JobRelevamiento {
     public void countStockByCategory () {
         @SuppressWarnings("rawtypes")
         List result = this.articuloDao.getEntityManager()
-            .createNamedQuery("relevamientoStock.porRubro")
-            .getResultList();
+        .createNamedQuery("relevamientoStock.porRubro")
+        .getResultList();
         for (Object object : result) {
             Object[] item = (Object[]) object;
             Rubro m = (Rubro) item[0];
@@ -58,8 +55,8 @@ public class JobRelevamiento {
     public void countStock () {
         @SuppressWarnings("rawtypes")
         List result = this.articuloDao.getEntityManager()
-            .createNamedQuery("relevamientoStock.stockTotal")
-            .getResultList();
+        .createNamedQuery("relevamientoStock.stockTotal")
+        .getResultList();
         for (Object object : result) {
             Object[] item = (Object[]) object;
             createMovement(TipoMovimiento.REL_STOCK, TipoEntidad.STOCK_TOTAL, 0L, "" + item[0]);
@@ -67,14 +64,9 @@ public class JobRelevamiento {
         }
     }
 
-    @Scheduled(cron = "${cron.price.calc}")
-    public void calcBrandAvgPrice () {
-        this.log.info("Calculando promedio de precio por marca");
-    }
-
     private void createMovement (TipoMovimiento tipoMovimiento, TipoEntidad tipoEntidad, Long idEntidad, String value) {
         this.movimientoService.create(new MovimientoDTO(
-            new MovimientoBuilder()
+                new MovimientoBuilder()
                 .withFecha(DateUtil.createNow())
                 .withIdEntidad(idEntidad)
                 .withTipoEntidad(tipoEntidad.codigo())
@@ -82,7 +74,7 @@ public class JobRelevamiento {
                 .withValorAnte(null)
                 .withValorPost(value)
                 .build()
-            )
-        );
+                )
+                );
     }
 }
