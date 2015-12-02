@@ -99,16 +99,16 @@ public class ArticuloFilter implements EntityFilter<Articulo> {
                 if (articulo.getMarca().getNombre().toLowerCase().contains(filter)) {
                     matched.add(filter);
                 }
-                if (articulo.getTipo() != null && articulo.getTipo().getNombre().toLowerCase().contains(filter)) {
-                    matched.add(filter);
-                }
                 if (articulo.getClase().getNombre().toLowerCase().contains(filter)) {
                     matched.add(filter);
                 }
-                if (articulo.getModelo().toLowerCase().contains(filter)) {
+                if (articulo.getTipo() != null && articulo.getTipo().getNombre().toLowerCase().contains(filter)) {
                     matched.add(filter);
                 }
-                if (articulo.getDescripcion().toLowerCase().contains(filter)) {
+                if (articulo.getModelo() != null && articulo.getModelo().toLowerCase().contains(filter)) {
+                    matched.add(filter);
+                }
+                if (articulo.getDescripcion() != null && articulo.getDescripcion().toLowerCase().contains(filter)) {
                     matched.add(filter);
                 }
             }

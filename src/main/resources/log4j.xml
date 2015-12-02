@@ -9,6 +9,21 @@
 		</layout>
 	</appender>
 
+	<!-- SQL -->
+	<appender name="sql" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="5096" />
+		<appender-ref ref="sql-rolling" />
+	</appender>
+
+	<appender name="sql-rolling" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="/logs/proeza/sql.log" />
+		<param name="MaxFileSize" value="512KB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.SimpleLayout">
+			<param name="ConversionPattern" value="%-5p %d{HH:mm:ss,SSS} [%t] %C: %m%n" />
+		</layout>
+	</appender>
+	
 	<category name="com.proeza">
 		<priority value="INFO" />
 	</category>
@@ -22,7 +37,7 @@
 	</category>
 
 	<category name="net.sf.ehcache">
-		<priority value="DEBUG" />
+		<priority value="INFO" />
 	</category>
 
 	<category name="org.thymeleaf">
