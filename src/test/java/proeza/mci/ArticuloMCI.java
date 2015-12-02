@@ -5,7 +5,7 @@ import com.proeza.core.datamapper.annotation.Source;
 import com.proeza.core.datamapper.annotation.excel.ExcelDescription;
 import com.proeza.sgs.business.entity.Articulo;
 
-@ExcelDescription(sheetNo = 0, startAt = 0, endAt = 7)
+@ExcelDescription(sheetNo = 0, startAt = 0, endAt = 8)
 public class ArticuloMCI extends DataMCI {
     @Source("Clase")
     private String     clase;
@@ -22,13 +22,16 @@ public class ArticuloMCI extends DataMCI {
     @Source("Marca")
     private String     marca;
 
+    @Source("Descripcion")
+    private String     descipcion;
+
     @Source("Costo")
     private BigDecimal costo;
 
     @Source("Precio")
     private BigDecimal precio;
 
-    @Source("Stock Real")
+    @Source("Stock")
     private Long       stock;
 
     public Articulo getEntity() {
@@ -37,6 +40,7 @@ public class ArticuloMCI extends DataMCI {
         articulo.setCosto(this.costo == null ? BigDecimal.ZERO : this.costo);
         articulo.setPrecio(this.precio == null ? BigDecimal.ZERO : this.precio);
         articulo.setStock(this.stock == null ? 0 : this.stock.intValue());
+        articulo.setDescripcion(formatDescripcion(this.descipcion, null));
         articulo.setModelo(formatDescripcion(this.modelo, null));
         return articulo;
     }
@@ -54,7 +58,6 @@ public class ArticuloMCI extends DataMCI {
         }
         return formatCodigo("" + builder, "" + builder);
     }
-
 
     public String getCodigoClase() {
         return this.rubro.substring(0, 1).toUpperCase() + super.formatCodigo(this.clase, null);
@@ -168,6 +171,14 @@ public class ArticuloMCI extends DataMCI {
 
     public void setStock(Long stock) {
         this.stock = stock;
+    }
+
+    public String getDescipcion() {
+        return this.descipcion;
+    }
+
+    public void setDescipcion(String descipcion) {
+        this.descipcion = descipcion;
     }
 
     public String getMarca() {
