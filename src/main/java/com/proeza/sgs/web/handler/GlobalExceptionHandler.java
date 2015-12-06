@@ -48,7 +48,8 @@ public class GlobalExceptionHandler {
     private void trackError (Exception e) {
         HandledErrorBuilder errorBuilder = new HandledErrorBuilder();
         String stack = ExceptionUtils.getStackTrace(e);
-        errorBuilder.withStack(stack.substring(HandledError.STACK_LENGTH));
+        int length = Math.min(stack.length(), HandledError.STACK_LENGTH);
+        errorBuilder.withStack(stack.substring(length));
         errorBuilder.withExcepcion(e.getClass().getName());
         errorBuilder.withFecha(DateUtil.createNow());
         errorBuilder.withMensaje(e.getMessage());

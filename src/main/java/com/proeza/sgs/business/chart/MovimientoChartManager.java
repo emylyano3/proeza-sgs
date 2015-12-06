@@ -39,18 +39,20 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
 
     private Date                        highestValueDate;
 
+    private DateFormat                  pattern        = new SimpleDateFormat("dd/MM/YYYY");
+
     @Override
-    protected void init (List<Movimiento> source) {
-        this.lowestValue = null;
+    protected void init(List<Movimiento> source) {
+        this.lowestValue = 0D;
         this.lowestValueDate = null;
-        this.highestValue = null;
+        this.highestValue = 0D;
         this.highestValueDate = null;
         this.source = source;
         groupByDate();
     }
 
     @Override
-    protected List<String> buildLabels () {
+    protected List<String> buildLabels() {
         List<String> labels = new ArrayList<>(this.groupedData.size());
         if (!this.groupedData.keySet().isEmpty()) {
             DateFormat pattern = new SimpleDateFormat(this.dateFormat);
@@ -78,7 +80,7 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
     }
 
     @Override
-    protected List<?> buildData () {
+    protected List<?> buildData() {
         List<Double> data = new ArrayList<>(this.groupedData.size());
         if (!this.groupedData.keySet().isEmpty()) {
             Calendar calendar = new GregorianCalendar();
@@ -106,11 +108,18 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
         return limitData(data);
     }
 
-    private <T> List<T> limitData (List<T> labels) {
+    protected String formatDate(Date date) {
+        if (date == null) {
+            return null;
+        }
+        return this.pattern.format(date);
+    }
+
+    private <T> List<T> limitData(List<T> labels) {
         return labels.size() > this.dataLimit ? labels.subList(labels.size() - this.dataLimit, labels.size()) : labels;
     }
 
-    private void groupByDate () {
+    private void groupByDate() {
         this.groupedData = new TreeMap<>(this.dateComparator);
         for (Movimiento mov : this.source) {
             if (this.groupedData.get(mov.getFecha()) == null) {
@@ -121,7 +130,7 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
         }
     }
 
-    private void updateLowest (Movimiento mov) {
+    private void updateLowest(Movimiento mov) {
         Double movValue = DatatypeConverter.parseDouble(mov.getValorPost());
         if (this.lowestValue == null || this.lowestValue > movValue) {
             this.lowestValue = movValue;
@@ -133,13 +142,13 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
         }
     }
 
-    private Double getLastValue (List<Movimiento> movs) {
+    private Double getLastValue(List<Movimiento> movs) {
         return DatatypeConverter.parseDouble(movs.get(movs.size() - 1).getValorPost());
     }
 
     class MovimientoDateComparator implements Comparator<Movimiento> {
         @Override
-        public int compare (Movimiento m1, Movimiento m2) {
+        public int compare(Movimiento m1, Movimiento m2) {
             if (m1 == null && m2 == null) {
                 return 0;
             }
@@ -153,59 +162,59 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
         }
     }
 
-    public String getDateFormat () {
+    public String getDateFormat() {
         return this.dateFormat;
     }
 
-    public void setDateFormat (String dateFormat) {
+    public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;
     }
 
-    public Comparator<Date> getDateComparator () {
+    public Comparator<Date> getDateComparator() {
         return this.dateComparator;
     }
 
-    public void setDateComparator (Comparator<Date> dateComparator) {
+    public void setDateComparator(Comparator<Date> dateComparator) {
         this.dateComparator = dateComparator;
     }
 
-    public Integer getDataLimit () {
+    public Integer getDataLimit() {
         return this.dataLimit;
     }
 
-    public void setDataLimit (Integer dataLimit) {
+    public void setDataLimit(Integer dataLimit) {
         this.dataLimit = dataLimit;
     }
 
-    public Double getLowestValue () {
+    public Double getLowestValue() {
         return this.lowestValue;
     }
 
-    public void setLowestValue (Double lowestValue) {
+    public void setLowestValue(Double lowestValue) {
         this.lowestValue = lowestValue;
     }
 
-    public Date getLowestValueDate () {
+    public Date getLowestValueDate() {
         return this.lowestValueDate;
     }
 
-    public void setLowestValueDate (Date lowestValueDate) {
+    public void setLowestValueDate(Date lowestValueDate) {
         this.lowestValueDate = lowestValueDate;
     }
 
-    public Double getHighestValue () {
+    public Double getHighestValue() {
         return this.highestValue;
     }
 
-    public void setHighestValue (Double highestValue) {
+    public void setHighestValue(Double highestValue) {
         this.highestValue = highestValue;
     }
 
-    public Date getHighestValueDate () {
+    public Date getHighestValueDate() {
         return this.highestValueDate;
     }
 
-    public void setHighestValueDate (Date highestValueDate) {
+    public void setHighestValueDate(Date highestValueDate) {
         this.highestValueDate = highestValueDate;
     }
 }

@@ -1,7 +1,5 @@
 package com.proeza.sgs.business.chart.articulo;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -16,13 +14,12 @@ import com.proeza.sgs.business.chart.StockChartData;
 public class HistorialStockChartManager extends MovimientoChartManager {
 
     @Override
-    protected StockChartData buildDefinition (List<String> labels, List<?> data) {
+    protected StockChartData buildDefinition(List<String> labels, List<?> data) {
         StockChartData definition = new StockChartData(labels, data);
-        DateFormat pattern = new SimpleDateFormat("dd/MM/YYYY");
         definition.setLowestValue("" + getLowestValue().intValue());
         definition.setHighestValue("" + getHighestValue().intValue());
-        definition.setLowestValueDate(pattern.format(getLowestValueDate()));
-        definition.setHighestValueDate(pattern.format(getLowestValueDate()));
+        definition.setLowestValueDate(formatDate(getLowestValueDate()));
+        definition.setHighestValueDate(formatDate(getHighestValueDate()));
         return definition;
     }
 }
