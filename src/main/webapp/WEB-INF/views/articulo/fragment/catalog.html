@@ -307,7 +307,7 @@
 				});
 				$('#mpBraBrandFilter').change(function(e) {
 					if ($('#mpBraBrandFilter')[0].selectedIndex > 0) {
-						loadEntityData($(this).val(), product.rest.brandByCode, setBrandData);	
+						loadEntityData($(this).val(), product.rest.brandByCode, [[#{rest.dataload.error}]], setBrandData);	
 					} else {
 						cleanBrandForm();
 					}
@@ -315,15 +315,16 @@
 				$('#mpBraForm').submit(function(e) {
 					e.preventDefault();
 					var action = $(this).attr('action');
-					var actionUrl, actionSuccessMsg, doAction = true;
+					var actionUrl;
+					var doAction = true;
+					var	actionSuccessMsg = [[#{rest.datasend.success}]];
+					var	actionErrorMsg = [[#{rest.datasend.error}]];
 					switch (action) {
 					case 'create':
 						actionUrl =	product.rest.addBrand;
-						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'edit':
 						actionUrl =	product.rest.updateBrand; 
-						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'delete':
 						swal({
@@ -340,7 +341,8 @@
 									saveEntityData(
 										getBrandFormData(), 
 										product.rest.deleteBrand, 
-										[[#{rest.datasend.success}]],
+										actionSuccessMsg,
+										actionErrorMsg,
 										updateBrandCombos
 									);
 									cleanBrandForm();
@@ -357,6 +359,7 @@
 							getBrandFormData(), 
 							actionUrl, 
 							actionSuccessMsg,
+							actionErrorMsg,
 							updateBrandCombos
 						);
 					}
@@ -447,7 +450,7 @@
 				});
 				$('#mpCatCategoryFilter').change(function(e) {
 					if ($('#mpCatCategoryFilter')[0].selectedIndex > 0) {
-						loadEntityData($(this).val(), product.rest.categoryByCode, setCategoryData);	
+						loadEntityData($(this).val(), product.rest.categoryByCode, [[#{rest.dataload.error}]], setCategoryData);	
 					} else {
 						cleanCategoryForm();
 					}
@@ -455,15 +458,16 @@
 				$('#mpCatForm').submit(function(e) {
 					e.preventDefault();
 					var action = $(this).attr('action');
-					var actionUrl, actionSuccessMsg, doAction = true;
+					var actionUrl;
+					var doAction = true;
+					var	actionSuccessMsg = [[#{rest.datasend.success}]];
+					var	actionErrorMsg = [[#{rest.datasend.error}]];
 					switch (action) {
 					case 'create':
 						actionUrl =	product.rest.addCategory;
-						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'edit':
 						actionUrl =	product.rest.updateCategory; 
-						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'delete':
 						swal({
@@ -480,7 +484,8 @@
 									saveEntityData(
 										getCategoryFormData(), 
 										product.rest.deleteCategory, 
-										[[#{rest.datasend.success}]],
+										actionSuccessMsg,
+										actionErrorMsg,
 										updateCategoryCombos
 									);
 									cleanCategoryForm();
@@ -495,8 +500,9 @@
 					if (doAction) {
 						saveEntityData(
 							getCategoryFormData(), 
-							actionUrl, 
+							actionUrl,  
 							actionSuccessMsg,
+							actionErrorMsg,
 							updateCategoryCombos
 						);
 					}
@@ -595,7 +601,7 @@
 				});
 				$('#mpClaClassFilter').change(function(e) {
 					if ($('#mpClaClassFilter')[0].selectedIndex > 0) {
-						loadEntityData($(this).val(), product.rest.classByCode, setClassData);	
+						loadEntityData($(this).val(), product.rest.classByCode, [[#{rest.dataload.error}]], setClassData);	
 					} else {
 						cleanClassForm();
 					}
@@ -603,15 +609,16 @@
 				$('#mpClaForm').submit(function(e) {
 					e.preventDefault();
 					var action = $(this).attr('action');
-					var actionUrl, actionSuccessMsg, doAction = true;
+					var actionUrl;
+					var doAction = true;
+					var	actionSuccessMsg = [[#{rest.datasend.success}]];
+					var	actionErrorMsg = [[#{rest.datasend.error}]];
 					switch (action) {
 					case 'create':
 						actionUrl =	product.rest.addClass;
-						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'edit':
 						actionUrl =	product.rest.updateClass; 
-						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'delete':
 						swal({
@@ -628,7 +635,8 @@
 									saveEntityData(
 										getClassFormData(), 
 										product.rest.deleteClass, 
-										[[#{rest.datasend.success}]],
+										actionSuccessMsg,
+										actionErrorMsg,
 										updateClassCombos
 									);
 									cleanClassForm();
@@ -645,6 +653,7 @@
 							getClassFormData(), 
 							actionUrl, 
 							actionSuccessMsg,
+							actionErrorMsg,
 							updateClassCombos
 						);
 					}
@@ -760,7 +769,7 @@
 				});
 				$('#mpTypTypeFilter').change(function(e) {
 					if ($('#mpTypTypeFilter')[0].selectedIndex > 0) {
-						loadEntityData($(this).val(), product.rest.typeByCode, setTypeData);	
+						loadEntityData($(this).val(), product.rest.typeByCode, [[#{rest.dataload.error}]], setTypeData);	
 					} else {
 						cleanTypeFormInput();
 					}
@@ -768,15 +777,16 @@
 				$('#mpTypForm').submit(function(e) {
 					e.preventDefault();
 					var action = $(this).attr('action');
-					var actionUrl, actionSuccessMsg, doAction = true;
+					var actionUrl;
+					var doAction = true;
+					var	actionSuccessMsg = [[#{rest.datasend.success}]];
+					var	actionErrorMsg = [[#{rest.datasend.error}]];
 					switch (action) {
 					case 'create':
 						actionUrl =	product.rest.addType;
-						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'edit':
 						actionUrl =	product.rest.updateType; 
-						actionSuccessMsg = [[#{rest.datasend.success}]];
 						break;
 					case 'delete':
 						swal({
@@ -793,7 +803,8 @@
 									saveEntityData(
 										getTypeFormData(), 
 										product.rest.deleteType, 
-										[[#{rest.datasend.success}]],
+										actionSuccessMsg,
+										actionErrorMsg,
 										updateTypeCombos
 									);
 									resetTypeForm();
@@ -808,8 +819,9 @@
 					if (doAction) {
 						saveEntityData(
 							getTypeFormData(), 
-							actionUrl, 
+							actionUrl,  
 							actionSuccessMsg,
+							actionErrorMsg,
 							updateTypeCombos
 						);
 					}
@@ -913,53 +925,6 @@
 						product.rest.classesByCategory, 
 						data.codClase
 				);
-			}
-			
-			function loadEntityData(inputData, restUrl, setData) {
-				$.ajax({
-					type : 'POST',
-					url : restUrl,
-					dataType: 'json',
-					contentType: 'application/json',
-					data : inputData,
-					success : function(data) {
-						setData(data);
-					},
-					error : function(jqXHR, status) {
-						$.notify({
-							message: [[#{rest.dataload.error}]]
-						},{
-							type: 'danger'
-						});
-					}
-				});
-			}	
-
-			function saveEntityData(data, restUrl, successMsg, callback) {
-				$.ajax({
-					type : 'POST',
-					url : restUrl,
-					dataType: 'json',
-					contentType: 'application/json',
-					data : JSON.stringify(data),
-					success : function() {
-						$.notify({
-							message: successMsg
-						},{
-							type: 'success'
-						});
-						if (callback) {
-							callback();
-						}
-					},
-					error : function(jqXHR, status) {
-						$.notify({
-							message: [[#{rest.datasend.error}]]
-						},{
-							type: 'danger'
-						});
-					}
-				});
 			}
 			/*]]>*/
 		</script>

@@ -23,13 +23,13 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
 
     private Map<Date, List<Movimiento>> groupedData;
 
-    private List<Movimiento>            source         = new ArrayList<>();
+    private List<Movimiento>            source          = new ArrayList<>();
 
-    private String                      dateFormat     = "MMMMM yyyy";
+    private String                      labelDateFormat = "MMMMM yyyy";
 
-    private Integer                     dataLimit      = 10;
+    private Integer                     dataLimit       = 10;
 
-    private Comparator<Date>            dateComparator = new MonthRangeDateComparator();
+    private Comparator<Date>            dateComparator  = new MonthRangeDateComparator();
 
     private Double                      lowestValue;
 
@@ -39,13 +39,11 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
 
     private Date                        highestValueDate;
 
-    private DateFormat                  pattern        = new SimpleDateFormat("dd/MM/YYYY");
-
     @Override
     protected void init(List<Movimiento> source) {
         this.lowestValue = 0D;
-        this.lowestValueDate = null;
         this.highestValue = 0D;
+        this.lowestValueDate = null;
         this.highestValueDate = null;
         this.source = source;
         groupByDate();
@@ -55,7 +53,7 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
     protected List<String> buildLabels() {
         List<String> labels = new ArrayList<>(this.groupedData.size());
         if (!this.groupedData.keySet().isEmpty()) {
-            DateFormat pattern = new SimpleDateFormat(this.dateFormat);
+            DateFormat pattern = new SimpleDateFormat(this.labelDateFormat);
             Calendar calendar = new GregorianCalendar();
             Date before = this.groupedData.keySet().iterator().next();
             for (Date after : this.groupedData.keySet()) {
@@ -108,11 +106,12 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
         return limitData(data);
     }
 
-    protected String formatDate(Date date) {
+    protected String formatDate(Date date, String format) {
         if (date == null) {
             return null;
         }
-        return this.pattern.format(date);
+        DateFormat pattern = new SimpleDateFormat(format);
+        return pattern.format(date);
     }
 
     private <T> List<T> limitData(List<T> labels) {
@@ -163,11 +162,11 @@ public abstract class MovimientoChartManager extends MultiDataSetChartManager<Mo
     }
 
     public String getDateFormat() {
-        return this.dateFormat;
+        return this.labelDateFormat;
     }
 
     public void setDateFormat(String dateFormat) {
-        this.dateFormat = dateFormat;
+        this.labelDateFormat = dateFormat;
     }
 
     public Comparator<Date> getDateComparator() {

@@ -152,3 +152,51 @@ function findProduct (productCode, notifyCallback) {
         }
 	});
 }
+
+
+function loadEntityData(inputData, restUrl, errorMessage, setData) {
+	$.ajax({
+		type : 'POST',
+		url : restUrl,
+		dataType: 'json',
+		contentType: 'application/json',
+		data : inputData,
+		success : function(data) {
+			setData(data);
+		},
+		error : function(jqXHR, status) {
+			$.notify({
+				message: errorMessage
+			},{
+				type: 'danger'
+			});
+		}
+	});
+}	
+
+function saveEntityData(data, restUrl, successMsg, errorMessage, callback) {
+	$.ajax({
+		type : 'POST',
+		url : restUrl,
+		dataType: 'json',
+		contentType: 'application/json',
+		data : JSON.stringify(data),
+		success : function() {
+			$.notify({
+				message: successMsg
+			},{
+				type: 'success'
+			});
+			if (callback) {
+				callback();
+			}
+		},
+		error : function(jqXHR, status) {
+			$.notify({
+				message: errorMessage
+			},{
+				type: 'danger'
+			});
+		}
+	});
+}
