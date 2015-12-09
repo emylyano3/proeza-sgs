@@ -174,7 +174,7 @@ function loadEntityData(inputData, restUrl, errorMessage, setData) {
 	});
 }	
 
-function saveEntityData(data, restUrl, successMsg, errorMessage, callback) {
+function saveEntityData(data, restUrl, successMsg, callback) {
 	$.ajax({
 		type : 'POST',
 		url : restUrl,
@@ -191,9 +191,9 @@ function saveEntityData(data, restUrl, successMsg, errorMessage, callback) {
 				callback();
 			}
 		},
-		error : function(jqXHR, status) {
+		error : function(jqXHR, status, errorThrown) {
 			$.notify({
-				message: errorMessage
+				message: JSON.parse(jqXHR.responseText).message
 			},{
 				type: 'danger'
 			});
