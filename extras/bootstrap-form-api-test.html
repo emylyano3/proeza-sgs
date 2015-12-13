@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bootstrap HTML Test</title>
+<link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap-theme.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../src/main/webapp/resources/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
+</head>
+<body>
+	<form id="formApi" >
+		<div class="form-group">
+			<label for="exampleInputEmail1">Email address</label> 
+			<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />
+		</div>
+		<div class="form-group">
+			<label for="field1">Password</label> 
+			<input type="password" class="form-control" id="field1" placeholder="Password" />
+		</div>
+		<div class="checkbox">
+			<label> 
+				<input type="checkbox" id="checkBox" /> Check me out
+			</label>
+		</div>
+		<button id="submitCreate"  type="submit" class="btn btn-default">Submit</button>
+	</form>
+	<button id="openCreate" type="button" class="btn btn-default">Create</button>
+	<button id="openEdit" type="button" class="btn btn-default">Edit</button>
+	<script src="../src/main/webapp/resources/jquery/jquery.js"></script>
+	<script src="../src/main/webapp/resources/jquery/jquery.inputmask.bundle.js"></script>
+	<script src="../src/main/webapp/resources/bootstrap/js/bootstrap.js"></script>
+	
+	
+	<script type="text/javascript">
+		function loadEntityData(inputData, restUrl, errorMessage, setData) {
+			$.ajax({
+				type : 'POST',
+				url : restUrl,
+				dataType: 'json',
+				contentType: 'application/json',
+				data : inputData,
+				success : function(data) {
+					setData(data);
+				},
+				error : function(jqXHR, status) {
+					$.notify({
+						message: errorMessage
+					},{
+						type: 'danger'
+					});
+				}
+			});
+		}	
+
+		function saveEntityData(data, restUrl, successMsg, callback) {
+			$.ajax({
+				type : 'POST',
+				url : restUrl,
+				dataType: 'json',
+				contentType: 'application/json',
+				data : JSON.stringify(data),
+				success : function() {
+					$.notify({
+						message: successMsg
+					},{
+						type: 'success'
+					});
+					if (callback) {
+						callback();
+					}
+				},
+				error : function(jqXHR, status, errorThrown) {
+					$.notify({
+						message: JSON.parse(jqXHR.responseText).message
+					},{
+						type: 'danger'
+					});
+				}
+			});
+		}
+				
+		function chainCombo(srcCombo, targetCombo, serviceUrl, selectedValue, notifyCallback) {
+			var code = $(srcCombo + ' option:selected').attr('value');
+			var optDefault = $(targetCombo + ' option:first-child');
+			if (!code) {
+				$(targetCombo).empty();
+				$(targetCombo).append(optDefault);
+				return;
+			}
+			$.ajax({
+				type : 'POST',
+				url : serviceUrl,
+				dataType: 'json',
+				contentType: 'application/json',
+				data : code,
+				success : function(options) {
+					$(targetCombo).empty();
+					$(targetCombo).append(optDefault);
+					$.each(options, function(index, option) {
+						$(targetCombo).append(new Option(option.nombre, option.codigo));
+					});
+					if (selectedValue) {
+						$(targetCombo).val(selectedValue);
+					}
+				},
+				error: function () {
+					if (notifyCallback) {
+						notifyCallback();
+					}
+				}
+			});
+		}
+
+		function emptyCombo (targetCombo, hasDefault) {
+			var optDefault = $(targetCombo + ' option:first-child');
+			$(targetCombo).empty();
+			if (hasDefault && optDefault != null) {
+				$(targetCombo).append(optDefault);
+				$(targetCombo).val('');
+			}
+		}
+
+		function initCombo(targetCombo, serviceUrl, notifyCallback) {
+			var optDefault = $(targetCombo + ' option:first-child');
+			$.ajax({
+				type : 'POST',
+				url : serviceUrl,
+				dataType: 'json',
+				contentType: 'application/json',
+				success : function(options) {
+					$(targetCombo).empty();
+					$(targetCombo).append(optDefault);
+					$.each(options, function(index, option) {
+						$(targetCombo).append(new Option(option.nombre, option.codigo));
+					});
+				},
+				error: function () {
+					if (notifyCallback) {
+						notifyCallback();
+					}
+				}
+			});
+		}
+	</script>
+	
+	<script type="text/javascript">
+		var product = {
+			rest : {
+				getClasses : '/proeza-sgs/rest/product/getClasses',
+				getTypes : '/proeza-sgs/rest/product/getTypes',
+				createClass : '/proeza-sgs/rest/product/createClass',
+				updateClass : '/proeza-sgs/rest/product/updateClass'
+			}
+		};
+		(function( $ ) {
+		    var fieldsConfig = new Map();  
+			var triggersConfig = new Map();
+			var submitConfig = new Map();
+			var currentMode;
+		    
+		    $.fn.configField = function(_mode, fieldId, _state) {
+		    	var field = getFormInput(this, fieldId);
+		    	if (field[0]) {
+		    		if (!fieldsConfig.get(this[0])) {
+		    			fieldsConfig.set(this[0], new Map());
+		    		}
+		    		var fieldConfig = {field : field[0], mode : _mode, state : _state};
+		    		fieldsConfig.get(this[0]).set(field[0], fieldConfig)
+					console.log('Field config [' + field[0].id + ']');
+		    	} else {
+					console.error('Field missmatched [' + fieldId + ']');
+		    	}
+		        return this;
+		    };
+		  
+		    $.fn.configTrigger = function(_mode, elementId) {
+				var element = getElement(elementId);
+		    	if (element[0]) {
+					var formMode = {form:this[0], mode:_mode}
+					triggersConfig.set(element[0], formMode);
+					console.log('Trigger config [' + elementId + '] for mode [' + _mode + ']');
+					element.click(function() {
+						var _formMode = triggersConfig.get(this);
+						console.log('Trigger clicked for form [' + _formMode.form.id + '] on mode [' + _formMode.mode + ']');
+						resetForm(_formMode);
+						initForm(_formMode);
+					});
+		    	} else {
+					console.error('Element missmatched [' + elementId + ']');
+		    	}
+		        return this;
+		    };
+		    
+		    $.fn.configSubmit = function(_mode, _action) {
+		    	submitConfig.set(_mode, _action);
+				this.submit(function(e) {
+					e.preventDefault();
+					action = submitConfig.get(currentMode);
+					console.log('Form submitted in mode [' + currentMode + '] with action [' + action + ']');
+					var formData = getFormData(this);
+					saveEntityData(formData, action, 'Todo OK');
+				});
+		        return this;
+		    };
+			
+		    $.fn.fillCombo = function(elementId, restUrl) {
+				console.log('El combo [' + elementId + '] se llena con el servicio rest [' + restUrl + ']');
+		        return this;
+		    };		
+	
+			$.fn.chainCombo = function(elementId, elementChainedId, restUrl) {
+				console.log('El combo [' + elementChainedId + '] se llena con el servicio rest [' + restUrl + '] tomando como parametro de filtro el valor seleccionado del combo [' + elementId + ']');
+		        return this;
+		    };
+			
+			$.fn.defaultMode = function defaultMode (mode) {
+				currentMode = mode;
+				return this;
+			};
+			
+			function getFormData (form) {
+				console.log('Obteniendo la data del formulario');
+				var formData = $(form).serializeArray();
+				console.log('Formulario: ' + formData);
+			}
+			
+			function resetForm(formMode) {
+				console.log('Reseteando el formulario');
+				$(formMode.form).find(':input').show().prop('disabled', false);
+			}
+			
+			function initForm(formMode) {
+				console.log('Inicializando el formulario');
+				var fieldsMap = fieldsConfig.get(formMode.form);
+				currentMode = formMode.mode;
+				for (var key of fieldsMap.keys()) {
+					if (formMode.mode != fieldsMap.get(key).mode) {
+						continue;
+					}
+					console.log('En modo [' + fieldsMap.get(key).mode + '] el campo [' + fieldsMap.get(key).field.id + '] esta en estado [' + fieldsMap.get(key).state + ']');
+					var field = fieldsMap.get(key).field;
+					switch (fieldsMap.get(key).state) {
+						case 'disabled':
+							$(field).prop('disabled', true);
+						break;
+						case 'hidden':
+							$(field).hide();
+						break;
+					}
+				}
+			}
+	
+			function getFormInput(form, fieldId) {
+				return form.find('input[id="' + fieldId + '"]')
+			}
+
+			function getElement(elementId) {
+				return $("#" + elementId);
+			}
+		}(jQuery));
+	</script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#formApi')
+				/* 
+				 Si aplica, configuro la visibilidad / habilitacion de los campos del formulario para cada modo 
+				 Ej: Para el modo 'modificacion' oculto el campo Codigo.
+				 */
+				.configField('create', 'field1', 'disabled')
+				/*
+				 Si aplica, configuro que componente "dispara" la apertura e inicializacion del formulario
+				 Ej: Con el boton XXX el formulario se hace visible y se inicializa en modo 'Alta'
+				 */
+				.defaultMode('create')
+				.configTrigger('create', 'openCreate')
+				.configTrigger('update', 'openEdit')
+				/*
+				 Configura la accion cuando se hace el submit del formulario.
+				 Ej: En el submit, se invoca el servicio rest XXX 
+				 */
+				.configSubmit('create', product.rest.createClass)
+				.configSubmit('update', product.rest.updateClass)
+				.fillCombo('fieldCombo', product.rest.getClasses)
+				.chainCombo('fieldCombo', 'fieldCombo2', product.rest.getTypes);
+		})
+	</script>
+</body>
+</html>
