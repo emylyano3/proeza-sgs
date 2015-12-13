@@ -8,19 +8,20 @@
 </head>
 <body>
 	<form id="formApi" >
-		<div class="form-group">
-			<label for="exampleInputEmail1">Email address</label> 
-			<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />
-		</div>
-		<div class="form-group">
-			<label for="field1">Password</label> 
-			<input type="password" class="form-control" id="field1" placeholder="Password" />
-		</div>
-		<div class="checkbox">
-			<label> 
-				<input type="checkbox" id="checkBox" /> Check me out
-			</label>
-		</div>
+		<label for="email">Email address</label> 
+		<input type="email" class="form-control" name="email" id="email" placeholder="Enter email" />
+		<label for="pass">Password</label> 
+		<input type="password" class="form-control" id="pass" name="pass" placeholder="Password" />
+		<label> 
+			<input type="checkbox" id="check" name="check" /> Check me out
+		</label>
+		<p/>
+		<label for="combo">Combo</label> 
+		<select id="combo" name="combo" class="form-control input-md" required="required" autofocus="autofocus" >
+			<option value="Option_1" selected="selected">Option 1</option>
+			<option value="Option_2">Option 2</option>
+		</select>
+		<p/>
 		<button id="submitCreate"  type="submit" class="btn btn-default">Submit</button>
 	</form>
 	<button id="openCreate" type="button" class="btn btn-default">Create</button>
@@ -28,7 +29,6 @@
 	<script src="../src/main/webapp/resources/jquery/jquery.js"></script>
 	<script src="../src/main/webapp/resources/jquery/jquery.inputmask.bundle.js"></script>
 	<script src="../src/main/webapp/resources/bootstrap/js/bootstrap.js"></script>
-	
 	
 	<script type="text/javascript">
 		function loadEntityData(inputData, restUrl, errorMessage, setData) {
@@ -219,8 +219,11 @@
 			
 			function getFormData (form) {
 				console.log('Obteniendo la data del formulario');
-				var formData = $(form).serializeArray();
-				console.log('Formulario: ' + formData);
+				var result = {};
+				$.each($(form).serializeArray(), function(){
+					result[this.name] = this.value;	
+				});
+				return result;
 			}
 			
 			function resetForm(formMode) {
@@ -266,7 +269,7 @@
 				 Si aplica, configuro la visibilidad / habilitacion de los campos del formulario para cada modo 
 				 Ej: Para el modo 'modificacion' oculto el campo Codigo.
 				 */
-				.configField('create', 'field1', 'disabled')
+				.configField('create', 'pass', 'disabled')
 				/*
 				 Si aplica, configuro que componente "dispara" la apertura e inicializacion del formulario
 				 Ej: Con el boton XXX el formulario se hace visible y se inicializa en modo 'Alta'
