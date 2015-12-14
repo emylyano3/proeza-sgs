@@ -7,8 +7,8 @@
 
 	<div class="content" layout:fragment="contenido" >
 		<form id="formApi" >
-			<label for="email">Email address</label> 
-			<input type="email" class="form-control" name="email" id="email" placeholder="Enter email" />
+			<label for="user">Email address</label> 
+			<input type="text" class="form-control" name="user" id="user" placeholder="User" />
 			<label for="pass">Password</label> 
 			<input type="password" class="form-control" id="pass" name="pass" placeholder="Password" />
 			<label> 
@@ -16,10 +16,9 @@
 			</label>
 			<p/>
 			<label for="combo">Combo</label> 
-			<select id="combo" name="combo" class="form-control input-md" required="required" autofocus="autofocus" >
-				<option value="Option_1" selected="selected">Option 1</option>
-				<option value="Option_2">Option 2</option>
-			</select>
+			<select id="combo" name="combo" class="form-control input-md" required="required" autofocus="autofocus"/>
+			<label for="chainedCombo">Combo</label> 
+			<select id="chainedCombo" name="chainedCombo" class="form-control input-md" required="required" autofocus="autofocus"/>
 			<p/>
 			<button id="submitCreate"  type="submit" class="btn btn-default">Submit</button>
 		</form>
@@ -27,23 +26,16 @@
 		<button id="openEdit" type="button" class="btn btn-default">Edit</button>
 		
 		<script th:src="@{/resources/app/js/form-plugin.js}" src="../../../resources/app/js/form-plugin.js"></script>
+		<script th:src="@{/resources/app/js/articulo.js}" src="../../../resources/app/js/articulo.js"></script>
 	
 		<script type="text/javascript">
-			var product = {
-				rest : {
-					getClasses : '/proeza-sgs/rest/product/getClasses',
-					getTypes : '/proeza-sgs/rest/product/getTypes',
-					createClass : '/proeza-sgs/rest/product/createClass',
-					updateClass : '/proeza-sgs/rest/product/updateClass'
-				}
-			};
 			$(document).ready(function() {
 				$('#formApi')
 					/* 
 					 Si aplica, configuro la visibilidad / habilitacion de los campos del formulario para cada modo 
 					 Ej: Para el modo 'modificacion' oculto el campo Codigo.
 					 */
-					.configField('create', 'pass', 'disabled')
+					.configField('update', 'user', 'disabled')
 					/*
 					 Si aplica, configuro que componente "dispara" la apertura e inicializacion del formulario
 					 Ej: Con el boton XXX el formulario se hace visible y se inicializa en modo 'Alta'
@@ -55,10 +47,10 @@
 					 Configura la accion cuando se hace el submit del formulario.
 					 Ej: En el submit, se invoca el servicio rest XXX 
 					 */
-					.configSubmit('create', product.rest.createClass)
+					.configSubmit('create', product.rest.addClass)
 					.configSubmit('update', product.rest.updateClass)
-					.fillCombo('fieldCombo', product.rest.getClasses)
-					.chainCombo('fieldCombo', 'fieldCombo2', product.rest.getTypes);
+					.fillCombo('combo', product.rest.getClasses)
+					.chainCombo('combo', 'chainedCombo', product.rest.getTypes);
 			})
 		</script>
 	</div>

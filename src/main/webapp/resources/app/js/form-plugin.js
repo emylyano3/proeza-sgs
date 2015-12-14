@@ -48,9 +48,28 @@
 		});
         return this;
     };
-	
-    $.fn.fillCombo = function(elementId, restUrl) {
+    
+    $.fn.fillCombo = function(elementId, restUrl, callback) {
 		console.log('El combo [' + elementId + '] se llena con el servicio rest [' + restUrl + ']');
+		var optDefault = $(elementId + ' option:first-child');
+    	$.ajax({
+    		type : 'POST',
+    		url : restUrl,
+    		dataType: 'json',
+    		contentType: 'application/json',
+    		success : function(options) {
+    			$(elementId).empty();
+    			$(elementId).append(optDefault);
+    			$.each(options, function(index, option) {
+    				$(elementId).append(new Option(option.nombre, option.codigo));
+    			});
+    		},
+    		error: function () {
+    			if (callback) {
+    				callback();
+    			}
+    		}
+    	});
         return this;
     };		
 
