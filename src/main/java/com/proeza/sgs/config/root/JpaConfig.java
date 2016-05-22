@@ -22,23 +22,23 @@ import static org.hibernate.cfg.AvailableSettings.*;
 
 @Configuration
 @ComponentScan(
-    basePackages = {
-        "com.proeza.**.dao.**"
-    })
+        basePackages = {
+                "com.proeza.**.dao.**"
+        })
 public class JpaConfig {
 
     @Autowired
     private JpaSettings jpaSettings;
 
     @Bean
-    public AbstractJpaVendorAdapter jpaVendorAdapter () {
+    public AbstractJpaVendorAdapter jpaVendorAdapter() {
         final AbstractJpaVendorAdapter jpaAdapter = new HibernateJpaVendorAdapter();
         jpaAdapter.setDatabasePlatform(this.jpaSettings.getDialect());
         return jpaAdapter;
     }
 
     @Bean
-    public Properties jpaProperties () {
+    public Properties jpaProperties() {
         final Properties jpaProperties = new Properties();
         jpaProperties.put(HBM2DDL_AUTO, this.jpaSettings.getHbm2ddlAuto());
         jpaProperties.put(HBM2DDL_IMPORT_FILES, this.jpaSettings.getHbm2ddlImportFiles());
@@ -52,32 +52,29 @@ public class JpaConfig {
     }
 
     @Bean
-    public AbstractEntityManagerFactoryBean entityManager (DataSource ds, AbstractJpaVendorAdapter jpaAdapter, Properties jpaProperties) {
+    public AbstractEntityManagerFactoryBean entityManager(DataSource ds, AbstractJpaVendorAdapter jpaAdapter, Properties jpaProperties) {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setPackagesToScan(
-            "com.proeza.security.entity",
-            "com.proeza.sgs.business.entity",
-            "com.proeza.sgs.system.entity",
-            "com.proeza.core.i18n.entity",
-            "com.proeza.core.error.entity",
-            "com.proeza.core.tracking.entity"
-        );
+                "com.proeza.security.entity",
+                "com.proeza.sgs.business.entity",
+                "com.proeza.sgs.system.entity",
+                "com.proeza.core.i18n.entity",
+                "com.proeza.core.error.entity",
+                "com.proeza.core.tracking.entity");
         em.setDataSource(ds);
         em.setJpaVendorAdapter(jpaAdapter);
         em.setJpaProperties(jpaProperties);
-        em.setMappingResources(
-            "queries/named/crones/relevamientoStock.hbm.xml"
-        );
+        em.setMappingResources("queries/named/crones/relevamientoStock.hbm.xml");
         return em;
     }
 
     @Bean
-    public QueryRegistry queriesRegistry () {
+    public QueryRegistry queriesRegistry() {
         return new QueryRegistry("/queries");
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager (DataSource ds, AbstractEntityManagerFactoryBean emf) {
+    public PlatformTransactionManager transactionManager(DataSource ds, AbstractEntityManagerFactoryBean emf) {
         final JpaTransactionManager tm = new JpaTransactionManager();
         tm.setDataSource(ds);
         tm.setEntityManagerFactory(emf.getObject());
