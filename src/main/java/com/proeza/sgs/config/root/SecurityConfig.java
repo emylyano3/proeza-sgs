@@ -26,7 +26,8 @@ import com.proeza.sgs.system.entity.Page;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String ROLE_PREFIX = "ROLE_";
+    private static final String ROOT_PAGE_GROUP = "root";
+    private static final String ROLE_PREFIX     = "ROLE_";
 
     @Autowired
     private UserDetailsService  userDetailsService;
@@ -35,14 +36,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private IPageDao            pageDao;
 
     @Override
-    public void configure (WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) throws Exception {
         web
-            .ignoring()
-            .antMatchers("/resources/**");
+        .ignoring()
+        .antMatchers("/resources/**");
     }
 
     @Override
-    protected void configure (AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(this.userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
@@ -50,40 +51,42 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder () {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
-    protected void configure (HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception {
         addAccessControl(http
-            .formLogin()
-            .loginPage("/login")
-            .loginProcessingUrl("/login/authenticate")
-            .failureUrl("/login?error=bad_credentials")
-            .and()
-            .logout()
-            .logoutUrl("/doLogout")
-            .deleteCookies("JSESSIONID")
-            .logoutSuccessUrl("/logout")
-            .and())
-            .csrf()
-            .disable();
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login/authenticate")
+                .failureUrl("/login?error=bad_credentials")
+                .and()
+                .logout()
+                .logoutUrl("/doLogout")
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/logout")
+                .and())
+        .csrf()
+        .disable();
     }
 
-    private HttpSecurity addAccessControl (HttpSecurity http) throws Exception {
+    private HttpSecurity addAccessControl(HttpSecurity http) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authRegister = http.authorizeRequests();
         List<Page> pages = this.pageDao.findAll();
         for (Page page : pages) {
             String pagePath = getPagePathPattern(page);
             Set<Rol> roles = page.getRoles();
-            authRegister.antMatchers(pagePath).hasAnyRole(getRolesCodes(roles));
+            if (!roles.isEmpty()) {
+                authRegister.antMatchers(pagePath).hasAnyRole(getRolesCodes(roles));
+            }
         }
         authRegister.antMatchers("/**").permitAll();
         return http;
     }
 
-    private String[] getRolesCodes (Set<Rol> roles) {
+    private String[] getRolesCodes(Set<Rol> roles) {
         List<String> rolesCodes = new ArrayList<>(roles.size());
         for (Rol rol : roles) {
             String roleCode = rol.getCodigo();
@@ -95,13 +98,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return rolesCodes.toArray(new String[rolesCodes.size()]);
     }
 
-    private String getPagePathPattern (Page page) {
+    private String getPagePathPattern(Page page) {
         StringBuilder pagePath = new StringBuilder();
         pagePath
-            .append("/")
-            .append(page.getGroup())
-            .append("/")
-            .append(page.getName());
+        .append(isRootPage(page) ? "" : "/" + page.getGroup())
+        .append("/")
+        .append(page.getName());
         return pagePath.toString();
+    }
+
+    /**
+     * Es un hack para que funcione la aplicacion de permisos sobre las paginas root. Esto eso porque en la base se las identifica como root
+     * por no pertenecer a ningun grupo de negocio pero el path de acceso no tiene tal identificador, por eso se elimina
+     */
+    private boolean isRootPage(Page page) {
+        return ROOT_PAGE_GROUP.equals(page.getGroup());
     }
 }

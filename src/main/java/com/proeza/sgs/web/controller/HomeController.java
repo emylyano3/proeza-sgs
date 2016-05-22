@@ -30,7 +30,7 @@ public class HomeController {
         model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, PAGE_NAME, principal));
     }
 
-    @RequestMapping({"/", "/index", "/home"})
+    @RequestMapping({"/home"})
     public ModelAndView home (ModelAndView model) {
         model.setViewName(PAGE_GROUP + "/" + PAGE_NAME + ".html");
         PageDTO pagina = this.pageService.findByGroupAndName(PAGE_GROUP, PAGE_NAME);

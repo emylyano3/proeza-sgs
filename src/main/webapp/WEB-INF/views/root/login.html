@@ -28,9 +28,11 @@
 <body class="blank">
 
 	<div class="color-line"></div>
+	<!-- 
 	<div class="pull-left m">
 	    <a href="#" th:href="@{/home}" class="btn btn-primary" text="Volver al home" th:text="#{control.backtohome}"/>
 	</div>
+	 -->
 	<div class="login-container">
 	    <div class="row">
 	        <div class="col-md-12">
@@ -53,10 +55,12 @@
                                 <input name="password" id="password" type="password" th:placeholder="#{control.ph.password}" class="form-control" required="required"/>
                                 <span class="help-block small" th:text="#{login.passwordhelp}" text="Su contraseña de usuario"/>
                             </div>
+                            <!-- 
                             <div class="checkbox">
                                 <input type="checkbox" class="i-checks" checked="checked" th:text="' ' + #{control.rememberme}" text="Recordarme"/>
                                 <p class="help-block small" th:text="#{login.remembermehelp}" text="(si es una computarora privada)" />
                             </div>
+                             -->
                             <button class="btn btn-success btn-block" th:text="#{control.login}" text="Ingresar" />
 <!--                             <a class="btn btn-default btn-block" href="#" th:href="@{/register}" th:text="#{control.register}" text="Registrarme"/> -->
                         </form>
