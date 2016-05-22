@@ -8,6 +8,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.proeza.sgs.config.ConfigConsts;
 import com.proeza.sgs.config.dispatcher.WebMvcConfig;
 import com.proeza.sgs.config.env.Environments;
 import com.proeza.sgs.config.root.ContextConfig;
@@ -43,7 +44,7 @@ public class MvcInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected Filter[] getServletFilters () {
         CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
-        encodingFilter.setEncoding("UTF-8");
+        encodingFilter.setEncoding(ConfigConsts.DEFAULT_ENCODING);
         encodingFilter.setForceEncoding(true);
         return new Filter[] {encodingFilter};
     }
