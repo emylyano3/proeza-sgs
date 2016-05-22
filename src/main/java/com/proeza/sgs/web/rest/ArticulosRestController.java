@@ -40,7 +40,10 @@ import com.proeza.sgs.web.handler.ErrorTracker;
 @RequestMapping("rest/product")
 public class ArticulosRestController {
 
-    private static final Logger log = Logger.getLogger(ArticulosRestController.class);
+    private static final Logger log             = Logger.getLogger(ArticulosRestController.class);
+
+    private static final String INTEGRITY_ERROR = "prod.integrity.error";
+    private static final String NOTFOUND_ERROR  = "prod.notfound.error";
 
     @Autowired
     private IArticuloService    productService;
@@ -67,7 +70,7 @@ public class ArticulosRestController {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ErrorInfo conflict(HttpServletRequest request, Exception e) {
         this.errorTracker.trackError(e);
-        ErrorInfo errorInfo = new ErrorInfo(request.getRequestURL().toString(), this.messageResolver.getMessage("app.data.integrity.error", request));
+        ErrorInfo errorInfo = new ErrorInfo(request.getRequestURL().toString(), this.messageResolver.getMessage(INTEGRITY_ERROR, request));
         log.info("Error handled: " + errorInfo);
         return errorInfo;
     }
@@ -76,7 +79,7 @@ public class ArticulosRestController {
     @ExceptionHandler(DataRetrievalFailureException.class)
     public ErrorInfo notFound(HttpServletRequest request, Exception e) {
         this.errorTracker.trackError(e);
-        ErrorInfo errorInfo = new ErrorInfo(request.getRequestURL().toString(), this.messageResolver.getMessage("app.data.notfound.error", request));
+        ErrorInfo errorInfo = new ErrorInfo(request.getRequestURL().toString(), this.messageResolver.getMessage(NOTFOUND_ERROR, request));
         log.info("Error handled: " + errorInfo);
         return errorInfo;
     }

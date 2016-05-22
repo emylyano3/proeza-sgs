@@ -10,7 +10,7 @@ public class PageDTO {
     private String title;
     private String subtitle;
 
-    public PageDTO (Page page) {
+    public PageDTO(Page page) {
         this.id = page.getId();
         this.group = page.getGroup();
         this.name = page.getName();
@@ -19,51 +19,51 @@ public class PageDTO {
         this.subtitle = page.getSubtitle();
     }
 
-    public long getId () {
+    public long getId() {
         return this.id;
     }
 
-    public void setId (long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getGroup () {
+    public String getGroup() {
         return this.group;
     }
 
-    public void setGroup (String group) {
+    public void setGroup(String group) {
         this.group = group;
     }
 
-    public String getName () {
+    public String getName() {
         return this.name;
     }
 
-    public void setName (String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getDescription () {
+    public String getDescription() {
         return this.description;
     }
 
-    public void setDescription (String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getTitle () {
+    public String getTitle() {
         return this.title;
     }
 
-    public void setTitle (String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getSubtitle () {
+    public String getSubtitle() {
         return this.subtitle;
     }
 
-    public void setSubtitle (String subtitle) {
+    public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
     }
 }

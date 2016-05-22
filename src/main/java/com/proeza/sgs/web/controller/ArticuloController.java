@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.proeza.core.classmapper.Mapeable;
 import com.proeza.sgs.business.service.IClaseService;
 import com.proeza.sgs.business.service.IMarcaService;
 import com.proeza.sgs.business.service.IRubroService;
 import com.proeza.sgs.business.service.ITipoService;
 import com.proeza.sgs.system.service.IPageService;
-import com.proeza.sgs.system.service.dto.PageDTO;
+import com.proeza.sgs.web.PageConfig;
 import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
@@ -52,9 +53,13 @@ public class ArticuloController {
     @RequestMapping({"/{page}"})
     public String home (ModelMap model, Principal principal, @PathVariable("page") String page) {
         model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, page, principal));
-        PageDTO pagina = this.pageService.findByGroupAndName(PAGE_GROUP, page);
-        model.addAttribute("pageTitle", pagina.getTitle());
-        model.addAttribute("pageSubtitle", pagina.getSubtitle());
+        model.addAttribute("pageConfig", buildPageConfig(PAGE_GROUP, page));
         return PAGE_GROUP + "/" + page + ".html";
+    }
+
+    private Mapeable buildPageConfig(String group, String page) {
+        PageConfig config = new PageConfig().mapFrom(this.pageService.findByGroupAndName(group, page));
+        config.setHasSearch(!"stats".equals(page));
+        return config;
     }
 }

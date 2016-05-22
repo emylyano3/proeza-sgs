@@ -108,7 +108,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Es un hack para que funcione la aplicacion de permisos sobre las paginas root. Esto eso porque en la base se las identifica como root
+     * Es un hack para que funcione la aplicacion de permisos sobre las paginas root. Esto es porque en la base se las identifica como root
      * por no pertenecer a ningun grupo de negocio pero el path de acceso no tiene tal identificador, por eso se elimina
      */
     private boolean isRootPage(Page page) {

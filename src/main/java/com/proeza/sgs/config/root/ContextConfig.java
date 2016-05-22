@@ -36,34 +36,35 @@ import com.proeza.core.resources.image.ImageManager;
 import com.proeza.core.resources.message.MessageResolver;
 import com.proeza.sgs.business.chart.ChartColor;
 import com.proeza.sgs.business.chart.ChartColorManager;
+import com.proeza.sgs.config.ConfigConsts;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 @Import(value = {
-    DataSourceConfig.class,
-    JpaConfig.class,
-    SecurityConfig.class
+        DataSourceConfig.class,
+        JpaConfig.class,
+        SecurityConfig.class
 })
 @ComponentScan(
-    basePackages = {
-        "com.proeza.core.config",
-        "com.proeza.core.service",
-        "com.proeza.core.tracking",
-        "com.proeza.core.datamapper",
-        "com.proeza.core.context",
-        "com.proeza.core.classmapper",
-        "com.proeza.security.dao",
-        "com.proeza.security.service",
-        "com.proeza.sgs.business",
-        "com.proeza.sgs.system",
-        "com.proeza.sgs.system.service",
-    },
-    excludeFilters = {
-        @Filter(Configuration.class),
-        @Filter(Controller.class),
-        @Filter(RestController.class)
-    })
+        basePackages = {
+                "com.proeza.core.config",
+                "com.proeza.core.service",
+                "com.proeza.core.tracking",
+                "com.proeza.core.datamapper",
+                "com.proeza.core.context",
+                "com.proeza.core.classmapper",
+                "com.proeza.security.dao",
+                "com.proeza.security.service",
+                "com.proeza.sgs.business",
+                "com.proeza.sgs.system",
+                "com.proeza.sgs.system.service",
+        },
+        excludeFilters = {
+                @Filter(Configuration.class),
+                @Filter(Controller.class),
+                @Filter(RestController.class)
+        })
 @EnableAsync
 @EnableScheduling
 @EnableAspectJAutoProxy
@@ -82,7 +83,7 @@ public class ContextConfig {
     public MessageSource messageSource () {
         final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("/WEB-INF/messages/messages");
-        messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setDefaultEncoding(ConfigConsts.DEFAULT_ENCODING);
         return messageSource;
     }
 

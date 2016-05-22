@@ -5,11 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-//@ControllerAdvice
+@ControllerAdvice
 public class ControllerExceptionHandler {
 
     public static final String  ERROR_PAGE_NAME = "/root/error.html";
@@ -19,7 +20,7 @@ public class ControllerExceptionHandler {
     @Autowired
     private ErrorTracker       errorTracker;
 
-    @ExceptionHandler(value = RuntimeException.class)
+    @ExceptionHandler(value = Exception.class)
     public ModelAndView handleAllException (HttpServletRequest req, RuntimeException e) throws Exception {
         if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) {
             this.errorTracker.trackError(e);

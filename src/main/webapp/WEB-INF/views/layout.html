@@ -62,9 +62,9 @@
 		<div class="content">
 			<div class="row">
 				<div class="col-lg-12 text-center" style="padding-top: 10px; padding-bottom: 20px">
-					<span class="pageTitle" th:text="${pageTitle}" />
-					<span class="pageTitle" th:if="${not pageSubtitle.isEmpty()}">:</span>
-					<span class="pageSubtitle" th:text="${pageSubtitle}" />
+					<span class="pageTitle" th:text="${pageConfig.title}" />
+					<span class="pageTitle" th:if="${not pageConfig.subtitle.isEmpty()}">:</span>
+					<span class="pageSubtitle" th:text="${pageConfig.subtitle}" />
 				</div>
 			</div>
 			<div class="row">

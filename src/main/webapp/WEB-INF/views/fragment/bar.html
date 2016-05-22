@@ -14,12 +14,12 @@
         <div class="header-link hide-menu">
             <i class="fa fa-bars"></i>
         </div>
-        <div class="navbar-form-custom">
+        <div th:if="${pageConfig.hasSearch}" class="navbar-form-custom">
             <input id="filter" type="text" th:placeholder="#{control.search}" placeholder="Buscar..." class="form-control" name="search" />
         </div>
         <div class="navbar-right">
             <ul class="nav navbar-nav no-borders">
-                <li class="button">
+                <li th:if="${pageConfig.hasSearch}" class="button">
                     <a id="eraser" class="dropdown-toggle" data-toggle="button">
                         <i class="fa fa-eraser" />
                     </a>

@@ -4,10 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.proeza.core.resources.message.IMessageResolver;
 
 @Controller
@@ -20,10 +19,9 @@ public class LogoutController {
     private IMessageResolver   messageResolver;
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public ModelAndView logout (ModelAndView model, HttpServletRequest request) {
+    public String logout(ModelMap model, HttpServletRequest request) {
         String logoutMsg = this.messageResolver.getMessage("sec.logoutsuccess", request);
-        model.addObject("logoutMsg", logoutMsg);
-        model.setViewName(PAGE_GROUP + "/" + PAGE_NAME + ".html");
-        return model;
+        model.addAttribute("logoutMsg", logoutMsg);
+        return PAGE_GROUP + "/" + PAGE_NAME + ".html";
     }
 }

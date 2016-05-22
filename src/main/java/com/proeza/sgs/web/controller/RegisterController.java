@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.LocaleResolver;
 
+import com.proeza.core.classmapper.Mapeable;
 import com.proeza.security.form.UsuarioForm;
 import com.proeza.security.service.IUserService;
 import com.proeza.sgs.system.mail.IMailManager;
 import com.proeza.sgs.system.service.IPageService;
-import com.proeza.sgs.system.service.dto.PageDTO;
+import com.proeza.sgs.web.PageConfig;
 import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
@@ -44,15 +45,13 @@ public class RegisterController {
     private IPageService       pageService;
 
     @ModelAttribute
-    public void menues (final ModelMap model, final Principal principal) {
+    public void menues(final ModelMap model, final Principal principal) {
         model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, PAGE_NAME, principal));
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String getForm (final ModelMap model, final UsuarioForm usuarioForm) {
-        PageDTO pagina = this.pageService.findByGroupAndName(PAGE_GROUP, PAGE_NAME);
-        model.addAttribute("pageTitle", pagina.getTitle());
-        model.addAttribute("pageSubtitle", pagina.getSubtitle());
+    public String getForm(final ModelMap model, final UsuarioForm usuarioForm) {
+        model.addAttribute("pageConfig", buildPageConfig(PAGE_GROUP, PAGE_NAME));
         usuarioForm.setAlias("Emy");
         usuarioForm.setNombre("Emiliano");
         usuarioForm.setApellido("Schiano");
@@ -64,11 +63,7 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register (
-        final ModelMap model,
-        @ModelAttribute("userForm") @Valid UsuarioForm userForm,
-        final BindingResult result,
-        HttpServletRequest request) throws MessagingException {
+    public String register(final ModelMap model, @ModelAttribute("userForm") @Valid UsuarioForm userForm, final BindingResult result, HttpServletRequest request) throws MessagingException {
         if (result.hasErrors()) {
             return PAGE_GROUP + "/" + PAGE_NAME + ".html";
         } else {
@@ -76,5 +71,9 @@ public class RegisterController {
             this.mailManager.sendRegisterEmail(userForm.getUsuario(), this.localeResolver.resolveLocale(request));
             return "redirect:/" + HomeController.PAGE_NAME;
         }
+    }
+
+    private Mapeable buildPageConfig(String group, String page) {
+        return new PageConfig().mapFrom(this.pageService.findByGroupAndName(group, page));
     }
 }

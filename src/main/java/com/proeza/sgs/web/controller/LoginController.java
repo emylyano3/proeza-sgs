@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.proeza.core.resources.message.IMessageResolver;
 
@@ -23,24 +23,18 @@ public class LoginController {
     private IMessageResolver   messageResolver;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login (
-        ModelAndView model,
-        @RequestParam(value = "error", required = false) String error,
-        @RequestParam(value = "logout", required = false) String logout,
-        HttpServletRequest request)
-    {
-        model.setViewName(PAGE_GROUP + "/" + PAGE_NAME + ".html");
+    public String login(ModelMap model, @RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
         if (error != null) {
-            model.addObject("errorMsg", getLoginErrorMessage(request));
+            model.addAttribute("errorMsg", getLoginErrorMessage(request));
         }
         if (logout != null) {
             String logoutMsg = this.messageResolver.getMessage("sec.logoutsuccess", request);
-            model.addObject("logoutMsg", logoutMsg);
+            model.addAttribute("logoutMsg", logoutMsg);
         }
-        return model;
+        return PAGE_GROUP + "/" + PAGE_NAME + ".html";
     }
 
-    private String getLoginErrorMessage (HttpServletRequest request) {
+    private String getLoginErrorMessage(HttpServletRequest request) {
         final Exception exception = (Exception) request.getSession().getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
         if (exception instanceof BadCredentialsException) {
             return this.messageResolver.getMessage("sec.badcredentials", request);

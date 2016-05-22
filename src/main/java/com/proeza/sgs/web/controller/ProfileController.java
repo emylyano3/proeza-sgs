@@ -13,10 +13,10 @@ import com.proeza.sgs.web.PageConfig;
 import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
-public class HomeController {
+public class ProfileController {
 
     public static final String PAGE_GROUP = "root";
-    public static final String PAGE_NAME  = "home";
+    public static final String PAGE_NAME  = "profile";
 
     @Autowired
     private IViewMenuManager   menuManager;
@@ -25,12 +25,12 @@ public class HomeController {
     private IPageService       pageService;
 
     @ModelAttribute
-    public void menues (final ModelMap model, final Principal principal) {
+    public void menues(final ModelMap model, final Principal principal) {
         model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, PAGE_NAME, principal));
     }
 
-    @RequestMapping({"/home"})
-    public String home (ModelMap model) {
+    @RequestMapping({"/profile"})
+    public String home(ModelMap model) {
         model.addAttribute("pageConfig", buildPageConfig(PAGE_GROUP, PAGE_NAME));
         return PAGE_GROUP + "/" + PAGE_NAME + ".html";
     }
