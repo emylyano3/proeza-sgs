@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.proeza.security.entity.Rol;
+import com.proeza.security.service.LoginSuccessHandler;
 import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.entity.Page;
 
@@ -31,6 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService  userDetailsService;
+
+    @Autowired
+    private LoginSuccessHandler loginSuccessHandler;
 
     @Autowired
     private IPageDao            pageDao;
@@ -59,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         addAccessControl(http
                 .formLogin()
+                .successHandler(this.loginSuccessHandler)
                 .loginPage("/login")
                 .loginProcessingUrl("/login/authenticate")
                 .failureUrl("/login?error=bad_credentials")
@@ -68,8 +73,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/logout")
                 .and())
+        .rememberMe()
+        .and()
         .csrf()
-        .disable();
+        .disable()
+        .sessionManagement()
+        .maximumSessions(1);
     }
 
     private HttpSecurity addAccessControl(HttpSecurity http) throws Exception {
