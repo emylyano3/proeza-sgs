@@ -584,6 +584,12 @@ body.blank {
     font-size: 44px
 }
 
+.back-link {
+	float: left;
+	width: 100%;
+	margin: 10px;
+}
+
 .vertical-container {
     width: 98%;
     margin: 0 auto
