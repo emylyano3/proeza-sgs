@@ -133,13 +133,19 @@
         <div th:replace="articulo/fragment/catalog.html::commandBar"/>
 		
         <!-- Menu Contextual -->
-		<div id="gridContextMenu">
+		<div id="gridSingleProductMenu">
 			<ul>
 				<li id="editProd" th:text="#{prod.menu.edit}" />
 				<li id="addImgToProd" th:text="#{prod.menu.addImage}" />
 				<li id="copyProd" th:text="#{prod.menu.copy}" />
 				<li id="createProd" th:text="#{prod.menu.create}" />
 				<li id="deleteProd" th:text="#{prod.menu.remove}" />
+				<li id="updatePrice" th:text="#{prod.menu.updatePrice}" />
+			</ul>
+		</div>
+		<div id="gridMultiProductMenu">
+			<ul>
+				<li id="updatePrice" th:text="#{prod.menu.updatePrice}" />
 			</ul>
 		</div>
 		
@@ -168,7 +174,7 @@
         
 		<script th:inline="javascript">
 		 	/*<![CDATA[*/
-			// Inicializacion de la tabla de artículos
+			// Inicializacion de la tabla de artï¿½culos
 			$(document).ready(function() {
 				configGridSource();
 				configGrid(); 
@@ -247,6 +253,7 @@
 				$('#productGrid').jqxGrid({
 					width : '100%',
 					theme : 'energyblue',
+					selectionmode: 'multiplerowsadvanced',
 					source : dataAdapter,
 					pageable : false,
 					autoheight : false,
@@ -286,7 +293,14 @@
     				]
 				});
 				// create context menu
-				var contextMenu = $('#gridContextMenu').jqxMenu({
+				var singleProductMenu = $('#gridSingleProductMenu').jqxMenu({
+					width : 190,
+					autoOpenPopup : false,
+					mode : 'popup'
+
+				});
+				// create context menu
+				var multiProductMenu = $('#gridMultiProductMenu').jqxMenu({
 					width : 190,
 					autoOpenPopup : false,
 					mode : 'popup'
@@ -296,7 +310,7 @@
 					return false;
 				});
 				// handle context menu clicks.
-				$('#gridContextMenu').on('itemclick', function(event) {
+				$('#gridSingleProductMenu').on('itemclick', function(event) {
 			        event.preventDefault();
 					var args = event.args;
 					var currentRow = $('#productGrid').jqxGrid('getselectedrowindex');
@@ -323,6 +337,22 @@
 						break;
 					}
 				});
+				// handle context menu clicks.
+				$('#gridMultiProductMenu').on('itemclick', function(event) {
+			        event.preventDefault();
+					var args = event.args;
+					var currentRow = $('#productGrid').jqxGrid('getselectedrowindex');
+					var offset = $('#productGrid').offset();
+					var dataRecord = $('#productGrid').jqxGrid('getrowdata', currentRow);
+					var command = $.trim($(args).text());
+					switch (command) {
+					case [[#{prod.menu.updatePrice}]] :
+						showLoadImagePopup(dataRecord);
+						break;
+					default:
+						break;
+					}
+				});
 				$('#productGrid').on('rowselect', function (event) {
 	            	var rowIndex = event.args.rowindex;
 	            	var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowIndex);
@@ -332,16 +362,33 @@
 	            		updateGaleryPreview(dataRecord.codigo, 'links');
 	            	}
 	            });
+				// Procesa cualquier clic hecho sobre la grilla de articulos
 				$('#productGrid').on('rowclick', function(event) {	
 					if (event.args.rightclick) {	
-						$('#productGrid').jqxGrid('selectrow', event.args.rowindex);
+						var rowsSelected = $('#productGrid').jqxGrid('selectedrowindexes');
+						// El comportamiento de la grilla varia dependiendo de si hay mÃ¡s de una row seleccionada
+						if (rowsSelected.length == 0) {
+							/* Solo se selecciona la row sobre la que se hizo el clic derecho cuando no hay nada seleccionado.
+							 * Esto es para evitar que cuando hay alguna fila seleccionada, si el usuario hace clic derecho se 
+							 * seleccione accidentalmente la fila sobre donde se hizo el clic. */
+							$('#productGrid').jqxGrid('selectrow', event.args.rowindex);
+						}
+						rowsSelected = $('#productGrid').jqxGrid('selectedrowindexes');
 						var scrollTop = $(window).scrollTop();
 						var scrollLeft = $(window).scrollLeft();
-						contextMenu.jqxMenu(
-							'open', 
-							parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
-							parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
-						);
+						if (rowsSelected.length <= 1) {
+							singleProductMenu.jqxMenu(
+								'open', 
+								parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+								parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
+							);
+						} else {
+							multiProductMenu.jqxMenu(
+								'open', 
+								parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+								parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
+							);
+						}
 						return false;
 					}
 				});
@@ -377,8 +424,8 @@
 					data : JSON.stringify(rowData),
 					success : function() {
 						$.notify({
-							title: /*[[#{prod.update.title}]]*/ '<strong>Modificación de artículo:</strong>',
-							message: /*[[#{prod.update.success.message}]]*/ 'La modificación se realizó correctamente'
+							title: /*[[#{prod.update.title}]]*/ '<strong>Modificaciï¿½n de artï¿½culo:</strong>',
+							message: /*[[#{prod.update.success.message}]]*/ 'La modificaciï¿½n se realizï¿½ correctamente'
 						},{
 							type: 'success'
 						});
@@ -386,8 +433,8 @@
 					},
 					error: function () {            
 						$.notify({
-							title: /*[[#{prod.update.title}]]*/ '<strong>Modificación de artículo:</strong>',
-							message: /*[[#{prod.update.error.message}]]*/ 'Ocurrió un error en la actualización del artículo'
+							title: /*[[#{prod.update.title}]]*/ '<strong>Modificaciï¿½n de artï¿½culo:</strong>',
+							message: /*[[#{prod.update.error.message}]]*/ 'Ocurriï¿½ un error en la actualizaciï¿½n del artï¿½culo'
 						},{
 							type: 'danger'
 						});
@@ -406,7 +453,7 @@
 					data : JSON.stringify(formData),
 					success : function() { 
 						$.notify({
-							title: /*[[#{prod.create.title}]]*/ '<strong>Creación de artículo:</strong>',
+							title: /*[[#{prod.create.title}]]*/ '<strong>Creaciï¿½n de artï¿½culo:</strong>',
 							message: /*[[#{prod.create.success.message}]]*/ 'El articulo fue creado correctamente' 
 						},{
 							type: 'success'
@@ -415,8 +462,8 @@
 					},
 					error: function () {            
 						$.notify({
-							title: /*[[#{prod.create.title}]]*/ '<strong>Creación de artículo:</strong>',
-							message: /*[[#{prod.create.error.message}]]*/ 'Ocurrió un error durante la creación del artículo',
+							title: /*[[#{prod.create.title}]]*/ '<strong>Creaciï¿½n de artï¿½culo:</strong>',
+							message: /*[[#{prod.create.error.message}]]*/ 'Ocurriï¿½ un error durante la creaciï¿½n del artï¿½culo',
 						},{
 							type: 'danger'
 						});
@@ -455,8 +502,8 @@
 					data : rowdata.codigo,
 					success : function() {
 						$.notify({
-							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminación de artículo:</strong>',
-							message: /*[[#{prod.remove.success.message}]]*/ 'La eliminación se realizó correctamente'
+							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminaciï¿½n de artï¿½culo:</strong>',
+							message: /*[[#{prod.remove.success.message}]]*/ 'La eliminaciï¿½n se realizï¿½ correctamente'
 						},{
 							type: 'success'
 						});
@@ -464,8 +511,8 @@
 					},
 					error: function () {            
 						$.notify({
-							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminación de artículo:</strong>',
-							message: /*[[#{prod.remove.error.message}]]*/ 'Ocurrió un error en la eliminación del artículo'
+							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminaciï¿½n de artï¿½culo:</strong>',
+							message: /*[[#{prod.remove.error.message}]]*/ 'Ocurriï¿½ un error en la eliminaciï¿½n del artï¿½culo'
 						},{
 							type: 'danger'
 						});
