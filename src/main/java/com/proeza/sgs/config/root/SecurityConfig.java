@@ -17,9 +17,9 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.proeza.security.entity.Rol;
-import com.proeza.security.service.LoginSuccessHandler;
 import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.entity.Page;
 
@@ -27,17 +27,17 @@ import com.proeza.sgs.system.entity.Page;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String ROOT_PAGE_GROUP = "root";
-    private static final String ROLE_PREFIX     = "ROLE_";
+    private static final String          ROOT_PAGE_GROUP = "root";
+    private static final String          ROLE_PREFIX     = "ROLE_";
 
     @Autowired
-    private UserDetailsService  userDetailsService;
+    private UserDetailsService           userDetailsService;
 
     @Autowired
-    private LoginSuccessHandler loginSuccessHandler;
+    private AuthenticationSuccessHandler loginSuccessHandler;
 
     @Autowired
-    private IPageDao            pageDao;
+    private IPageDao                     pageDao;
 
     @Override
     public void configure(WebSecurity web) throws Exception {

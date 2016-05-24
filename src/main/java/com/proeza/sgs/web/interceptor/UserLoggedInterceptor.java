@@ -18,16 +18,15 @@ public class UserLoggedInterceptor implements HandlerInterceptor {
     private IUserService userService;
 
     @Override
-    public void afterCompletion (HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) throws Exception {
-
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) throws Exception {
     }
 
     @Override
-    public void postHandle (HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView model) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView model) throws Exception {
         Principal principal;
         /*
-         * Chequeo si el modelo existe en caso de que el post handle venga de un flujo que no maneje modelo para renderizar.
-         * Por ejemplo: Una invocacion a un servicio REST
+         * Chequeo si el modelo existe en caso de que el post handle venga de un flujo que no maneje modelo para renderizar. Por ejemplo:
+         * Una invocacion a un servicio REST
          */
         if (model != null && (principal = request.getUserPrincipal()) != null) {
             UsuarioDTO user = this.userService.findByAlias(principal.getName());
@@ -36,7 +35,7 @@ public class UserLoggedInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle (HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         return true;
     }
 }
