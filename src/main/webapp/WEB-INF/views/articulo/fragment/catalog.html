@@ -593,7 +593,7 @@
 					$('#classModalPopup').modal('show');
 				});
 				$('#mpClaCatFilter').change(function(e) {
-					chainCombo('#mpClaCatFilter', '#mpClaClassFilter', product.rest.classesByCategory);
+					relateCombos('#mpClaCatFilter', '#mpClaClassFilter', product.rest.classesByCategory);
 				});
 				$('#mpClaClassFilter').change(function(e) {
 					if ($('#mpClaClassFilter')[0].selectedIndex > 0) {
@@ -753,13 +753,13 @@
 					$('#typeModalPopup').modal('show');
 				});
 				$('#mpTypCatInput').change(function(e) {
-					chainCombo('#mpTypCatInput', '#mpTypClassInput', product.rest.classesByCategory);
+					relateCombos('#mpTypCatInput', '#mpTypClassInput', product.rest.classesByCategory);
 				});
 				$('#mpTypCatFilter').change(function(e) {
-					chainCombo('#mpTypCatFilter', '#mpTypClassFilter', product.rest.classesByCategory);
+					relateCombos('#mpTypCatFilter', '#mpTypClassFilter', product.rest.classesByCategory);
 				});
 				$('#mpTypClassFilter').change(function(e) {
-					chainCombo('#mpTypClassFilter', '#mpTypTypeFilter', product.rest.typesByClass);
+					relateCombos('#mpTypClassFilter', '#mpTypTypeFilter', product.rest.typesByClass);
 				});
 				$('#mpTypTypeFilter').change(function(e) {
 					if ($('#mpTypTypeFilter')[0].selectedIndex > 0) {
@@ -911,7 +911,7 @@
 				$('#mpTypName').val(data.nombre);
 				$('#mpTypDesc').val(data.descripcion);
 				$('#mpTypCatInput').val(data.codRubro);
-				chainCombo(
+				relateCombos(
 						'#mpTypCatInput', 
 						'#mpTypClassInput', 
 						product.rest.classesByCategory, 

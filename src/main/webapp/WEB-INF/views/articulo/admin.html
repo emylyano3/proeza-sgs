@@ -22,8 +22,32 @@
                 <div id="links" />
             </div>
         </div>
-        
-        <!-- Panel de edicion -->
+
+		<div id="priceChangePanel" class="hpanel animated zoomIn" hidden="true">
+			<div class="btn-group" data-toggle="buttons">
+				<label class="btn btn-primary active"> 
+					<input type="radio" name="options" id="increase" autocomplete="off" checked="checked"/>Incrementar
+				</label> 
+				<label class="btn btn-primary">
+					<input type="radio" name="options" id="decrease" autocomplete="off" />Rebajar
+				</label> 
+			</div>
+			<table>
+				<thead>Marca
+				</thead>
+				<thead>Descripcion
+				</thead>
+				<tbody id="articles">
+				</tbody>
+			</table>
+			<p/>
+			<div class="col-md-12">
+				<button id="cancelPriceChange" type="button" class="btn btn-default" th:text="#{control.cancel}" />
+				<button id="savePriceChange" type="submit" class="btn btn-primary" th:text="#{control.save}" />
+			</div>
+		</div>
+
+		<!-- Panel de edicion -->
 		<div id="editionPanel" class="hpanel animated zoomIn" hidden="true">
 			<div class="panel-heading">
 				<span id="formTitle" />
@@ -133,17 +157,17 @@
         <div th:replace="articulo/fragment/catalog.html::commandBar"/>
 		
         <!-- Menu Contextual -->
-		<div id="gridSingleProductMenu">
+		<div id="contextSingleProductMenu">
 			<ul>
 				<li id="editProd" th:text="#{prod.menu.edit}" />
 				<li id="addImgToProd" th:text="#{prod.menu.addImage}" />
 				<li id="copyProd" th:text="#{prod.menu.copy}" />
 				<li id="createProd" th:text="#{prod.menu.create}" />
 				<li id="deleteProd" th:text="#{prod.menu.remove}" />
-				<li id="updatePrice" th:text="#{prod.menu.updatePrice}" />
+<!-- 				<li id="updatePrice" th:text="#{prod.menu.updatePrice}" /> -->
 			</ul>
 		</div>
-		<div id="gridMultiProductMenu">
+		<div id="contextMultiProductMenu">
 			<ul>
 				<li id="updatePrice" th:text="#{prod.menu.updatePrice}" />
 			</ul>
@@ -174,7 +198,7 @@
         
 		<script th:inline="javascript">
 		 	/*<![CDATA[*/
-			// Inicializacion de la tabla de art�culos
+			// Inicializacion de la tabla de artículos
 			$(document).ready(function() {
 				configGridSource();
 				configGrid(); 
@@ -184,11 +208,11 @@
 			function configControls() {
 				$('#cbRubro').change(function(){
 					var label = $("label[for='cbRubro']");
-					chainCombo('#cbRubro', '#cbClase', product.rest.classesByCategory, '', function() {notifyComboError(label.text())} );
+					relateCombos('#cbRubro', '#cbClase', product.rest.classesByCategory, '', function() {notifyComboError(label.text())} );
 				});
 				$('#cbClase').change(function(){
 					var label = $("label[for='cbClase']");
-					chainCombo('#cbClase', '#cbTipo', product.rest.typesByClass, '', function() {notifyComboError(label.text())} );
+					relateCombos('#cbClase', '#cbTipo', product.rest.typesByClass, '', function() {notifyComboError(label.text())} );
 				});
 				$('#newProduct').click(function(){
 					initCreationForm();
@@ -207,12 +231,19 @@
     				default:
     					break;
 					}
-					hideForm();
+					hideAuxPanel();
 				});
 
 				// Hide popup when cancel
 				$('#cancelEdit').click(function() {
-					hideForm();
+					hideAuxPanel();
+				});
+				$('#savePriceChange').click(function() {
+					console.log("Saving price change");
+				});
+				// Hide popup when cancel
+				$('#cancelPriceChange').click(function() {
+					hideAuxPanel();
 				});
 				$('#cancelImage').click(function() {
 					$('#addImagePopup').modal('hide');
@@ -226,7 +257,7 @@
 					autoUnmask : true, rightAlign: false 
 				});
 				
-				 // Inicializa los controles del filto
+				// Inicializa los controles del filtro
 	            $('#filter').on('input', function() {
 	            	refreshGrid(gridSource, 'productGrid');
 	            });
@@ -293,14 +324,14 @@
     				]
 				});
 				// create context menu
-				var singleProductMenu = $('#gridSingleProductMenu').jqxMenu({
+				var singleProductMenu = $('#contextSingleProductMenu').jqxMenu({
 					width : 190,
 					autoOpenPopup : false,
 					mode : 'popup'
 
 				});
 				// create context menu
-				var multiProductMenu = $('#gridMultiProductMenu').jqxMenu({
+				var multiProductMenu = $('#contextMultiProductMenu').jqxMenu({
 					width : 190,
 					autoOpenPopup : false,
 					mode : 'popup'
@@ -310,7 +341,7 @@
 					return false;
 				});
 				// handle context menu clicks.
-				$('#gridSingleProductMenu').on('itemclick', function(event) {
+				$('#contextSingleProductMenu').on('itemclick', function(event) {
 			        event.preventDefault();
 					var args = event.args;
 					var currentRow = $('#productGrid').jqxGrid('getselectedrowindex');
@@ -338,22 +369,24 @@
 					}
 				});
 				// handle context menu clicks.
-				$('#gridMultiProductMenu').on('itemclick', function(event) {
+				$('#contextMultiProductMenu').on('itemclick', function(event) {
 			        event.preventDefault();
 					var args = event.args;
-					var currentRow = $('#productGrid').jqxGrid('getselectedrowindex');
-					var offset = $('#productGrid').offset();
-					var dataRecord = $('#productGrid').jqxGrid('getrowdata', currentRow);
+					var rowsSelected = $('#productGrid').jqxGrid('selectedrowindexes');
+					$.each(rowsSelected, function(index, row) {
+						var dataRecord = $('#productGrid').jqxGrid('getrowdata', row);
+	    				
+	    			});
 					var command = $.trim($(args).text());
 					switch (command) {
 					case [[#{prod.menu.updatePrice}]] :
-						showLoadImagePopup(dataRecord);
+						showAuxPanel('#priceChangePanel');
 						break;
 					default:
 						break;
 					}
 				});
-				$('#productGrid').on('rowselect', function (event) {
+				$('#productGrid').on('rowclick', function (event) {
 	            	var rowIndex = event.args.rowindex;
 	            	var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowIndex);
 	            	if (currentRow != rowIndex) {
@@ -424,8 +457,8 @@
 					data : JSON.stringify(rowData),
 					success : function() {
 						$.notify({
-							title: /*[[#{prod.update.title}]]*/ '<strong>Modificaci�n de art�culo:</strong>',
-							message: /*[[#{prod.update.success.message}]]*/ 'La modificaci�n se realiz� correctamente'
+							title: /*[[#{prod.update.title}]]*/ '<strong>Modificación de artículo:</strong>',
+							message: /*[[#{prod.update.success.message}]]*/ 'La modificación se realizó correctamente'
 						},{
 							type: 'success'
 						});
@@ -433,8 +466,8 @@
 					},
 					error: function () {            
 						$.notify({
-							title: /*[[#{prod.update.title}]]*/ '<strong>Modificaci�n de art�culo:</strong>',
-							message: /*[[#{prod.update.error.message}]]*/ 'Ocurri� un error en la actualizaci�n del art�culo'
+							title: /*[[#{prod.update.title}]]*/ '<strong>Modificación de artículo:</strong>',
+							message: /*[[#{prod.update.error.message}]]*/ 'Ocurrió un error en la actualización del artículo'
 						},{
 							type: 'danger'
 						});
@@ -453,7 +486,7 @@
 					data : JSON.stringify(formData),
 					success : function() { 
 						$.notify({
-							title: /*[[#{prod.create.title}]]*/ '<strong>Creaci�n de art�culo:</strong>',
+							title: /*[[#{prod.create.title}]]*/ '<strong>Creación de artículo:</strong>',
 							message: /*[[#{prod.create.success.message}]]*/ 'El articulo fue creado correctamente' 
 						},{
 							type: 'success'
@@ -462,8 +495,8 @@
 					},
 					error: function () {            
 						$.notify({
-							title: /*[[#{prod.create.title}]]*/ '<strong>Creaci�n de art�culo:</strong>',
-							message: /*[[#{prod.create.error.message}]]*/ 'Ocurri� un error durante la creaci�n del art�culo',
+							title: /*[[#{prod.create.title}]]*/ '<strong>Creación de artículo:</strong>',
+							message: /*[[#{prod.create.error.message}]]*/ 'Ocurrió un error durante la creación del artículo',
 						},{
 							type: 'danger'
 						});
@@ -502,8 +535,8 @@
 					data : rowdata.codigo,
 					success : function() {
 						$.notify({
-							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminaci�n de art�culo:</strong>',
-							message: /*[[#{prod.remove.success.message}]]*/ 'La eliminaci�n se realiz� correctamente'
+							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminación de artículo:</strong>',
+							message: /*[[#{prod.remove.success.message}]]*/ 'La eliminación se realiz� correctamente'
 						},{
 							type: 'success'
 						});
@@ -511,27 +544,29 @@
 					},
 					error: function () {            
 						$.notify({
-							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminaci�n de art�culo:</strong>',
-							message: /*[[#{prod.remove.error.message}]]*/ 'Ocurri� un error en la eliminaci�n del art�culo'
+							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminación de artículo:</strong>',
+							message: /*[[#{prod.remove.error.message}]]*/ 'Ocurrió un error en la eliminación del artículo'
 						},{
 							type: 'danger'
 						});
 			        }
 				});
 			}
+			var currentAuxPanel;
 			
-			function showForm() {
+			function showAuxPanel(panel) {
 				$('#gridPanel').hide();
 				$('#commandBar').hide();
 				$('#thumbnailsPanel').hide();
-				$('#editionPanel').show();
+				currentAuxPanel = panel;
+				$(panel).show();
 			}
 			
-			function hideForm() {
+			function hideAuxPanel() {
 				$('#gridPanel').show();
 				$('#commandBar').show();
 				$('#thumbnailsPanel').show();
-				$('#editionPanel').hide();
+				$(currentAuxPanel).hide();
 			}
 			
 			function initCreationForm () {
@@ -550,7 +585,7 @@
 				$('#formFooter').text([[#{prod.admin.creating}]]);
 				$('#codigo').hide();
 				$('#lblCodigo').hide();
-				showForm();
+				showAuxPanel('#editionPanel');
 			}
 			
 			function initCopyCreationForm (dataRecord) {
@@ -560,10 +595,9 @@
 				$('#lblCodigo').hide();
 				$('#modelo').val(dataRecord.modelo);
 				$('#descripcion').val(dataRecord.descripcion);
-				$('#cbClase').val(dataRecord.clase);
-				$('#cbTipo').val(dataRecord.tipo);
-				$('#cbMarca').val(dataRecord.marca);
-				$('#cbRubro').val(dataRecord.rubro);
+				$('#cbMarca').val(dataRecord.codMarca);
+				$('#cbRubro').val(dataRecord.codRubro);
+				$('#cbRubro').trigger('chain', dataRecord);
 				$('#precio').val(dataRecord.precio);
 				$('#costo').val(dataRecord.costo);
 				$('#cantidad').val('0');
@@ -572,7 +606,7 @@
 				$('#formFooter').text([[#{prod.admin.copying}]] + dataRecord.clase + ' ' + dataRecord.marca + ' ' + dataRecord.modelo);
 				$('#codigo').hide();
 				$('#lblCodigo').hide();
-				showForm();
+				showAuxPanel('#editionPanel');
 			}
 			
 			function initEditionForm (dataRecord) {
@@ -582,7 +616,7 @@
 				$('#formFooter').text([[#{prod.admin.editing}]] + dataRecord.codigo);
 				$('#codigo').show();
 				$('#lblCodigo').show();	
-				showForm();
+				showAuxPanel('#editionPanel');
 			}
 			
 			function findProductCallback (productData, status) {
@@ -602,15 +636,31 @@
         			break;
         		}
 			}
+
+			$('#cbRubro').on('chain',  function(event, dataRecord) {
+				chainCombos(
+					'#cbRubro', 
+					'#cbClase', 
+					dataRecord.codClase, 
+					product.rest.classesByCategory, 
+					function () {
+						chainCombos(
+							'#cbClase',
+							'#cbTipo',
+							dataRecord.codTipo,
+							product.rest.typesByClass
+						)
+					}
+				);
+            });
 			
 	        function fillEditionForm(dataRecord) {
 	        	$('#codigo').val(dataRecord.codigo);
 				$('#modelo').val(dataRecord.modelo);
 				$('#descripcion').val(dataRecord.descripcion);
-				$('#cbClase').val(dataRecord.clase);
-				$('#cbTipo').val(dataRecord.tipo);
-				$('#cbMarca').val(dataRecord.marca);
-				$('#cbRubro').val(dataRecord.rubro);
+				$('#cbMarca').val(dataRecord.codMarca);
+				$('#cbRubro').val(dataRecord.codRubro);
+				$('#cbRubro').trigger('chain', dataRecord);
 				$('#precio').val(dataRecord.precio);
 				$('#costo').val(dataRecord.costo);
 				$('#cantidad').val(dataRecord.cantidad);
