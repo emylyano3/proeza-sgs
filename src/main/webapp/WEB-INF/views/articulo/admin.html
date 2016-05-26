@@ -24,26 +24,29 @@
         </div>
 
 		<div id="priceChangePanel" class="hpanel animated zoomIn" hidden="true">
-			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-primary active"> 
-					<input type="radio" name="options" id="increase" autocomplete="off" checked="checked"/>Incrementar
-				</label> 
-				<label class="btn btn-primary">
-					<input type="radio" name="options" id="decrease" autocomplete="off" />Rebajar
-				</label> 
-			</div>
-			<table>
-				<thead>Marca
-				</thead>
-				<thead>Descripcion
-				</thead>
-				<tbody id="articles">
-				</tbody>
-			</table>
-			<p/>
 			<div class="col-md-12">
-				<button id="cancelPriceChange" type="button" class="btn btn-default" th:text="#{control.cancel}" />
-				<button id="savePriceChange" type="submit" class="btn btn-primary" th:text="#{control.save}" />
+				<div class="control-group" >
+					<label class="radio"> 
+						<input type="radio" name="options" id="increase" autocomplete="off" checked="checked"/>Incrementar
+					</label> 
+					<label class="radio">
+						<input type="radio" name="options" id="decrease" autocomplete="off" />Rebajar
+					</label> 
+				</div>
+			 	<p/>
+				<table>
+					<thead>Marca
+					</thead>
+					<thead>Descripcion
+					</thead>
+					<tbody id="articles">
+					</tbody>
+				</table>
+				<p/>
+				<div class="col-md-12">
+					<button id="cancelPriceChange" type="button" class="btn btn-default" th:text="#{control.cancel}" />
+					<button id="savePriceChange" type="submit" class="btn btn-primary" th:text="#{control.save}" />
+				</div>
 			</div>
 		</div>
 
