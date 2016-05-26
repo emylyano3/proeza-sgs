@@ -10,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
 import com.proeza.sgs.web.interceptor.UserLoggedInterceptor;
 
 @Configuration
@@ -23,27 +22,27 @@ import com.proeza.sgs.web.interceptor.UserLoggedInterceptor;
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
-    public void addResourceHandlers (ResourceHandlerRegistry registry) {
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
     @Override
-    public void addInterceptors (InterceptorRegistry registry) {
+    public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userLoggedInterceptor());
     }
 
     @Bean
-    public UserLoggedInterceptor userLoggedInterceptor () {
+    public UserLoggedInterceptor userLoggedInterceptor() {
         return new UserLoggedInterceptor();
     }
 
     @Override
-    public void configureDefaultServletHandling (DefaultServletHandlerConfigurer configurer) {
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 
     @Bean
-    public CommonsMultipartResolver multipartResolver () {
+    public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
         commonsMultipartResolver.setMaxUploadSize(1024 * 1024);
         return commonsMultipartResolver;
