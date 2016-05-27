@@ -116,7 +116,7 @@ function refreshGrid(source, gridName) {
 	$('#' + gridName).jqxGrid('updatebounddata', 'cells');
 }
 
-function quickSale (productCode, saleType, user, notifyCallback) {
+function quickSale (productCode, saleType, user, callback) {
 	var saleData = {
 		productCode : productCode,
 		saleType : saleType,
@@ -129,15 +129,19 @@ function quickSale (productCode, saleType, user, notifyCallback) {
 		contentType: 'application/json',
 		data : JSON.stringify(saleData),
 		success : function() {
-			notifyCallback(productCode, 'success');
+			if (callback) {
+				callback(productCode, 'success');
+			}
 		},
 		error: function () {
-			notifyCallback(productCode, 'error');
+			if (callback) {
+				callback(productCode, 'error');
+			}
         }
 	});
 }
 
-function findProduct (productCode, notifyCallback) {
+function findProduct (productCode, callback) {
 	$.ajax({
 		type : 'POST',
 		url : product.rest.find,
@@ -145,10 +149,14 @@ function findProduct (productCode, notifyCallback) {
 		contentType: 'application/json',
 		data : productCode,
 		success : function(productData) {
-			notifyCallback(productData, 'success');
+			if (callback) {
+				callback(productData, 'success');
+			}
 		},
 		error: function (productData) {
-			notifyCallback(productData, 'error');
+			if (callback) {
+				callback(productData, 'error');
+			}
         }
 	});
 }
