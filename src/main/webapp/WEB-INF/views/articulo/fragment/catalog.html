@@ -317,8 +317,6 @@
 					var action = $(this).attr('action');
 					var actionUrl;
 					var doAction = true;
-					var	actionSuccessMsg = [[#{rest.datasend.success}]];
-					var	actionErrorMsg = [[#{rest.datasend.error}]];
 					switch (action) {
 					case 'create':
 						actionUrl =	product.rest.addBrand;
@@ -327,9 +325,10 @@
 						actionUrl =	product.rest.updateBrand; 
 						break;
 					case 'delete':
+						var brand = $('#mpBraBrandFilter option:selected').text();
 						swal({
 								title: [[#{control.confirmDelete.title}]],
-								text: [[#{prod.brand.confirmDelete.message}]] + ' ' + $('#mpBraBrandFilter option:selected').text(),
+								text: [[#{prod.brand.confirmDelete.message}]] + ' ' + brand,
 								type: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#DD6B55',
@@ -340,8 +339,8 @@
 								if (isConfirm) {
 									saveEntityData(
 										getBrandFormData(), 
-										product.rest.deleteBrand, 
-										actionSuccessMsg,
+										product.rest.deleteBrand,
+										[[#{prod.brand.delete.succes}]] + ' ' + brand,
 										updateBrandCombos
 									);
 									cleanBrandForm();
@@ -356,7 +355,7 @@
 						saveEntityData(
 							getBrandFormData(), 
 							actionUrl, 
-							actionSuccessMsg,
+							[[#{prod.brand.savedata.success}]],
 							updateBrandCombos
 						);
 					}
@@ -457,8 +456,6 @@
 					var action = $(this).attr('action');
 					var actionUrl;
 					var doAction = true;
-					var	actionSuccessMsg = [[#{rest.datasend.success}]];
-					var	actionErrorMsg = [[#{rest.datasend.error}]];
 					switch (action) {
 					case 'create':
 						actionUrl =	product.rest.addCategory;
@@ -467,9 +464,10 @@
 						actionUrl =	product.rest.updateCategory; 
 						break;
 					case 'delete':
+						var category = $('#mpCatCategoryFilter option:selected').text();
 						swal({
 								title: [[#{control.confirmDelete.title}]],
-								text: [[#{prod.category.confirmDelete.message}]] + ' ' + $('#mpCatCategoryFilter option:selected').text(),
+								text: [[#{prod.category.confirmDelete.message}]] + ' ' + category,
 								type: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#DD6B55',
@@ -481,7 +479,7 @@
 									saveEntityData(
 										getCategoryFormData(), 
 										product.rest.deleteCategory, 
-										actionSuccessMsg,
+										[[#{prod.category.delete.success}]] + ' ' + category,
 										updateCategoryCombos
 									);
 									cleanCategoryForm();
@@ -496,7 +494,7 @@
 						saveEntityData(
 							getCategoryFormData(), 
 							actionUrl,  
-							actionSuccessMsg,
+							[[#{prod.category.savedata.success}]],
 							updateCategoryCombos
 						);
 					}
@@ -605,8 +603,6 @@
 					var action = $(this).attr('action');
 					var actionUrl;
 					var doAction = true;
-					var	actionSuccessMsg = [[#{rest.datasend.success}]];
-					var	actionErrorMsg = [[#{rest.datasend.error}]];
 					switch (action) {
 					case 'create':
 						actionUrl =	product.rest.addClass;
@@ -615,9 +611,10 @@
 						actionUrl =	product.rest.updateClass; 
 						break;
 					case 'delete':
+						var clazz = $('#mpClaClassFilter option:selected').text();
 						swal({
 								title: [[#{control.confirmDelete.title}]],
-								text: [[#{prod.clazz.confirmDelete.message}]] + ' ' + $('#mpClaClassFilter option:selected').text(),
+								text: [[#{prod.clazz.confirmDelete.message}]] + ' ' + clazz,
 								type: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#DD6B55',
@@ -629,7 +626,7 @@
 									saveEntityData(
 										getClassFormData(), 
 										product.rest.deleteClass, 
-										actionSuccessMsg,
+										[[#{prod.clazz.delete.success}]] + ' ' + clazz,
 										updateClassCombos
 									);
 									cleanClassForm();
@@ -644,7 +641,7 @@
 						saveEntityData(
 							getClassFormData(), 
 							actionUrl, 
-							actionSuccessMsg,
+							[[#{prod.clazz.savedata.success}]],
 							updateClassCombos
 						);
 					}
@@ -770,8 +767,6 @@
 					var action = $(this).attr('action');
 					var actionUrl;
 					var doAction = true;
-					var	actionSuccessMsg = [[#{rest.datasend.success}]];
-					var	actionErrorMsg = [[#{rest.datasend.error}]];
 					switch (action) {
 					case 'create':
 						actionUrl =	product.rest.addType;
@@ -780,9 +775,10 @@
 						actionUrl =	product.rest.updateType; 
 						break;
 					case 'delete':
+						var type = $('#mpTypTypeFilter option:selected').text();
 						swal({
 								title: [[#{control.confirmDelete.title}]],
-								text: [[#{prod.type.confirmDelete.message}]] + ' ' + $('#mpTypTypeFilter option:selected').text(),
+								text: [[#{prod.type.confirmDelete.message}]] + ' ' + type,
 								type: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#DD6B55',
@@ -794,7 +790,7 @@
 									saveEntityData(
 										getTypeFormData(), 
 										product.rest.deleteType, 
-										actionSuccessMsg,
+										[[#{prod.type.delete.success}]] + ' ' + type,
 										updateTypeCombos
 									);
 									resetTypeForm();
@@ -809,7 +805,7 @@
 						saveEntityData(
 							getTypeFormData(), 
 							actionUrl,  
-							actionSuccessMsg,
+							[[#{prod.type.savedata.success}]],
 							updateTypeCombos
 						);
 					}
