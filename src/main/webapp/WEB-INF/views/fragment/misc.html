@@ -51,29 +51,5 @@
             </div>
         </div>
     </div>
-
-    <!-- Popup de confirmacion -->
-    <!-- Modal de agregado de imagen -->
-    <div th:fragment="confirmPopup" class="modal fade" id="confirmPopup" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title">
-                        <span th:text="#{control.confirm}" text="¿Confirma la acción?" />
-                    </h4>
-                </div>
-                <div class="modal-body" >
-                    <span id="confirmationText" />
-                </div>
-                <div class="modal-footer">
-                    <button id="cancelAction" type="button" class="btn btn-default" th:text="#{control.no}" data-dismiss="modal"/>
-                    <button id="confirmAction" type="button" class="btn btn-default" th:text="#{control.yes}" data-dismiss="modal"/>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>

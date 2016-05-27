@@ -24,29 +24,84 @@
         </div>
 
 		<div id="priceChangePanel" class="hpanel animated zoomIn" hidden="true">
-			<div class="col-md-12">
-				<div class="control-group" >
-					<label class="radio"> 
-						<input type="radio" name="options" id="increase" autocomplete="off" checked="checked"/>Incrementar
-					</label> 
-					<label class="radio">
-						<input type="radio" name="options" id="decrease" autocomplete="off" />Rebajar
-					</label> 
+			<div class="panel-heading">
+				<span id="formTitle" />
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-1 col-md-offset-5">
+						<div class="control-group">
+							<label class="radio"> 
+								<input type="radio" name="options" id="increase" autocomplete="off" checked="checked" />
+								<span th:text="#{control.increase}" th:remove="tag">Incrementar</span>
+							</label> 
+							<label class="radio"> 
+								<input type="radio" name="options" id="decrease" autocomplete="off" />
+								<span th:text="#{control.decrease}" th:remove="tag">Rebajar</span>
+							</label>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon" th:text="#{control.percentage}">%</div>
+								<input id="percentage" name="percentage" class="form-control input-md" required="required" autofocus="autofocus" />
+							</div>
+							<p/>
+							<div class="input-group">
+								<button id="apply" type="button" class="btn btn-success" th:text="#{control.apply}">Aplicar</button>
+							</div>
+						</div>
+					</div>
 				</div>
-			 	<p/>
-				<table>
-					<thead>Marca
-					</thead>
-					<thead>Descripcion
-					</thead>
-					<tbody id="articles">
-					</tbody>
-				</table>
-				<p/>
-				<div class="col-md-12">
-					<button id="cancelPriceChange" type="button" class="btn btn-default" th:text="#{control.cancel}" />
-					<button id="savePriceChange" type="submit" class="btn btn-primary" th:text="#{control.save}" />
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Clase</th>
+									<th>Marca</th>
+									<th>Modelo</th>
+									<th>Precio</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">1</th>
+									<td>Carpa</td>
+									<td>Waterdog</td>
+									<td>Tundra 6</td>
+									<td>$5500</td>
+								</tr>
+								<tr>
+									<th scope="row">2</th>
+									<td>Carpa</td>
+									<td>Waterdog</td>
+									<td>Aconcagua</td>
+									<td>$2700</td>
+								</tr>
+								<tr>
+									<th scope="row">3</th>
+									<td>Carpa</td>
+									<td>Waterdog</td>
+									<td>Explorer</td>
+									<td>$2600</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
+				<hr/>
+				<div class="row">
+					<div class="col-md-4 col-md-offset-5">
+						<button id="cancelPriceChange" type="button" class="btn btn-default" th:text="#{control.cancel}">Cancelar</button>
+						<button id="savePriceChange" type="submit" class="btn btn-primary" th:text="#{control.save}">Guardar</button>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<span id="formFooter" />
 			</div>
 		</div>
 
@@ -137,7 +192,7 @@
 						<p />
 						<div class="col-md-12">
 							<button id="cancelEdit" type="button" class="btn btn-default" th:text="#{control.cancel}" />
-							<button id="saveEdit" type="submit" class="btn btn-primary" th:text="#{control.save}" />
+							<button id="saveEdit" type="button" class="btn btn-primary" th:text="#{control.save}" />
 						</div>
 					</div>
 				</form>
@@ -152,9 +207,6 @@
         
         <!-- Modal de agregado de imagen -->
         <div th:replace="fragment/misc.html::loadImagePopup"/>
-        
-        <!-- Modal de agregado de imagen -->
-        <div th:replace="fragment/misc.html::confirmPopup"/>
 
         <!-- Command bar -->
         <div th:replace="articulo/fragment/catalog.html::commandBar"/>
@@ -167,7 +219,6 @@
 				<li id="copyProd" th:text="#{prod.menu.copy}" />
 				<li id="createProd" th:text="#{prod.menu.create}" />
 				<li id="deleteProd" th:text="#{prod.menu.remove}" />
-<!-- 				<li id="updatePrice" th:text="#{prod.menu.updatePrice}" /> -->
 			</ul>
 		</div>
 		<div id="contextMultiProductMenu">
@@ -259,6 +310,7 @@
 				$('#costo').inputmask('currency', {
 					autoUnmask : true, rightAlign: false 
 				});
+				$('#percentage').inputmask('99');
 				
 				// Inicializa los controles del filtro
 	            $('#filter').on('input', function() {
@@ -523,8 +575,21 @@
 			}
 			
 			function showRemoveConfirmation () {
-    			$('#confirmationText').text([[#{prod.confirm.remove}]]);
-    			$('#confirmPopup').modal('show');
+    			swal({
+						title: [[#{control.confirmDelete.title}]],
+						text: [[#{prod.confirm.remove}]],
+						type: 'warning',
+						showCancelButton: true,
+						confirmButtonColor: '#DD6B55',
+						confirmButtonText: [[#{control.confirmDelete}]],
+						cancelButtonText: [[#{control.cancelDelete}]]
+					}, 
+					function (isConfirm) {
+						if (isConfirm) {
+							removeProduct();
+						} 
+					}
+				);
 			}
 			
 			function removeProduct () {
@@ -539,7 +604,7 @@
 					success : function() {
 						$.notify({
 							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminación de artículo:</strong>',
-							message: /*[[#{prod.remove.success.message}]]*/ 'La eliminación se realiz� correctamente'
+							message: /*[[#{prod.remove.success.message}]]*/ 'La eliminación se realizó correctamente'
 						},{
 							type: 'success'
 						});
