@@ -25,7 +25,7 @@
 
 		<div id="priceChangePanel" class="hpanel animated zoomIn" hidden="true">
 			<div class="panel-heading">
-				<span id="formTitle" />
+				<span id="updatePricePanelTitle" />
 			</div>
 			<div class="panel-body">
 				<div class="row">
@@ -96,12 +96,12 @@
 				<div class="row">
 					<div class="col-md-4 col-md-offset-5">
 						<button id="cancelPriceChange" type="button" class="btn btn-default" th:text="#{control.cancel}">Cancelar</button>
-						<button id="savePriceChange" type="submit" class="btn btn-primary" th:text="#{control.save}">Guardar</button>
+						<button id="savePriceChange" type="button" class="btn btn-primary" th:text="#{control.save}">Guardar</button>
 					</div>
 				</div>
 			</div>
 			<div class="panel-footer">
-				<span id="formFooter" />
+				<span id="updatePricePanelFooter" />
 			</div>
 		</div>
 
@@ -192,7 +192,7 @@
 						<p />
 						<div class="col-md-12">
 							<button id="cancelEdit" type="button" class="btn btn-default" th:text="#{control.cancel}" />
-							<button id="saveEdit" type="button" class="btn btn-primary" th:text="#{control.save}" />
+							<button id="saveEdit" type="submit" class="btn btn-primary" th:text="#{control.save}" />
 						</div>
 					</div>
 				</form>

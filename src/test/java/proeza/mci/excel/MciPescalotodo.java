@@ -1,4 +1,4 @@
-package proeza.mci;
+package proeza.mci.excel;
 
 import java.io.IOException;
 import java.io.InputStream;

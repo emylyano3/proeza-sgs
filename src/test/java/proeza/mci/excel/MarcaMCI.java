@@ -1,4 +1,4 @@
-package proeza.mci;
+package proeza.mci.excel;
 
 import com.proeza.core.datamapper.annotation.Source;
 import com.proeza.core.datamapper.annotation.excel.ExcelDescription;

@@ -1,4 +1,4 @@
-package proeza.mci;
+package proeza.mci.excel;
 
 import java.math.BigDecimal;
 import com.proeza.core.datamapper.annotation.Source;

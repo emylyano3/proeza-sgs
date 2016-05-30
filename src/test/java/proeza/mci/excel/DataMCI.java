@@ -1,4 +1,4 @@
-package proeza.mci;
+package proeza.mci.excel;
 
 import static java.lang.Math.min;
 

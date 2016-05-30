@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.proeza.core.service.IImageService;
 import com.proeza.core.util.date.DateUtil;
@@ -108,7 +109,7 @@ public class ArticuloService implements IArticuloService {
     @Override
     public void update(ArticuloDTO dto) {
         Articulo art = this.articuloDao.findByCode(dto.getCodigo());
-        Tipo tipo = dto.getCodTipo() == null ? null : this.tipoDao.findByCode(dto.getCodTipo());
+        Tipo tipo = StringUtils.isEmpty(dto.getCodTipo()) ? null : this.tipoDao.findByCode(dto.getCodTipo());
         Rubro rubro = this.rubroDao.findByCode(dto.getCodRubro());
         Marca marca = this.marcaDao.findByCode(dto.getCodMarca());
         Clase clase = this.claseDao.findByCode(dto.getCodClase());
