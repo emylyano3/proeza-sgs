@@ -7,6 +7,7 @@ $(document).ready(function() {
 
 	$('#eraser').click(function() {
 		$('#filter').val('');
+		$('#filter').trigger('focus');
 	});
 
 	// Initialize metsiMenu plugin to sidebar menu
