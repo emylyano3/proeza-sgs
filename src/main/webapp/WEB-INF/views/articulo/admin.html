@@ -6,12 +6,12 @@
 <body>
     <div id="content" layout:fragment="contenido">
         <link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
-        <link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblueproeza.css" th:href="@{/resources/jqx/css/jqx.energyblueproeza.css}" type="text/css" media="screen" />
 		<link rel="stylesheet" href="../../../resources/fileinput/css/fileinput.css" th:href="@{/resources/fileinput/css/fileinput.css}" media="all" type="text/css" />
 		<link rel="stylesheet" href="../../../resources/alert/css/sweetalert.css" th:href="@{/resources/alert/css/sweetalert.css}" media="all" type="text/css" />
 		 
 		<!-- Grilla de articulos -->
-		<div id="gridPanel" class="row animated zoomIn">
+		<div id="gridPanel" class="animated zoomIn">
 			<div class="col-md-12">
 				<div id="productGrid" />
 			</div> 
@@ -56,40 +56,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Clase</th>
-									<th>Marca</th>
-									<th>Modelo</th>
-									<th>Precio</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>Carpa</td>
-									<td>Waterdog</td>
-									<td>Tundra 6</td>
-									<td>$5500</td>
-								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>Carpa</td>
-									<td>Waterdog</td>
-									<td>Aconcagua</td>
-									<td>$2700</td>
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<td>Carpa</td>
-									<td>Waterdog</td>
-									<td>Explorer</td>
-									<td>$2600</td>
-								</tr>
-							</tbody>
-						</table>
+						<div id="priceUpdateGrid" />
 					</div>
 				</div>
 				<hr/>
@@ -255,7 +222,7 @@
 			// Inicializacion de la tabla de artículos
 			$(document).ready(function() {
 				configGridSource();
-				configGrid(); 
+				configProductGrid(); 
 				configControls();				
 			});
 
@@ -333,43 +300,45 @@
 				});
 			}
 			
-			function configGrid () {
+			function configProductGrid () {
 				var dataAdapter = new $.jqx.dataAdapter(gridSource);
 				// initializa la grilla de articulos
 				$('#productGrid').jqxGrid({
 					width : '100%',
-					theme : 'energyblue',
-					selectionmode: 'multiplerowsadvanced',
+					height : '100%',
+					theme : 'energyblueproeza',
 					source : dataAdapter,
 					pageable : false,
-					autoheight : false,
 					altrows : true,
+	                columnsresize: false,
 					sortable : true,
+					enablehover : false,
 					enabletooltips : true,
+					selectionmode: 'multiplerowsadvanced',
 					columns : [ {
     						text : /*[[#{prod.grid.model}]]*/ 'Modelo',
     						dataField : 'modelo',
-    						width : '28%'
+    						width : '26%'
     					},{
     						text : /*[[#{prod.grid.clazz}]]*/ 'Clase',
     						dataField : 'clase',
-    						width : '28%'
+    						width : '26%'
     					},{
     						text : /*[[#{prod.grid.trademark}]]*/ 'Marca',
     						dataField : 'marca',
-    						width : '22%'
+    						width : '20%'
     					},{
     						text : /*[[#{prod.grid.cost}]]*/ 'Costo',
     						dataField : 'costo',
     						cellsalign : 'right',
     						cellsformat : 'c2',
-    						minwidth : '10%'
+    						minwidth : '13%'
     					},{
     						text : /*[[#{prod.grid.price}]]*/ 'Precio',
     						dataField : 'precio',
     						cellsalign : 'right',
     						cellsformat : 'c2',
-    						minwidth : '10%'
+    						minwidth : '13%'
     					},{
 							text: /*[[#{prod.grid.quantity}]]*/ 'Cantidad', 
 							dataField: 'cantidad', 
@@ -441,44 +410,49 @@
 						break;
 					}
 				});
+				// Procesa cualquier clic hecho sobre la grilla de articulos
 				$('#productGrid').on('rowclick', function (event) {
-	            	var rowIndex = event.args.rowindex;
+					var rowIndex = event.args.rowindex;
+					var rowsSelected = $('#productGrid').jqxGrid('selectedrowindexes');
+					if (rowsSelected.length > 1) {
+						// El comportamiento de la grilla varia dependiendo de si hay más de una row seleccionada
+						if (event.args.rightclick) {
+							if ($.inArray(rowIndex, rowsSelected) >= 0) {
+								// Aca va el manejo del menu contextual para multiples items seleccionados
+								/*
+								multiProductMenu.jqxMenu(
+									'open', 
+									parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+									parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
+								);
+								*/
+								return false;
+							} else {
+								$('#productGrid').jqxGrid('clearselection');
+							}
+						}
+					}
+					if (event.args.rightclick) {
+						/* Solo se selecciona la row sobre la que se hizo el clic derecho cuando no hay nada seleccionado.
+						 * Esto es para evitar que cuando hay alguna fila seleccionada, si el usuario hace clic derecho se 
+						 * seleccione accidentalmente la fila sobre donde se hizo el clic. */
+						$('#productGrid').jqxGrid('clearselection');
+						$('#productGrid').jqxGrid('selectrow', rowIndex);
+						var scrollTop = $(window).scrollTop();
+						var scrollLeft = $(window).scrollLeft();
+						singleProductMenu.jqxMenu(
+							'open', 
+							parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+							parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
+						);
+					}
 	            	var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowIndex);
 	            	if (currentRow != rowIndex) {
 	            		currentRow = rowIndex;
 	            		cleanContainer('links');
 	            		updateGaleryPreview(dataRecord.codigo, 'links');
 	            	}
-	            });
-				// Procesa cualquier clic hecho sobre la grilla de articulos
-				$('#productGrid').on('rowclick', function(event) {	
-					if (event.args.rightclick) {	
-						var rowsSelected = $('#productGrid').jqxGrid('selectedrowindexes');
-						// El comportamiento de la grilla varia dependiendo de si hay más de una row seleccionada
-						if (rowsSelected.length == 0) {
-							/* Solo se selecciona la row sobre la que se hizo el clic derecho cuando no hay nada seleccionado.
-							 * Esto es para evitar que cuando hay alguna fila seleccionada, si el usuario hace clic derecho se 
-							 * seleccione accidentalmente la fila sobre donde se hizo el clic. */
-							$('#productGrid').jqxGrid('selectrow', event.args.rowindex);
-						}
-						rowsSelected = $('#productGrid').jqxGrid('selectedrowindexes');
-						var scrollTop = $(window).scrollTop();
-						var scrollLeft = $(window).scrollLeft();
-						if (rowsSelected.length <= 1) {
-							singleProductMenu.jqxMenu(
-								'open', 
-								parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
-								parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
-							);
-						} else {
-							multiProductMenu.jqxMenu(
-								'open', 
-								parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
-								parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
-							);
-						}
-						return false;
-					}
+					return false;
 				});
 			}
 			
@@ -561,6 +535,7 @@
 			
 			function showLoadImagePopup(dataRecord) {
 				var fileInputOptions = {
+					language: /*[[#{app.lnguage}]]*/ 'es',
 					showUpload : true,
 					showRemove : true,
 	        	    uploadAsync: true,

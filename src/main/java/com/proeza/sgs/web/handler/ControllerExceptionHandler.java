@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-    public static final String  ERROR_PAGE_NAME = "/root/error.html";
+    public static final String  ERROR_PAGE_NAME = "/root/404.html";
 
     private static final Logger log             = Logger.getLogger(ControllerExceptionHandler.class);
 

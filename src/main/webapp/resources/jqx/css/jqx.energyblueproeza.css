@@ -1,0 +1,67 @@
+﻿.jqx-widget-content-energyblueproeza {
+	border-color: #a4bed4;
+}
+
+.jqx-fill-state-normal-energyblueproeza,
+	.jqx-widget-header-energyblueproeza {
+	border-color: #a4bed4;
+	background-color: #e0e9f5
+}
+
+.jqx-fill-state-hover-energyblueproeza {
+	border-color: #a4bed4;
+	background-color: #cfdde9
+}
+
+.jqx-fill-state-pressed-energyblueproeza {
+	border-color: #5e8cb3;
+	background-color: #cfdde9
+}
+
+.jqx-fill-state-focus-energyblueproeza {
+	border-color: #477396;
+}
+
+.jqx-scrollbar-state-normal-energyblueproeza,
+	.jqx-grid-bottomright-energyblueproeza,
+	.jqx-panel-bottomright-energyblueproeza,
+	.jqx-listbox-bottomright-energyblueproeza {
+	background-color: #e0e9f5
+}
+
+.jqx-widget-energyblueproeza .jqx-grid-column-header-energyblueproeza,
+	.jqx-grid-cell-energyblueproeza, .jqx-widget-energyblueproeza .jqx-grid-cell-energyblueproeza,
+	.jqx-widget-energyblueproeza .jqx-grid-group-cell-energyblueproeza,
+	.jqx-grid-group-cell-energyblueproeza {
+	border-color: #a4bed4
+}
+
+.jqx-tabs-title-selected-bottom-energyblueproeza,
+	.jqx-tabs-selection-tracker-bottom-energyblueproeza,
+	.jqx-tabs-title-selected-top-energyblueproeza,
+	.jqx-tabs-selection-tracker-top-energyblueproeza {
+	border-color: #a4bed4;
+	border-bottom: 1px solid #fff;
+	background: #fff
+}
+
+.jqx-grid-cell-sort-alt-energyblueproeza,
+	.jqx-grid-cell-filter-alt-energyblueproeza,
+	.jqx-grid-cell-pinned-energyblueproeza,
+	.jqx-grid-cell-alt-energyblueproeza,
+	.jqx-grid-cell-sort-energyblueproeza {
+	background-color: #e7eef8
+}
+
+.jqx-grid-cell-selected-energyblueproeza {
+	background-color: #88ee88 !important;
+	color: #2b465e !important;
+}
+
+.jqx-grid-cell-hover-energyblueproeza {
+	background-color: #cfdde9 !important;
+}
+
+.jqx-menu-vertical-energyblueproeza {
+	background: #e0e9f5;
+}

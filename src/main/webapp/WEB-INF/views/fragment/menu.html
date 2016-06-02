@@ -6,7 +6,7 @@
     <aside th:fragment="mainMenuLeft" id="menu">
          <div id="navigation">
             <div sec:authorize="isAuthenticated()" class="profile-picture">
-                <a href="#">
+                <a href="#" th:href="@{/profile}">
                     <img th:if="${user.hasFoto()} == true" th:src="@{/rest/usuario/getPhoto/}+${user.alias}" class="img-circle m-b" />
                     <img th:if="${user.hasFoto()} == false" th:src="@{/resources/app/img/user-avatar_76x76.jpg}" class="img-circle m-b" />
                 </a>

@@ -6,7 +6,7 @@
 <body>
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" />
-		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblueproeza.css" th:href="@{/resources/jqx/css/jqx.energyblueproeza.css}" type="text/css" media="screen" />
 		
         <!-- Grilla de articulos -->
 		<div id="gridPanel" class="row animated zoomIn">
@@ -78,11 +78,14 @@
 	            $('#productGrid').jqxGrid({
 	                width: '100%',
 					height : '100%',
+					theme : 'energyblueproeza',
 	                source: dataAdapter,
-					theme : 'energyblue',
-	                columnsresize: true,
+					pageable : false,
 	                altrows: true,
+	                columnsresize: false,
 			        sortable: true,
+			        enablehover : false,
+					enabletooltips : true,
 	                columns: [
 						{ 
 							text: /*[[#{prod.grid.model}]]*/ 'Modelo', 
@@ -99,7 +102,7 @@
 						},{ 
 							text: /*[[#{prod.grid.type}]]*/ 'Tipo', 
 							dataField: 'tipo', 
-							width: '18%' 
+							width: '12%' 
 						},{
 							text: /*[[#{prod.grid.trademark}]]*/ 'Marca', 
 							dataField: 'marca', 
@@ -109,7 +112,7 @@
 							dataField: 'precio', 
 							cellsalign: 'right', 
 							cellsformat: 'c2', 
-							minwidth: '10%' 
+							minwidth: '16%' 
 						},{
 							text: /*[[#{prod.grid.quantity}]]*/ 'Cantidad', 
 							dataField: 'cantidad', 
@@ -146,7 +149,7 @@
 	        function initGridContextMenu() {
 				// crea el menu contextual
 				var contextMenu = $('#gridContextMenu').jqxMenu({
-					width : 180,
+					width : 250,
 					autoOpenPopup : false,
 					mode : 'popup'
 				});

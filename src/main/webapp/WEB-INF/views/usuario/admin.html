@@ -6,7 +6,7 @@
 <body>
 	<div id="content" layout:fragment="contenido">
 		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
-		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblue.css" th:href="@{/resources/jqx/css/jqx.energyblue.css}" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblueproeza.css" th:href="@{/resources/jqx/css/jqx.energyblueproeza.css}" type="text/css" media="screen" />
         <link rel="stylesheet" href="../../../resources/fileinput/css/fileinput.css" th:href="@{/resources/fileinput/css/fileinput.css}" media="all" type="text/css" />
 		<!-- Grilla de usuarios -->
 		<div id="gridPanel" class="row animated zoomIn">
@@ -134,7 +134,7 @@
 				// initializa la grilla de usuarios
 				$('#gridUsuarios').jqxGrid({
 					width : '100%',
-					theme : 'energyblue',
+					theme : 'energyblueproeza',
 					source : dataAdapter,
 					pageable : false,
 					autoheight : false,
@@ -271,6 +271,7 @@
 			function openBrowseImageDialog() {
 				var dataRecord = $('#gridUsuarios').jqxGrid('getrowdata', currentrow);
 				var fileInputOptions = {
+					language: /*[[#{app.lnguage}]]*/ 'es',
 					showUpload : true,
 					showRemove : true,
 	        	    uploadAsync: true,

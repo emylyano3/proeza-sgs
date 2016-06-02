@@ -88,7 +88,7 @@ public class ArticuloService implements IArticuloService {
 
     @Override
     public void create(ArticuloDTO dto) {
-        Tipo tipo = dto.getCodTipo() == null ? null : this.tipoDao.findByCode(dto.getCodTipo());
+        Tipo tipo = StringUtils.isEmpty(dto.getCodTipo()) ? null : this.tipoDao.findByCode(dto.getCodTipo());
         Rubro rubro = this.rubroDao.findByCode(dto.getCodRubro());
         Marca marca = this.marcaDao.findByCode(dto.getCodMarca());
         Clase clase = this.claseDao.findByCode(dto.getCodClase());
