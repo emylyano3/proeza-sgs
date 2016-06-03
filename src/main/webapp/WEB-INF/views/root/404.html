@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="Emiliano Schiano di Cola" />
+
+<title th:text="#{app.error}" text="Error" />
+
+
+<!-- Bootstrap Core CSS -->
+<link href="../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+
+<!-- Custom CSS -->
+<link href="../../resources/app/css/proeza-sgs.css" th:href="@{/resources/app/css/proeza-sgs.css}" rel="stylesheet" />
+
+<!-- Animate CSS -->
+<link href="../../resources/animate/css/animate.css" th:href="@{/resources/animate/css/animate.css}" rel="stylesheet" />
+
+<!-- Custom Fonts -->
+<link href="../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css" />
+
+<link rel="shortcut icon" href="../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" />
+
+
+<!-- 
+    <link rel="stylesheet" href="fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" />
+    <link rel="stylesheet" href="fonts/pe-icon-7-stroke/css/helper.css" />
+    <link rel="stylesheet" href="styles/style.css">
+ -->
+
+</head>
+<body class="blank">
+
+	<div th:replace="fragment/misc.html::splash" />
+	<div class="color-line"></div>
+
+	<div class="back-link">
+		<a th:href="@{../home}" class="btn btn-primary" th:text="#{control.backtohome}" text="Volver al inicio" />
+	</div>
+	<div class="error-container">
+		<i class="pe-7s-way text-success big-icon"></i>
+		<h1>404</h1>
+		<strong>Page Not Found</strong>
+		<p>Sorry, but the page you are looking for has note been found. Try checking the URL for error, then hit the refresh button on your
+			browser or try found something else in our app.</p>
+		<a href="index.html" class="btn btn-xs btn-success">Go back to dashboard</a>
+	</div>
+
+
+ 	<!-- jQuery -->
+    <script src="../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}"/>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}"/>
+
+    <!-- iCheck JavaScript -->
+    <script src="../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"/>
+    
+    <!-- Custom Theme JavaScript -->
+    <script src="../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}"/>
+</body>
+</html>
