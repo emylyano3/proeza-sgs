@@ -51,17 +51,20 @@
     
     $.fn.fillCombo = function(elementId, restUrl, callback) {
 		console.log('El combo [' + elementId + '] se llena con el servicio rest [' + restUrl + ']');
-		var optDefault = $(elementId + ' option:first-child');
+		var optDefault = $('#' + elementId + ' option:first-child');
+		var element = $('#' + elementId);
     	$.ajax({
     		type : 'POST',
     		url : restUrl,
     		dataType: 'json',
     		contentType: 'application/json',
     		success : function(options) {
-    			$(elementId).empty();
-    			$(elementId).append(optDefault);
+    			element.empty();
+    			if (optDefault[0]) {
+    				element.append(optDefault[0]);
+    			}
     			$.each(options, function(index, option) {
-    				$(elementId).append(new Option(option.nombre, option.codigo));
+    				element.append(new Option(option.nombre, option.codigo));
     			});
     		},
     		error: function () {
@@ -71,17 +74,72 @@
     		}
     	});
         return this;
-    };		
+    };
 
-	$.fn.chainCombo = function(elementId, elementChainedId, restUrl) {
-		console.log('El combo [' + elementChainedId + '] se llena con el servicio rest [' + restUrl + '] tomando como parametro de filtro el valor seleccionado del combo [' + elementId + ']');
+    var combosChains = new Map();
+    
+	$.fn.chainCombo = function(_srcCombo, _chainedCombo, _restUrl) {
+		console.log('El combo [' + _chainedCombo + '] se llena con el servicio rest [' + _restUrl + '] tomando como parametro de filtro el valor seleccionado del combo [' + _srcCombo + ']');
+		var srcCombo = $('#' + _srcCombo);
+		if (!combosChains.get(srcCombo[0])) {
+			combosChains.set(srcCombo[0], []);
+		}
+		var chainConfig = {srcCombo:_srcCombo, chainedCombo:_chainedCombo, restUrl:_restUrl};
+		combosChains.get(srcCombo[0]).push(chainConfig);
+		srcCombo.change(function () {
+			var chainConfigs = combosChains.get(this);
+			$.each(chainConfigs, function(index, value){
+				doComboChaining(value);
+			});
+		});
         return this;
     };
-	
+    
 	$.fn.defaultMode = function defaultMode (mode) {
 		currentMode = mode;
 		return this;
 	};
+	
+	function doComboChaining(chainConfig) {
+		var code = $('#' + chainConfig.srcCombo + ' option:selected').attr('value');
+		var chainedCombo = $('#' + chainConfig.chainedCombo);
+		var optDefault = $('#' + chainConfig.chainedCombo + ' option:first-child');
+		if (!code) {
+			chainedCombo.empty();
+			if (optDefault[0]) {
+				chainedCombo.append(optDefault);
+			}
+			return;
+		}
+		$.ajax({
+			type : 'POST',
+			url : chainConfig.restUrl,
+			dataType: 'json',
+			contentType: 'application/json',
+			data : code,
+			success : function(options) {
+				chainedCombo.empty();
+				if (optDefault[0]) {
+					chainedCombo.append(optDefault);
+				}
+				$.each(options, function(index, option) {
+					chainedCombo.append(new Option(option.nombre, option.codigo));
+				});
+				/*
+				if (selectedValue) {
+					$chainedCombo.val(selectedValue);
+				}
+				*/
+			},
+			error: function () {
+				/*
+				if (callback) {
+					callback();
+				}
+				*/
+			}
+		});
+	}
 	
 	function getFormData (form) {
 		console.log('Obteniendo la data del formulario');
