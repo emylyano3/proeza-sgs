@@ -43,7 +43,7 @@ public class ArticuloController {
     private IPageService       pageService;
 
     @ModelAttribute
-    public void context (final ModelMap model) {
+    public void context(final ModelMap model) {
         model.addAttribute("clases", this.claseService.findAll());
         model.addAttribute("tipos", this.tipoService.findAll());
         model.addAttribute("marcas", this.marcaService.findAll());
@@ -51,7 +51,7 @@ public class ArticuloController {
     }
 
     @RequestMapping({"/{page}"})
-    public String home (ModelMap model, Principal principal, @PathVariable("page") String page) {
+    public String home(ModelMap model, Principal principal, @PathVariable("page") String page) {
         model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, page, principal));
         model.addAttribute("pageConfig", buildPageConfig(PAGE_GROUP, page));
         return PAGE_GROUP + "/" + page + ".html";

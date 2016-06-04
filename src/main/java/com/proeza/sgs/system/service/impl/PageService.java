@@ -1,9 +1,8 @@
 package com.proeza.sgs.system.service.impl;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.service.IPageService;

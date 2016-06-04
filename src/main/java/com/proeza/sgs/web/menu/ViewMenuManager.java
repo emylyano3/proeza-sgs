@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.entity.Usuario;
+import com.proeza.sgs.system.dao.IMenuDao;
 import com.proeza.sgs.system.dao.IPageDao;
 import com.proeza.sgs.system.entity.Item;
 import com.proeza.sgs.system.entity.ItemSubitem;
@@ -30,11 +31,26 @@ public class ViewMenuManager implements IViewMenuManager {
     private IPageDao    pageDao;
 
     @Autowired
+    private IMenuDao    menuDao;
+
+    @Autowired
     private IUsuarioDao userDao;
 
     @Override
     @Transactional
-    public Map<String, ViewMenu> getMenus (String pageGroup, String pageName, Principal principal) {
+    public ViewMenu getMenu(String code) {
+        List<ViewMenuItem> viewMenuItems = new ArrayList<>();
+        Menu menu = this.menuDao.findByCode(code);
+        for (MenuItem menuItem : menu.getItems()) {
+            viewMenuItems.add(buildItem(menuItem, new ArrayList<ItemSubitem>(0)));
+        }
+        Collections.sort(viewMenuItems);
+        return new ViewMenu(viewMenuItems, menu.getCode());
+    }
+
+    @Override
+    @Transactional
+    public Map<String, ViewMenu> getMenus(String pageGroup, String pageName, Principal principal) {
         Page page = this.pageDao.findByGroupAndName(pageGroup, pageName);
         Set<Menu> menues = page.getMenues();
         Map<String, ViewMenu> result = new HashMap<>(menues.size());
@@ -59,7 +75,7 @@ public class ViewMenuManager implements IViewMenuManager {
         return result;
     }
 
-    private void addItemsFiltering (Usuario user, List<ViewMenuItem> viewMenuItems, MenuItem menuItem) {
+    private void addItemsFiltering(Usuario user, List<ViewMenuItem> viewMenuItems, MenuItem menuItem) {
         // El item debe tener roles en comun con el usuario logueado
         Item item = menuItem.getItem();
         boolean roleInCommon = !CollectionUtils.intersection(user.getRoles(), item.getRoles()).isEmpty();
@@ -77,27 +93,27 @@ public class ViewMenuManager implements IViewMenuManager {
         }
     }
 
-    private ViewMenuItem buildItem (MenuItem menuItem, List<ItemSubitem> itemSubitems) {
+    private ViewMenuItem buildItem(MenuItem menuItem, List<ItemSubitem> itemSubitems) {
         List<ViewMenuItem> viewMenuSubitems = new ArrayList<>(itemSubitems.size());
         for (ItemSubitem isi : itemSubitems) {
             Item si = isi.getSubitem();
             viewMenuSubitems.add(new ViewMenuItemBuilder()
-                .withCode(si.getCode())
-                .withHref(si.getLink())
-                .withIcon(si.getIcon())
-                .withIndex(isi.getIndex())
-                .withText(si.getText())
-                .build());
+                    .withCode(si.getCode())
+                    .withHref(si.getLink())
+                    .withIcon(si.getIcon())
+                    .withIndex(isi.getIndex())
+                    .withText(si.getText())
+                    .build());
         }
         Collections.sort(viewMenuSubitems);
         Item item = menuItem.getItem();
         return new ViewMenuItemBuilder()
-            .withCode(item.getCode())
-            .withHref(item.getLink())
-            .withIcon(item.getIcon())
-            .withIndex(menuItem.getIndex())
-            .withText(item.getText())
-            .withSubitems(viewMenuSubitems)
-            .build();
+                .withCode(item.getCode())
+                .withHref(item.getLink())
+                .withIcon(item.getIcon())
+                .withIndex(menuItem.getIndex())
+                .withText(item.getText())
+                .withSubitems(viewMenuSubitems)
+                .build();
     }
 }

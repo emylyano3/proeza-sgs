@@ -2,10 +2,9 @@ package com.proeza.sgs.business.service.impl;
 
 import java.util.Calendar;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.proeza.core.util.date.DateUtil;
 import com.proeza.security.dao.IUsuarioDao;

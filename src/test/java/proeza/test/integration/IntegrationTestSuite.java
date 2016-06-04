@@ -7,7 +7,7 @@ import proeza.test.integration.form.FormValidationTest;
 import proeza.test.integration.mail.MailTestSuite;
 import proeza.test.integration.persistence.DalTestSuite;
 import proeza.test.integration.tracking.TrackingTest;
-import proeza.test.integration.web.rest.ArticuloRestITest;
+import proeza.test.integration.web.rest.ArticuloRestTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -15,7 +15,7 @@ import proeza.test.integration.web.rest.ArticuloRestITest;
     MailTestSuite.class,
     FormValidationTest.class,
     TrackingTest.class,
-    ArticuloRestITest.class
+    ArticuloRestTest.class
 })
 public class IntegrationTestSuite {
 }

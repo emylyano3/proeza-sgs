@@ -71,7 +71,7 @@
 /* Item de Menu */
 
 /* Item - Sub Item */
-insert into sgs_proeza_test_db.sys_item_subitem(id, fk_item, fk_subitem, indice) values (1, 2, 1, 0);
+insert into sgs_proeza_test_db.sys_item_subitem(id, fk_item, fk_subitem, indice) values (1, 2, 3, 0);
 insert into sgs_proeza_test_db.sys_item_subitem(id, fk_item, fk_subitem, indice) values (6, 2, 9, 1);
 insert into sgs_proeza_test_db.sys_item_subitem(id, fk_item, fk_subitem, indice) values (7, 2, 10, 2);
 

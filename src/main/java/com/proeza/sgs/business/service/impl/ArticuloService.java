@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Set;
 
 import javax.sql.rowset.serial.SerialBlob;
-import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.proeza.core.service.IImageService;
@@ -42,30 +42,30 @@ import com.proeza.sgs.business.service.IArticuloService;
 @Transactional
 public class ArticuloService implements IArticuloService {
 
-    public static final Logger log = Logger.getLogger(ArticuloService.class);
+    public static final Logger    log            = Logger.getLogger(ArticuloService.class);
 
     @Autowired
-    private IArticuloDao articuloDao;
+    private IArticuloDao          articuloDao;
 
     @Autowired
-    private IClaseDao claseDao;
+    private IClaseDao             claseDao;
 
     @Autowired
-    private RubroDao rubroDao;
+    private RubroDao              rubroDao;
 
     @Autowired
-    private MarcaDao marcaDao;
+    private MarcaDao              marcaDao;
 
     @Autowired
-    private TipoDao tipoDao;
+    private TipoDao               tipoDao;
 
     @Autowired
-    private IImageService imageService;
+    private IImageService         imageService;
 
     @Autowired
     private ArticuloFilterFactory filterFactory;
 
-    public static final int THUMBNAIL_SIZE = 75;
+    public static final int       THUMBNAIL_SIZE = 75;
 
     @Override
     public List<ArticuloDTO> findAll() {

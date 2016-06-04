@@ -19,33 +19,34 @@ import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class ArticuloRestITest extends WebMvcIntegrationTest {
+public class ArticuloRestTest extends WebMvcIntegrationTest {
 
     @Autowired
     private IArticuloDao articuloDao;
 
     @Test
     public void priceHistory () throws Exception {
-        this.mockMvc.perform(post("/rest/articulo/stats/priceHistory/PRRS000001"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.labels", hasSize(5)))
-            .andExpect(jsonPath("$.data", hasSize(5)))
-            .andExpect(jsonPath("$.data[0]", is(270D)));
+        this.mockMvc
+        .perform(post("/rest/product/stats/priceHistory/PRRS000001"))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.labels", hasSize(5)))
+        .andExpect(jsonPath("$.data", hasSize(5)))
+        .andExpect(jsonPath("$.data[0]", is(270D)));
     }
 
     @Test
     public void priceHistory_ACTUALIZANDO_ARTICULO_UNA_VEZ () throws Exception {
         Articulo articulo = this.articuloDao.findByCode("PRRS000001");
         assertNotNull(articulo);
-        this.articuloDao.persist(articulo);
         articulo.setPrecio(BigDecimal.valueOf(275.12));
-        this.mockMvc.perform(post("/rest/articulo/stats/priceHistory/PRRS000001"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.labels", hasSize(9)))
-            .andExpect(jsonPath("$.data", hasSize(9)))
-            .andExpect(jsonPath("$.data[0]", is(270D)));
+        this.articuloDao.persist(articulo);
+        this.mockMvc.perform(post("/rest/product/stats/priceHistory/PRRS000001"))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.labels", hasSize(10)))
+        .andExpect(jsonPath("$.data", hasSize(10)))
+        .andExpect(jsonPath("$.data[0]", is(325D)));
     }
 
     @Test
@@ -60,13 +61,13 @@ public class ArticuloRestITest extends WebMvcIntegrationTest {
         Thread.sleep(100);
         articulo.setPrecio(BigDecimal.valueOf(900));
         this.articuloDao.persist(articulo);
-        this.mockMvc.perform(post("/rest/articulo/stats/priceHistory/PRRS000001"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.labels", hasSize(9)))
-            .andExpect(jsonPath("$.data", hasSize(9)))
-            .andExpect(jsonPath("$.data[0]", is(270D)))
-            .andExpect(jsonPath("$.data[8]", is(900D)));
+        this.mockMvc.perform(post("/rest/product/stats/priceHistory/PRRS000001"))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.labels", hasSize(10)))
+        .andExpect(jsonPath("$.data", hasSize(10)))
+        .andExpect(jsonPath("$.data[0]", is(325D)))
+        .andExpect(jsonPath("$.data[8]", is(325D)));
     }
 
     @Test
@@ -76,10 +77,10 @@ public class ArticuloRestITest extends WebMvcIntegrationTest {
         ArticuloDTO articuloDTO = new ArticuloDTO(articulo);
         articuloDTO.setPrecio(350D);
         this.mockMvc.perform(
-            post("/rest/articulo/update")
+                post("/rest/product/update")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(IntegrationTestUtil.objectToJsonBytes(articuloDTO))
-            );
+                );
         articulo = this.articuloDao.findByCode("PRRS000001");
         assertNotNull(articulo);
         assertNotNull(articulo.getMovimientos());

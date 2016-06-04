@@ -15,8 +15,8 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Type;
 
 @Table(
-    name = "cmn_error",
-    uniqueConstraints = @UniqueConstraint(columnNames = "id"))
+        name = "cmn_error",
+        uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 @Entity
 public class HandledError {
 
@@ -57,7 +57,7 @@ public class HandledError {
         this.mensaje = mensaje;
     }
 
-    @Column(name = "stack")
+    @Column(name = "stack", length = STACK_LENGTH)
     @Type(type="text")
     public String getStack () {
         return this.stack;

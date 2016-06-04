@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
-import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -23,6 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.StringUtils;
 

@@ -1,5 +1,9 @@
 package proeza.test.integration.persistence;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,21 +31,22 @@ import com.proeza.security.entity.Usuario;
 import com.proeza.security.entity.builder.UsuarioBuilder;
 import com.proeza.sgs.system.entity.Page;
 
-import static org.junit.Assert.*;
-
 import proeza.test.integration.IntegrationTest;
 
 public class SeguridadDalTest extends IntegrationTest {
-    private static Logger log = Logger.getLogger(SeguridadDalTest.class);
+    private static Logger            log = Logger.getLogger(SeguridadDalTest.class);
 
     @Autowired
-    private IUsuarioDao   userDao;
+    private IUsuarioDao              userDao;
 
     @Autowired
-    private IRolDao       rolDao;
+    private IRolDao                  rolDao;
+
+    @Autowired
+    private EntityManagerFactoryInfo entityManagerFactory;
 
     @Test
-    public void usuario_FIND_ALL () {
+    public void usuario_FIND_ALL() {
         log.info("Inicia usuario_FIND_ALL");
         final List<Usuario> result = this.userDao.findAll();
         assertNotNull(result);
@@ -50,7 +55,7 @@ public class SeguridadDalTest extends IntegrationTest {
     }
 
     @Test
-    public void usuario_FIND_BY_ID () {
+    public void usuario_FIND_BY_ID() {
         log.info("Inicia usuario_FIND_BY_ID");
         final Usuario usuario = this.userDao.find(100L);
         assertNotNull(usuario);
@@ -58,7 +63,7 @@ public class SeguridadDalTest extends IntegrationTest {
     }
 
     @Test
-    public void usuario_FIND_BY_ALIAS () {
+    public void usuario_FIND_BY_ALIAS() {
         log.info("Inicia usuario_FIND_BY_ALIAS");
         final Usuario usuario = this.userDao.findByAlias("user_admin");
         assertNotNull(usuario);
@@ -68,18 +73,18 @@ public class SeguridadDalTest extends IntegrationTest {
     @Test
     @Transactional
     @Rollback(false)
-    public void usuario_CREATE () {
+    public void usuario_CREATE() {
         log.info("Inicia usuario_FIND_BY_ALIAS");
         UsuarioBuilder builder = new UsuarioBuilder();
         Set<Rol> roles = new HashSet<>(this.rolDao.findAll());
         Usuario user = builder
-            .withAlias("alias")
-            .withApellido("apellido")
-            .withEmail("email@gmail.com")
-            .withNombre("nombre")
-            .withPassword("password")
-            .withRoles(roles)
-            .build();
+                .withAlias("alias")
+                .withApellido("apellido")
+                .withEmail("email@gmail.com")
+                .withNombre("nombre")
+                .withPassword("password")
+                .withRoles(roles)
+                .build();
         this.userDao.persist(user);
         assertNotNull(user);
         assertNotNull(user.getId());
@@ -87,7 +92,7 @@ public class SeguridadDalTest extends IntegrationTest {
 
     @Test
     @Transactional
-    public void usuario_ROLES () {
+    public void usuario_ROLES() {
         log.info("Inicia usuario_ROLES");
         final Usuario usuario = this.userDao.findByAlias("user_admin");
         assertNotNull(usuario);
@@ -96,12 +101,9 @@ public class SeguridadDalTest extends IntegrationTest {
         assertFalse("El usuario admin tiene que tener dos roles asociados", usuario.getRoles().isEmpty());
     }
 
-    @Autowired
-    EntityManagerFactoryInfo entityManagerFactory;
-
     @Test
     @Ignore
-    public void page_CACHE_STATISTICS () {
+    public void page_CACHE_STATISTICS() {
         EntityManagerFactory emf = this.entityManagerFactory.getNativeEntityManagerFactory();
         EntityManagerFactoryImpl emfImp = (EntityManagerFactoryImpl) emf;
         SessionFactoryImpl sessionFactory = emfImp.getSessionFactory();

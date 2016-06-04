@@ -38,9 +38,9 @@ import com.proeza.sgs.web.handler.ErrorTracker;
 
 @RestController
 @RequestMapping("rest/product")
-public class ArticulosRestController {
+public class ArticuloRestController {
 
-    private static final Logger log             = Logger.getLogger(ArticulosRestController.class);
+    private static final Logger log             = Logger.getLogger(ArticuloRestController.class);
 
     private static final String INTEGRITY_ERROR = "prod.integrity.error";
     private static final String NOTFOUND_ERROR  = "prod.notfound.error";
