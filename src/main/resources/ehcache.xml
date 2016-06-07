@@ -84,6 +84,13 @@
     statistics="true" 
     memoryStoreEvictionPolicy="LRU"/>
 
+<cache
+    name="userPageMenus"
+    maxElementsInMemory="500"
+    timeToLiveSeconds="600"
+    statistics="true" 
+    memoryStoreEvictionPolicy="LRU"/>
+
 <cache 
 	name="org.hibernate.cache.internal.StandardQueryCache"
     maxEntriesLocalHeap="100" 

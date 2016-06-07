@@ -21,10 +21,10 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 
 @Entity
 @Table(
-    
-    name = "sys_menu",
-    uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})})
-@Cache(usage = READ_ONLY)
+
+        name = "sys_menu",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})})
+@Cache(usage = NONSTRICT_READ_WRITE)
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;

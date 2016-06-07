@@ -31,10 +31,10 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 
 @Entity
 @Table(
-    
-    name = "sys_item",
-    uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})})
-@Cache(usage = READ_ONLY)
+
+        name = "sys_item",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})})
+@Cache(usage = NONSTRICT_READ_WRITE)
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -107,12 +107,12 @@ public class Item implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
-        
-        name = "sys_item_rol",
-        joinColumns = {@JoinColumn(name = "fk_item", nullable = false, updatable = false)},
-        inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false, updatable = false)}
-        )
-        public Set<Rol> getRoles () {
+
+            name = "sys_item_rol",
+            joinColumns = {@JoinColumn(name = "fk_item", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false, updatable = false)}
+            )
+    public Set<Rol> getRoles () {
         return this.roles;
     }
 

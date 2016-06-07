@@ -15,8 +15,8 @@ import com.proeza.sgs.business.service.IMarcaService;
 import com.proeza.sgs.business.service.IRubroService;
 import com.proeza.sgs.business.service.ITipoService;
 import com.proeza.sgs.system.service.IPageService;
+import com.proeza.sgs.system.service.IMenuService;
 import com.proeza.sgs.web.PageConfig;
-import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
 @RequestMapping({"/articulo"})
@@ -25,7 +25,7 @@ public class ArticuloController {
     public static final String PAGE_GROUP = "articulo";
 
     @Autowired
-    private IViewMenuManager   menuManager;
+    private IMenuService       menuService;
 
     @Autowired
     private IClaseService      claseService;
@@ -52,7 +52,7 @@ public class ArticuloController {
 
     @RequestMapping({"/{page}"})
     public String home(ModelMap model, Principal principal, @PathVariable("page") String page) {
-        model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, page, principal));
+        model.addAllAttributes(this.menuService.getMenus(PAGE_GROUP, page, principal));
         model.addAttribute("pageConfig", buildPageConfig(PAGE_GROUP, page));
         return PAGE_GROUP + "/" + page + ".html";
     }
