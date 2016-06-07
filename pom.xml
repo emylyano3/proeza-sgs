@@ -21,7 +21,6 @@
 		<spring-version>4.2.6.RELEASE</spring-version>
 		<spring.security-version>4.1.0.RELEASE</spring.security-version>
 		<mysql-connector-version>5.1.36</mysql-connector-version>
-		<derby-version>10.11.1.1</derby-version>
 		<thymeleaf-version>2.1.4.RELEASE</thymeleaf-version>
 		<thymeleaf-layout-version>1.2.9</thymeleaf-layout-version>
 		<thymeleaf-extras-springsecurity4-version>2.1.2.RELEASE</thymeleaf-extras-springsecurity4-version>
@@ -198,6 +197,10 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate-validator-version}</version>
 		</dependency>
+		<!-- 
+		Agregando esta dependendencia, el plugin maven-compiler invoca al JPAMetaModelEntityProcessor 
+		directamente para generar los sources a partir de las anotaciones
+		 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-jpamodelgen</artifactId>
@@ -222,20 +225,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-connector-version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-			<version>${derby-version}</version>
-			<!-- Scope compile para utilizarlo en el ambiente de desarrollo -->
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derbytools</artifactId>
-			<version>${derby-version}</version>
-			<!-- Scope compile para utilizarlo en el ambiente de desarrollo -->
-			<scope>compile</scope>
-		</dependency>
+		 
 		<!-- Rest + JSon -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -363,14 +353,6 @@
 						<version>2.15</version>
 					</dependency>
 				</dependencies>
-				<configuration>
-					<systemProperties>
-						<property>
-							<name>derby.stream.error.file</name>
-							<value>${basedir}/target/derby.log</value>
-						</property>
-					</systemProperties>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -381,6 +363,7 @@
 					<target>${java-version}</target>
 				</configuration>
 			</plugin>
+			<!-- Este plugin incorpora los sources generados por el JPAMetaModelEntityProcessor al source path del eclipse -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
