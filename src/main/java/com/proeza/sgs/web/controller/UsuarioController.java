@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.proeza.core.classmapper.Mapeable;
 import com.proeza.security.service.IRoleService;
 import com.proeza.sgs.system.service.IPageService;
+import com.proeza.sgs.system.service.IMenuService;
 import com.proeza.sgs.web.PageConfig;
-import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
 public class UsuarioController {
@@ -21,7 +21,7 @@ public class UsuarioController {
     public static final String PAGE_GROUP = "usuario";
 
     @Autowired
-    private IViewMenuManager   menuManager;
+    private IMenuService       menuService;
 
     @Autowired
     private IPageService       pageService;
@@ -36,7 +36,7 @@ public class UsuarioController {
 
     @RequestMapping({"/usuario/{page}"})
     public String home(ModelMap model, Principal principal, @PathVariable("page") String pageName) {
-        model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, pageName, principal));
+        model.addAllAttributes(this.menuService.getMenus(PAGE_GROUP, pageName, principal));
         model.addAttribute("pageConfig", buildPageConfig(PAGE_GROUP, pageName));
         return PAGE_GROUP + "/" + pageName + ".html";
     }

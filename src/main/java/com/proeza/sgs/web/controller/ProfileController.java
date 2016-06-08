@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.proeza.core.classmapper.Mapeable;
 import com.proeza.sgs.system.service.IPageService;
+import com.proeza.sgs.system.service.IMenuService;
 import com.proeza.sgs.web.PageConfig;
-import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
 public class ProfileController {
@@ -19,14 +19,14 @@ public class ProfileController {
     public static final String PAGE_NAME  = "profile";
 
     @Autowired
-    private IViewMenuManager   menuManager;
+    private IMenuService       menuService;
 
     @Autowired
     private IPageService       pageService;
 
     @ModelAttribute
     public void menues(final ModelMap model, final Principal principal) {
-        model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, PAGE_NAME, principal));
+        model.addAllAttributes(this.menuService.getMenus(PAGE_GROUP, PAGE_NAME, principal));
     }
 
     @RequestMapping({"/profile"})

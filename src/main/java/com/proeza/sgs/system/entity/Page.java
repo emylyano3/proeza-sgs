@@ -30,16 +30,16 @@ import static javax.persistence.GenerationType.*;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
 
 @NamedQueries(value = {
-    @NamedQuery(name = "findByGroupAndName", query = "from Page p where p.group = :group and p.name = :name"),
-    @NamedQuery(name = "findByName", query = "from Page p where p.name = :name")
+        @NamedQuery(name = "findByGroupAndName", query = "from Page p where p.group = :group and p.name = :name"),
+        @NamedQuery(name = "findByName", query = "from Page p where p.name = :name")
 })
 @Entity
 @Table(
-    
-    name = "sys_pagina",
-    uniqueConstraints = {@UniqueConstraint(columnNames = {"grupo", "nombre"})
-    })
-@Cache(usage = READ_ONLY)
+
+        name = "sys_pagina",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"grupo", "nombre"})
+        })
+@Cache(usage = NONSTRICT_READ_WRITE)
 public class Page implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -106,12 +106,12 @@ public class Page implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinTable(
-        
-        name = "sys_pagina_menu",
-        joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false, updatable = false)},
-        inverseJoinColumns = {@JoinColumn(name = "fk_menu", nullable = false, updatable = false)}
-        )
-        public Set<Menu> getMenues () {
+
+            name = "sys_pagina_menu",
+            joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "fk_menu", nullable = false, updatable = false)}
+            )
+    public Set<Menu> getMenues () {
         return this.menues;
     }
 
@@ -121,10 +121,10 @@ public class Page implements Serializable {
 
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(
-        
-        name = "sys_pagina_rol",
-        joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false)},
-        inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false)})
+
+            name = "sys_pagina_rol",
+            joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false)})
     public Set<Rol> getRoles () {
         return this.roles;
     }

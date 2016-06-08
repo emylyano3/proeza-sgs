@@ -20,8 +20,8 @@ import com.proeza.security.form.UsuarioForm;
 import com.proeza.security.service.IUserService;
 import com.proeza.sgs.system.mail.IMailManager;
 import com.proeza.sgs.system.service.IPageService;
+import com.proeza.sgs.system.service.IMenuService;
 import com.proeza.sgs.web.PageConfig;
-import com.proeza.sgs.web.menu.IViewMenuManager;
 
 @Controller
 public class RegisterController {
@@ -33,7 +33,7 @@ public class RegisterController {
     private IUserService       userService;
 
     @Autowired
-    private IViewMenuManager   menuManager;
+    private IMenuService       menuService;
 
     @Autowired
     private IMailManager       mailManager;
@@ -46,7 +46,7 @@ public class RegisterController {
 
     @ModelAttribute
     public void menues(final ModelMap model, final Principal principal) {
-        model.addAllAttributes(this.menuManager.getMenus(PAGE_GROUP, PAGE_NAME, principal));
+        model.addAllAttributes(this.menuService.getMenus(PAGE_GROUP, PAGE_NAME, principal));
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)

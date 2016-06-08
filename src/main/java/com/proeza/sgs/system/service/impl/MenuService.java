@@ -1,4 +1,4 @@
-package com.proeza.sgs.web.menu;
+package com.proeza.sgs.system.service.impl;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,10 +23,13 @@ import com.proeza.sgs.system.entity.ItemSubitem;
 import com.proeza.sgs.system.entity.Menu;
 import com.proeza.sgs.system.entity.MenuItem;
 import com.proeza.sgs.system.entity.Page;
-import com.proeza.sgs.web.menu.builder.ViewMenuItemBuilder;
+import com.proeza.sgs.system.service.IMenuService;
+import com.proeza.sgs.system.service.builder.MenuItemDTOBuilder;
+import com.proeza.sgs.system.service.dto.MenuDTO;
+import com.proeza.sgs.system.service.dto.MenuItemDTO;
 
 @Component
-public class ViewMenuManager implements IViewMenuManager {
+public class MenuService implements IMenuService {
 
     @Autowired
     private IPageDao    pageDao;
@@ -38,24 +42,25 @@ public class ViewMenuManager implements IViewMenuManager {
 
     @Override
     @Transactional
-    public ViewMenu getMenu(String code) {
-        List<ViewMenuItem> viewMenuItems = new ArrayList<>();
+    public MenuDTO getMenu(String code) {
+        List<MenuItemDTO> viewMenuItems = new ArrayList<>();
         Menu menu = this.menuDao.findByCode(code);
         for (MenuItem menuItem : menu.getItems()) {
             viewMenuItems.add(buildItem(menuItem, new ArrayList<ItemSubitem>(0)));
         }
         Collections.sort(viewMenuItems);
-        return new ViewMenu(viewMenuItems, menu.getCode());
+        return new MenuDTO(viewMenuItems, menu.getCode());
     }
 
     @Override
     @Transactional
-    public Map<String, ViewMenu> getMenus(String pageGroup, String pageName, Principal principal) {
+    @Cacheable(value="userPageMenus", condition="#principal != null", key="#pageGroup + #pageName + #principal.getName()", unless="#result == null")
+    public Map<String, MenuDTO> getMenus(String pageGroup, String pageName, Principal principal) {
         Page page = this.pageDao.findByGroupAndName(pageGroup, pageName);
         Set<Menu> menues = page.getMenues();
-        Map<String, ViewMenu> result = new HashMap<>(menues.size());
+        Map<String, MenuDTO> result = new HashMap<>(menues.size());
         for (Menu menu : menues) {
-            List<ViewMenuItem> viewMenuItems = new ArrayList<>();
+            List<MenuItemDTO> viewMenuItems = new ArrayList<>();
             for (MenuItem menuItem : menu.getItems()) {
                 Item item = menuItem.getItem();
                 if (item.getRoles().isEmpty()) {
@@ -70,12 +75,12 @@ public class ViewMenuManager implements IViewMenuManager {
                 }
             }
             Collections.sort(viewMenuItems);
-            result.put(menu.getType() + "_" + menu.getCode(), new ViewMenu(viewMenuItems, menu.getCode()));
+            result.put(menu.getType() + "_" + menu.getCode(), new MenuDTO(viewMenuItems, menu.getCode()));
         }
         return result;
     }
 
-    private void addItemsFiltering(Usuario user, List<ViewMenuItem> viewMenuItems, MenuItem menuItem) {
+    private void addItemsFiltering(Usuario user, List<MenuItemDTO> viewMenuItems, MenuItem menuItem) {
         // El item debe tener roles en comun con el usuario logueado
         Item item = menuItem.getItem();
         boolean roleInCommon = !CollectionUtils.intersection(user.getRoles(), item.getRoles()).isEmpty();
@@ -93,27 +98,27 @@ public class ViewMenuManager implements IViewMenuManager {
         }
     }
 
-    private ViewMenuItem buildItem(MenuItem menuItem, List<ItemSubitem> itemSubitems) {
-        List<ViewMenuItem> viewMenuSubitems = new ArrayList<>(itemSubitems.size());
+    private MenuItemDTO buildItem(MenuItem menuItem, List<ItemSubitem> itemSubitems) {
+        List<MenuItemDTO> viewMenuSubitems = new ArrayList<>(itemSubitems.size());
         for (ItemSubitem isi : itemSubitems) {
             Item si = isi.getSubitem();
-            viewMenuSubitems.add(new ViewMenuItemBuilder()
-                    .withCode(si.getCode())
-                    .withHref(si.getLink())
-                    .withIcon(si.getIcon())
-                    .withIndex(isi.getIndex())
-                    .withText(si.getText())
+            viewMenuSubitems.add(new MenuItemDTOBuilder()
+                    .code(si.getCode())
+                    .href(si.getLink())
+                    .icon(si.getIcon())
+                    .index(isi.getIndex())
+                    .text(si.getText())
                     .build());
         }
         Collections.sort(viewMenuSubitems);
         Item item = menuItem.getItem();
-        return new ViewMenuItemBuilder()
-                .withCode(item.getCode())
-                .withHref(item.getLink())
-                .withIcon(item.getIcon())
-                .withIndex(menuItem.getIndex())
-                .withText(item.getText())
-                .withSubitems(viewMenuSubitems)
+        return new MenuItemDTOBuilder()
+                .code(item.getCode())
+                .href(item.getLink())
+                .icon(item.getIcon())
+                .index(menuItem.getIndex())
+                .text(item.getText())
+                .subitems(viewMenuSubitems)
                 .build();
     }
 }

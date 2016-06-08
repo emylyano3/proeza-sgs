@@ -6,19 +6,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proeza.sgs.web.menu.IViewMenuManager;
-import com.proeza.sgs.web.menu.ViewMenu;
+import com.proeza.sgs.system.service.IMenuService;
+import com.proeza.sgs.system.service.dto.MenuDTO;
 
 @RestController
 @RequestMapping("rest/application")
 public class AppManagementRestController {
 
     @Autowired
-    private IViewMenuManager menuManager;
+    private IMenuService menuService;
 
     @RequestMapping(value = "getMenu/{code}", method = RequestMethod.POST)
-    public ViewMenu getMenu(@PathVariable String code) {
-        return this.menuManager.getMenu(code);
+    public MenuDTO getMenu(@PathVariable String code) {
+        return this.menuService.getMenu(code);
     }
 
 }

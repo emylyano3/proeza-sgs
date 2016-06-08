@@ -1,10 +1,10 @@
-package com.proeza.sgs.web.menu;
+package com.proeza.sgs.system.service.dto;
 
 import java.util.List;
 
-public class ViewMenuItem implements Comparable<ViewMenuItem> {
+public class MenuItemDTO implements Comparable<MenuItemDTO> {
 
-    public ViewMenuItem () {
+    public MenuItemDTO () {
     }
 
     private String             text;
@@ -12,7 +12,7 @@ public class ViewMenuItem implements Comparable<ViewMenuItem> {
     private String             href;
     private String             icon;
     private int                index;
-    private List<ViewMenuItem> subitems;
+    private List<MenuItemDTO> subitems;
 
     public String getText () {
         return this.text;
@@ -54,16 +54,16 @@ public class ViewMenuItem implements Comparable<ViewMenuItem> {
         this.index = index;
     }
 
-    public List<ViewMenuItem> getSubitems () {
+    public List<MenuItemDTO> getSubitems () {
         return this.subitems;
     }
 
-    public void setSubitems (List<ViewMenuItem> subitems) {
+    public void setSubitems (List<MenuItemDTO> subitems) {
         this.subitems = subitems;
     }
 
     @Override
-    public int compareTo (ViewMenuItem o) {
+    public int compareTo (MenuItemDTO o) {
         if (o == null) {
             return -1;
         }
