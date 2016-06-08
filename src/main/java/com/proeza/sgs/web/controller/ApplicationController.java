@@ -27,6 +27,7 @@ public class ApplicationController {
     @ModelAttribute
     public void menues(final ModelMap model, final Principal principal) {
         model.addAllAttributes(this.menuService.getMenus(PAGE_GROUP, PAGE_NAME, principal));
+        model.addAttribute("menus", this.menuService.getMenus());
     }
 
     @RequestMapping({"/application/admin/menu"})

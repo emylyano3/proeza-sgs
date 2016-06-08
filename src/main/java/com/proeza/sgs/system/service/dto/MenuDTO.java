@@ -5,7 +5,8 @@ import java.util.List;
 
 public class MenuDTO {
 
-    private String                   name;
+    private String                  code;
+    private String                  text;
     private final List<MenuItemDTO> items;
 
     public MenuDTO() {
@@ -16,17 +17,31 @@ public class MenuDTO {
         this.items = items;
     }
 
-    public MenuDTO(List<MenuItemDTO> items, String name) {
-        this.name = name;
+    public MenuDTO(List<MenuItemDTO> items, String code) {
+        this.code = code;
         this.items = items;
     }
 
-    public String getName() {
-        return this.name;
+    public MenuDTO(List<MenuItemDTO> items, String code, String text) {
+        this.code = code;
+        this.text = text;
+        this.items = items;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getText() {
+        return this.text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public List<MenuItemDTO> getItems() {

@@ -49,12 +49,28 @@ public class MenuService implements IMenuService {
             viewMenuItems.add(buildItem(menuItem, new ArrayList<ItemSubitem>(0)));
         }
         Collections.sort(viewMenuItems);
-        return new MenuDTO(viewMenuItems, menu.getCode());
+        return new MenuDTO(viewMenuItems, menu.getCode(), menu.getText());
     }
 
     @Override
     @Transactional
-    @Cacheable(value="userPageMenus", condition="#principal != null", key="#pageGroup + #pageName + #principal.getName()", unless="#result == null")
+    public List<MenuDTO> getMenus() {
+        List<Menu> menus = this.menuDao.findAll();
+        List<MenuDTO> result = new ArrayList<>(menus.size());
+        for (Menu menu : menus) {
+            List<MenuItemDTO> viewMenuItems = new ArrayList<>();
+            for (MenuItem menuItem : menu.getItems()) {
+                viewMenuItems.add(buildItem(menuItem, new ArrayList<ItemSubitem>(0)));
+            }
+            Collections.sort(viewMenuItems);
+            result.add(new MenuDTO(viewMenuItems, menu.getCode(), menu.getText()));
+        }
+        return result;
+    }
+
+    @Override
+    @Transactional
+    @Cacheable(value = "userPageMenus", condition = "#principal != null", key = "#pageGroup + #pageName + #principal.getName()", unless = "#result == null")
     public Map<String, MenuDTO> getMenus(String pageGroup, String pageName, Principal principal) {
         Page page = this.pageDao.findByGroupAndName(pageGroup, pageName);
         Set<Menu> menues = page.getMenues();
@@ -75,7 +91,7 @@ public class MenuService implements IMenuService {
                 }
             }
             Collections.sort(viewMenuItems);
-            result.put(menu.getType() + "_" + menu.getCode(), new MenuDTO(viewMenuItems, menu.getCode()));
+            result.put(menu.getType() + "_" + menu.getCode(), new MenuDTO(viewMenuItems, menu.getCode(), menu.getText()));
         }
         return result;
     }

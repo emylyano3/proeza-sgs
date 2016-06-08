@@ -1,5 +1,7 @@
 package com.proeza.sgs.web.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,11 @@ public class AppManagementRestController {
 
     @Autowired
     private IMenuService menuService;
+
+    @RequestMapping(value = "getMenu", method = RequestMethod.POST)
+    public List<MenuDTO> getMenus() {
+        return this.menuService.getMenus();
+    }
 
     @RequestMapping(value = "getMenu/{code}", method = RequestMethod.POST)
     public MenuDTO getMenu(@PathVariable String code) {
