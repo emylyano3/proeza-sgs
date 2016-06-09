@@ -1,213 +1,254 @@
 <!DOCTYPE html>
-<html 
-	xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	layout:decorator="layout.html">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Sistema de Gestión de Stock" />
+	<meta name="author" content="Emiliano Schiano di Cola" />
+
+	<title th:text="#{app.name}" text="Proeza SGS" />
+
+	<link href="../../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+	<link href="../../../resources/metismenu/css/metisMenu.css" th:href="@{/resources/metismenu/css/metisMenu.css}" rel="stylesheet" />
+	<link href="../../../resources/app/css/timeline.css" th:href="@{/resources/app/css/timeline.css}" rel="stylesheet" />
+	<link href="../../../resources/animate/css/animate.css" th:href="@{/resources/animate/css/animate.css}" rel="stylesheet" />
+	<link href="../../../resources/app/css/proeza-sgs.css" th:href="@{/resources/app/css/proeza-sgs.css}" rel="stylesheet" />
+	<link href="../../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css" />
+	<link href="../../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" rel="shortcut icon" />
+	<link href="../../../resources/gallery/css/blueimp-gallery.css" th:href="@{/resources/gallery/css/blueimp-gallery.css}" rel="stylesheet" />
+	<link href="../../../resources/gallery/css/blueimp-gallery-indicator.css" th:href="@{/resources/gallery/css/blueimp-gallery-indicator.css}" rel="stylesheet" />
+	<link href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" rel="stylesheet" />
+	<link href="../../../resources/jqx/css/jqx.energyblueproeza.css" th:href="@{/resources/jqx/css/jqx.energyblueproeza.css}" type="text/css" media="screen" rel="stylesheet" />
+</head>
+
 <body>
-	<div id="content" layout:fragment="contenido">
-		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" />
-		<link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblueproeza.css" th:href="@{/resources/jqx/css/jqx.energyblueproeza.css}" type="text/css" media="screen" />
-		
-        <!-- Grilla de articulos -->
-		<div id="gridPanel" class="row animated zoomIn">
-			<div class="col-md-12">
-		        <div id="productGrid"/>
+    <div th:replace="fragment/misc.html::imageGallery"/>
+    <div th:replace="fragment/misc.html::splash"/>
+    <div th:replace="fragment/bar.html::header"/>
+    <div th:replace="fragment/menu.html::mainMenuLeft" />
+    
+	<div id="wrapper">
+		<div class="content">
+			<div class="row">
+				<div class="col-lg-12 text-center" style="padding-top: 10px; padding-bottom: 20px">
+					<span class="pageTitle" th:text="${pageConfig.title}" />
+					<span class="pageTitle" th:if="${not pageConfig.subtitle.isEmpty()}">:</span>
+					<span class="pageSubtitle" th:text="${pageConfig.subtitle}" />
+				</div>
+			</div>
+			<div id="content" >
+		        <!-- Grilla de articulos -->
+				<div id="gridPanel" class="row animated zoomIn">
+					<div class="col-md-12">
+				        <div id="productGrid"/>
+					</div>
+				</div>
+		        <p/>
+				<div class="row">
+					<div class="col-md-12">
+					    <div id="links"></div>
+					</div>
+				</div>
+		        <div th:if="${CONTEXT_PROD_LIST_GRID} != null" id="gridContextMenu">
+		            <ul>
+		                <li th:each="item : ${CONTEXT_PROD_LIST_GRID.items}" th:id="${item.code}" >
+		                    <span th:text="${item.text}" th:remove="tag"/> 
+		                    <ul th:if="${!item.subitems.isEmpty()}" >
+		                        <li th:each="subitem : ${item.subitems}" th:id="${subitem.code}" th:text="${subitem.text}"/>
+		                    </ul>
+		                </li>
+		            </ul>
+		        </div>
 			</div>
 		</div>
-        <p/>
-		<div class="row">
-			<div class="col-md-12">
-			    <div id="links"></div>
-			</div>
-		</div>
-        <div th:if="${CONTEXT_PROD_LIST_GRID} != null" id="gridContextMenu">
-            <ul>
-                <li th:each="item : ${CONTEXT_PROD_LIST_GRID.items}" th:id="${item.code}" >
-                    <span th:text="${item.text}" th:remove="tag"/> 
-                    <ul th:if="${!item.subitems.isEmpty()}" >
-                        <li th:each="subitem : ${item.subitems}" th:id="${subitem.code}" th:text="${subitem.text}"/>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxscrollbar.js" th:src="@{/resources/jqx/js/jqxscrollbar.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxmenu.js" th:src="@{/resources/jqx/js/jqxmenu.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.js" th:src="@{/resources/jqx/js/jqxgrid.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.selection.js" th:src="@{/resources/jqx/js/jqxgrid.selection.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.columnsresize.js" th:src="@{/resources/jqx/js/jqxgrid.columnsresize.js}" />
-        <script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
-		<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery.js" th:src="@{/resources/gallery/js/blueimp-gallery.js}"/>
-		<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery-indicator.js" th:src="@{/resources/gallery/js/blueimp-gallery-indicator.js}"/>
-		<script type="text/javascript" src="../../../resources/gallery/js/jquery.blueimp-gallery.js" th:src="@{/resources/gallery/js/jquery.blueimp-gallery.js}"/>
-		<script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}"/>
-
-	    <script th:inline="javascript">
-	 		/*<![CDATA[*/
-
-        	$(document).ready(function () {
-	        	initImageGallery();
-	        	configGridSource();
-				configGrid();            
-	            configControls();
-	        });
-			
-	        function initImageGallery() {
-	        	$('#blueimp-gallery').data('useBootstrapModal', false);
-		        $('#blueimp-gallery').toggleClass('blueimp-gallery-controls', true);	
-	        }
-	        
-	        function configControls() {
-	        	// Inicializa los controles del filtro
-	            $('#filter').on('input', function() {
-	                refreshGrid(gridSource, 'productGrid');
-	            });
-	            $('#eraser').click(function () {
-	                cleanContainer('links');
-	                $('#productGrid').jqxGrid('clear');
-	                $('#filter').val('');
-	            });	
-	        }
-	        
-	        function configGrid() {
-	            var dataAdapter = new $.jqx.dataAdapter(gridSource);
-	            // initializa la grilla de articulos
-	            $('#productGrid').jqxGrid({
-	                width: '100%',
-					height : '100%',
-					theme : 'energyblueproeza',
-	                source: dataAdapter,
-					pageable : false,
-	                altrows: true,
-	                columnsresize: false,
-			        sortable: true,
-			        enablehover : false,
-					enabletooltips : true,
-	                columns: [
-						{ 
-							text: /*[[#{prod.grid.model}]]*/ 'Modelo', 
-							dataField: 'modelo', 
-							width: '21%' 
-						},{ 
-							text: /*[[#{prod.grid.desc}]]*/ 'Descripción', 
-							dataField: 'descripcion', 
-							width: '21%' 
-						},{ 
-							text: /*[[#{prod.grid.clazz}]]*/ 'Clase', 
-							dataField: 'clase',
-							width: '14%' 
-						},{ 
-							text: /*[[#{prod.grid.type}]]*/ 'Tipo', 
-							dataField: 'tipo', 
-							width: '12%' 
-						},{
-							text: /*[[#{prod.grid.trademark}]]*/ 'Marca', 
-							dataField: 'marca', 
-							width: '14%' 
-						},{
-							text: /*[[#{prod.grid.price}]]*/ 'Precio', 
-							dataField: 'precio', 
-							cellsalign: 'right', 
-							cellsformat: 'c2', 
-							minwidth: '16%' 
-						},{
-							text: /*[[#{prod.grid.quantity}]]*/ 'Cantidad', 
-							dataField: 'cantidad', 
-							cellsalign: 'center', 
-							minwidth: '2%' 
-						}
-	                ]
-	            });
-	            var contextMenu = initGridContextMenu();
-	            $('#productGrid').on('rowselect', function (event) {
-	            	var rowIndex = event.args.rowindex;
-	            	var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowIndex);
-	            	if (currentRow != rowIndex) {
-	            		currentRow = rowIndex;
-	            		cleanContainer('links');
-	            		updateGaleryPreview(dataRecord.codigo, 'links');
-	            	}
-	            });
-				$('#productGrid').on('rowclick', function(event) {
-					$('#productGrid').jqxGrid('selectrow', event.args.rowindex);
-					if (event.args.rightclick) {
-						var scrollTop = $(window).scrollTop();
-						var scrollLeft = $(window).scrollLeft();
-						contextMenu.jqxMenu(
-								'open', 
-								parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
-								parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
-						);
-						return false;
-					}
-				});
-	        }
-
-	        function initGridContextMenu() {
-				// crea el menu contextual
-				var contextMenu = $('#gridContextMenu').jqxMenu({
-					width : 250,
-					autoOpenPopup : false,
-					mode : 'popup'
-				});
-				$('#productGrid').on('contextmenu', function() {
-					return false;
-				});
-				// Manejo los eventos sobre el context menu de la grilla
-				$('#gridContextMenu').on('itemclick', function(event) {
-					var rowindex = $('#productGrid').jqxGrid('getselectedrowindex');
-					var offset = $('#productGrid').offset();
-					// get the clicked row's data and initialize the input fields.
-					var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowindex);
-					switch (event.target.id) {
-						case [[#{menuitem.seeImages}]] :						
-							blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
-							break;
-						case [[#{menuitem.quickCashSale}]] :
-							quickSale (dataRecord.codigo, [[#{saletype.cash}]], [[${user.alias}]], notifyQuickSaleDone);
-							break;
-						case [[#{menuitem.quickCreditSale}]] :
-							quickSale (dataRecord.codigo, [[#{saletype.credit}]], [[${user.alias}]], notifyQuickSaleDone);
-							break;
-						case [[#{menuitem.quickDebitSale}]] :
-							quickSale (dataRecord.codigo, [[#{saletype.debit}]], [[${user.alias}]], notifyQuickSaleDone);
-							break;
-						default:
-							break;
-					}
-				})
-				return contextMenu;
-	        }
-	        
-	        function notifyQuickSaleDone (productCode, status) {
-	        	var title, message, type;
-	        	switch (status) {
-	        		case 'success':
-    	        		title = [[#{prod.quickSale.success.title}]]; 
-    	        		message = [[#{prod.quickSale.success.message}]];
-    	        		type = 'success';
-    	        		refreshGrid(gridSource, 'productGrid');
-	        		break;
-	        		case 'error':
-    	        		title = [[#{prod.quickSale.error.title}]]; 
-    	        		message = [[#{prod.quickSale.error.message}]];
-    	        		type = 'danger';
-	        		break;
-	        		default:
-	        			break;
-	        	}
-	        	$.notify({
-					title: title,
-					message: message
-				},{
-					type: type
-				});
-	        }
-			/*]]>*/
-	    </script>
 	</div>
+	
+	<script type="text/javascript" src="../../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}" />
+    <script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}" />
+	<script type="text/javascript" src="../../../resources/metismenu/js/metisMenu.js" th:src="@{/resources/metismenu/js/metisMenu.js}" />
+    <script type="text/javascript" src="../../../resources/sparkline/js/sparkline.js" th:src="@{/resources/sparkline/js/sparkline.js}"/>
+    <script type="text/javascript" src="../../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"/>
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxscrollbar.js" th:src="@{/resources/jqx/js/jqxscrollbar.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxmenu.js" th:src="@{/resources/jqx/js/jqxmenu.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.js" th:src="@{/resources/jqx/js/jqxgrid.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.selection.js" th:src="@{/resources/jqx/js/jqxgrid.selection.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.columnsresize.js" th:src="@{/resources/jqx/js/jqxgrid.columnsresize.js}" />
+    <script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
+	<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery.js" th:src="@{/resources/gallery/js/blueimp-gallery.js}"/>
+	<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery-indicator.js" th:src="@{/resources/gallery/js/blueimp-gallery-indicator.js}"/>
+	<script type="text/javascript" src="../../../resources/gallery/js/jquery.blueimp-gallery.js" th:src="@{/resources/gallery/js/jquery.blueimp-gallery.js}"/>
+	<script type="text/javascript" src="../../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}" />
+    <script type="text/javascript" src="../../../resources/app/js/menu.js" th:src="@{/resources/app/js/menu.js}"/>
+	<script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}"/>
+	
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		$(document).ready(function () {
+			loadUserSalesSparkline($("#userAlias").text(), 12, 7);
+	    	initImageGallery();
+	    	configGridSource();
+			configGrid();            
+	        configControls();
+	    });
+		
+	    function initImageGallery() {
+	    	$('#blueimp-gallery').data('useBootstrapModal', false);
+	        $('#blueimp-gallery').toggleClass('blueimp-gallery-controls', true);	
+	    }
+	    
+	    function configControls() {
+	    	// Inicializa los controles del filtro
+	        $('#filter').on('input', function() {
+	            refreshGrid(gridSource, 'productGrid');
+	        });
+	        $('#eraser').click(function () {
+	            cleanContainer('links');
+	            $('#productGrid').jqxGrid('clear');
+	            $('#filter').val('');
+	        });	
+	    }
+	    
+	    function configGrid() {
+	        var dataAdapter = new $.jqx.dataAdapter(gridSource);
+	        // initializa la grilla de articulos
+	        $('#productGrid').jqxGrid({
+	            width: '100%',
+				height : '100%',
+				theme : 'energyblueproeza',
+	            source: dataAdapter,
+				pageable : false,
+	            altrows: true,
+	            columnsresize: false,
+		        sortable: true,
+		        enablehover : false,
+				enabletooltips : true,
+	            columns: [
+					{ 
+						text: /*[[#{prod.grid.model}]]*/ 'Modelo', 
+						dataField: 'modelo', 
+						width: '21%' 
+					},{ 
+						text: /*[[#{prod.grid.desc}]]*/ 'Descripción', 
+						dataField: 'descripcion', 
+						width: '21%' 
+					},{ 
+						text: /*[[#{prod.grid.clazz}]]*/ 'Clase', 
+						dataField: 'clase',
+						width: '14%' 
+					},{ 
+						text: /*[[#{prod.grid.type}]]*/ 'Tipo', 
+						dataField: 'tipo', 
+						width: '12%' 
+					},{
+						text: /*[[#{prod.grid.trademark}]]*/ 'Marca', 
+						dataField: 'marca', 
+						width: '14%' 
+					},{
+						text: /*[[#{prod.grid.price}]]*/ 'Precio', 
+						dataField: 'precio', 
+						cellsalign: 'right', 
+						cellsformat: 'c2', 
+						minwidth: '16%' 
+					},{
+						text: /*[[#{prod.grid.quantity}]]*/ 'Cantidad', 
+						dataField: 'cantidad', 
+						cellsalign: 'center', 
+						minwidth: '2%' 
+					}
+	            ]
+	        });
+	        var contextMenu = initGridContextMenu();
+	        $('#productGrid').on('rowselect', function (event) {
+	        	var rowIndex = event.args.rowindex;
+	        	var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowIndex);
+	        	if (currentRow != rowIndex) {
+	        		currentRow = rowIndex;
+	        		cleanContainer('links');
+	        		updateGaleryPreview(dataRecord.codigo, 'links');
+	        	}
+	        });
+			$('#productGrid').on('rowclick', function(event) {
+				$('#productGrid').jqxGrid('selectrow', event.args.rowindex);
+				if (event.args.rightclick) {
+					var scrollTop = $(window).scrollTop();
+					var scrollLeft = $(window).scrollLeft();
+					contextMenu.jqxMenu(
+							'open', 
+							parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+							parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
+					);
+					return false;
+				}
+			});
+	    }
+	
+	    function initGridContextMenu() {
+			// crea el menu contextual
+			var contextMenu = $('#gridContextMenu').jqxMenu({
+				width : 250,
+				autoOpenPopup : false,
+				mode : 'popup'
+			});
+			$('#productGrid').on('contextmenu', function() {
+				return false;
+			});
+			// Manejo los eventos sobre el context menu de la grilla
+			$('#gridContextMenu').on('itemclick', function(event) {
+				var rowindex = $('#productGrid').jqxGrid('getselectedrowindex');
+				var offset = $('#productGrid').offset();
+				// get the clicked row's data and initialize the input fields.
+				var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowindex);
+				switch (event.target.id) {
+					case [[#{menuitem.seeImages}]] :						
+						blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
+						break;
+					case [[#{menuitem.quickCashSale}]] :
+						quickSale (dataRecord.codigo, [[#{saletype.cash}]], [[${user.alias}]], notifyQuickSaleDone);
+						break;
+					case [[#{menuitem.quickCreditSale}]] :
+						quickSale (dataRecord.codigo, [[#{saletype.credit}]], [[${user.alias}]], notifyQuickSaleDone);
+						break;
+					case [[#{menuitem.quickDebitSale}]] :
+						quickSale (dataRecord.codigo, [[#{saletype.debit}]], [[${user.alias}]], notifyQuickSaleDone);
+						break;
+					default:
+						break;
+				}
+			})
+			return contextMenu;
+	    }
+	    
+	    function notifyQuickSaleDone (productCode, status) {
+	    	var title, message, type;
+	    	switch (status) {
+	    		case 'success':
+	        		title = [[#{prod.quickSale.success.title}]]; 
+	        		message = [[#{prod.quickSale.success.message}]];
+	        		type = 'success';
+	        		refreshGrid(gridSource, 'productGrid');
+	    		break;
+	    		case 'error':
+	        		title = [[#{prod.quickSale.error.title}]]; 
+	        		message = [[#{prod.quickSale.error.message}]];
+	        		type = 'danger';
+	    		break;
+	    		default:
+	    			break;
+	    	}
+	    	$.notify({
+				title: title,
+				message: message
+			},{
+				type: type
+			});
+	    }
+	/*]]>*/	
+	</script>
 </body>
 </html>

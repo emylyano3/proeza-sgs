@@ -45,7 +45,6 @@ import com.proeza.sgs.business.chart.ChartColorManager;
 import com.proeza.sgs.config.ConfigConsts;
 
 import net.sf.ehcache.CacheException;
-import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 @Import(value = {
@@ -160,7 +159,6 @@ public class ContextConfig {
         final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.addTemplateResolver(webTemplateResolver());
         templateEngine.addTemplateResolver(emailTemplateResolver());
-        templateEngine.addDialect(new LayoutDialect());
         templateEngine.addDialect(new SpringSecurityDialect());
         templateEngine.addMessageResolver(messageResolver);
         return templateEngine;

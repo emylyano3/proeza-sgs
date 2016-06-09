@@ -1,23 +1,70 @@
 <!DOCTYPE html>
-<html 
-	xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	layout:decorator="layout.html">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Sistema de Gestión de Stock" />
+	<meta name="author" content="Emiliano Schiano di Cola" />
+
+	<title th:text="#{app.name}" text="Proeza SGS" />
+
+	<link href="../../../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+	<link href="../../../../resources/metismenu/css/metisMenu.css" th:href="@{/resources/metismenu/css/metisMenu.css}" rel="stylesheet" />
+	<link href="../../../../resources/app/css/timeline.css" th:href="@{/resources/app/css/timeline.css}" rel="stylesheet" />
+	<link href="../../../../resources/animate/css/animate.css" th:href="@{/resources/animate/css/animate.css}" rel="stylesheet" />
+	<link href="../../../../resources/app/css/proeza-sgs.css" th:href="@{/resources/app/css/proeza-sgs.css}" rel="stylesheet" />
+	<link href="../../../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css" />
+	<link href="../../../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" rel="shortcut icon" />
+	<link href="../../../../resources/gallery/css/blueimp-gallery.css" th:href="@{/resources/gallery/css/blueimp-gallery.css}" rel="stylesheet" />
+	<link href="../../../../resources/gallery/css/blueimp-gallery-indicator.css" th:href="@{/resources/gallery/css/blueimp-gallery-indicator.css}" rel="stylesheet" />
+</head>
+
 <body>
-	<div id="content" layout:fragment="contenido">
-		<div id="menuEditor" class="animated zoomIn">
+    <div th:replace="fragment/misc.html::splash"/>
+    <div th:replace="fragment/bar.html::header"/>
+    <div th:replace="fragment/menu.html::mainMenuLeft" />
+    
+	<div id="wrapper">
+		<div class="content">
 			<div class="row">
-	            <div class="col-lg-3">
-	            	<select id="menu" class="form-control input-md" autofocus="autofocus">
-	            		<option value="" th:text="#{control.choose}"/>
-	            		<option th:each="menu : ${menus}" th:text="${menu.text}" th:value="${menu.code}" />
-	            	</select>
-	            </div>
-	        </div>
+				<div class="col-lg-12 text-center" style="padding-top: 10px; padding-bottom: 20px">
+					<span class="pageTitle" th:text="${pageConfig.title}" />
+					<span class="pageTitle" th:if="${not pageConfig.subtitle.isEmpty()}">:</span>
+					<span class="pageSubtitle" th:text="${pageConfig.subtitle}" />
+				</div>
+			</div>
+			<div id="content">
+				<div id="menuEditor" class="animated zoomIn">
+					<div class="row">
+			            <div class="col-lg-3">
+			            	<select id="menu" class="form-control input-md" autofocus="autofocus">
+			            		<option value="" th:text="#{control.choose}"/>
+			            		<option th:each="menu : ${menus}" th:text="${menu.text}" th:value="${menu.code}" />
+			            	</select>
+			            </div>
+			        </div>
+				</div>
+				<script th:inline="javascript">
+				
+				</script>
+			</div>
 		</div>
-		<script th:inline="javascript">
-		
-		</script>
 	</div>
+	<script type="text/javascript" src="../../../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}" />
+    <script type="text/javascript" src="../../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}" />
+	<script type="text/javascript" src="../../../../resources/metismenu/js/metisMenu.js" th:src="@{/resources/metismenu/js/metisMenu.js}" />
+    <script type="text/javascript" src="../../../../resources/sparkline/js/sparkline.js" th:src="@{/resources/sparkline/js/sparkline.js}"/>
+    <script type="text/javascript" src="../../../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"/>
+	<script type="text/javascript" src="../../../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}" />
+    <script type="text/javascript" src="../../../../resources/app/js/menu.js" th:src="@{/resources/app/js/menu.js}"/>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function() {
+            loadUserSalesSparkline($("#userAlias").text(), 12, 7);
+        })
+		/*]]>*/
+	</script>	
 </body>
 </html>

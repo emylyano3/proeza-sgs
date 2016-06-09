@@ -1,71 +1,101 @@
 <!DOCTYPE html>
-<html 
-	xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	layout:decorator="layout.html">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Sistema de Gestión de Stock" />
+	<meta name="author" content="Emiliano Schiano di Cola" />
+
+	<title th:text="#{app.name}" text="Proeza SGS" />
+
+	<link href="../../../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+	<link href="../../../../resources/metismenu/css/metisMenu.css" th:href="@{/resources/metismenu/css/metisMenu.css}" rel="stylesheet" />
+	<link href="../../../../resources/app/css/timeline.css" th:href="@{/resources/app/css/timeline.css}" rel="stylesheet" />
+	<link href="../../../../resources/animate/css/animate.css" th:href="@{/resources/animate/css/animate.css}" rel="stylesheet" />
+	<link href="../../../../resources/app/css/proeza-sgs.css" th:href="@{/resources/app/css/proeza-sgs.css}" rel="stylesheet" />
+	<link href="../../../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css" />
+	<link href="../../../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" rel="shortcut icon" />
+	<link href="../../../../resources/gallery/css/blueimp-gallery.css" th:href="@{/resources/gallery/css/blueimp-gallery.css}" rel="stylesheet" />
+	<link href="../../../../resources/gallery/css/blueimp-gallery-indicator.css" th:href="@{/resources/gallery/css/blueimp-gallery-indicator.css}" rel="stylesheet" />
+</head>
+
 <body>
-	
-	<div id="content" layout:fragment="contenido">
-		<div sec:authorize="isAnonymous()">
-			<div class="hpanel">
-				<div class="panel-body">
-					<div class="register-container">
-						<form id="registerForm" class="form-horizontal" action="#" th:action="@{register}" th:object="${userForm}" method="post">
-			<!-- 				<input type="hidden" name="_csrf" th:value="${_csrf.token}"/> -->
-							<fieldset>
-								<div class="form-group">
-									<label class="control-label" for="alias" th:text="#{control.alias}">Alias</label>
-									<input id="alias" class="form-control" type="text" th:field="*{alias}" th:placeholder="#{control.ph.alias}" placeholder="jperez" required="required" autofocus="autofocus"/>
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="name" th:text="#{control.name}">Nombre</label>
-									<input id="name" class="form-control" type="text" th:field="*{nombre}" th:placeholder="#{control.ph.name}" placeholder="Juan" required="required" />
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="lastname" th:text="#{control.lastname}">Apellido</label>
-									<input id="lastname" class="form-control" type="text" th:field="*{apellido}" th:placeholder="#{control.ph.lastname}" placeholder="Perez" required="required" />
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="email" th:text="#{control.email}">Email</label>
-									<input id="email" class="form-control" type="email" th:field="*{email}" th:placeholder="#{control.ph.email}" placeholder="juan.perezl@email.com" required="required"/>
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="pass" th:text="#{control.password}">Contraseña</label>
-									<input id="pass" class="form-control" type="password" th:field="*{password}" pattern="[\w\d-_]{5,15}" th:placeholder="#{control.ph.password}" required="required" th:title="#{register.error.password}"/>
-									<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error en el dato ingresado</p>
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="passConfirm" th:text="#{control.passwordconfirm}">Confirmar contraseña</label>
-									<input id="passConfirm" class="form-control" type="password" th:field="*{passwordConfirm}" pattern="[\w\d-_]{5,15}" th:placeholder="#{control.ph.password}" required="required" th:title="#{register.error.password}" />
-									<p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Error en el dato ingresado</p>
-								</div>
-								<p/>
-								<button type="submit" name="save" class="btn btn-success btn-block" th:text="#{control.register}">Registrarme</button>
-							</fieldset>
-						</form>
-					</div>
+    <div th:replace="fragment/misc.html::splash"/>
+    <div th:replace="fragment/bar.html::header"/>
+    <div th:replace="fragment/menu.html::mainMenuLeft" />
+    
+	<div id="wrapper">
+		<div class="content">
+			<div class="row">
+				<div class="col-lg-12 text-center" style="padding-top: 10px; padding-bottom: 20px">
+					<span class="pageTitle" th:text="${pageConfig.title}" />
+					<span class="pageTitle" th:if="${not pageConfig.subtitle.isEmpty()}">:</span>
+					<span class="pageSubtitle" th:text="${pageConfig.subtitle}" />
 				</div>
-				<div class="panel-footer">
-					<span th:text="#{register.form.user}">Fomulario de registro de usuario</span>
+			</div>
+			<div id="content" >
+				<div sec:authorize="isAnonymous()">
+					<div class="hpanel">
+						<div class="panel-body">
+							<div class="register-container">
+								<form id="registerForm" class="form-horizontal" action="#" th:action="@{register}" th:object="${userForm}" method="post">
+					<!-- 				<input type="hidden" name="_csrf" th:value="${_csrf.token}"/> -->
+									<fieldset>
+										<div class="form-group">
+											<label class="control-label" for="alias" th:text="#{control.alias}">Alias</label>
+											<input id="alias" class="form-control" type="text" th:field="*{alias}" th:placeholder="#{control.ph.alias}" placeholder="jperez" required="required" autofocus="autofocus"/>
+										</div>
+										<div class="form-group">
+											<label class="control-label" for="name" th:text="#{control.name}">Nombre</label>
+											<input id="name" class="form-control" type="text" th:field="*{nombre}" th:placeholder="#{control.ph.name}" placeholder="Juan" required="required" />
+										</div>
+										<div class="form-group">
+											<label class="control-label" for="lastname" th:text="#{control.lastname}">Apellido</label>
+											<input id="lastname" class="form-control" type="text" th:field="*{apellido}" th:placeholder="#{control.ph.lastname}" placeholder="Perez" required="required" />
+										</div>
+										<div class="form-group">
+											<label class="control-label" for="email" th:text="#{control.email}">Email</label>
+											<input id="email" class="form-control" type="email" th:field="*{email}" th:placeholder="#{control.ph.email}" placeholder="juan.perezl@email.com" required="required"/>
+										</div>
+										<div class="form-group">
+											<label class="control-label" for="pass" th:text="#{control.password}">Contraseña</label>
+											<input id="pass" class="form-control" type="password" th:field="*{password}" pattern="[\w\d-_]{5,15}" th:placeholder="#{control.ph.password}" required="required" th:title="#{register.error.password}"/>
+											<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error en el dato ingresado</p>
+										</div>
+										<div class="form-group">
+											<label class="control-label" for="passConfirm" th:text="#{control.passwordconfirm}">Confirmar contraseña</label>
+											<input id="passConfirm" class="form-control" type="password" th:field="*{passwordConfirm}" pattern="[\w\d-_]{5,15}" th:placeholder="#{control.ph.password}" required="required" th:title="#{register.error.password}" />
+											<p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Error en el dato ingresado</p>
+										</div>
+										<p/>
+										<button type="submit" name="save" class="btn btn-success btn-block" th:text="#{control.register}">Registrarme</button>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<span th:text="#{register.form.user}">Fomulario de registro de usuario</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-    <!-- jQuery -->
-    <script src="../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}"/>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}"/>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../../resources/metismenu/js/metisMenu.js" th:src="@{/resources/metismenu/js/metisMenu.js}"/>
-
-    <!-- iCheck JavaScript -->
-    <script src="../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"/>
-    
-    <!-- Custom Theme JavaScript -->
-    <script src="../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}"/>
+	<script type="text/javascript" src="../../../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}" />
+    <script type="text/javascript" src="../../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}" />
+	<script type="text/javascript" src="../../../../resources/metismenu/js/metisMenu.js" th:src="@{/resources/metismenu/js/metisMenu.js}" />
+    <script type="text/javascript" src="../../../../resources/sparkline/js/sparkline.js" th:src="@{/resources/sparkline/js/sparkline.js}"/>
+    <script type="text/javascript" src="../../../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"/>
+	<script type="text/javascript" src="../../../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}" />
+    <script type="text/javascript" src="../../../../resources/app/js/menu.js" th:src="@{/resources/app/js/menu.js}"/>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function() {
+            loadUserSalesSparkline($("#userAlias").text(), 12, 7);
+        })
+		/*]]>*/
+	</script>	
 </body>
 </html>
-	

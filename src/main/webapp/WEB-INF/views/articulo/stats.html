@@ -1,385 +1,425 @@
 <!DOCTYPE html>
-<html 
-	xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	layout:decorator="layout.html">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Sistema de Gestión de Stock" />
+	<meta name="author" content="Emiliano Schiano di Cola" />
+
+	<title th:text="#{app.name}" text="Proeza SGS" />
+
+	<link href="../../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+	<link href="../../../resources/metismenu/css/metisMenu.css" th:href="@{/resources/metismenu/css/metisMenu.css}" rel="stylesheet" />
+	<link href="../../../resources/app/css/timeline.css" th:href="@{/resources/app/css/timeline.css}" rel="stylesheet" />
+	<link href="../../../resources/animate/css/animate.css" th:href="@{/resources/animate/css/animate.css}" rel="stylesheet" />
+	<link href="../../../resources/app/css/proeza-sgs.css" th:href="@{/resources/app/css/proeza-sgs.css}" rel="stylesheet" />
+	<link href="../../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css" />
+	<link href="../../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" rel="shortcut icon" />
+	<link href="../../../resources/gallery/css/blueimp-gallery.css" th:href="@{/resources/gallery/css/blueimp-gallery.css}" rel="stylesheet" />
+	<link href="../../../resources/gallery/css/blueimp-gallery-indicator.css" th:href="@{/resources/gallery/css/blueimp-gallery-indicator.css}" rel="stylesheet" />
+</head>
+
 <body>
-	<div id="content" layout:fragment="contenido" class="animate-panel container-fluid">
-		<!-- 
-		<div class="row">
-			<div class="col-md-12">
-				<div class="hpanel animated zoomIn">
-					<div class="panel-heading">
-						<div class="panel-tools">
-		                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-		                    <a class="closebox"><i class="fa fa-times"></i></a>
-		                </div>
-						<span text="Historial de precios de artículo" th:text="#{prod.chart.pricehistory.title}"/>
-					</div>
-					
-					<div class="panel-body">
-						<div class="row">
-						 	<div class="col-md-3 text-center">
-		                        <div class="small">
-		                            <i class="fa fa-bolt"/>
-		                            <span text="Cambios de precio" th:text="#{prod.chart.priceupdates}"/>
-		                        </div>
-		                        <div>
-		                            <h1 class="font-extra-bold m-t-xl m-b-xs">
-		                                <span id="priceUpdates" text="No hay datos" th:text="#{common.nodata}" />
-		                            </h1>
-		                        </div>
-		                        <div class="small m-t-xl">
-		                            <i class="fa fa-clock-o"/>
-		                            <span id="lastPriceUpdate"/>
-		                        </div>
-		                    </div>
-							<div class="col-md-6" >
-								<div class="text-center small">
-		                            <i class="fa fa-dollar"/> 
-		                            <span th:text="#{prod.chart.pricehistory.detail}" ></span>
-		                        </div>
-		                        <div class="text-center small">
-									<canvas id="priceHistory" width="500" height="200"></canvas>
+    <div th:replace="fragment/misc.html::splash"/>
+    <div th:replace="fragment/bar.html::header"/>
+    <div th:replace="fragment/menu.html::mainMenuLeft" />
+    
+	<div id="wrapper">
+		<div class="content">
+			<div class="row">
+				<div class="col-lg-12 text-center" style="padding-top: 10px; padding-bottom: 20px">
+					<span class="pageTitle" th:text="${pageConfig.title}" />
+					<span class="pageTitle" th:if="${not pageConfig.subtitle.isEmpty()}">:</span>
+					<span class="pageSubtitle" th:text="${pageConfig.subtitle}" />
+				</div>
+			</div>
+			<div id="content" class="animate-panel container-fluid">
+				<!-- 
+				<div class="row">
+					<div class="col-md-12">
+						<div class="hpanel animated zoomIn">
+							<div class="panel-heading">
+								<div class="panel-tools">
+				                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+				                    <a class="closebox"><i class="fa fa-times"></i></a>
+				                </div>
+								<span text="Historial de precios de artículo" th:text="#{prod.chart.pricehistory.title}"/>
+							</div>
+							
+							<div class="panel-body">
+								<div class="row">
+								 	<div class="col-md-3 text-center">
+				                        <div class="small">
+				                            <i class="fa fa-bolt"/>
+				                            <span text="Cambios de precio" th:text="#{prod.chart.priceupdates}"/>
+				                        </div>
+				                        <div>
+				                            <h1 class="font-extra-bold m-t-xl m-b-xs">
+				                                <span id="priceUpdates" text="No hay datos" th:text="#{common.nodata}" />
+				                            </h1>
+				                        </div>
+				                        <div class="small m-t-xl">
+				                            <i class="fa fa-clock-o"/>
+				                            <span id="lastPriceUpdate"/>
+				                        </div>
+				                    </div>
+									<div class="col-md-6" >
+										<div class="text-center small">
+				                            <i class="fa fa-dollar"/> 
+				                            <span th:text="#{prod.chart.pricehistory.detail}" ></span>
+				                        </div>
+				                        <div class="text-center small">
+											<canvas id="priceHistory" width="500" height="200"></canvas>
+										</div>
+									</div>
+				                    <div class="col-md-3 text-center">
+				                        <div class="small">
+				                            <i class="fa fa-list-alt"/>
+				                            <span text="Stock del artículo" th:text="#{prod.chart.stock}" />
+				                        </div>
+				                        <div>
+				                            <h1 class="font-extra-bold m-t-xl m-b-xs">
+				                                <span id="stock" text="No hay datos" th:text="#{common.nodata}" />
+				                            </h1>
+				                        </div>
+				                        <div class="small m-t-xl">
+				                            <i class="fa fa-clock-o"/>
+				                            <span id="lastStockUpdate" /> 
+				                        </div>
+				                    </div>
 								</div>
 							</div>
-		                    <div class="col-md-3 text-center">
-		                        <div class="small">
-		                            <i class="fa fa-list-alt"/>
-		                            <span text="Stock del artículo" th:text="#{prod.chart.stock}" />
-		                        </div>
-		                        <div>
-		                            <h1 class="font-extra-bold m-t-xl m-b-xs">
-		                                <span id="stock" text="No hay datos" th:text="#{common.nodata}" />
-		                            </h1>
-		                        </div>
-		                        <div class="small m-t-xl">
-		                            <i class="fa fa-clock-o"/>
-		                            <span id="lastStockUpdate" /> 
-		                        </div>
-		                    </div>
+							<div class="panel-footer">
+								<span th:text="#{prod.chart.pricehistory.footer}" />
+							</div>
 						</div>
 					</div>
-					<div class="panel-footer">
-						<span th:text="#{prod.chart.pricehistory.footer}" />
+				</div>
+				-->
+				<div class="row">
+					<div class="col-md-12" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
+						<div class="hpanel animated zoomIn">
+							<div class="panel-heading">
+								<div class="panel-tools">
+				                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+				                    <a class="closebox"><i class="fa fa-times"></i></a>
+				                </div>
+								<span text="Historial de stock" th:text="#{prod.chart.stockHistory.title}"/>
+							</div>
+							
+							<div class="panel-body">
+								<div class="row">
+								 	<div class="col-md-3 text-center">
+				                        <div class="small">
+				                            <i class="fa fa-bolt"/>
+				                            <span text="Stock más bajo" th:text="#{prod.chart.stockHistory.lowest}"/>
+				                        </div>
+				                        <div>
+				                            <h1 class="font-extra-bold m-t-xl m-b-xs">
+				                                <span id="lowestStock" text="No hay datos" th:text="#{common.nodata}" />
+				                            </h1>
+				                        </div>
+				                        <div class="small m-t-xl">
+				                            <i class="fa fa-clock-o"/>
+				                            <span id="lowestStockDate"/>
+				                        </div>
+				                    </div>
+									<div class="col-md-6" >
+										<div class="text-center small">
+				                            <i class="fa fa-dollar"/> 
+				                            <span th:text="#{prod.chart.stockHistory.detail}" ></span>
+				                        </div>
+				                        <div class="text-center small">
+											<canvas id="stockHistory" width="500" height="200"></canvas>
+										</div>
+									</div>
+				                    <div class="col-md-3 text-center">
+				                        <div class="small">
+				                            <i class="fa fa-list-alt"/>
+				                            <span text="Stock más alto" th:text="#{prod.chart.stockHistory.highest}" />
+				                        </div>
+				                        <div>
+				                            <h1 class="font-extra-bold m-t-xl m-b-xs">
+				                                <span id="highestStock" text="No hay datos" th:text="#{common.nodata}" />
+				                            </h1>
+				                        </div>
+		                                <div class="small m-t-xl">
+		                                   <i class="fa fa-clock-o"/>
+		                                   <span id="highestStockDate" /> 
+		                                </div>
+				                    </div>
+								</div>
+							</div>
+							<div class="panel-footer">
+								<span th:text="#{prod.chart.stockHistory.footer}" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+						<div class="hpanel animated zoomIn">
+							<div class="panel-heading">
+								<div class="panel-tools">
+				                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+				                    <a class="closebox"><i class="fa fa-times"></i></a>
+				                </div>
+								<span text="Historial de capital" th:text="#{prod.chart.stockValueHistory.title}"/>
+							</div>
+							
+							<div class="panel-body">
+								<div class="row">
+								 	<div class="col-md-3 text-center">
+				                        <div class="small">
+				                            <i class="fa fa-bolt"/>
+				                            <span text="Capital más bajo" th:text="#{prod.chart.stockValueHistory.lowest}"/>
+				                        </div>
+				                        <div>
+				                            <h1 class="font-extra-bold m-t-xl m-b-xs">
+				                                <span id="lowestStockValue" text="No hay datos" th:text="#{common.nodata}" />
+				                            </h1>
+				                        </div>
+				                        <div class="small m-t-xl">
+				                            <i class="fa fa-clock-o"/>
+				                            <span id="lowestStockValueDate"/>
+				                        </div>
+				                    </div>
+									<div class="col-md-6" >
+										<div class="text-center small">
+				                            <i class="fa fa-dollar"/> 
+				                            <span th:text="#{prod.chart.stockValueHistory.detail}" ></span>
+				                        </div>
+				                        <div class="text-center small">
+											<canvas id="stockValueHistory" width="500" height="200"></canvas>
+										</div>
+									</div>
+				                    <div class="col-md-3 text-center">
+				                        <div class="small">
+				                            <i class="fa fa-list-alt"/>
+				                            <span text="Capital más alto" th:text="#{prod.chart.stockValueHistory.highest}" />
+				                        </div>
+				                        <div>
+				                            <h1 class="font-extra-bold m-t-xl m-b-xs">
+				                                <span id="highestStockValue" text="No hay datos" th:text="#{common.nodata}" />
+				                            </h1>
+				                        </div>
+		                                <div class="small m-t-xl">
+		                                   <i class="fa fa-clock-o"/>
+		                                   <span id="highestStockValueDate" /> 
+		                                </div>
+				                    </div>
+								</div>
+							</div>
+							<div class="panel-footer">
+								<span th:text="#{prod.chart.stockValueHistory.footer}" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+						<div class="hpanel animated zoomIn">
+							<div class="panel-body">
+								<div class="text-center small">
+			                        <i class="fa fa-dollar"/> 
+			                        <span th:text="#{prod.chart.bestsellers.detail}" ></span>
+			                    </div>
+			                    <p/>
+								<div class="text-center small">
+									<canvas id="bestsellersArticles" width="200" height="200"/>
+								</div>
+							</div>
+							<div class="panel-footer">
+								<span th:text="#{prod.chart.bestsellers.footer}" />
+							</div>
+						</div>			
+					</div>
+					<div class="col-md-4" style="animation-delay: 0.6s; -webkit-animation-delay: 0.6s;">
+						<div class="hpanel animated zoomIn">
+							<div class="panel-body">
+								<div class="text-center small">
+			                        <i class="fa fa-dollar"/> 
+			                        <span th:text="#{prod.chart.brandpresence.detail}" ></span>
+			                    </div>
+			                    <p/>
+								<div class="text-center small">
+									<canvas id="brandPresence" width="200" height="200"/>
+								</div>
+							</div>
+							<div class="panel-footer">
+								<span th:text="#{prod.chart.brandpresence.footer}" />
+							</div>
+						</div>			
+					</div>
+					<div class="col-md-4" style="animation-delay: 0.9s; -webkit-animation-delay: 0.9s;">
+						<div class="hpanel animated zoomIn">
+							<div class="panel-body">
+								<div class="text-center small">
+			                        <i class="fa fa-dollar"/> 
+			                        <span th:text="#{prod.chart.worstsellers.detail}" ></span>
+			                    </div>
+			                    <p/>
+								<div class="text-center small">
+									<canvas id="worstsellersArticles" width="200" height="200"/>
+								</div>
+							</div>
+							<div class="panel-footer">
+								<span th:text="#{prod.chart.worstsellers.footer}" />
+							</div>
+						</div>			
 					</div>
 				</div>
 			</div>
 		</div>
-		-->
-		<div class="row">
-			<div class="col-md-12" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
-				<div class="hpanel animated zoomIn">
-					<div class="panel-heading">
-						<div class="panel-tools">
-		                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-		                    <a class="closebox"><i class="fa fa-times"></i></a>
-		                </div>
-						<span text="Historial de stock" th:text="#{prod.chart.stockHistory.title}"/>
-					</div>
-					
-					<div class="panel-body">
-						<div class="row">
-						 	<div class="col-md-3 text-center">
-		                        <div class="small">
-		                            <i class="fa fa-bolt"/>
-		                            <span text="Stock más bajo" th:text="#{prod.chart.stockHistory.lowest}"/>
-		                        </div>
-		                        <div>
-		                            <h1 class="font-extra-bold m-t-xl m-b-xs">
-		                                <span id="lowestStock" text="No hay datos" th:text="#{common.nodata}" />
-		                            </h1>
-		                        </div>
-		                        <div class="small m-t-xl">
-		                            <i class="fa fa-clock-o"/>
-		                            <span id="lowestStockDate"/>
-		                        </div>
-		                    </div>
-							<div class="col-md-6" >
-								<div class="text-center small">
-		                            <i class="fa fa-dollar"/> 
-		                            <span th:text="#{prod.chart.stockHistory.detail}" ></span>
-		                        </div>
-		                        <div class="text-center small">
-									<canvas id="stockHistory" width="500" height="200"></canvas>
-								</div>
-							</div>
-		                    <div class="col-md-3 text-center">
-		                        <div class="small">
-		                            <i class="fa fa-list-alt"/>
-		                            <span text="Stock más alto" th:text="#{prod.chart.stockHistory.highest}" />
-		                        </div>
-		                        <div>
-		                            <h1 class="font-extra-bold m-t-xl m-b-xs">
-		                                <span id="highestStock" text="No hay datos" th:text="#{common.nodata}" />
-		                            </h1>
-		                        </div>
-                                <div class="small m-t-xl">
-                                   <i class="fa fa-clock-o"/>
-                                   <span id="highestStockDate" /> 
-                                </div>
-		                    </div>
-						</div>
-					</div>
-					<div class="panel-footer">
-						<span th:text="#{prod.chart.stockHistory.footer}" />
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
-				<div class="hpanel animated zoomIn">
-					<div class="panel-heading">
-						<div class="panel-tools">
-		                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-		                    <a class="closebox"><i class="fa fa-times"></i></a>
-		                </div>
-						<span text="Historial de capital" th:text="#{prod.chart.stockValueHistory.title}"/>
-					</div>
-					
-					<div class="panel-body">
-						<div class="row">
-						 	<div class="col-md-3 text-center">
-		                        <div class="small">
-		                            <i class="fa fa-bolt"/>
-		                            <span text="Capital más bajo" th:text="#{prod.chart.stockValueHistory.lowest}"/>
-		                        </div>
-		                        <div>
-		                            <h1 class="font-extra-bold m-t-xl m-b-xs">
-		                                <span id="lowestStockValue" text="No hay datos" th:text="#{common.nodata}" />
-		                            </h1>
-		                        </div>
-		                        <div class="small m-t-xl">
-		                            <i class="fa fa-clock-o"/>
-		                            <span id="lowestStockValueDate"/>
-		                        </div>
-		                    </div>
-							<div class="col-md-6" >
-								<div class="text-center small">
-		                            <i class="fa fa-dollar"/> 
-		                            <span th:text="#{prod.chart.stockValueHistory.detail}" ></span>
-		                        </div>
-		                        <div class="text-center small">
-									<canvas id="stockValueHistory" width="500" height="200"></canvas>
-								</div>
-							</div>
-		                    <div class="col-md-3 text-center">
-		                        <div class="small">
-		                            <i class="fa fa-list-alt"/>
-		                            <span text="Capital más alto" th:text="#{prod.chart.stockValueHistory.highest}" />
-		                        </div>
-		                        <div>
-		                            <h1 class="font-extra-bold m-t-xl m-b-xs">
-		                                <span id="highestStockValue" text="No hay datos" th:text="#{common.nodata}" />
-		                            </h1>
-		                        </div>
-                                <div class="small m-t-xl">
-                                   <i class="fa fa-clock-o"/>
-                                   <span id="highestStockValueDate" /> 
-                                </div>
-		                    </div>
-						</div>
-					</div>
-					<div class="panel-footer">
-						<span th:text="#{prod.chart.stockValueHistory.footer}" />
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
-				<div class="hpanel animated zoomIn">
-					<div class="panel-body">
-						<div class="text-center small">
-	                        <i class="fa fa-dollar"/> 
-	                        <span th:text="#{prod.chart.bestsellers.detail}" ></span>
-	                    </div>
-	                    <p/>
-						<div class="text-center small">
-							<canvas id="bestsellersArticles" width="200" height="200"/>
-						</div>
-					</div>
-					<div class="panel-footer">
-						<span th:text="#{prod.chart.bestsellers.footer}" />
-					</div>
-				</div>			
-			</div>
-			<div class="col-md-4" style="animation-delay: 0.6s; -webkit-animation-delay: 0.6s;">
-				<div class="hpanel animated zoomIn">
-					<div class="panel-body">
-						<div class="text-center small">
-	                        <i class="fa fa-dollar"/> 
-	                        <span th:text="#{prod.chart.brandpresence.detail}" ></span>
-	                    </div>
-	                    <p/>
-						<div class="text-center small">
-							<canvas id="brandPresence" width="200" height="200"/>
-						</div>
-					</div>
-					<div class="panel-footer">
-						<span th:text="#{prod.chart.brandpresence.footer}" />
-					</div>
-				</div>			
-			</div>
-			<div class="col-md-4" style="animation-delay: 0.9s; -webkit-animation-delay: 0.9s;">
-				<div class="hpanel animated zoomIn">
-					<div class="panel-body">
-						<div class="text-center small">
-	                        <i class="fa fa-dollar"/> 
-	                        <span th:text="#{prod.chart.worstsellers.detail}" ></span>
-	                    </div>
-	                    <p/>
-						<div class="text-center small">
-							<canvas id="worstsellersArticles" width="200" height="200"/>
-						</div>
-					</div>
-					<div class="panel-footer">
-						<span th:text="#{prod.chart.worstsellers.footer}" />
-					</div>
-				</div>			
-			</div>
-		</div>
-		<script type="text/javascript" src="../../../resources/chart/js/chart.js" th:src="@{/resources/chart/js/chart.js}" ></script>
-		<script type="text/javascript" src="../../../resources/jquery/jquery.formatdate.js" th:src="@{/resources/jquery/jquery.formatdate.js}" ></script>
-        <script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}"/>
-        
-		<script th:inline="javascript">
-		 	/*<![CDATA[*/
-			$(document).ready(function() {
-// 				$.ajax({
-// 					url : '/proeza-sgs/rest/articulo/stats/priceHistory/PRRS000001',
-// 					type : 'POST',
-// 					dataType : 'json',
-// 					contentType : 'application/json',
-// 					success: function (data, status, jqXHR) {
-// 						var ctx = document.getElementById("priceHistory").getContext("2d");
-// 						var chartData = {
-// 						    labels: data.labels,
-// 						    datasets: [
-// 						        {
-// 						            label: [[#{prod.chart.pricehistory.label}]],
-// 						            fillColor: 'rgba(110,220,110,0.3)',
-// 						            strokeColor: 'rgba(110,220,110,1)',
-// 						            pointColor: 'rgba(110,220,110,1)',
-// 						            pointStrokeColor: '#fff',
-// 						            pointHighlightFill: '#fff',
-// 						            pointHighlightStroke: 'rgba(220,220,220,1)',
-// 						            data: data.data
-// 						        }
-// 						    ]
-// 						};
-// 						var priceHistoryChart = new Chart(ctx).Line(chartData,{responsive: true});
-// 						$('#stock').text(data.stock);
-// 						$('#priceUpdates').text(data.updates);
-// 						$('#lastStockUpdate').text([[#{prod.chart.laststockupdate}]] + $.formatDateTime('mm/dd/yy', new Date(data.lastStockUpdate)));
-// 						$('#lastPriceUpdate').text([[#{prod.chart.lastpriceupdate}]] + $.formatDateTime('mm/dd/yy', new Date(data.lastPriceUpdate)));
-// 			        },
-// 			        error: function (jqXHR, status) {            
-// 						console.log(jqXHR.statusText);
-// 						console.err('Error: No se pudo obtener la data del grafico de historial de precio');
-// 			        }
-// 				});
-				$.ajax({
-					url : product.rest.bestSellers + '/5',
-					type : 'POST',
-					dataType : 'json',
-					contentType : 'application/json',
-					success: function (data, status, jqXHR) {
-						var ctx = $('#bestsellersArticles').get(0).getContext('2d');
-						var bestsellersArticlesChart = new Chart(ctx).Doughnut(data,{responsive: false});
-			        },
-			        error: function (jqXHR, status) {
-						console.log(jqXHR.statusText);
-						console.err('Error: No se pudo obtener la data de los articulos "best seller"');
-			        }
-				});
-				$.ajax({
-					url : product.rest.worstSellers + '/5',
-					type : 'POST',
-					dataType : 'json',
-					contentType : 'application/json',
-					success: function (data, status, jqXHR) {
-						var ctx = $('#worstsellersArticles').get(0).getContext('2d');
-						var worstsellersArticlesChart = new Chart(ctx).Doughnut(data,{responsive: false});
-			        },
-			        error: function (jqXHR, status) {            
-						console.log(jqXHR.statusText);
-						console.err('Error: No se pudo obtener la data de los articulo "worst seller"');
-			        }
-				});
-				$.ajax({
-					url : product.rest.brandPresence + '/5',
-					type : 'POST',
-					dataType : 'json',
-					contentType : 'application/json',
-					success: function (data, status, jqXHR) {
-						var ctx = $('#brandPresence').get(0).getContext('2d');
-						var brandPresenceChart = new Chart(ctx).Doughnut(data,{responsive: false});
-			        },
-			        error: function (jqXHR, status) {            
-						console.log(jqXHR.statusText);
-						console.err('Error: No se pudo obtener la data de presencia de marcas');
-			        }
-				});
-				$.ajax({
-					url : product.rest.stockHistory + '/12',
-					type : 'POST',
-					dataType : 'json',
-					contentType : 'application/json',
-					success: function (data, status, jqXHR) {
-						var stockChartData = {
-						    labels: data['STOCK'].labels,
-						    datasets: [
-						        {
-						            label: [[#{prod.chart.stockhistory.label}]],
-						            fillColor: 'rgba(110,220,110,0.3)',
-						            strokeColor: 'rgba(110,220,110,1)',
-						            pointColor: 'rgba(110,220,110,1)',
-						            pointStrokeColor: '#fff',
-						            pointHighlightFill: '#fff',
-						            pointHighlightStroke: 'rgba(220,220,220,1)',
-						            data: data['STOCK'].data
-						        }
-						    ]
-						};
-						var ctx = $('#stockHistory').get(0).getContext('2d');
-						var stockHistoryChart = new Chart(ctx).Bar(stockChartData, {responsive: false});
-						var stockValueChartData = {
-						    labels: data['CAPITAL'].labels,
-						    datasets: [
-						        {
-						            label: [[#{prod.chart.stockhistory.label}]],
-						            fillColor: 'rgba(110,220,110,0.3)',
-						            strokeColor: 'rgba(110,220,110,1)',
-						            pointColor: 'rgba(110,220,110,1)',
-						            pointStrokeColor: '#fff',
-						            pointHighlightFill: '#fff',
-						            pointHighlightStroke: 'rgba(220,220,220,1)',
-						            data: data['CAPITAL'].data
-						        }
-						    ]
-						};
-						var ctx = $('#stockValueHistory').get(0).getContext('2d');
-						var stockValueHistoryChart = new Chart(ctx).Line(stockValueChartData, {responsive: false});
-						$('#lowestStock').text(data['STOCK'].lowestValue);
-						$('#lowestStockDate').text(data['STOCK'].lowestValueDate);
-						$('#highestStock').text(data['STOCK'].highestValue);
-						$('#highestStockDate').text(data['STOCK'].highestValueDate);
-						
-						$('#lowestStockValue').text(data['CAPITAL'].lowestValue);
-						$('#lowestStockValueDate').text(data['CAPITAL'].lowestValueDate);
-						$('#highestStockValue').text(data['CAPITAL'].highestValue);
-						$('#highestStockValueDate').text(data['CAPITAL'].highestValueDate);
-			        },
-			        error: function (jqXHR, status) {            
-						console.log(jqXHR.statusText);
-						console.err('Error: No se pudo obtener la data de presencia de rubros');
-			        }
-				});
-			});
-			/*]]>*/
-		</script>
 	</div>
+    <script type="text/javascript" src="../../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}" />
+    <script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}" />
+	<script type="text/javascript" src="../../../resources/metismenu/js/metisMenu.js" th:src="@{/resources/metismenu/js/metisMenu.js}" />
+    <script type="text/javascript" src="../../../resources/sparkline/js/sparkline.js" th:src="@{/resources/sparkline/js/sparkline.js}"/>
+    <script type="text/javascript" src="../../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"/>
+	<script type="text/javascript" src="../../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}" />
+    <script type="text/javascript" src="../../../resources/app/js/menu.js" th:src="@{/resources/app/js/menu.js}"/>
+	<script type="text/javascript" src="../../../resources/chart/js/chart.js" th:src="@{/resources/chart/js/chart.js}" ></script>
+	<script type="text/javascript" src="../../../resources/jquery/jquery.formatdate.js" th:src="@{/resources/jquery/jquery.formatdate.js}" ></script>
+	<script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}"/>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		$(document).ready(function() {
+			loadUserSalesSparkline($("#userAlias").text(), 12, 7);
+// 			$.ajax({
+// 				url : '/proeza-sgs/rest/articulo/stats/priceHistory/PRRS000001',
+// 				type : 'POST',
+// 				dataType : 'json',
+// 				contentType : 'application/json',
+// 				success: function (data, status, jqXHR) {
+// 					var ctx = document.getElementById("priceHistory").getContext("2d");
+// 					var chartData = {
+// 					    labels: data.labels,
+// 					    datasets: [
+// 					        {
+// 					            label: [[#{prod.chart.pricehistory.label}]],
+// 					            fillColor: 'rgba(110,220,110,0.3)',
+// 					            strokeColor: 'rgba(110,220,110,1)',
+// 					            pointColor: 'rgba(110,220,110,1)',
+// 					            pointStrokeColor: '#fff',
+// 					            pointHighlightFill: '#fff',
+// 					            pointHighlightStroke: 'rgba(220,220,220,1)',
+// 					            data: data.data
+// 					        }
+// 					    ]
+// 					};
+// 					var priceHistoryChart = new Chart(ctx).Line(chartData,{responsive: true});
+// 					$('#stock').text(data.stock);
+// 					$('#priceUpdates').text(data.updates);
+// 					$('#lastStockUpdate').text([[#{prod.chart.laststockupdate}]] + $.formatDateTime('mm/dd/yy', new Date(data.lastStockUpdate)));
+// 					$('#lastPriceUpdate').text([[#{prod.chart.lastpriceupdate}]] + $.formatDateTime('mm/dd/yy', new Date(data.lastPriceUpdate)));
+// 		        },
+// 		        error: function (jqXHR, status) {            
+// 					console.log(jqXHR.statusText);
+// 					console.err('Error: No se pudo obtener la data del grafico de historial de precio');
+// 		        }
+// 			});
+			$.ajax({
+				url : product.rest.bestSellers + '/5',
+				type : 'POST',
+				dataType : 'json',
+				contentType : 'application/json',
+				success: function (data, status, jqXHR) {
+					var ctx = $('#bestsellersArticles').get(0).getContext('2d');
+					var bestsellersArticlesChart = new Chart(ctx).Doughnut(data,{responsive: false});
+		        },
+		        error: function (jqXHR, status) {
+					console.log(jqXHR.statusText);
+					console.err('Error: No se pudo obtener la data de los articulos "best seller"');
+		        }
+			});
+			$.ajax({
+				url : product.rest.worstSellers + '/5',
+				type : 'POST',
+				dataType : 'json',
+				contentType : 'application/json',
+				success: function (data, status, jqXHR) {
+					var ctx = $('#worstsellersArticles').get(0).getContext('2d');
+					var worstsellersArticlesChart = new Chart(ctx).Doughnut(data,{responsive: false});
+		        },
+		        error: function (jqXHR, status) {            
+					console.log(jqXHR.statusText);
+					console.err('Error: No se pudo obtener la data de los articulo "worst seller"');
+		        }
+			});
+			$.ajax({
+				url : product.rest.brandPresence + '/5',
+				type : 'POST',
+				dataType : 'json',
+				contentType : 'application/json',
+				success: function (data, status, jqXHR) {
+					var ctx = $('#brandPresence').get(0).getContext('2d');
+					var brandPresenceChart = new Chart(ctx).Doughnut(data,{responsive: false});
+		        },
+		        error: function (jqXHR, status) {            
+					console.log(jqXHR.statusText);
+					console.err('Error: No se pudo obtener la data de presencia de marcas');
+		        }
+			});
+			$.ajax({
+				url : product.rest.stockHistory + '/12',
+				type : 'POST',
+				dataType : 'json',
+				contentType : 'application/json',
+				success: function (data, status, jqXHR) {
+					var stockChartData = {
+					    labels: data['STOCK'].labels,
+					    datasets: [
+					        {
+					            label: [[#{prod.chart.stockhistory.label}]],
+					            fillColor: 'rgba(110,220,110,0.3)',
+					            strokeColor: 'rgba(110,220,110,1)',
+					            pointColor: 'rgba(110,220,110,1)',
+					            pointStrokeColor: '#fff',
+					            pointHighlightFill: '#fff',
+					            pointHighlightStroke: 'rgba(220,220,220,1)',
+					            data: data['STOCK'].data
+					        }
+					    ]
+					};
+					var ctx = $('#stockHistory').get(0).getContext('2d');
+					var stockHistoryChart = new Chart(ctx).Bar(stockChartData, {responsive: false});
+					var stockValueChartData = {
+					    labels: data['CAPITAL'].labels,
+					    datasets: [
+					        {
+					            label: [[#{prod.chart.stockhistory.label}]],
+					            fillColor: 'rgba(110,220,110,0.3)',
+					            strokeColor: 'rgba(110,220,110,1)',
+					            pointColor: 'rgba(110,220,110,1)',
+					            pointStrokeColor: '#fff',
+					            pointHighlightFill: '#fff',
+					            pointHighlightStroke: 'rgba(220,220,220,1)',
+					            data: data['CAPITAL'].data
+					        }
+					    ]
+					};
+					var ctx = $('#stockValueHistory').get(0).getContext('2d');
+					var stockValueHistoryChart = new Chart(ctx).Line(stockValueChartData, {responsive: false});
+					$('#lowestStock').text(data['STOCK'].lowestValue);
+					$('#lowestStockDate').text(data['STOCK'].lowestValueDate);
+					$('#highestStock').text(data['STOCK'].highestValue);
+					$('#highestStockDate').text(data['STOCK'].highestValueDate);
+					
+					$('#lowestStockValue').text(data['CAPITAL'].lowestValue);
+					$('#lowestStockValueDate').text(data['CAPITAL'].lowestValueDate);
+					$('#highestStockValue').text(data['CAPITAL'].highestValue);
+					$('#highestStockValueDate').text(data['CAPITAL'].highestValueDate);
+		        },
+		        error: function (jqXHR, status) {            
+					console.log(jqXHR.statusText);
+					console.err('Error: No se pudo obtener la data de presencia de rubros');
+		        }
+			});
+		});
+	/*]]>*/
+	</script>
 </body>
 </html>

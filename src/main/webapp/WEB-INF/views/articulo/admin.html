@@ -1,716 +1,763 @@
 <!DOCTYPE html>
-<html 
-	xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	layout:decorator="layout.html">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Sistema de Gestión de Stock" />
+	<meta name="author" content="Emiliano Schiano di Cola" />
+
+	<title th:text="#{app.name}" text="Proeza SGS" />
+
+	<link href="../../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+	<link href="../../../resources/metismenu/css/metisMenu.css" th:href="@{/resources/metismenu/css/metisMenu.css}" rel="stylesheet" />
+	<link href="../../../resources/app/css/timeline.css" th:href="@{/resources/app/css/timeline.css}" rel="stylesheet" />
+	<link href="../../../resources/animate/css/animate.css" th:href="@{/resources/animate/css/animate.css}" rel="stylesheet" />
+	<link href="../../../resources/app/css/proeza-sgs.css" th:href="@{/resources/app/css/proeza-sgs.css}" rel="stylesheet" />
+	<link href="../../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css" />
+	<link href="../../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" rel="shortcut icon" />
+	<link href="../../../resources/gallery/css/blueimp-gallery.css" th:href="@{/resources/gallery/css/blueimp-gallery.css}" rel="stylesheet" />
+	<link href="../../../resources/gallery/css/blueimp-gallery-indicator.css" th:href="@{/resources/gallery/css/blueimp-gallery-indicator.css}" rel="stylesheet" />
+    <link href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" rel="stylesheet" />
+    <link href="../../../resources/jqx/css/jqx.energyblueproeza.css" th:href="@{/resources/jqx/css/jqx.energyblueproeza.css}" type="text/css" media="screen" rel="stylesheet" />
+	<link href="../../../resources/fileinput/css/fileinput.css" th:href="@{/resources/fileinput/css/fileinput.css}" media="all" type="text/css" rel="stylesheet" />
+	<link href="../../../resources/alert/css/sweetalert.css" th:href="@{/resources/alert/css/sweetalert.css}" media="all" type="text/css" rel="stylesheet" />
+</head>
+
 <body>
-    <div id="content" layout:fragment="contenido">
-        <link rel="stylesheet" href="../../../resources/jqx/css/jqx.base.css" th:href="@{/resources/jqx/css/jqx.base.css}" type="text/css" media="screen" />
-        <link rel="stylesheet" href="../../../resources/jqx/css/jqx.energyblueproeza.css" th:href="@{/resources/jqx/css/jqx.energyblueproeza.css}" type="text/css" media="screen" />
-		<link rel="stylesheet" href="../../../resources/fileinput/css/fileinput.css" th:href="@{/resources/fileinput/css/fileinput.css}" media="all" type="text/css" />
-		<link rel="stylesheet" href="../../../resources/alert/css/sweetalert.css" th:href="@{/resources/alert/css/sweetalert.css}" media="all" type="text/css" />
-		 
-		<!-- Grilla de articulos -->
-		<div id="gridPanel" class="animated zoomIn">
-			<div class="col-md-12">
-				<div id="productGrid" />
-			</div> 
-		</div>
-        <p/>
-        <div id="thumbnailsPanel" class="row thumbnails-floating">
-            <div class="col-md-12">
-                <div id="links" />
-            </div>
-        </div>
-
-		<div id="priceChangePanel" class="hpanel animated zoomIn" hidden="true">
-			<div class="panel-heading">
-				<span id="updatePricePanelTitle" />
-			</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-md-1 col-md-offset-5">
-						<div class="control-group">
-							<label class="radio"> 
-								<input type="radio" name="options" id="increase" autocomplete="off" checked="checked" />
-								<span th:text="#{control.increase}" th:remove="tag">Incrementar</span>
-							</label> 
-							<label class="radio"> 
-								<input type="radio" name="options" id="decrease" autocomplete="off" />
-								<span th:text="#{control.decrease}" th:remove="tag">Rebajar</span>
-							</label>
-						</div>
-					</div>
-					<div class="col-md-2">
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-addon" th:text="#{control.percentage}">%</div>
-								<input id="percentage" name="percentage" class="form-control input-md" required="required" autofocus="autofocus" />
-							</div>
-							<p/>
-							<div class="input-group">
-								<button id="apply" type="button" class="btn btn-success" th:text="#{control.apply}">Aplicar</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3">
-						<div id="priceUpdateGrid" />
-					</div>
-				</div>
-				<hr/>
-				<div class="row">
-					<div class="col-md-4 col-md-offset-5">
-						<button id="cancelPriceChange" type="button" class="btn btn-default" th:text="#{control.cancel}">Cancelar</button>
-						<button id="savePriceChange" type="button" class="btn btn-primary" th:text="#{control.save}">Guardar</button>
-					</div>
+    <div th:replace="fragment/misc.html::imageGallery"/>
+    <div th:replace="fragment/misc.html::splash"/>
+    <div th:replace="fragment/bar.html::header"/>
+    <div th:replace="fragment/menu.html::mainMenuLeft" />
+    
+	<div id="wrapper">
+		<div class="content">
+			<div class="row">
+				<div class="col-lg-12 text-center" style="padding-top: 10px; padding-bottom: 20px">
+					<span class="pageTitle" th:text="${pageConfig.title}" />
+					<span class="pageTitle" th:if="${not pageConfig.subtitle.isEmpty()}">:</span>
+					<span class="pageSubtitle" th:text="${pageConfig.subtitle}" />
 				</div>
 			</div>
-			<div class="panel-footer">
-				<span id="updatePricePanelFooter" />
-			</div>
-		</div>
-
-		<!-- Panel de edicion -->
-		<div id="editionPanel" class="hpanel animated zoomIn" hidden="true">
-			<div class="panel-heading">
-				<span id="formTitle" />
-			</div>
-			<div class="panel-body">
-				<form id="productForm" class="form-horizontal">
-					<div class="row text-center">
-						<div class="col-md-12">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label id="lblCodigo" for="codigo" class="col-sm-3 control-label" th:text="#{control.code}" />
-									<div class="col-sm-9">
-										<input id="codigo" class="form-control input-md" disabled="disabled" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="modelo" class="col-sm-3 control-label" th:text="#{control.model}" />
-									<div class="col-sm-9">
-										<input id="modelo" name="modelo" class="form-control input-md" required="required" autofocus="autofocus" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="descripcion" class="col-sm-3 control-label" th:text="#{control.description}" />
-									<div class="col-sm-9">
-										<input id="descripcion" class="form-control input-md" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="cbMarca" class="col-sm-3 control-label" th:text="#{control.brand}" />
-									<div class="col-sm-9">
-										<select id="cbMarca" name="marca" class="form-control input-md" required="required">
-											<option value="" th:text="#{control.choose}" />
-											<option th:each="marca : ${marcas}" th:text="${marca.nombre}" th:value="${marca.codigo}" />
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="cbRubro" class="col-sm-3 control-label" th:text="#{control.category}" />
-									<div class="col-sm-9">
-										<select id="cbRubro" name="rubro" class="form-control input-md" required="required">
-											<option value="" th:text="#{control.choose}" />
-											<option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="clase" class="col-sm-3 control-label" th:text="#{control.clazz}" />
-									<div class="col-sm-9">
-										<select id="cbClase" name="clase" class="form-control input-md" required="required">
-											<option value="" th:text="#{control.choose}" />
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="cbTipo" class="col-sm-3 control-label" th:text="#{control.type}" />
-									<div class="col-sm-9">
-										<select id="cbTipo" class="form-control input-md">
-											<option value="" th:text="#{control.choose}" />
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="precio" class="col-sm-3 control-label" th:text="#{control.price}" />
-									<div class="col-sm-9">
-										<input id="precio" class="form-control input-md" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="costo" class="col-sm-3 control-label" th:text="#{control.cost}" />
-									<div class="col-sm-9">
-										<input id="costo" class="form-control input-md" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="cantidad" class="col-sm-3 control-label" th:text="#{control.quantity}" />
-									<div class="col-sm-9">
-										<input id="cantidad" class="form-control input-md" />
-									</div>
-								</div>
-							</div>
-						</div>
-						<p />
-						<div class="col-md-12">
-							<button id="cancelEdit" type="button" class="btn btn-default" th:text="#{control.cancel}" />
-							<button id="saveEdit" type="submit" class="btn btn-primary" th:text="#{control.save}" />
-						</div>
+		    <div id="content" >
+				<!-- Grilla de articulos -->
+				<div id="gridPanel" class="animated zoomIn">
+					<div class="col-md-12">
+						<div id="productGrid" />
+					</div> 
+				</div>
+		        <p/>
+		        
+				<div id="thumbnailsPanel" class="row">
+					<div class="col-md-12">
+					    <div id="links"></div>
 					</div>
-				</form>
-			</div>
-			<div class="panel-footer">
-				<span id="formFooter" />
-			</div>
-		</div>
-
-		<!-- Modal de edicion de catalogo de articulo -->
-        <div th:replace="articulo/fragment/catalog.html::catalogEditor"/>
-        
-        <!-- Modal de agregado de imagen -->
-        <div th:replace="fragment/misc.html::loadImagePopup"/>
-
-        <!-- Command bar -->
-        <div th:replace="articulo/fragment/catalog.html::commandBar"/>
+				</div>
+				<!-- 
+		        <div id="thumbnailsPanel" class="row thumbnails-floating">
+		            <div class="col-md-12">
+		                <div id="links" />
+		            </div>
+		        </div>
+				 -->
 		
-        <!-- Menu Contextual -->
-		<div id="contextSingleProductMenu">
-			<ul>
-				<li id="editProd" th:text="#{prod.menu.edit}" />
-				<li id="addImgToProd" th:text="#{prod.menu.addImage}" />
-				<li id="copyProd" th:text="#{prod.menu.copy}" />
-				<li id="createProd" th:text="#{prod.menu.create}" />
-				<li id="deleteProd" th:text="#{prod.menu.remove}" />
-			</ul>
-		</div>
-		<div id="contextMultiProductMenu">
-			<ul>
-				<li id="updatePrice" th:text="#{prod.menu.updatePrice}" />
-			</ul>
-		</div>
+				<div id="priceChangePanel" class="hpanel animated zoomIn" hidden="true">
+					<div class="panel-heading">
+						<span id="updatePricePanelTitle" />
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-1 col-md-offset-5">
+								<div class="control-group">
+									<label class="radio"> 
+										<input type="radio" name="options" id="increase" autocomplete="off" checked="checked" />
+										<span th:text="#{control.increase}" th:remove="tag">Incrementar</span>
+									</label> 
+									<label class="radio"> 
+										<input type="radio" name="options" id="decrease" autocomplete="off" />
+										<span th:text="#{control.decrease}" th:remove="tag">Rebajar</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon" th:text="#{control.percentage}">%</div>
+										<input id="percentage" name="percentage" class="form-control input-md" required="required" autofocus="autofocus" />
+									</div>
+									<p/>
+									<div class="input-group">
+										<button id="apply" type="button" class="btn btn-success" th:text="#{control.apply}">Aplicar</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-md-offset-3">
+								<div id="priceUpdateGrid" />
+							</div>
+						</div>
+						<hr/>
+						<div class="row">
+							<div class="col-md-4 col-md-offset-5">
+								<button id="cancelPriceChange" type="button" class="btn btn-default" th:text="#{control.cancel}">Cancelar</button>
+								<button id="savePriceChange" type="button" class="btn btn-primary" th:text="#{control.save}">Guardar</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel-footer">
+						<span id="updatePricePanelFooter" />
+					</div>
+				</div>
 		
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxscrollbar.js" th:src="@{/resources/jqx/js/jqxscrollbar.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxmenu.js" th:src="@{/resources/jqx/js/jqxmenu.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.js" th:src="@{/resources/jqx/js/jqxgrid.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.selection.js" th:src="@{/resources/jqx/js/jqxgrid.selection.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxnumberinput.js" th:src="@{/resources/jqx/js/jqxnumberinput.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxwindow.js" th:src="@{/resources/jqx/js/jqxwindow.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxlistbox.js" th:src="@{/resources/jqx/js/jqxlistbox.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxdropdownlist.js" th:src="@{/resources/jqx/js/jqxdropdownlist.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxinput.js" th:src="@{/resources/jqx/js/jqxinput.js}" />
-		<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
-		<script type="text/javascript" src="../../../resources/jquery/jquery.inputmask.bundle.js" th:src="@{/resources/jquery/jquery.inputmask.bundle.js}" />
-		<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
-		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput.js" th:src="@{/resources/fileinput/js/fileinput.js}" />
-		<script type="text/javascript" src="../../../resources/fileinput/js/fileinput_locale_es.js" th:src="@{/resources/fileinput/js/fileinput_locale_es.js}" />
-        <script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery.js" th:src="@{/resources/gallery/js/blueimp-gallery.js}"/>
-        <script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery-indicator.js" th:src="@{/resources/gallery/js/blueimp-gallery-indicator.js}"/>
-        <script type="text/javascript" src="../../../resources/gallery/js/jquery.blueimp-gallery.js" th:src="@{/resources/gallery/js/jquery.blueimp-gallery.js}"/>
-        <script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}" />
-		<script type="text/javascript" src="../../../resources/alert/js/sweetalert-dev.js" th:src="@{/resources/alert/js/sweetalert-dev.js}" />
-        
-		<script th:inline="javascript">
-		 	/*<![CDATA[*/
-			// Inicializacion de la tabla de artículos
-			$(document).ready(function() {
-				configGridSource();
-				configProductGrid(); 
-				configControls();				
+				<!-- Panel de edicion -->
+				<div id="editionPanel" class="hpanel animated zoomIn" hidden="true">
+					<div class="panel-heading">
+						<span id="formTitle" />
+					</div>
+					<div class="panel-body">
+						<form id="productForm" class="form-horizontal">
+							<div class="row text-center">
+								<div class="col-md-12">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label id="lblCodigo" for="codigo" class="col-sm-3 control-label" th:text="#{control.code}" />
+											<div class="col-sm-9">
+												<input id="codigo" class="form-control input-md" disabled="disabled" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="modelo" class="col-sm-3 control-label" th:text="#{control.model}" />
+											<div class="col-sm-9">
+												<input id="modelo" name="modelo" class="form-control input-md" required="required" autofocus="autofocus" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="descripcion" class="col-sm-3 control-label" th:text="#{control.description}" />
+											<div class="col-sm-9">
+												<input id="descripcion" class="form-control input-md" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="cbMarca" class="col-sm-3 control-label" th:text="#{control.brand}" />
+											<div class="col-sm-9">
+												<select id="cbMarca" name="marca" class="form-control input-md" required="required">
+													<option value="" th:text="#{control.choose}" />
+													<option th:each="marca : ${marcas}" th:text="${marca.nombre}" th:value="${marca.codigo}" />
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="cbRubro" class="col-sm-3 control-label" th:text="#{control.category}" />
+											<div class="col-sm-9">
+												<select id="cbRubro" name="rubro" class="form-control input-md" required="required">
+													<option value="" th:text="#{control.choose}" />
+													<option th:each="rubro : ${rubros}" th:text="${rubro.nombre}" th:value="${rubro.codigo}" />
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="clase" class="col-sm-3 control-label" th:text="#{control.clazz}" />
+											<div class="col-sm-9">
+												<select id="cbClase" name="clase" class="form-control input-md" required="required">
+													<option value="" th:text="#{control.choose}" />
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="cbTipo" class="col-sm-3 control-label" th:text="#{control.type}" />
+											<div class="col-sm-9">
+												<select id="cbTipo" class="form-control input-md">
+													<option value="" th:text="#{control.choose}" />
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="precio" class="col-sm-3 control-label" th:text="#{control.price}" />
+											<div class="col-sm-9">
+												<input id="precio" class="form-control input-md" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="costo" class="col-sm-3 control-label" th:text="#{control.cost}" />
+											<div class="col-sm-9">
+												<input id="costo" class="form-control input-md" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="cantidad" class="col-sm-3 control-label" th:text="#{control.quantity}" />
+											<div class="col-sm-9">
+												<input id="cantidad" class="form-control input-md" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<p />
+								<div class="col-md-12">
+									<button id="cancelEdit" type="button" class="btn btn-default" th:text="#{control.cancel}" />
+									<button id="saveEdit" type="submit" class="btn btn-primary" th:text="#{control.save}" />
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel-footer">
+						<span id="formFooter" />
+					</div>
+				</div>
+		
+				<!-- Modal de edicion de catalogo de articulo -->
+		        <div th:replace="articulo/fragment/catalog.html::catalogEditor"/>
+		        
+		        <!-- Modal de agregado de imagen -->
+		        <div th:replace="fragment/misc.html::loadImagePopup"/>
+		
+		        <!-- Command bar -->
+		        <div th:replace="articulo/fragment/catalog.html::commandBar"/>
+				
+		        <!-- Menu Contextual -->
+				<div id="contextSingleProductMenu">
+					<ul>
+						<li id="editProd" th:text="#{prod.menu.edit}" />
+						<li id="addImgToProd" th:text="#{prod.menu.addImage}" />
+						<li id="copyProd" th:text="#{prod.menu.copy}" />
+						<li id="createProd" th:text="#{prod.menu.create}" />
+						<li id="deleteProd" th:text="#{prod.menu.remove}" />
+					</ul>
+				</div>
+				<div id="contextMultiProductMenu">
+					<ul>
+						<li id="updatePrice" th:text="#{prod.menu.updatePrice}" />
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}" />
+    <script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}" />
+	<script type="text/javascript" src="../../../resources/metismenu/js/metisMenu.js" th:src="@{/resources/metismenu/js/metisMenu.js}" />
+    <script type="text/javascript" src="../../../resources/sparkline/js/sparkline.js" th:src="@{/resources/sparkline/js/sparkline.js}"/>
+    <script type="text/javascript" src="../../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"/>
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxcore.js" th:src="@{/resources/jqx/js/jqxcore.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxdata.js" th:src="@{/resources/jqx/js/jqxdata.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxbuttons.js" th:src="@{/resources/jqx/js/jqxbuttons.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxscrollbar.js" th:src="@{/resources/jqx/js/jqxscrollbar.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxmenu.js" th:src="@{/resources/jqx/js/jqxmenu.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.js" th:src="@{/resources/jqx/js/jqxgrid.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.selection.js" th:src="@{/resources/jqx/js/jqxgrid.selection.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxnumberinput.js" th:src="@{/resources/jqx/js/jqxnumberinput.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxwindow.js" th:src="@{/resources/jqx/js/jqxwindow.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxlistbox.js" th:src="@{/resources/jqx/js/jqxlistbox.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxdropdownlist.js" th:src="@{/resources/jqx/js/jqxdropdownlist.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxinput.js" th:src="@{/resources/jqx/js/jqxinput.js}" />
+	<script type="text/javascript" src="../../../resources/jqx/js/jqxgrid.sort.js" th:src="@{/resources/jqx/js/jqxgrid.sort.js}" />
+	<script type="text/javascript" src="../../../resources/jquery/jquery.inputmask.bundle.js" th:src="@{/resources/jquery/jquery.inputmask.bundle.js}" />
+	<script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap-notify.js" th:src="@{/resources/bootstrap/js/bootstrap-notify.js}" />
+	<script type="text/javascript" src="../../../resources/fileinput/js/fileinput.js" th:src="@{/resources/fileinput/js/fileinput.js}" />
+	<script type="text/javascript" src="../../../resources/fileinput/js/fileinput_locale_es.js" th:src="@{/resources/fileinput/js/fileinput_locale_es.js}" />
+    <script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery.js" th:src="@{/resources/gallery/js/blueimp-gallery.js}"/>
+    <script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery-indicator.js" th:src="@{/resources/gallery/js/blueimp-gallery-indicator.js}"/>
+    <script type="text/javascript" src="../../../resources/gallery/js/jquery.blueimp-gallery.js" th:src="@{/resources/gallery/js/jquery.blueimp-gallery.js}"/>
+	<script type="text/javascript" src="../../../resources/alert/js/sweetalert-dev.js" th:src="@{/resources/alert/js/sweetalert-dev.js}" />
+	<script type="text/javascript" src="../../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}" />
+    <script type="text/javascript" src="../../../resources/app/js/menu.js" th:src="@{/resources/app/js/menu.js}"/>
+    <script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}" />
+    <div th:replace="articulo/fragment/catalog.html::catalogScript"/>
+	<script th:inline="javascript">
+	 	/*<![CDATA[*/
+		// Inicializacion de la tabla de artículos
+		$(document).ready(function() {
+			loadUserSalesSparkline($("#userAlias").text(), 12, 7);
+			configGridSource();
+			configProductGrid(); 
+			configControls();				
+		});
+
+		function configControls() {
+			$('#cbRubro').change(function(){
+				var label = $("label[for='cbRubro']");
+				relateCombos('#cbRubro', '#cbClase', product.rest.classesByCategory, '', function() {notifyComboError(label.text())} );
+			});
+			$('#cbClase').change(function(){
+				var label = $("label[for='cbClase']");
+				relateCombos('#cbClase', '#cbTipo', product.rest.typesByClass, '', function() {notifyComboError(label.text())} );
+			});
+			$('#newProduct').click(function(){
+				initCreationForm();
+			});
+			$('#productForm').submit(function( e ) {
+   			    e.preventDefault();
+   			    switch (formMode) {
+   		    	case 'creation' : 
+					addProduct();
+   					break;
+   		    	case 'edition' :
+					if (currentRow >= 0) {
+						updateProduct();
+					}
+   					break;
+   				default:
+   					break;
+				}
+				hideAuxPanel();
 			});
 
-			function configControls() {
-				$('#cbRubro').change(function(){
-					var label = $("label[for='cbRubro']");
-					relateCombos('#cbRubro', '#cbClase', product.rest.classesByCategory, '', function() {notifyComboError(label.text())} );
-				});
-				$('#cbClase').change(function(){
-					var label = $("label[for='cbClase']");
-					relateCombos('#cbClase', '#cbTipo', product.rest.typesByClass, '', function() {notifyComboError(label.text())} );
-				});
-				$('#newProduct').click(function(){
-					initCreationForm();
-				});
-				$('#productForm').submit(function( e ) {
-    			    e.preventDefault();
-    			    switch (formMode) {
-    		    	case 'creation' : 
-						addProduct();
-    					break;
-    		    	case 'edition' :
-						if (currentRow >= 0) {
-							updateProduct();
-						}
-    					break;
-    				default:
-    					break;
-					}
-					hideAuxPanel();
-				});
+			// Hide popup when cancel
+			$('#cancelEdit').click(function() {
+				hideAuxPanel();
+			});
+			$('#savePriceChange').click(function() {
+				console.log("Saving price change");
+			});
+			// Hide popup when cancel
+			$('#cancelPriceChange').click(function() {
+				hideAuxPanel();
+			});
+			$('#cancelImage').click(function() {
+				$('#addImagePopup').modal('hide');
+			});
 
-				// Hide popup when cancel
-				$('#cancelEdit').click(function() {
-					hideAuxPanel();
-				});
-				$('#savePriceChange').click(function() {
-					console.log("Saving price change");
-				});
-				// Hide popup when cancel
-				$('#cancelPriceChange').click(function() {
-					hideAuxPanel();
-				});
-				$('#cancelImage').click(function() {
-					$('#addImagePopup').modal('hide');
-				});
-
-				// Configuracion del control de ingreso del precio
-				$('#precio').inputmask('currency', {
-					autoUnmask : true, rightAlign: false 
-				});
-				$('#costo').inputmask('currency', {
-					autoUnmask : true, rightAlign: false 
-				});
-				$('#percentage').inputmask('99');
-				
-				// Inicializa los controles del filtro
-	            $('#filter').on('input', function() {
-	            	refreshGrid(gridSource, 'productGrid');
-	            });
-	            $('#eraser').click(function () {
-	                $('#productGrid').jqxGrid('clear');
-		            cleanContainer('links');
-	            });
-    			$('#confirmAction').click(function() {
-    				removeProduct();
-    			});
-			}
-
-			function notifyComboError (comboName) {
-	        	$.notify({
-					message: [[#{rest.dataload.error}]]
-				},{
-					type: 'danger'
-				});
-			}
+			// Configuracion del control de ingreso del precio
+			$('#precio').inputmask('currency', {
+				autoUnmask : true, rightAlign: false 
+			});
+			$('#costo').inputmask('currency', {
+				autoUnmask : true, rightAlign: false 
+			});
+			$('#percentage').inputmask('99');
 			
-			function configProductGrid () {
-				var dataAdapter = new $.jqx.dataAdapter(gridSource);
-				// initializa la grilla de articulos
-				$('#productGrid').jqxGrid({
-					width : '100%',
-					height : '100%',
-					theme : 'energyblueproeza',
-					source : dataAdapter,
-					pageable : false,
-					altrows : true,
-	                columnsresize: false,
-					sortable : true,
-					enablehover : false,
-					enabletooltips : true,
-					selectionmode: 'multiplerowsadvanced',
-					columns : [ {
-    						text : /*[[#{prod.grid.model}]]*/ 'Modelo',
-    						dataField : 'modelo',
-    						width : '26%'
-    					},{
-    						text : /*[[#{prod.grid.clazz}]]*/ 'Clase',
-    						dataField : 'clase',
-    						width : '26%'
-    					},{
-    						text : /*[[#{prod.grid.trademark}]]*/ 'Marca',
-    						dataField : 'marca',
-    						width : '20%'
-    					},{
-    						text : /*[[#{prod.grid.cost}]]*/ 'Costo',
-    						dataField : 'costo',
-    						cellsalign : 'right',
-    						cellsformat : 'c2',
-    						minwidth : '13%'
-    					},{
-    						text : /*[[#{prod.grid.price}]]*/ 'Precio',
-    						dataField : 'precio',
-    						cellsalign : 'right',
-    						cellsformat : 'c2',
-    						minwidth : '13%'
-    					},{
-							text: /*[[#{prod.grid.quantity}]]*/ 'Cantidad', 
-							dataField: 'cantidad', 
-							cellsalign: 'center', 
-							minwidth: '2%' 
-						}
-    				]
-				});
-				// create context menu
-				var singleProductMenu = $('#contextSingleProductMenu').jqxMenu({
-					width : 190,
-					autoOpenPopup : false,
-					mode : 'popup'
-
-				});
-				// create context menu
-				var multiProductMenu = $('#contextMultiProductMenu').jqxMenu({
-					width : 190,
-					autoOpenPopup : false,
-					mode : 'popup'
-
-				});
-				$('#productGrid').on('contextmenu', function() {
-					return false;
-				});
-				// handle context menu clicks.
-				$('#contextSingleProductMenu').on('itemclick', function(event) {
-			        event.preventDefault();
-					var args = event.args;
-					var currentRow = $('#productGrid').jqxGrid('getselectedrowindex');
-					var offset = $('#productGrid').offset();
-					var dataRecord = $('#productGrid').jqxGrid('getrowdata', currentRow);
-					var command = $.trim($(args).text());
-					switch (command) {
-					case [[#{prod.menu.edit}]] :
-						initEditionForm(dataRecord);
-						break;
-					case [[#{prod.menu.create}]] :
-						initCreationForm();
-						break;
-					case [[#{prod.menu.copy}]] :
-						initCopyCreationForm(dataRecord);
-						break;
-					case [[#{prod.menu.remove}]] :
-						showRemoveConfirmation();
-						break;
-					case [[#{prod.menu.addImage}]] :
-						showLoadImagePopup(dataRecord);
-						break;
-					default:
-						break;
-					}
-				});
-				// handle context menu clicks.
-				$('#contextMultiProductMenu').on('itemclick', function(event) {
-			        event.preventDefault();
-					var args = event.args;
-					var rowsSelected = $('#productGrid').jqxGrid('selectedrowindexes');
-					$.each(rowsSelected, function(index, row) {
-						var dataRecord = $('#productGrid').jqxGrid('getrowdata', row);
-	    				
-	    			});
-					var command = $.trim($(args).text());
-					switch (command) {
-					case [[#{prod.menu.updatePrice}]] :
-						showAuxPanel('#priceChangePanel');
-						break;
-					default:
-						break;
-					}
-				});
-				// Procesa cualquier clic hecho sobre la grilla de articulos
-				$('#productGrid').on('rowclick', function (event) {
-					var rowIndex = event.args.rowindex;
-					var rowsSelected = $('#productGrid').jqxGrid('selectedrowindexes');
-					if (rowsSelected.length > 1) {
-						// El comportamiento de la grilla varia dependiendo de si hay más de una row seleccionada
-						if (event.args.rightclick) {
-							if ($.inArray(rowIndex, rowsSelected) >= 0) {
-								// Aca va el manejo del menu contextual para multiples items seleccionados
-								/*
-								multiProductMenu.jqxMenu(
-									'open', 
-									parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
-									parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
-								);
-								*/
-								return false;
-							} else {
-								$('#productGrid').jqxGrid('clearselection');
-							}
-						}
-					}
-					if (event.args.rightclick) {
-						/* Solo se selecciona la row sobre la que se hizo el clic derecho cuando no hay nada seleccionado.
-						 * Esto es para evitar que cuando hay alguna fila seleccionada, si el usuario hace clic derecho se 
-						 * seleccione accidentalmente la fila sobre donde se hizo el clic. */
-						$('#productGrid').jqxGrid('clearselection');
-						$('#productGrid').jqxGrid('selectrow', rowIndex);
-						var scrollTop = $(window).scrollTop();
-						var scrollLeft = $(window).scrollLeft();
-						singleProductMenu.jqxMenu(
-							'open', 
-							parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
-							parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
-						);
-					}
-	            	var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowIndex);
-	            	if (currentRow != rowIndex) {
-	            		currentRow = rowIndex;
-	            		cleanContainer('links');
-	            		updateGaleryPreview(dataRecord.codigo, 'links');
-	            	}
-					return false;
-				});
-			}
-			
-			function getFormData () {
-				return  {
-					codigo : $('#codigo').val(),
-					modelo : $('#modelo').val(),
-					descripcion : $('#descripcion').val(),
-					clase : $('#cbClase').val(),
-					tipo : $('#cbTipo').val(),
-					rubro : $('#cbRubro').val(),
-					marca : $('#cbMarca').val(),
-					precio : $('#precio').val(),
-					costo : $('#costo').val(),
-					cantidad : $('#cantidad').val(),
-					codClase : $('#cbClase option:selected').attr('value'),
-					codTipo : $('#cbTipo option:selected').attr('value'),
-					codMarca : $('#cbMarca option:selected').attr('value'),
-					codRubro : $('#cbRubro option:selected').attr('value')
-				};	
-			}
-			
-			function updateProduct () {
-				var rowData = getFormData();
-				var rowid = $('#productGrid').jqxGrid('getrowid', currentRow);
-				$.ajax({
-					type : 'POST',
-					url : product.rest.update,
-					dataType: 'json',
-					contentType: 'application/json',
-					data : JSON.stringify(rowData),
-					success : function() {
-						$.notify({
-							title: /*[[#{prod.update.title}]]*/ '<strong>Modificación de artículo:</strong>',
-							message: /*[[#{prod.update.success.message}]]*/ 'La modificación se realizó correctamente'
-						},{
-							type: 'success'
-						});
-						refreshGrid(gridSource, 'productGrid');
-					},
-					error: function () {            
-						$.notify({
-							title: /*[[#{prod.update.title}]]*/ '<strong>Modificación de artículo:</strong>',
-							message: /*[[#{prod.update.error.message}]]*/ 'Ocurrió un error en la actualización del artículo'
-						},{
-							type: 'danger'
-						});
-			        }
-				});
-			}
-			
-			function addProduct () {
-				var formData = getFormData();
-				formData.codigo = '';
-            	$.ajax({
-					type : 'POST',
-					url : product.rest.create,
-					dataType: 'json',
-					contentType: 'application/json',
-					data : JSON.stringify(formData),
-					success : function() { 
-						$.notify({
-							title: /*[[#{prod.create.title}]]*/ '<strong>Creación de artículo:</strong>',
-							message: /*[[#{prod.create.success.message}]]*/ 'El articulo fue creado correctamente' 
-						},{
-							type: 'success'
-						});
-						refreshGrid(gridSource, 'productGrid');
-					},
-					error: function () {            
-						$.notify({
-							title: /*[[#{prod.create.title}]]*/ '<strong>Creación de artículo:</strong>',
-							message: /*[[#{prod.create.error.message}]]*/ 'Ocurrió un error durante la creación del artículo',
-						},{
-							type: 'danger'
-						});
-			        }
-				});
-			}
-			
-			function showLoadImagePopup(dataRecord) {
-				var fileInputOptions = {
-					language: /*[[#{app.lnguage}]]*/ 'es',
-					showUpload : true,
-					showRemove : true,
-	        	    uploadAsync: true,
-					maxFileCount : 5,
-	                allowedFileExtensions : ['jpg', 'png'],
-					allowedFileTypes : ['image'],
-	                uploadUrl: product.rest.addImage + '?artCode=' + dataRecord.codigo
-				};
-	         	// File input plugin options
-	            $('#uploadImage').fileinput(fileInputOptions);
-				$('#addImagePopup').modal('show');	
-			}
-			
-			function showRemoveConfirmation () {
-    			swal({
-						title: [[#{control.confirmDelete.title}]],
-						text: [[#{prod.confirm.remove}]],
-						type: 'warning',
-						showCancelButton: true,
-						confirmButtonColor: '#DD6B55',
-						confirmButtonText: [[#{control.confirmDelete}]],
-						cancelButtonText: [[#{control.cancelDelete}]]
-					}, 
-					function (isConfirm) {
-						if (isConfirm) {
-							removeProduct();
-						} 
-					}
-				);
-			}
-			
-			function removeProduct () {
-				var rowdata = $('#productGrid').jqxGrid('getrowdata', currentRow);
-				var rowid = $('#productGrid').jqxGrid('getrowid', currentRow);
-				$.ajax({
-					type : 'POST',
-					url : product.rest.remove,
-					dataType: 'json',
-					contentType: 'application/json',
-					data : rowdata.codigo,
-					success : function() {
-						$.notify({
-							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminación de artículo:</strong>',
-							message: /*[[#{prod.remove.success.message}]]*/ 'La eliminación se realizó correctamente'
-						},{
-							type: 'success'
-						});
-						$('#productGrid').jqxGrid('deleterow', rowid);	
-					},
-					error: function () {            
-						$.notify({
-							title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminación de artículo:</strong>',
-							message: /*[[#{prod.remove.error.message}]]*/ 'Ocurrió un error en la eliminación del artículo'
-						},{
-							type: 'danger'
-						});
-			        }
-				});
-			}
-			var currentAuxPanel;
-			
-			function showAuxPanel(panel) {
-				$('#gridPanel').hide();
-				$('#commandBar').hide();
-				$('#thumbnailsPanel').hide();
-				currentAuxPanel = panel;
-				$(panel).show();
-			}
-			
-			function hideAuxPanel() {
-				$('#gridPanel').show();
-				$('#commandBar').show();
-				$('#thumbnailsPanel').show();
-				$(currentAuxPanel).hide();
-			}
-			
-			function initCreationForm () {
-				formMode = 'creation';
-				$('#modelo').val('');
-				$('#descripcion').val('');
-				$('#cbClase').val('');
-				$('#cbTipo').val('');
-				$('#cbMarca').val('');
-				$('#cbRubro').val('');
-				$('#precio').val('0');
-				$('#costo').val('0');
-				$('#cantidad').val('0');
-				// Setting the form controls
-				$('#formTitle').text([[#{prod.admin.creation.title}]]);
-				$('#formFooter').text([[#{prod.admin.creating}]]);
-				$('#codigo').hide();
-				$('#lblCodigo').hide();
-				showAuxPanel('#editionPanel');
-			}
-			
-			function initCopyCreationForm (dataRecord) {
-				formMode = 'creation';
-				$('#codigo').val('');
-				$('#codigo').hide();
-				$('#lblCodigo').hide();
-				$('#modelo').val(dataRecord.modelo);
-				$('#descripcion').val(dataRecord.descripcion);
-				$('#cbMarca').val(dataRecord.codMarca);
-				$('#cbRubro').val(dataRecord.codRubro);
-				$('#cbRubro').trigger('chain', dataRecord);
-				$('#precio').val(dataRecord.precio);
-				$('#costo').val(dataRecord.costo);
-				$('#cantidad').val('0');
-				// Setting the form controls
-				$('#formTitle').text([[#{prod.admin.creation.title}]]);
-				$('#formFooter').text([[#{prod.admin.copying}]] + dataRecord.clase + ' ' + dataRecord.marca + ' ' + dataRecord.modelo);
-				$('#codigo').hide();
-				$('#lblCodigo').hide();
-				showAuxPanel('#editionPanel');
-			}
-			
-			function initEditionForm (dataRecord) {
-				formMode = 'edition';
-				findProduct(dataRecord.codigo, findProductCallback);
-				$('#formTitle').text([[#{prod.admin.edition.title}]]);
-				$('#formFooter').text([[#{prod.admin.editing}]] + dataRecord.codigo);
-				$('#codigo').show();
-				$('#lblCodigo').show();	
-				showAuxPanel('#editionPanel');
-			}
-			
-			function findProductCallback (productData, status) {
-				switch (status) {
-        		case 'success':
-	        		fillEditionForm(productData);
-        		break;
-        		case 'error':
-        			$.notify({
-    					title: [[#{prod.find.title}]],
-    					message: [[#{prod.find.error.message}]] 
-    				},{
-    					type: 'error'
-    				});
-        		break;
-        		default:
-        			break;
-        		}
-			}
-
-			$('#cbRubro').on('chain',  function(event, dataRecord) {
-				chainCombos(
-					'#cbRubro', 
-					'#cbClase', 
-					dataRecord.codClase, 
-					product.rest.classesByCategory, 
-					function () {
-						chainCombos(
-							'#cbClase',
-							'#cbTipo',
-							dataRecord.codTipo,
-							product.rest.typesByClass
-						)
-					}
-				);
+			// Inicializa los controles del filtro
+            $('#filter').on('input', function() {
+            	refreshGrid(gridSource, 'productGrid');
             });
-			
-	        function fillEditionForm(dataRecord) {
-	        	$('#codigo').val(dataRecord.codigo);
-				$('#modelo').val(dataRecord.modelo);
-				$('#descripcion').val(dataRecord.descripcion);
-				$('#cbMarca').val(dataRecord.codMarca);
-				$('#cbRubro').val(dataRecord.codRubro);
-				$('#cbRubro').trigger('chain', dataRecord);
-				$('#precio').val(dataRecord.precio);
-				$('#costo').val(dataRecord.costo);
-				$('#cantidad').val(dataRecord.cantidad);
-	        }
-			/*]]>*/
-		</script>
-		<div th:replace="articulo/fragment/catalog.html::catalogScript"/>
-	</div>
+            $('#eraser').click(function () {
+                $('#productGrid').jqxGrid('clear');
+	            cleanContainer('links');
+            });
+   			$('#confirmAction').click(function() {
+   				removeProduct();
+   			});
+		}
+
+		function notifyComboError (comboName) {
+        	$.notify({
+				message: [[#{rest.dataload.error}]]
+			},{
+				type: 'danger'
+			});
+		}
+		
+		function configProductGrid () {
+			var dataAdapter = new $.jqx.dataAdapter(gridSource);
+			// initializa la grilla de articulos
+			$('#productGrid').jqxGrid({
+				width : '100%',
+				height : '100%',
+				theme : 'energyblueproeza',
+				source : dataAdapter,
+				pageable : false,
+				altrows : true,
+                columnsresize: false,
+				sortable : true,
+				enablehover : false,
+				enabletooltips : true,
+				selectionmode: 'multiplerowsadvanced',
+				columns : [ {
+   						text : /*[[#{prod.grid.model}]]*/ 'Modelo',
+   						dataField : 'modelo',
+   						width : '26%'
+   					},{
+   						text : /*[[#{prod.grid.clazz}]]*/ 'Clase',
+   						dataField : 'clase',
+   						width : '26%'
+   					},{
+   						text : /*[[#{prod.grid.trademark}]]*/ 'Marca',
+   						dataField : 'marca',
+   						width : '20%'
+   					},{
+   						text : /*[[#{prod.grid.cost}]]*/ 'Costo',
+   						dataField : 'costo',
+   						cellsalign : 'right',
+   						cellsformat : 'c2',
+   						minwidth : '13%'
+   					},{
+   						text : /*[[#{prod.grid.price}]]*/ 'Precio',
+   						dataField : 'precio',
+   						cellsalign : 'right',
+   						cellsformat : 'c2',
+   						minwidth : '13%'
+   					},{
+						text: /*[[#{prod.grid.quantity}]]*/ 'Cantidad', 
+						dataField: 'cantidad', 
+						cellsalign: 'center', 
+						minwidth: '2%' 
+					}
+   				]
+			});
+			// create context menu
+			var singleProductMenu = $('#contextSingleProductMenu').jqxMenu({
+				width : 190,
+				autoOpenPopup : false,
+				mode : 'popup'
+
+			});
+			// create context menu
+			var multiProductMenu = $('#contextMultiProductMenu').jqxMenu({
+				width : 190,
+				autoOpenPopup : false,
+				mode : 'popup'
+
+			});
+			$('#productGrid').on('contextmenu', function() {
+				return false;
+			});
+			// handle context menu clicks.
+			$('#contextSingleProductMenu').on('itemclick', function(event) {
+		        event.preventDefault();
+				var args = event.args;
+				var currentRow = $('#productGrid').jqxGrid('getselectedrowindex');
+				var offset = $('#productGrid').offset();
+				var dataRecord = $('#productGrid').jqxGrid('getrowdata', currentRow);
+				var command = $.trim($(args).text());
+				switch (command) {
+				case [[#{prod.menu.edit}]] :
+					initEditionForm(dataRecord);
+					break;
+				case [[#{prod.menu.create}]] :
+					initCreationForm();
+					break;
+				case [[#{prod.menu.copy}]] :
+					initCopyCreationForm(dataRecord);
+					break;
+				case [[#{prod.menu.remove}]] :
+					showRemoveConfirmation();
+					break;
+				case [[#{prod.menu.addImage}]] :
+					showLoadImagePopup(dataRecord);
+					break;
+				default:
+					break;
+				}
+			});
+			// handle context menu clicks.
+			$('#contextMultiProductMenu').on('itemclick', function(event) {
+		        event.preventDefault();
+				var args = event.args;
+				var rowsSelected = $('#productGrid').jqxGrid('selectedrowindexes');
+				$.each(rowsSelected, function(index, row) {
+					var dataRecord = $('#productGrid').jqxGrid('getrowdata', row);
+    				
+    			});
+				var command = $.trim($(args).text());
+				switch (command) {
+				case [[#{prod.menu.updatePrice}]] :
+					showAuxPanel('#priceChangePanel');
+					break;
+				default:
+					break;
+				}
+			});
+			// Procesa cualquier clic hecho sobre la grilla de articulos
+			$('#productGrid').on('rowclick', function (event) {
+				var rowIndex = event.args.rowindex;
+				var rowsSelected = $('#productGrid').jqxGrid('selectedrowindexes');
+				if (rowsSelected.length > 1) {
+					// El comportamiento de la grilla varia dependiendo de si hay más de una row seleccionada
+					if (event.args.rightclick) {
+						if ($.inArray(rowIndex, rowsSelected) >= 0) {
+							// Aca va el manejo del menu contextual para multiples items seleccionados
+							/*
+							multiProductMenu.jqxMenu(
+								'open', 
+								parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+								parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
+							);
+							*/
+							return false;
+						} else {
+							$('#productGrid').jqxGrid('clearselection');
+						}
+					}
+				}
+				if (event.args.rightclick) {
+					/* Solo se selecciona la row sobre la que se hizo el clic derecho cuando no hay nada seleccionado.
+					 * Esto es para evitar que cuando hay alguna fila seleccionada, si el usuario hace clic derecho se 
+					 * seleccione accidentalmente la fila sobre donde se hizo el clic. */
+					$('#productGrid').jqxGrid('clearselection');
+					$('#productGrid').jqxGrid('selectrow', rowIndex);
+					var scrollTop = $(window).scrollTop();
+					var scrollLeft = $(window).scrollLeft();
+					singleProductMenu.jqxMenu(
+						'open', 
+						parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft,
+						parseInt(event.args.originalEvent.clientY) + 5 + scrollTop
+					);
+				}
+            	var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowIndex);
+            	if (currentRow != rowIndex) {
+            		currentRow = rowIndex;
+            		cleanContainer('links');
+            		updateGaleryPreview(dataRecord.codigo, 'links');
+            	}
+				return false;
+			});
+		}
+		
+		function getFormData () {
+			return  {
+				codigo : $('#codigo').val(),
+				modelo : $('#modelo').val(),
+				descripcion : $('#descripcion').val(),
+				clase : $('#cbClase').val(),
+				tipo : $('#cbTipo').val(),
+				rubro : $('#cbRubro').val(),
+				marca : $('#cbMarca').val(),
+				precio : $('#precio').val(),
+				costo : $('#costo').val(),
+				cantidad : $('#cantidad').val(),
+				codClase : $('#cbClase option:selected').attr('value'),
+				codTipo : $('#cbTipo option:selected').attr('value'),
+				codMarca : $('#cbMarca option:selected').attr('value'),
+				codRubro : $('#cbRubro option:selected').attr('value')
+			};	
+		}
+		
+		function updateProduct () {
+			var rowData = getFormData();
+			var rowid = $('#productGrid').jqxGrid('getrowid', currentRow);
+			$.ajax({
+				type : 'POST',
+				url : product.rest.update,
+				dataType: 'json',
+				contentType: 'application/json',
+				data : JSON.stringify(rowData),
+				success : function() {
+					$.notify({
+						title: /*[[#{prod.update.title}]]*/ '<strong>Modificación de artículo:</strong>',
+						message: /*[[#{prod.update.success.message}]]*/ 'La modificación se realizó correctamente'
+					},{
+						type: 'success'
+					});
+					refreshGrid(gridSource, 'productGrid');
+				},
+				error: function () {            
+					$.notify({
+						title: /*[[#{prod.update.title}]]*/ '<strong>Modificación de artículo:</strong>',
+						message: /*[[#{prod.update.error.message}]]*/ 'Ocurrió un error en la actualización del artículo'
+					},{
+						type: 'danger'
+					});
+		        }
+			});
+		}
+		
+		function addProduct () {
+			var formData = getFormData();
+			formData.codigo = '';
+           	$.ajax({
+				type : 'POST',
+				url : product.rest.create,
+				dataType: 'json',
+				contentType: 'application/json',
+				data : JSON.stringify(formData),
+				success : function() { 
+					$.notify({
+						title: /*[[#{prod.create.title}]]*/ '<strong>Creación de artículo:</strong>',
+						message: /*[[#{prod.create.success.message}]]*/ 'El articulo fue creado correctamente' 
+					},{
+						type: 'success'
+					});
+					refreshGrid(gridSource, 'productGrid');
+				},
+				error: function () {            
+					$.notify({
+						title: /*[[#{prod.create.title}]]*/ '<strong>Creación de artículo:</strong>',
+						message: /*[[#{prod.create.error.message}]]*/ 'Ocurrió un error durante la creación del artículo',
+					},{
+						type: 'danger'
+					});
+		        }
+			});
+		}
+		
+		function showLoadImagePopup(dataRecord) {
+			var fileInputOptions = {
+				language: /*[[#{app.lnguage}]]*/ 'es',
+				showUpload : true,
+				showRemove : true,
+        	    uploadAsync: true,
+				maxFileCount : 5,
+                allowedFileExtensions : ['jpg', 'png'],
+				allowedFileTypes : ['image'],
+                uploadUrl: product.rest.addImage + '?artCode=' + dataRecord.codigo
+			};
+         	// File input plugin options
+            $('#uploadImage').fileinput(fileInputOptions);
+			$('#addImagePopup').modal('show');	
+		}
+		
+		function showRemoveConfirmation () {
+   			swal({
+					title: [[#{control.confirmDelete.title}]],
+					text: [[#{prod.confirm.remove}]],
+					type: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#DD6B55',
+					confirmButtonText: [[#{control.confirmDelete}]],
+					cancelButtonText: [[#{control.cancelDelete}]]
+				}, 
+				function (isConfirm) {
+					if (isConfirm) {
+						removeProduct();
+					} 
+				}
+			);
+		}
+		
+		function removeProduct () {
+			var rowdata = $('#productGrid').jqxGrid('getrowdata', currentRow);
+			var rowid = $('#productGrid').jqxGrid('getrowid', currentRow);
+			$.ajax({
+				type : 'POST',
+				url : product.rest.remove,
+				dataType: 'json',
+				contentType: 'application/json',
+				data : rowdata.codigo,
+				success : function() {
+					$.notify({
+						title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminación de artículo:</strong>',
+						message: /*[[#{prod.remove.success.message}]]*/ 'La eliminación se realizó correctamente'
+					},{
+						type: 'success'
+					});
+					$('#productGrid').jqxGrid('deleterow', rowid);	
+				},
+				error: function () {            
+					$.notify({
+						title: /*[[#{prod.remove.title}]]*/ '<strong>Eliminación de artículo:</strong>',
+						message: /*[[#{prod.remove.error.message}]]*/ 'Ocurrió un error en la eliminación del artículo'
+					},{
+						type: 'danger'
+					});
+		        }
+			});
+		}
+		var currentAuxPanel;
+		
+		function showAuxPanel(panel) {
+			$('#gridPanel').hide();
+			$('#commandBar').hide();
+			$('#thumbnailsPanel').hide();
+			currentAuxPanel = panel;
+			$(panel).show();
+		}
+		
+		function hideAuxPanel() {
+			$('#gridPanel').show();
+			$('#commandBar').show();
+			$('#thumbnailsPanel').show();
+			$(currentAuxPanel).hide();
+		}
+		
+		function initCreationForm () {
+			formMode = 'creation';
+			$('#modelo').val('');
+			$('#descripcion').val('');
+			$('#cbClase').val('');
+			$('#cbTipo').val('');
+			$('#cbMarca').val('');
+			$('#cbRubro').val('');
+			$('#precio').val('0');
+			$('#costo').val('0');
+			$('#cantidad').val('0');
+			// Setting the form controls
+			$('#formTitle').text([[#{prod.admin.creation.title}]]);
+			$('#formFooter').text([[#{prod.admin.creating}]]);
+			$('#codigo').hide();
+			$('#lblCodigo').hide();
+			showAuxPanel('#editionPanel');
+		}
+		
+		function initCopyCreationForm (dataRecord) {
+			formMode = 'creation';
+			$('#codigo').val('');
+			$('#codigo').hide();
+			$('#lblCodigo').hide();
+			$('#modelo').val(dataRecord.modelo);
+			$('#descripcion').val(dataRecord.descripcion);
+			$('#cbMarca').val(dataRecord.codMarca);
+			$('#cbRubro').val(dataRecord.codRubro);
+			$('#cbRubro').trigger('chain', dataRecord);
+			$('#precio').val(dataRecord.precio);
+			$('#costo').val(dataRecord.costo);
+			$('#cantidad').val('0');
+			// Setting the form controls
+			$('#formTitle').text([[#{prod.admin.creation.title}]]);
+			$('#formFooter').text([[#{prod.admin.copying}]] + dataRecord.clase + ' ' + dataRecord.marca + ' ' + dataRecord.modelo);
+			$('#codigo').hide();
+			$('#lblCodigo').hide();
+			showAuxPanel('#editionPanel');
+		}
+		
+		function initEditionForm (dataRecord) {
+			formMode = 'edition';
+			findProduct(dataRecord.codigo, findProductCallback);
+			$('#formTitle').text([[#{prod.admin.edition.title}]]);
+			$('#formFooter').text([[#{prod.admin.editing}]] + dataRecord.codigo);
+			$('#codigo').show();
+			$('#lblCodigo').show();	
+			showAuxPanel('#editionPanel');
+		}
+		
+		function findProductCallback (productData, status) {
+			switch (status) {
+       		case 'success':
+        		fillEditionForm(productData);
+       		break;
+       		case 'error':
+       			$.notify({
+   					title: [[#{prod.find.title}]],
+   					message: [[#{prod.find.error.message}]] 
+   				},{
+   					type: 'error'
+   				});
+       		break;
+       		default:
+       			break;
+       		}
+		}
+
+		$('#cbRubro').on('chain',  function(event, dataRecord) {
+			chainCombos(
+				'#cbRubro', 
+				'#cbClase', 
+				dataRecord.codClase, 
+				product.rest.classesByCategory, 
+				function () {
+					chainCombos(
+						'#cbClase',
+						'#cbTipo',
+						dataRecord.codTipo,
+						product.rest.typesByClass
+					)
+				}
+			);
+           });
+		
+        function fillEditionForm(dataRecord) {
+        	$('#codigo').val(dataRecord.codigo);
+			$('#modelo').val(dataRecord.modelo);
+			$('#descripcion').val(dataRecord.descripcion);
+			$('#cbMarca').val(dataRecord.codMarca);
+			$('#cbRubro').val(dataRecord.codRubro);
+			$('#cbRubro').trigger('chain', dataRecord);
+			$('#precio').val(dataRecord.precio);
+			$('#costo').val(dataRecord.costo);
+			$('#cantidad').val(dataRecord.cantidad);
+        }
+		/*]]>*/
+	</script>
 </body>
 </html>

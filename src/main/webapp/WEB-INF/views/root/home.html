@@ -1,273 +1,264 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	layout:decorator="layout.html">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Sistema de Gestión de Stock" />
+	<meta name="author" content="Emiliano Schiano di Cola" />
+
+	<title th:text="#{app.name}" text="Proeza SGS" />
+
+	<link href="../../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+	<link href="../../../resources/metismenu/css/metisMenu.css" th:href="@{/resources/metismenu/css/metisMenu.css}" rel="stylesheet" />
+	<link href="../../../resources/app/css/timeline.css" th:href="@{/resources/app/css/timeline.css}" rel="stylesheet" />
+	<link href="../../../resources/animate/css/animate.css" th:href="@{/resources/animate/css/animate.css}" rel="stylesheet" />
+	<link href="../../../resources/app/css/proeza-sgs.css" th:href="@{/resources/app/css/proeza-sgs.css}" rel="stylesheet" />
+	<link href="../../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css" />
+	<link href="../../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" rel="shortcut icon" />
+	<link href="../../../resources/gallery/css/blueimp-gallery.css" th:href="@{/resources/gallery/css/blueimp-gallery.css}" rel="stylesheet" />
+	<link href="../../../resources/gallery/css/blueimp-gallery-indicator.css" th:href="@{/resources/gallery/css/blueimp-gallery-indicator.css}" rel="stylesheet" />
+</head>
 
 <body>
-
-	<div id="content" layout:fragment="contenido" class="animate-panel container-fluid" >
-	
-		<div class="row">
-            <div class="col-lg-3">
-                <div class="hpanel stats">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                            <a class="closebox"><i class="fa fa-times"></i></a>
-                        </div>
-                        Last active
-                    </div>
-                    <div class="panel-body list" style="display: block;">
-                        <div class="stats-title pull-left">
-                            <h4>Activity</h4>
-                        </div>
-                        <div class="stats-icon pull-right">
-                            <i class="pe-7s-science fa-4x"></i>
-                        </div>
-                        <div class="m-t-xl">
-                            <span class="font-bold no-margins">
-                                Social users
-                            </span>
-                            <br/>
-                            <small>
-                                Lorem Ipsum is simply dummy text of the printing simply all dummy text. Lorem Ipsum is
-                                simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
-                            </small>
-                        </div>
-                        <div class="row m-t-md">
-                            <div class="col-lg-6">
-                                <h3 class="no-margins font-extra-bold text-success">300,102</h3>
-
-                                <div class="font-bold">98% <i class="fa fa-level-up text-success"></i></div>
-                            </div>
-                            <div class="col-lg-6">
-                                <h3 class="no-margins font-extra-bold text-success">280,200</h3>
-
-                                <div class="font-bold">98% <i class="fa fa-level-up text-success"></i></div>
-                            </div>
-                        </div>
-                        <div class="row m-t-md">
-                            <div class="col-lg-6">
-                                <h3 class="no-margins font-extra-bold ">120,108</h3>
-
-                                <div class="font-bold">38% <i class="fa fa-level-down"></i></div>
-                            </div>
-                            <div class="col-lg-6">
-                                <h3 class="no-margins font-extra-bold ">450,600</h3>
-
-                                <div class="font-bold">28% <i class="fa fa-level-down"></i></div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="panel-footer" style="display: block;">
-                        This is standard panel footer
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                            <a class="closebox"><i class="fa fa-times"></i></a>
-                        </div>
-                        Recently active projects
-                    </div>
-                    <div class="panel-body list" style="display: block;">
-                        <div class="table-responsive project-list">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-
-                                    <th colspan="2">Project</th>
-                                    <th>Completed</th>
-                                    <th>Task</th>
-                                    <th>Date</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                    	<div class="icheckbox_square-green checked" style="position: relative;">
-	                                    	<input type="checkbox" class="i-checks" checked="" style="position: absolute; opacity: 0;"/>
-	                                    	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"/>
-                                    	</div>
-                                    </td>
-                                    <td>Contract with Zender Company
-                                        <br/>
-                                        <small><i class="fa fa-clock-o"></i> Created 14.08.2015</small>
-                                    </td>
-                                    <td>
-                                        <span class="pie" style="display: none;">1/5</span><svg class="peity" height="16" width="16"><path d="M 8 0 A 8 8 0 0 1 15.60845213036123 5.52786404500042 L 8 8" fill="#62cb31"></path><path d="M 15.60845213036123 5.52786404500042 A 8 8 0 1 1 7.999999999999998 0 L 8 8" fill="#edf0f5"></path></svg>
-                                    </td>
-                                    <td><strong>20%</strong></td>
-                                    <td>Jul 14, 2013</td>
-                                    <td><a href=""><i class="fa fa-check text-success"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    	<div class="icheckbox_square-green" style="position: relative;">
-                                    		<input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"/>
-                                    		<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"/>
-                                    	</div>
-                                    </td>
-                                    <td>There are many variations of passages
-                                       	<br/>
-                                       	<small><i class="fa fa-clock-o"></i> Created 21.07.2015</small>
-                                   	</td>
-                                    <td>
-                                        <span class="pie" style="display: none;">1/4</span><svg class="peity" height="16" width="16"><path d="M 8 0 A 8 8 0 0 1 16 8 L 8 8" fill="#62cb31"></path><path d="M 16 8 A 8 8 0 1 1 7.999999999999998 0 L 8 8" fill="#edf0f5"></path></svg>
-                                    </td>
-                                    <td><strong>40%</strong></td>
-                                    <td>Jul 16, 2013</td>
-                                    <td><a href=""><i class="fa fa-check text-navy"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    	<div class="icheckbox_square-green checked" style="position: relative;">
-	                                    	<input type="checkbox" class="i-checks" checked="" style="position: absolute; opacity: 0;"/>
-	                                    	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"/>
-                                    	</div>
-                                    </td>
-                                    <td>Contrary to popular belief
-                                        <br/>
-                                        <small><i class="fa fa-clock-o"></i> Created 12.06.2015</small>
-                                    </td>
-                                    <td>
-                                        <span class="pie" style="display: none;">0.52/1.561</span><svg class="peity" height="16" width="16"><path d="M 8 0 A 8 8 0 0 1 14.933563796318165 11.990700825968545 L 8 8" fill="#62cb31"></path><path d="M 14.933563796318165 11.990700825968545 A 8 8 0 1 1 7.999999999999998 0 L 8 8" fill="#edf0f5"></path></svg>
-                                    </td>
-                                    <td><strong>75%</strong></td>
-                                    <td>Jul 18, 2013</td>
-                                    <td><a href=""><i class="fa fa-check text-navy"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    	<div class="icheckbox_square-green" style="position: relative;">
-                                    		<input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"/>
-                                    		<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"/>
-                                    	</div>
-                                   	</td>
-                                    <td>Gamma project
-                                        <br/>
-                                        <small><i class="fa fa-clock-o"></i> Created 06.03.2015</small>
-                                    </td>
-                                    <td>
-                                        <span class="pie" style="display: none;">226/360</span>
-                                        <svg class="peity" height="16" width="16">
-                                        	<path d="M 8 0 A 8 8 0 1 1 2.2452815972907922 13.55726696367198 L 8 8" fill="#62cb31" />
-                                        	<path d="M 2.2452815972907922 13.55726696367198 A 8 8 0 0 1 7.999999999999998 0 L 8 8" fill="#edf0f5"/>
-                                        </svg>
-                                    </td>
-                                    <td><strong>16%</strong></td>
-                                    <td>Jul 22, 2013</td>
-                                    <td><a href=""><i class="fa fa-check text-navy"></i></a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                            <a class="closebox"><i class="fa fa-times"></i></a>
-                        </div>
-                        Activity
-                    </div>
-                    <div class="panel-body list">
-
-                        <div class="pull-right">
-                            <a href="#" class="btn btn-xs btn-default">Today</a>
-                            <a href="#" class="btn btn-xs btn-default">Month</a>
-                        </div>
-                        <div class="panel-title">Last Activity</div>
-                        <small class="fo">This is simple example</small>
-                        <div class="list-item-container">
-                            <div class="list-item">
-                                <h3 class="no-margins font-extra-bold text-success">2,773</h3>
-                                <small>Tota Messages Sent</small>
-                                <div class="pull-right font-bold">98% <i class="fa fa-level-up text-success"></i></div>
-                            </div>
-                            <div class="list-item">
-                                <h3 class="no-margins font-extra-bold text-color3">4,422</h3>
-                                <small>Last activity</small>
-                                <div class="pull-right font-bold">13% <i class="fa fa-level-down text-color3"></i></div>
-                            </div>
-                            <div class="list-item">
-                                <h3 class="no-margins font-extra-bold text-color3">9,180</h3>
-                                <small>Monthly income</small>
-                                <div class="pull-right font-bold">22% <i class="fa fa-bolt text-color3"></i></div>
-                            </div>
-                            <div class="list-item">
-                                <h3 class="no-margins font-extra-bold text-success">1,450</h3>
-                                <small>Tota Messages Sent</small>
-                                <div class="pull-right font-bold">44% <i class="fa fa-level-up text-success"></i></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-<!-- 		<form id="formApi" > -->
-<!-- 			<label for="user">User</label>  -->
-<!-- 			<input type="text" class="form-control" name="user" id="user" placeholder="User" /> -->
-<!-- 			<label for="pass">Password</label>  -->
-<!-- 			<input type="password" class="form-control" id="pass" name="pass" placeholder="Password" /> -->
-<!-- 			<label>  -->
-<!-- 				<input type="checkbox" id="check" name="check" /> Check me out -->
-<!-- 			</label> -->
-<!-- 			<p/> -->
-<!-- 			<label for="combo">Combo</label>  -->
-<!-- 			<select id="combo" name="combo" class="form-control input-md" required="required" autofocus="autofocus"> -->
-<!-- 				<option value="" th:text="#{control.choose}"/> -->
-<!-- 			</select> -->
-<!-- 			<label for="chainedCombo">Chained Combo</label>  -->
-<!-- 			<select id="chainedCombo" name="chainedCombo" class="form-control input-md" required="required" autofocus="autofocus"> -->
-<!-- 				<option value="" th:text="#{control.choose}"/> -->
-<!-- 			</select> -->
-<!-- 			<p/> -->
-<!-- 			<button id="submit"  type="submit" class="btn btn-default">Submit</button> -->
-<!-- 		</form> -->
-<!-- 		<button id="openCreate" type="button" class="btn btn-default">Create</button> -->
-<!-- 		<button id="openEdit" type="button" class="btn btn-default">Edit</button> -->
+    <div th:replace="fragment/misc.html::splash"/>
+    <div th:replace="fragment/bar.html::header"/>
+    <div th:replace="fragment/menu.html::mainMenuLeft" />
+    
+	<div id="wrapper">
+		<div class="content">
+			<div class="row">
+				<div class="col-lg-12 text-center" style="padding-top: 10px; padding-bottom: 20px">
+					<span class="pageTitle" th:text="${pageConfig.title}" />
+					<span class="pageTitle" th:if="${not pageConfig.subtitle.isEmpty()}">:</span>
+					<span class="pageSubtitle" th:text="${pageConfig.subtitle}" />
+				</div>
+			</div>
+			<div id="content" class="animate-panel container-fluid" >
+				<div class="row">
+		            <div class="col-lg-3">
+		                <div class="hpanel stats">
+		                    <div class="panel-heading">
+		                        <div class="panel-tools">
+		                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+		                            <a class="closebox"><i class="fa fa-times"></i></a>
+		                        </div>
+		                        Last active
+		                    </div>
+		                    <div class="panel-body list" style="display: block;">
+		                        <div class="stats-title pull-left">
+		                            <h4>Activity</h4>
+		                        </div>
+		                        <div class="stats-icon pull-right">
+		                            <i class="pe-7s-science fa-4x"></i>
+		                        </div>
+		                        <div class="m-t-xl">
+		                            <span class="font-bold no-margins">
+		                                Social users
+		                            </span>
+		                            <br/>
+		                            <small>
+		                                Lorem Ipsum is simply dummy text of the printing simply all dummy text. Lorem Ipsum is
+		                                simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
+		                            </small>
+		                        </div>
+		                        <div class="row m-t-md">
+		                            <div class="col-lg-6">
+		                                <h3 class="no-margins font-extra-bold text-success">300,102</h3>
 		
-<!-- 		<script th:src="@{/resources/app/js/form-plugin.js}" src="../../../resources/app/js/form-plugin.js"></script> -->
-		<script th:src="@{/resources/app/js/articulo.js}" src="../../../resources/app/js/articulo.js"></script>
-	<!-- 
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#formApi')
-					/* 
-					 Si aplica, configuro la visibilidad / habilitacion de los campos del formulario para cada modo 
-					 Ej: Para el modo 'modificacion' oculto el campo Codigo.
-					 */
-					.configField('update', 'user', 'disabled')
-					/*
-					 Si aplica, configuro que componente "dispara" la apertura e inicializacion del formulario
-					 Ej: Con el boton XXX el formulario se hace visible y se inicializa en modo 'Alta'
-					 */
-					.defaultMode('create')
-					.configTrigger('create', 'openCreate')
-					.configTrigger('update', 'openEdit')
-					/*
-					 Configura la accion cuando se hace el submit del formulario.
-					 Ej: En el submit, se invoca el servicio rest XXX 
-					 */
-					.configSubmit('create', product.rest.addClass)
-					.configSubmit('update', product.rest.updateClass)
-					.fillCombo('combo', product.rest.getClasses)
-					.relateCombos('combo', 'chainedCombo', product.rest.typesByClass);
-			})
-		</script>
-	 -->
+		                                <div class="font-bold">98% <i class="fa fa-level-up text-success"></i></div>
+		                            </div>
+		                            <div class="col-lg-6">
+		                                <h3 class="no-margins font-extra-bold text-success">280,200</h3>
+		
+		                                <div class="font-bold">98% <i class="fa fa-level-up text-success"></i></div>
+		                            </div>
+		                        </div>
+		                        <div class="row m-t-md">
+		                            <div class="col-lg-6">
+		                                <h3 class="no-margins font-extra-bold ">120,108</h3>
+		
+		                                <div class="font-bold">38% <i class="fa fa-level-down"></i></div>
+		                            </div>
+		                            <div class="col-lg-6">
+		                                <h3 class="no-margins font-extra-bold ">450,600</h3>
+		
+		                                <div class="font-bold">28% <i class="fa fa-level-down"></i></div>
+		                            </div>
+		
+		                        </div>
+		                    </div>
+		                    <div class="panel-footer" style="display: block;">
+		                        This is standard panel footer
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="col-lg-6">
+		                <div class="hpanel">
+		                    <div class="panel-heading">
+		                        <div class="panel-tools">
+		                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+		                            <a class="closebox"><i class="fa fa-times"></i></a>
+		                        </div>
+		                        Recently active projects
+		                    </div>
+		                    <div class="panel-body list" style="display: block;">
+		                        <div class="table-responsive project-list">
+		                            <table class="table table-striped">
+		                                <thead>
+		                                <tr>
+		
+		                                    <th colspan="2">Project</th>
+		                                    <th>Completed</th>
+		                                    <th>Task</th>
+		                                    <th>Date</th>
+		                                    <th>Action</th>
+		                                </tr>
+		                                </thead>
+		                                <tbody>
+		                                <tr>
+		                                    <td>
+		                                    	<div class="icheckbox_square-green checked" style="position: relative;">
+			                                    	<input type="checkbox" class="i-checks" checked="" style="position: absolute; opacity: 0;"/>
+			                                    	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"/>
+		                                    	</div>
+		                                    </td>
+		                                    <td>Contract with Zender Company
+		                                        <br/>
+		                                        <small><i class="fa fa-clock-o"></i> Created 14.08.2015</small>
+		                                    </td>
+		                                    <td>
+		                                        <span class="pie" style="display: none;">1/5</span><svg class="peity" height="16" width="16"><path d="M 8 0 A 8 8 0 0 1 15.60845213036123 5.52786404500042 L 8 8" fill="#62cb31"></path><path d="M 15.60845213036123 5.52786404500042 A 8 8 0 1 1 7.999999999999998 0 L 8 8" fill="#edf0f5"></path></svg>
+		                                    </td>
+		                                    <td><strong>20%</strong></td>
+		                                    <td>Jul 14, 2013</td>
+		                                    <td><a href=""><i class="fa fa-check text-success"></i></a></td>
+		                                </tr>
+		                                <tr>
+		                                    <td>
+		                                    	<div class="icheckbox_square-green" style="position: relative;">
+		                                    		<input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"/>
+		                                    		<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"/>
+		                                    	</div>
+		                                    </td>
+		                                    <td>There are many variations of passages
+		                                       	<br/>
+		                                       	<small><i class="fa fa-clock-o"></i> Created 21.07.2015</small>
+		                                   	</td>
+		                                    <td>
+		                                        <span class="pie" style="display: none;">1/4</span><svg class="peity" height="16" width="16"><path d="M 8 0 A 8 8 0 0 1 16 8 L 8 8" fill="#62cb31"></path><path d="M 16 8 A 8 8 0 1 1 7.999999999999998 0 L 8 8" fill="#edf0f5"></path></svg>
+		                                    </td>
+		                                    <td><strong>40%</strong></td>
+		                                    <td>Jul 16, 2013</td>
+		                                    <td><a href=""><i class="fa fa-check text-navy"></i></a></td>
+		                                </tr>
+		                                <tr>
+		                                    <td>
+		                                    	<div class="icheckbox_square-green checked" style="position: relative;">
+			                                    	<input type="checkbox" class="i-checks" checked="" style="position: absolute; opacity: 0;"/>
+			                                    	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"/>
+		                                    	</div>
+		                                    </td>
+		                                    <td>Contrary to popular belief
+		                                        <br/>
+		                                        <small><i class="fa fa-clock-o"></i> Created 12.06.2015</small>
+		                                    </td>
+		                                    <td>
+		                                        <span class="pie" style="display: none;">0.52/1.561</span><svg class="peity" height="16" width="16"><path d="M 8 0 A 8 8 0 0 1 14.933563796318165 11.990700825968545 L 8 8" fill="#62cb31"></path><path d="M 14.933563796318165 11.990700825968545 A 8 8 0 1 1 7.999999999999998 0 L 8 8" fill="#edf0f5"></path></svg>
+		                                    </td>
+		                                    <td><strong>75%</strong></td>
+		                                    <td>Jul 18, 2013</td>
+		                                    <td><a href=""><i class="fa fa-check text-navy"></i></a></td>
+		                                </tr>
+		                                <tr>
+		                                    <td>
+		                                    	<div class="icheckbox_square-green" style="position: relative;">
+		                                    		<input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"/>
+		                                    		<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"/>
+		                                    	</div>
+		                                   	</td>
+		                                    <td>Gamma project
+		                                        <br/>
+		                                        <small><i class="fa fa-clock-o"></i> Created 06.03.2015</small>
+		                                    </td>
+		                                    <td>
+		                                        <span class="pie" style="display: none;">226/360</span>
+		                                        <svg class="peity" height="16" width="16">
+		                                        	<path d="M 8 0 A 8 8 0 1 1 2.2452815972907922 13.55726696367198 L 8 8" fill="#62cb31" />
+		                                        	<path d="M 2.2452815972907922 13.55726696367198 A 8 8 0 0 1 7.999999999999998 0 L 8 8" fill="#edf0f5"/>
+		                                        </svg>
+		                                    </td>
+		                                    <td><strong>16%</strong></td>
+		                                    <td>Jul 22, 2013</td>
+		                                    <td><a href=""><i class="fa fa-check text-navy"></i></a></td>
+		                                </tr>
+		                                </tbody>
+		                            </table>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="col-lg-3">
+		                <div class="hpanel">
+		                    <div class="panel-heading">
+		                        <div class="panel-tools">
+		                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+		                            <a class="closebox"><i class="fa fa-times"></i></a>
+		                        </div>
+		                        Activity
+		                    </div>
+		                    <div class="panel-body list">
+		
+		                        <div class="pull-right">
+		                            <a href="#" class="btn btn-xs btn-default">Today</a>
+		                            <a href="#" class="btn btn-xs btn-default">Month</a>
+		                        </div>
+		                        <div class="panel-title">Last Activity</div>
+		                        <small class="fo">This is simple example</small>
+		                        <div class="list-item-container">
+		                            <div class="list-item">
+		                                <h3 class="no-margins font-extra-bold text-success">2,773</h3>
+		                                <small>Tota Messages Sent</small>
+		                                <div class="pull-right font-bold">98% <i class="fa fa-level-up text-success"></i></div>
+		                            </div>
+		                            <div class="list-item">
+		                                <h3 class="no-margins font-extra-bold text-color3">4,422</h3>
+		                                <small>Last activity</small>
+		                                <div class="pull-right font-bold">13% <i class="fa fa-level-down text-color3"></i></div>
+		                            </div>
+		                            <div class="list-item">
+		                                <h3 class="no-margins font-extra-bold text-color3">9,180</h3>
+		                                <small>Monthly income</small>
+		                                <div class="pull-right font-bold">22% <i class="fa fa-bolt text-color3"></i></div>
+		                            </div>
+		                            <div class="list-item">
+		                                <h3 class="no-margins font-extra-bold text-success">1,450</h3>
+		                                <small>Total Messages Sent</small>
+		                                <div class="pull-right font-bold">44% <i class="fa fa-level-up text-success"></i></div>
+		                            </div>
+		                        </div>
+		
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+			</div>
+		</div>
 	</div>
-	
+    <script type="text/javascript" src="../../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}" />
+    <script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}" />
+	<script type="text/javascript" src="../../../resources/metismenu/js/metisMenu.js" th:src="@{/resources/metismenu/js/metisMenu.js}" />
+    <script type="text/javascript" src="../../../resources/sparkline/js/sparkline.js" th:src="@{/resources/sparkline/js/sparkline.js}"/>
+    <script type="text/javascript" src="../../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"/>
+	<script type="text/javascript" src="../../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}" />
+    <script type="text/javascript" src="../../../resources/app/js/menu.js" th:src="@{/resources/app/js/menu.js}"/>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function() {
+            loadUserSalesSparkline($("#userAlias").text(), 12, 7);
+        })
+		/*]]>*/
+	</script>	
 </body>
 </html>
