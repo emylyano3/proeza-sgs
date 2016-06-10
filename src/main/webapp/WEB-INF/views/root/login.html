@@ -8,21 +8,13 @@
     <meta name="description" content=""/>
     <meta name="author" content="Emiliano Schiano di Cola" />
 
-    <title th:text="#{login.title}" text="Proeza Login" />
+    <div th:replace ="fragment/misc.html::appTitle"/>
+	<div th:replace ="fragment/misc.html::appIcon"/>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
-
-    <!-- Custom CSS -->
-    <link href="../../resources/app/css/proeza-sgs.css" th:href="@{/resources/app/css/proeza-sgs.css}" rel="stylesheet"/>
-
-	<!-- Animate CSS -->
-	<link href="../../resources/animate/css/animate.css" th:href="@{/resources/animate/css/animate.css}" rel="stylesheet" />
-
-    <!-- Custom Fonts -->
-    <link href="../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css"/>
-
-	<link rel="shortcut icon" href="../../resources/app/img/favicon.ico" th:href="@{/resources/app/img/favicon.ico}" />
+    <link href="../../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
+    <link href="../../../resources/app/css/proeza-sgs.css" th:href="@{/resources/app/css/proeza-sgs.css}" rel="stylesheet"/>
+	<link href="../../../resources/animate/css/animate.css" th:href="@{/resources/animate/css/animate.css}" rel="stylesheet" />
+    <link href="../../../resources/font-awesome/css/font-awesome.css" th:href="@{/resources/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css"/>
 </head>
 
 <body class="blank">
@@ -76,10 +68,10 @@
 	    </div>
 	</div>
 
-    <script src="../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}"></script>
-    <script src="../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}"></script>
-    <script src="../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"></script>
-    <script src="../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}"></script>
+    <script src="../../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}"></script>
+    <script src="../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}"></script>
+    <script src="../../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"></script>
+    <script src="../../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}"></script>
 </body>
 
 </html>
