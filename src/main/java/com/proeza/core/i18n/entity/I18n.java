@@ -61,6 +61,4 @@ public class I18n {
     public String toString () {
         return new I18nHelper().getTextoLocalizado(this);
     }
-
-
 }

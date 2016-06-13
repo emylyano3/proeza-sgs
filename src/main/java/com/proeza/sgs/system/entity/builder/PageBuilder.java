@@ -11,7 +11,6 @@ public class PageBuilder {
     private long      id;
     private String    group;
     private String    name;
-    private String    description;
 
     private Set<Menu> menues = new TreeSet<>();
 
@@ -30,11 +29,6 @@ public class PageBuilder {
         return this;
     }
 
-    public PageBuilder withDescription (String desc) {
-        this.description = desc;
-        return this;
-    }
-
     public PageBuilder withMenues (Set<Menu> menues) {
         this.menues = menues;
         return this;
@@ -45,7 +39,6 @@ public class PageBuilder {
         page.setId(this.id);
         page.setGroup(this.group);
         page.setName(this.name);
-        page.setDescription(this.description);
         page.setMenues(this.menues);
         return page;
     }

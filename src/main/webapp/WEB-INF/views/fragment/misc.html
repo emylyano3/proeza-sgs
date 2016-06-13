@@ -35,13 +35,6 @@
 	<div th:fragment="pageTitle" class="hpanel">
 		<div class="panel-body">
 			<div id="hbreadcrumb" class="pull-right">
-				<!-- 
-				<div class="col-lg-12 text-center" style="padding-top: 10px; padding-bottom: 20px">
-					<span class="pageTitle" th:text="${pageConfig.title}" />
-					<span class="pageTitle" th:if="${not pageConfig.subtitle.isEmpty()}">:</span>
-					<span class="pageSubtitle" th:text="${pageConfig.subtitle}" />
-				</div>
-				 -->
 				<ol class="hbreadcrumb breadcrumb">
 					<li th:if="${pageConfig.title} != null" >
 						<span th:text="${pageConfig.title}" />

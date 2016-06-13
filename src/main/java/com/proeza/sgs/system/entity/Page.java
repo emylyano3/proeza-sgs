@@ -47,11 +47,11 @@ public class Page implements Serializable {
     private long              id;
     private String            group;
     private String            name;
-    private String            description;
     private I18n              titleI18n;
     private I18n              subtitleI18n;
+    private I18n              descriptionI18n;
 
-    private Set<Menu>         menues           = new TreeSet<>();
+	private Set<Menu>         menues           = new TreeSet<>();
     private Set<Rol>          roles            = new TreeSet<>();
 
     private I18nHelper        i18nHelper       = new I18nHelper();
@@ -85,15 +85,6 @@ public class Page implements Serializable {
         this.name = name;
     }
 
-    @Column(name = "descripcion")
-    public String getDescription () {
-        return this.description;
-    }
-
-    public void setDescription (String description) {
-        this.description = description;
-    }
-
     @Transient
     public String getTitle () {
         return this.i18nHelper.getTextoLocalizado(this.titleI18n);
@@ -103,10 +94,14 @@ public class Page implements Serializable {
     public String getSubtitle () {
         return this.i18nHelper.getTextoLocalizado(this.subtitleI18n);
     }
+    
+    @Transient
+    public String getDescription () {
+    	return this.i18nHelper.getTextoLocalizado(this.descriptionI18n);
+    }
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinTable(
-
             name = "sys_pagina_menu",
             joinColumns = {@JoinColumn(name = "fk_pagina", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "fk_menu", nullable = false, updatable = false)}
@@ -153,8 +148,18 @@ public class Page implements Serializable {
         this.subtitleI18n = subtitleI18n;
     }
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_i18n_descripcion")
+    public I18n getDescriptionI18n() {
+		return this.descriptionI18n;
+	}
+
+	public void setDescriptionI18n(I18n descriptionI18n) {
+		this.descriptionI18n = descriptionI18n;
+	}
+	
     @Override
     public String toString () {
-        return "Page [id=" + this.id + ", group=" + this.group + ", name=" + this.name + ", description=" + this.description + ", menues=" + this.menues + ", roles=" + this.roles + "]";
+        return "Page [id=" + this.id + ", group=" + this.group + ", name=" + this.name + ", menues=" + this.menues + ", roles=" + this.roles + "]";
     }
 }

@@ -74,7 +74,6 @@ public class WebMvcTestUtils {
             .withId(id)
             .withGroup(group)
             .withName("Pagina " + name + " numero " + id)
-            .withDescription("Pagina " + name + " numero " + id)
             .withMenues(menues)
             .build();
     }
