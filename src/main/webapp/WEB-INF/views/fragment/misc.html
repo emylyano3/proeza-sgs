@@ -11,13 +11,13 @@
     <!-- Galeria de imagenes -->
     <div th:fragment="imageGallery" id="blueimp-gallery" class="blueimp-gallery">
         <!-- The container for the modal slides -->
-        <div class="slides"/>
+        <div class="slides"></div>
         <!-- Controls for the borderless lightbox -->
-        <h3 class="title"/>
+        <h3 class="title"></h3>
         <a class="prev">&lsaquo;</a><!-- Single left side angle quotation (U+2039) -->
         <a class="next">&rsaquo;</a><!-- Single right side angle quotation (U+203a) -->
         <a class="close">&times;</a>
-        <a class="play-pause"/>
+        <a class="play-pause"></a>
         <ol class="indicator"></ol>
     </div>
     
@@ -27,7 +27,7 @@
         <div class="splash-title">
             <h1 th:text="#{app.splash.title}">Proeza - Sistema de Gestíon de Stock</h1>
             <p th:text="#{app.splash.detail}">Sistema de administración de recursos empresariales</p>
-            <img th:src="@{/resources/app/img/loading-bars.svg}" width="64" height="64" /> 
+            <img th:src="@{/resources/app/img/loading-bars.svg}" width="64" height="64"/> 
         </div> 
     </div>
     
@@ -37,19 +37,19 @@
 			<div id="hbreadcrumb" class="pull-right">
 				<ol class="hbreadcrumb breadcrumb">
 					<li th:if="${pageConfig.title} != null" >
-						<span th:text="${pageConfig.title}" />
+						<span th:text="${pageConfig.title}"></span>
 					</li>
 					<li th:if="${pageConfig.subtitle} != null" >
-						<span th:text="${pageConfig.subtitle}" />
+						<span th:text="${pageConfig.subtitle}"></span>
 					</li>
 				</ol>
 			</div>
 			<h2 class="font-light m-b-xs">
-				<span class="pageTitle" th:text="${pageConfig.title}" />
+				<span class="pageTitle" th:text="${pageConfig.title}"></span>
 				<span class="pageTitle" th:if="${not pageConfig.subtitle.isEmpty()}">:</span>
-				<span class="pageSubtitle" th:text="${pageConfig.subtitle}" />
+				<span class="pageSubtitle" th:text="${pageConfig.subtitle}"></span>
 			</h2>
-			<small><span th:text="${pageConfig.description}"/></small>
+			<small><span th:text="${pageConfig.description}"></span></small>
 		</div>
 	</div>
 
@@ -64,7 +64,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <h4 class="modal-title">
-                            <span th:text="#{control.addImage}" text="Agregar Imagen" />
+                            <span th:text="#{control.addImage}" text="Agregar Imagen"></span>
                         </h4>
                     </div>
                     <div id="addImagePanel" class="modal-body" >
@@ -73,7 +73,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="cancelImage" type="button" class="btn btn-default" th:text="#{control.close}" data-dismiss="modal"/>
+                        <button id="cancelImage" type="button" class="btn btn-default" th:text="#{control.close}" data-dismiss="modal"></button>
                     </div>
                 </div>
             </div>

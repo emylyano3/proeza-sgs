@@ -4,24 +4,24 @@
 <body>
   
     <nav th:fragment="header" id="header" class="navbar navbar-default navbar-fixed-top" role="navigation" >
-        <div class="color-line"/>
+        <div class="color-line"></div>
         <a id="logo" class="light-version" href="#" th:href="@{/home}">
             <div>
-                <img src="../../resources/app/img/logo20x.png" th:src="@{/resources/app/img/logo20x.png}" /> 
-                <span th:text="#{app.name}" />
+                <img src="../../resources/app/img/logo20x.png" th:src="@{/resources/app/img/logo20x.png}"></img> 
+                <span th:text="#{app.name}"></span>
             </div>
         </a>
         <div class="header-link hide-menu">
             <i class="fa fa-bars"></i>
         </div>
         <div th:if="${pageConfig.hasSearch}" class="navbar-form-custom">
-            <input id="filter" type="text" th:placeholder="#{control.search}" placeholder="Buscar..." class="form-control" name="search" />
+            <input id="filter" type="text" th:placeholder="#{control.search}" placeholder="Buscar..." class="form-control" name="search"/>
         </div>
         <div class="navbar-right">
             <ul class="nav navbar-nav no-borders">
                 <li th:if="${pageConfig.hasSearch}" class="button">
                     <a id="eraser" class="dropdown-toggle" data-toggle="button">
-                        <i class="fa fa-eraser" />
+                        <i class="fa fa-eraser"></i>
                     </a>
                 </li>
                 <!--

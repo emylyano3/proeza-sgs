@@ -8,7 +8,7 @@
 		<!-- Add Split button -->
 		<div class="btn-group dropup">
 			<button type="button" class="btn btn-success toolbar-button" id="newProduct" th:title="#{prod.add.tooltip}">
-				<i class="fa fa-lg fa-plus"/>
+				<i class="fa fa-lg fa-plus"></i>
 			</button>
 			<button type="button" class="btn btn-success dropdown-toggle toolbar-caret-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<span class="caret"/> 
@@ -26,7 +26,7 @@
 		<!-- Edit Single button -->
 		<div class="btn-group dropup">
 			<button type="button" class="btn btn-warning toolbar-button dropdown-toggle" id="edit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="fa fa-lg fa-edit"/>
+				<i class="fa fa-lg fa-edit"></i>
 			</button>
 			<ul class="dropdown-menu dropdown-menu-right" >
 				<li><a id="editCategory" th:text="#{control.category}">Rubro</a></li>
@@ -40,7 +40,7 @@
 		<!-- Delete Single button -->
 		<div class="btn-group dropup">
 			<button type="button" class="btn btn-danger toolbar-button dropdown-toggle" id="delete" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="fa fa-lg fa-remove"/>
+				<i class="fa fa-lg fa-remove"></i>
 			</button>
 			<ul class="dropdown-menu dropdown-menu-right">
 				<li><a id="deleteCategory" th:text="#{control.category}">Rubro</a></li>
@@ -56,7 +56,7 @@
 	<div th:fragment="catalogEditor">
 		<div class="modal fade" id="brandModalPopup" tabindex="-1" role="dialog" aria-hidden="true" >
 			<div class="modal-dialog">
-				<div class="color-line" />
+				<div class="color-line"></div>
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -69,7 +69,7 @@
 					<form id="mpBraForm" class="form-horizontal" method="post">
 						<div class="modal-body">
 							<div class="row">
-								<div class="col-md-1" />
+								<div class="col-md-1" ></div>
 								<div class="col-md-10" >
 									<div class="form-group">
 										<label id="mpBraBrandFilterLabel" for="mpBraBrandFilter" class="control-label" th:text="#{control.brand}" />
@@ -88,7 +88,7 @@
 										<input id="mpBraDesc" class="form-control" type="text" maxlength="100" />
 									</div>
 								</div>
-								<div class="col-md-1" />
+								<div class="col-md-1" ></div>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -101,7 +101,7 @@
 		</div>
 		<div class="modal fade" id="categoryModalPopup" tabindex="-1" role="dialog" aria-hidden="true" >
 			<div class="modal-dialog">
-				<div class="color-line" />
+				<div class="color-line" ></div>
 				<div class="modal-content">
 					<div class="modal-header">
 	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -114,7 +114,7 @@
 					<form id="mpCatForm" class="form-horizontal" method="post">
 						<div class="modal-body">
 							<div class="row">
-								<div class="col-md-1" />
+								<div class="col-md-1" ></div>
 								<div class="col-md-10" >
 									<div class="form-group">
 										<label id="mpCatCategoryFilterLabel" for="mpCatCategoryFilter" class="control-label" th:text="#{control.category}" />
@@ -133,7 +133,7 @@
 										<input id="mpCatDesc" class="form-control" type="text" maxlength="100" />
 									</div>
 								</div>
-								<div class="col-md-1" />
+								<div class="col-md-1" ></div>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -146,7 +146,7 @@
 		</div>
 		<div class="modal fade" id="classModalPopup" tabindex="-1" role="dialog" aria-hidden="true" >
 			<div class="modal-dialog">
-				<div class="color-line" />
+				<div class="color-line" ></div>
 				<div class="modal-content">
 					<div class="modal-header">
 	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -159,7 +159,7 @@
 					<form id="mpClaForm" class="form-horizontal" method="post">
 						<div class="modal-body">
 							<div class="row">
-								<div class="col-md-1" />
+								<div class="col-md-1" ></div>
 								<div class="col-md-10" >
 									<div class="form-group">
 										<label id="mpClaCatFilterLabel" for="mpClaCatFilter" class="control-label" th:text="#{control.category}" />
@@ -191,7 +191,7 @@
 	                                    </select>
 									</div>
 								</div>
-								<div class="col-md-1" />
+								<div class="col-md-1" ></div>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -204,7 +204,7 @@
 		</div>
 		<div class="modal fade" id="typeModalPopup" tabindex="-1" role="dialog" aria-hidden="true" >
 			<div class="modal-dialog">
-				<div class="color-line" />
+				<div class="color-line" ></div>
 				<div class="modal-content">
 					<div class="modal-header">
 	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -217,7 +217,7 @@
 					<form id="mpTypForm" class="form-horizontal" method="post">
 						<div class="modal-body">
 							<div class="row">
-								<div class="col-md-1" />
+								<div class="col-md-1" ></div>
 								<div class="col-md-10" >
 									<div class="form-group">
 										<label id="mpTypCatFilterLabel" for="mpTypCatFilter" class="control-label" th:text="#{control.category}" />
@@ -261,7 +261,7 @@
 	                                    </select>
 									</div>
 								</div>
-								<div class="col-md-1" />
+								<div class="col-md-1" ></div>
 							</div>
 						</div>
 						<div class="modal-footer">

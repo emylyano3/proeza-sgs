@@ -8,8 +8,8 @@
 	<meta name="description" content="Sistema de Gestión de Stock" />
 	<meta name="author" content="Emiliano Schiano di Cola" />
 
-	<div th:replace ="fragment/misc.html::appTitle"/>
-	<div th:replace ="fragment/misc.html::appIcon"/>
+	<div th:replace ="fragment/misc.html::appTitle"></div>
+	<div th:replace ="fragment/misc.html::appIcon"></div>
 
 	<link href="../../../resources/bootstrap/css/bootstrap.css" th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet" />
 	<link href="../../../resources/metismenu/css/metisMenu.css" th:href="@{/resources/metismenu/css/metisMenu.css}" rel="stylesheet" />
@@ -24,23 +24,23 @@
 </head>
 
 <body>
-    <div th:replace="fragment/misc.html::imageGallery"/>
-    <div th:replace="fragment/misc.html::splash"/>
-    <div th:replace="fragment/bar.html::header"/>
-    <div th:replace="fragment/menu.html::mainMenuLeft" />
+    <div th:replace="fragment/misc.html::imageGallery"></div>
+    <div th:replace="fragment/misc.html::splash"></div>
+    <div th:replace="fragment/bar.html::header"></div>
+    <div th:replace="fragment/menu.html::mainMenuLeft" ></div>
     
 	<div id="wrapper">
 		<div class="content small-header">
-			<div th:replace="fragment/misc.html::pageTitle"/>
+			<div th:replace="fragment/misc.html::pageTitle"></div>
 			<div id="content" >
 		        <!-- Grilla de articulos -->
 				<div id="gridPanel" class="row animated zoomIn">
 					<div class="col-md-12">
-				        <div id="productGrid"/>
+				        <div id="productGrid"></div>
 					</div>
 				</div>
 		        <p/>
-				<div class="row">
+				<div id="thumbnailsPanel" class="row">
 					<div class="col-md-12">
 					    <div id="links"></div>
 					</div>

@@ -6,8 +6,8 @@
          <div id="navigation">
             <div sec:authorize="isAuthenticated()" class="profile-picture">
                 <a href="#" th:href="@{/profile}">
-                    <img th:if="${user.hasFoto()} == true" th:src="@{/rest/usuario/getPhoto/}+${user.alias}" class="img-circle m-b" />
-                    <img th:if="${user.hasFoto()} == false" th:src="@{/resources/app/img/user-avatar_76x76.jpg}" class="img-circle m-b" />
+                    <img th:if="${user.hasFoto()} == true" th:src="@{/rest/usuario/getPhoto/}+${user.alias}" class="img-circle m-b" ></img>
+                    <img th:if="${user.hasFoto()} == false" th:src="@{/resources/app/img/user-avatar_76x76.jpg}" class="img-circle m-b"></img>
                 </a>
                 <div class="stats-label text-color">
                     <span id="userAlias" class="font-extra-bold font-uppercase" th:text="${user.alias}">Usuario</span>
@@ -26,7 +26,7 @@
                     </div>
                      -->
                     <div id="salesSparkline" class="small-chart m-t-sm">
-                        <canvas width="119" height="30" style="display: inline-block; width: 119px; height: 30px; vertical-align: top;"/>
+                        <canvas width="119" height="30" style="display: inline-block; width: 119px; height: 30px; vertical-align: top;"></canvas>
                     </div>
                     <!--  
                     <div>
@@ -41,20 +41,20 @@
             <ul class="nav" id="side-menu">
                 <li th:each="item : ${SIDE_LEFT_MAIN.items}">
                     <a href="#" th:href="@{${item.href}}"> 
-                        <i class="fa fa-info" th:class="${item.icon}" /> 
-                        <span th:text="${item.text}" /> 
+                        <i class="fa fa-info" th:class="${item.icon}"></i> 
+                        <span th:text="${item.text}"></span> 
                         <span th:if="${!item.subitems.isEmpty()}" class="fa arrow"></span>
                     </a>
                     <ul th:if="${!item.subitems.isEmpty()}" class="nav nav-second-level">
                         <li class="nav nav-second-level" th:each="subitem : ${item.subitems}">
-                            <a href="#" th:href="@{${subitem.href}}" th:text="${subitem.text}" />
+                            <a href="#" th:href="@{${subitem.href}}" th:text="${subitem.text}"></a>
                         </li>
                     </ul>
                 </li>
                 <li sec:authorize="isAnonymous()">
                     <a href="#" th:href="@{/login}"> 
-                        <i class="fa fa-sign-in" /> 
-                        <span th:text="#{menu.login}" />
+                        <i class="fa fa-sign-in"></i> 
+                        <span th:text="#{menu.login}"></span>
                     </a>
                 </li>
                 <!-- 
@@ -67,8 +67,8 @@
                  -->
                 <li sec:authorize="isAuthenticated()">
                     <a href="#" th:href="@{/doLogout}"> 
-                        <i class="fa fa-sign-out" /> 
-                        <span th:text="#{menu.logout}" />
+                        <i class="fa fa-sign-out"></i> 
+                        <span th:text="#{menu.logout}"></span>
                     </a>
                 </li>
             </ul>

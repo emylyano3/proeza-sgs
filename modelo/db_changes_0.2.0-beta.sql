@@ -23,11 +23,11 @@ DELETE FROM sys_item_subitem WHERE fk_item in (3, 10);
 DELETE FROM sys_item_subitem WHERE fk_subitem in (3, 10);
 DELETE FROM sys_item WHERE id in (3, 10);
 
-ALTER TABLE `sgs_proeza_dev_db`.`sys_pagina` 
+ALTER TABLE `sys_pagina` 
 ADD COLUMN `fk_i18n_descripcion` BIGINT(20) UNSIGNED ZEROFILL NULL DEFAULT NULL AFTER `fk_i18n_subtitulo`;
-ALTER TABLE `sgs_proeza_dev_db`.`sys_pagina` 
+ALTER TABLE `sys_pagina` 
 CHANGE COLUMN `fk_i18n_descripcion` `fk_i18n_descripcion` BIGINT(20) UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT 'Descripcion de la pagina' ;
-ALTER TABLE `sgs_proeza_dev_db`.`sys_pagina` 
+ALTER TABLE `sys_pagina` 
 DROP COLUMN `descripcion`;
 
 
@@ -63,3 +63,7 @@ insert into cmn_traduccion (fk_i18n, locale, texto) values
 (41, 'en_US', 'User profile page'),
 (42, 'es_AR', 'Página de administración de accessos al sistema'),
 (42, 'en_US', 'System access administration page');
+
+insert into cmn_i18n (id)  values (43);
+update sys_pagina set fk_i18n_titulo = 43 where grupo = 'root' and nombre = 'profile';
+insert into cmn_traduccion (fk_i18n, locale, texto) values (43, 'en_US', 'Profile'),(43, 'es_AR', 'Perfil');
