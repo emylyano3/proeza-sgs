@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <body>
   
-    <nav th:fragment="header" id="header" class="navbar navbar-default navbar-fixed-top" role="navigation" >
+    <div th:fragment="header" id="header" >
         <div class="color-line"></div>
         <a id="logo" class="light-version" href="#" th:href="@{/home}">
             <div>
@@ -11,118 +11,52 @@
                 <span th:text="#{app.name}"></span>
             </div>
         </a>
-        <div class="header-link hide-menu">
-            <i class="fa fa-bars"></i>
-        </div>
-        <div th:if="${pageConfig.hasSearch}" class="navbar-form-custom">
-            <input id="filter" type="text" th:placeholder="#{control.search}" placeholder="Buscar..." class="form-control" name="search"/>
-        </div>
-        <div class="navbar-right">
-            <ul class="nav navbar-nav no-borders">
-                <li th:if="${pageConfig.hasSearch}" class="button">
-                    <a id="eraser" class="dropdown-toggle" data-toggle="button">
-                        <i class="fa fa-eraser"></i>
-                    </a>
-                </li>
-                <!--
-                <li class="dropdown">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                        <i class="fa fa-bullhorn"></i>
-                    </a>
-                    <ul class="dropdown-menu hdropdown notification animated flipInX">
-                        <li>
-                            <a>
-                                <span class="label label-success">NEW</span> It is a long established.
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <span class="label label-warning">WAR</span> There are many variations.
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <span class="label label-danger">ERR</span> Contrary to popular belief.
-                            </a>
-                        </li>
-                        <li class="summary"><a href="#">See all notifications</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown">
-                        <i class="fa fa-envelope"></i>
-                        <span class="label label-success">3</span>
-                    </a>
-                    <ul class="dropdown-menu hdropdown animated flipInX">
-                        <div class="title">
-                            You have 4 new messages
-                        </div>
-                        <li>
-                            <a>
-                                It is a long established.
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                There are many variations.
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                Lorem Ipsum is simply dummy.
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                Contrary to popular belief.
-                            </a>
-                        </li>
-                        <li class="summary">
-                            <a href="#">
-                                <span>See All Messages</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li> 
-                 -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown"> 
-                        <i class="fa fa-user fa-fw"></i> 
-                        <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul sec:authorize="isAnonymous()" class="dropdown-menu hdropdown animated flipInX">
-                        <li>
-                            <a href="#" th:href="@{/login}" th:text="#{control.login}">
-                                <i class="fa fa-sign-in fa-fw"></i>Ingresar
-                            </a>
-                        </li>
-                        <!-- 
-                        <li>
-                            <a href="#" th:href="@{/register}" th:text="#{control.register}">
-                                <i class="fa fa-user fa-fw"></i>Registrarse
-                            </a>
-                        </li>
-                         -->
-                    </ul>
-                    <ul sec:authorize="isAuthenticated()" class="dropdown-menu hdropdown animated flipInX">
-                        <div class="title">
-                            <a class="font-extra-bold font-uppercase" sec:authentication="name">Usuario</a>
-                        </div>
-                        <li>
-                            <a href="#" th:href="@{/profile}" th:text="#{control.profile}">
-                                <i class="fa fa-user fa-fw"></i>Perfil
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" th:href="@{/doLogout}" th:text="#{control.logout}">
-                                <i class="fa fa-sign-out fa-fw"></i>Salir
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+        <nav role="navigation">
+	        <div class="header-link hide-menu">
+	            <i class="fa fa-bars"></i>
+	        </div>
+	        <div th:if="${pageConfig.hasSearch}" class="navbar-form-custom">
+	            <input id="filter" type="text" th:placeholder="#{control.search}" placeholder="Buscar..." class="form-control" style="font-size: 18px;" name="search"/>
+	        </div>
+	        <div class="navbar-right">
+	            <ul class="nav navbar-nav no-borders">
+	                <li th:if="${pageConfig.hasSearch}" class="button">
+	                    <a id="eraser" class="dropdown-toggle" data-toggle="button">
+	                        <i class="fa fa-eraser"></i>
+	                    </a>
+	                </li>
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown"> 
+	                        <i class="fa fa-user fa-fw"></i> 
+	                        <i class="fa fa-caret-down"></i>
+	                    </a>
+	                    <ul sec:authorize="isAnonymous()" class="dropdown-menu hdropdown animated flipInX">
+	                        <li>
+	                            <a href="#" th:href="@{/login}" th:text="#{control.login}">
+	                                <i class="fa fa-sign-in fa-fw"></i>Ingresar
+	                            </a>
+	                        </li>
+	                    </ul>
+	                    <ul sec:authorize="isAuthenticated()" class="dropdown-menu hdropdown animated flipInX">
+	                        <div class="title">
+	                            <a class="font-extra-bold font-uppercase" sec:authentication="name">Usuario</a>
+	                        </div>
+	                        <li>
+	                            <a href="#" th:href="@{/profile}" th:text="#{control.profile}">
+	                                <i class="fa fa-user fa-fw"></i>Perfil
+	                            </a>
+	                        </li>
+	                        <li>
+	                            <a href="#" th:href="@{/doLogout}" th:text="#{control.logout}">
+	                                <i class="fa fa-sign-out fa-fw"></i>Salir
+	                            </a>
+	                        </li>
+	                    </ul>
+	                </li>
+	            </ul>
+	        </div>
+        </nav>
+    </div>
 
 </body>
 </html>

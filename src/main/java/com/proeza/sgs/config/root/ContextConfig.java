@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
+import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.messageresolver.IMessageResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -78,9 +79,10 @@ import net.sf.ehcache.CacheException;
 @EnableTransactionManagement
 public class ContextConfig {
 
-    private static final String MAIL_VIEWS_LOCATION = "mail/";
     private static final String MESSAGES_LOCATION       = "/WEB-INF/messages/messages";
     private static final String VIEWS_LOCATION          = "/WEB-INF/views/";
+    private static final String JS_LOCATION             = "/WEB-INF/js/";
+    private static final String MAIL_VIEWS_LOCATION     = "mail/";
     private static final String EHCACHE_CONFIG_LOCATION = "classpath:ehcache.xml";
 
     @Autowired
@@ -127,13 +129,6 @@ public class ContextConfig {
     }
 
     @Bean
-    public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
-        final ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-        viewResolver.setTemplateEngine(templateEngine);
-        return viewResolver;
-    }
-
-    @Bean
     public IMessageResolver messageResolver(MessageSource messageSource) {
         final SpringMessageResolver messageResolver = new SpringMessageResolver();
         messageResolver.setMessageSource(messageSource);
@@ -141,32 +136,66 @@ public class ContextConfig {
     }
 
     @Bean
-    public ITemplateResolver webTemplateResolver() {
-        final SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setApplicationContext(this.context);
-        templateResolver.setPrefix(VIEWS_LOCATION);
-        templateResolver.setTemplateMode(TemplateMode.HTML);
-        templateResolver.setCacheable(this.generalSettings.isViewCacheEnabled());
-        return templateResolver;
+    public ViewResolver htmlResolver(IMessageResolver messageResolver) {
+        final ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        resolver.setTemplateEngine(templateEngine(messageResolver, htmlTemplateResolver()));
+        resolver.setContentType("text/html");
+        resolver.setCharacterEncoding(ConfigConsts.DEFAULT_ENCODING);
+        resolver.setViewNames(new String[]{"*.html"});
+        return resolver;
     }
 
     @Bean
-    public ITemplateResolver emailTemplateResolver() {
+    public ViewResolver jsResolver(IMessageResolver messageResolver) {
+        final ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        resolver.setTemplateEngine(templateEngine(messageResolver, jsTemplateResolver()));
+        resolver.setContentType("application/javascript");
+        resolver.setCharacterEncoding(ConfigConsts.DEFAULT_ENCODING);
+        resolver.setViewNames(new String[]{"*.js"});
+        return resolver;
+    }
+
+    private TemplateEngine templateEngine(IMessageResolver messageResolver, ITemplateResolver templateResolver) {
+        final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.addTemplateResolver(templateResolver);
+        templateEngine.addDialect(new SpringSecurityDialect());
+        templateEngine.addMessageResolver(messageResolver);
+        return templateEngine;
+    }
+
+    private ITemplateResolver htmlTemplateResolver() {
+        final SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+        resolver.setApplicationContext(this.context);
+        resolver.setPrefix(VIEWS_LOCATION);
+        resolver.setTemplateMode(TemplateMode.HTML);
+        resolver.setCacheable(this.generalSettings.isViewCacheEnabled());
+        return resolver;
+    }
+
+    private ITemplateResolver jsTemplateResolver() {
+        final SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+        resolver.setApplicationContext(this.context);
+        resolver.setPrefix(JS_LOCATION);
+        resolver.setTemplateMode(TemplateMode.JAVASCRIPT);
+        resolver.setCacheable(this.generalSettings.isViewCacheEnabled());
+        return resolver;
+    }
+
+    @Bean
+    public TemplateEngine mailTemplateEngine(IMessageResolver messageResolver) {
+        final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.addTemplateResolver(emailTemplateResolver());
+        templateEngine.addDialect(new SpringSecurityDialect());
+        templateEngine.addMessageResolver(messageResolver);
+        return templateEngine;
+    }
+
+    private ITemplateResolver emailTemplateResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setPrefix(MAIL_VIEWS_LOCATION);
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCacheable(this.generalSettings.isViewCacheEnabled());
         return templateResolver;
-    }
-
-    @Bean
-    public SpringTemplateEngine templateEngine(IMessageResolver messageResolver) {
-        final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.addTemplateResolver(webTemplateResolver());
-        templateEngine.addTemplateResolver(emailTemplateResolver());
-        templateEngine.addDialect(new SpringSecurityDialect());
-        templateEngine.addMessageResolver(messageResolver);
-        return templateEngine;
     }
 
     @Bean

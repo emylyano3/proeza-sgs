@@ -19,12 +19,7 @@
 
 <body class="blank">
 	<div th:replace="fragment/misc.html::splash"/>
-	<div class="color-line" />
-	<!-- 
-	<div class="pull-left m">
-	    <a href="#" th:href="@{/home}" class="btn btn-primary" text="Volver al home" th:text="#{control.backtohome}"/>
-	</div>
-	 -->
+	<div class="color-line" ></div>
 	<div class="login-container">
 	    <div class="row">
 	        <div class="col-md-12">
@@ -47,14 +42,7 @@
                                 <input name="password" id="password" type="password" th:placeholder="#{control.ph.password}" class="form-control" required="required" autocomplete="off"/>
                                 <span class="help-block small" th:text="#{login.passwordhelp}" text="Su contraseña de usuario"/>
                             </div>
-                            <!-- 
-                            <div class="checkbox">
-                                <input type="checkbox" class="i-checks" checked="checked" th:text="' ' + #{control.rememberme}" text="Recordarme"/>
-                                <p class="help-block small" th:text="#{login.remembermehelp}" text="(si es una computarora privada)" />
-                            </div>
-                             -->
                             <button class="btn btn-success btn-block" th:text="#{control.login}" text="Ingresar" />
-<!--                             <a class="btn btn-default btn-block" href="#" th:href="@{/register}" th:text="#{control.register}" text="Registrarme"/> -->
                         </form>
 	                </div>
 	            </div>
@@ -71,7 +59,8 @@
     <script src="../../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}"></script>
     <script src="../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}"></script>
     <script src="../../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"></script>
-    <script src="../../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}"></script>
+    
+    <script type="text/javascript" src="../js/proeza-sgs.js" th:src="@{/proeza-sgs.js}" ></script>
 </body>
 
 </html>

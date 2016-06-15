@@ -21,69 +21,70 @@
 	<link href="../../../resources/gallery/css/blueimp-gallery-indicator.css" th:href="@{/resources/gallery/css/blueimp-gallery-indicator.css}" rel="stylesheet" />
 </head>
 
-<body>
+<body class="fixed-navbar fixed-sidebar">
     <div th:replace="fragment/misc.html::splash"/>
     <div th:replace="fragment/bar.html::header"/>
     <div th:replace="fragment/menu.html::mainMenuLeft" />
     
 	<div id="wrapper">
-		<div class="content small-header">
-			<div th:replace="fragment/misc.html::pageTitle"/>
-			<div id="content" >
-				<div sec:authorize="isAnonymous()">
-					<div class="hpanel">
-						<div class="panel-body">
-							<div class="register-container">
-								<form id="registerForm" class="form-horizontal" action="#" th:action="@{register}" th:object="${userForm}" method="post">
-					<!-- 				<input type="hidden" name="_csrf" th:value="${_csrf.token}"/> -->
-									<fieldset>
-										<div class="form-group">
-											<label class="control-label" for="alias" th:text="#{control.alias}">Alias</label>
-											<input id="alias" class="form-control" type="text" th:field="*{alias}" th:placeholder="#{control.ph.alias}" placeholder="jperez" required="required" autofocus="autofocus"/>
-										</div>
-										<div class="form-group">
-											<label class="control-label" for="name" th:text="#{control.name}">Nombre</label>
-											<input id="name" class="form-control" type="text" th:field="*{nombre}" th:placeholder="#{control.ph.name}" placeholder="Juan" required="required" />
-										</div>
-										<div class="form-group">
-											<label class="control-label" for="lastname" th:text="#{control.lastname}">Apellido</label>
-											<input id="lastname" class="form-control" type="text" th:field="*{apellido}" th:placeholder="#{control.ph.lastname}" placeholder="Perez" required="required" />
-										</div>
-										<div class="form-group">
-											<label class="control-label" for="email" th:text="#{control.email}">Email</label>
-											<input id="email" class="form-control" type="email" th:field="*{email}" th:placeholder="#{control.ph.email}" placeholder="juan.perezl@email.com" required="required"/>
-										</div>
-										<div class="form-group">
-											<label class="control-label" for="pass" th:text="#{control.password}">Contraseña</label>
-											<input id="pass" class="form-control" type="password" th:field="*{password}" pattern="[\w\d-_]{5,15}" th:placeholder="#{control.ph.password}" required="required" th:title="#{register.error.password}"/>
-											<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error en el dato ingresado</p>
-										</div>
-										<div class="form-group">
-											<label class="control-label" for="passConfirm" th:text="#{control.passwordconfirm}">Confirmar contraseña</label>
-											<input id="passConfirm" class="form-control" type="password" th:field="*{passwordConfirm}" pattern="[\w\d-_]{5,15}" th:placeholder="#{control.ph.password}" required="required" th:title="#{register.error.password}" />
-											<p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Error en el dato ingresado</p>
-										</div>
-										<p/>
-										<button type="submit" name="save" class="btn btn-success btn-block" th:text="#{control.register}">Registrarme</button>
-									</fieldset>
-								</form>
-							</div>
+		<div th:replace="fragment/misc.html::pageTitle"/>
+		<div id="content" class="content animate-panel container-fluid" >
+			<div sec:authorize="isAnonymous()">
+				<div class="hpanel">
+					<div class="panel-body">
+						<div class="register-container">
+							<form id="registerForm" class="form-horizontal" action="#" th:action="@{register}" th:object="${userForm}" method="post">
+				<!-- 				<input type="hidden" name="_csrf" th:value="${_csrf.token}"/> -->
+								<fieldset>
+									<div class="form-group">
+										<label class="control-label" for="alias" th:text="#{control.alias}">Alias</label>
+										<input id="alias" class="form-control" type="text" th:field="*{alias}" th:placeholder="#{control.ph.alias}" placeholder="jperez" required="required" autofocus="autofocus"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label" for="name" th:text="#{control.name}">Nombre</label>
+										<input id="name" class="form-control" type="text" th:field="*{nombre}" th:placeholder="#{control.ph.name}" placeholder="Juan" required="required" />
+									</div>
+									<div class="form-group">
+										<label class="control-label" for="lastname" th:text="#{control.lastname}">Apellido</label>
+										<input id="lastname" class="form-control" type="text" th:field="*{apellido}" th:placeholder="#{control.ph.lastname}" placeholder="Perez" required="required" />
+									</div>
+									<div class="form-group">
+										<label class="control-label" for="email" th:text="#{control.email}">Email</label>
+										<input id="email" class="form-control" type="email" th:field="*{email}" th:placeholder="#{control.ph.email}" placeholder="juan.perezl@email.com" required="required"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label" for="pass" th:text="#{control.password}">Contraseña</label>
+										<input id="pass" class="form-control" type="password" th:field="*{password}" pattern="[\w\d-_]{5,15}" th:placeholder="#{control.ph.password}" required="required" th:title="#{register.error.password}"/>
+										<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error en el dato ingresado</p>
+									</div>
+									<div class="form-group">
+										<label class="control-label" for="passConfirm" th:text="#{control.passwordconfirm}">Confirmar contraseña</label>
+										<input id="passConfirm" class="form-control" type="password" th:field="*{passwordConfirm}" pattern="[\w\d-_]{5,15}" th:placeholder="#{control.ph.password}" required="required" th:title="#{register.error.password}" />
+										<p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Error en el dato ingresado</p>
+									</div>
+									<p/>
+									<button type="submit" name="save" class="btn btn-success btn-block" th:text="#{control.register}">Registrarme</button>
+								</fieldset>
+							</form>
 						</div>
-						<div class="panel-footer">
-							<span th:text="#{register.form.user}">Fomulario de registro de usuario</span>
-						</div>
+					</div>
+					<div class="panel-footer">
+						<span th:text="#{register.form.user}">Fomulario de registro de usuario</span>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div th:replace="fragment/misc.html::footer"/>
 	</div>
 	<script type="text/javascript" src="../../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}" />
     <script type="text/javascript" src="../../../resources/bootstrap/js/bootstrap.js" th:src="@{/resources/bootstrap/js/bootstrap.js}" />
 	<script type="text/javascript" src="../../../resources/metismenu/js/metisMenu.js" th:src="@{/resources/metismenu/js/metisMenu.js}" />
     <script type="text/javascript" src="../../../resources/sparkline/js/sparkline.js" th:src="@{/resources/sparkline/js/sparkline.js}"/>
     <script type="text/javascript" src="../../../resources/icheck/icheck.js" th:src="@{/resources/icheck/icheck.js}"/>
-	<script type="text/javascript" src="../../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}" />
-    <script type="text/javascript" src="../../../resources/app/js/menu.js" th:src="@{/resources/app/js/menu.js}"/>
+
+	<script type="text/javascript" src="../js/proeza-sgs.js" th:src="@{/proeza-sgs.js}" ></script>
+	<script type="text/javascript" src="../js/menu.js" th:src="@{/menu.js}" ></script>
+
     <script th:inline="javascript">
         /*<![CDATA[*/
         $(document).ready(function() {

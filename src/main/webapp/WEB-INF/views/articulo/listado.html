@@ -23,40 +23,39 @@
 	<link href="../../../resources/jqx/css/jqx.energyblueproeza.css" th:href="@{/resources/jqx/css/jqx.energyblueproeza.css}" type="text/css" media="screen" rel="stylesheet" />
 </head>
 
-<body>
+<body class="fixed-navbar fixed-sidebar">
     <div th:replace="fragment/misc.html::imageGallery"></div>
     <div th:replace="fragment/misc.html::splash"></div>
     <div th:replace="fragment/bar.html::header"></div>
     <div th:replace="fragment/menu.html::mainMenuLeft" ></div>
     
 	<div id="wrapper">
-		<div class="content small-header">
-			<div th:replace="fragment/misc.html::pageTitle"></div>
-			<div id="content" >
-		        <!-- Grilla de articulos -->
-				<div id="gridPanel" class="row animated zoomIn">
-					<div class="col-md-12">
-				        <div id="productGrid"></div>
-					</div>
+		<div th:replace="fragment/misc.html::pageTitle"></div>
+		<div id="content" class="content animate-panel container-fluid">
+	        <!-- Grilla de articulos -->
+			<div id="gridPanel" class="row animated zoomIn">
+				<div class="col-md-12">
+			        <div id="productGrid"></div>
 				</div>
-		        <p/>
-				<div id="thumbnailsPanel" class="row">
-					<div class="col-md-12">
-					    <div id="links"></div>
-					</div>
-				</div>
-		        <div th:if="${CONTEXT_PROD_LIST_GRID} != null" id="gridContextMenu">
-		            <ul>
-		                <li th:each="item : ${CONTEXT_PROD_LIST_GRID.items}" th:id="${item.code}" >
-		                    <span th:text="${item.text}" th:remove="tag"/> 
-		                    <ul th:if="${!item.subitems.isEmpty()}" >
-		                        <li th:each="subitem : ${item.subitems}" th:id="${subitem.code}" th:text="${subitem.text}"/>
-		                    </ul>
-		                </li>
-		            </ul>
-		        </div>
 			</div>
+	        <p/>
+			<div id="thumbnailsPanel" class="row">
+				<div class="col-md-12">
+				    <div id="links"></div>
+				</div>
+			</div>
+	        <div th:if="${CONTEXT_PROD_LIST_GRID} != null" id="gridContextMenu">
+	            <ul>
+	                <li th:each="item : ${CONTEXT_PROD_LIST_GRID.items}" th:id="${item.code}" >
+	                    <span th:text="${item.text}" th:remove="tag"/> 
+	                    <ul th:if="${!item.subitems.isEmpty()}" >
+	                        <li th:each="subitem : ${item.subitems}" th:id="${subitem.code}" th:text="${subitem.text}"/>
+	                    </ul>
+	                </li>
+	            </ul>
+	        </div>
 		</div>
+		<div th:replace="fragment/misc.html::footer"/>
 	</div>
 	
 	<script type="text/javascript" src="../../../resources/jquery/jquery.js" th:src="@{/resources/jquery/jquery.js}" ></script>
@@ -77,9 +76,10 @@
 	<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery.js" th:src="@{/resources/gallery/js/blueimp-gallery.js}"></script>
 	<script type="text/javascript" src="../../../resources/gallery/js/blueimp-gallery-indicator.js" th:src="@{/resources/gallery/js/blueimp-gallery-indicator.js}"></script>
 	<script type="text/javascript" src="../../../resources/gallery/js/jquery.blueimp-gallery.js" th:src="@{/resources/gallery/js/jquery.blueimp-gallery.js}"></script>
-	<script type="text/javascript" src="../../../resources/app/js/proeza-sgs.js" th:src="@{/resources/app/js/proeza-sgs.js}" ></script>
-    <script type="text/javascript" src="../../../resources/app/js/menu.js" th:src="@{/resources/app/js/menu.js}"></script>
-	<script type="text/javascript" src="../../../resources/app/js/aticulo.js" th:src="@{/resources/app/js/articulo.js}"></script>
+
+	<script type="text/javascript" src="../js/proeza-sgs.js" th:src="@{/proeza-sgs.js}" ></script>
+	<script type="text/javascript" src="../js/menu.js" th:src="@{/menu.js}" ></script>
+	<script type="text/javascript" src="../js/articulo.js" th:src="@{/articulo.js}" ></script>
 	
 	<script th:inline="javascript">
 	/*<![CDATA[*/
