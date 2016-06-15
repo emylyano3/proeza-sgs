@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
 	updateSideBarStatus();
 
 	// Add special class to minimalize page elements when screen is less than 768px
@@ -74,7 +73,6 @@ $(document).ready(function() {
 	// Move modal to body
 	// Fix Bootstrap backdrop issu with animation.css
 	$('.modal').appendTo('body');
-
 });
 
 function relateCombos(srcCombo, targetCombo, serviceUrl, tagetSelectedValue, notifyCallback) {

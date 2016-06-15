@@ -9,6 +9,7 @@ select
 	a.marca,
 	sum(a.stock) as stock
 from Articulo a
+where a.habilitado is true
 group by 
 	a.marca
 order by stock desc
@@ -20,6 +21,7 @@ select
 	a.rubro,
 	sum(a.stock) as stock
 from Articulo a
+where a.habilitado is true
 group by 
 	a.rubro
 order by stock desc
@@ -31,6 +33,7 @@ select
 	sum(a.stock) as stock,
 	sum(a.stock * a.costo) as capital
 from Articulo a
+where a.habilitado is true
        ]]>
     </query>
 </hibernate-mapping>
