@@ -4,7 +4,7 @@
 	<groupId>com.proeza</groupId>
 	<artifactId>proeza-sgs</artifactId>
 	<packaging>war</packaging>
-	<version>0.1.1-beta</version>
+	<version>0.2.0-beta</version>
 	<name>Sistema de Gestión de Stock Proeza</name>
 	<url>http://maven.apache.org</url>
 	<properties>
