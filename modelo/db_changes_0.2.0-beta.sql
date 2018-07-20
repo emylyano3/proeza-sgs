@@ -1,16 +1,23 @@
 INSERT INTO `cmn_i18n` (`id`) VALUES (00000000000000000027);
 INSERT INTO `cmn_i18n` (`id`) VALUES (00000000000000000028);
+
 INSERT INTO `cmn_traduccion` (`id`,`fk_i18n`,`locale`,`texto`) VALUES (00000000000000000054,00000000000000000027,'en_US','Application');
 INSERT INTO `cmn_traduccion` (`id`,`fk_i18n`,`locale`,`texto`) VALUES (00000000000000000053,00000000000000000027,'es_AR','Aplicación');
 INSERT INTO `cmn_traduccion` (`id`,`fk_i18n`,`locale`,`texto`) VALUES (00000000000000000056,00000000000000000028,'en_US','Menúes');
 INSERT INTO `cmn_traduccion` (`id`,`fk_i18n`,`locale`,`texto`) VALUES (00000000000000000055,00000000000000000028,'es_AR','Menus');
+
 INSERT INTO `seg_rol` (`id`,`codigo`,`nombre`,`descripcion`) VALUES (00000000000000000044,'ROLE_APP_ADMIN','Aplicación Administrador','Administrador de la configuración del sistema');
+
 INSERT INTO `sys_item` (`id`,`codigo`,`fk_i18n_texto`,`fk_i18n_tooltip`,`icono`,`link`) VALUES (00000000000000000016,'MI_APP',27,NULL,NULL,'#');
-INSERT INTO `sys_item` (`id`,`codigo`,`fk_i18n_texto`,`fk_i18n_tooltip`,`icono`,`link`) VALUES (00000000000000000017,'MI_APP_ACCESS',28,NULL,'fa fa-barcode','/application/access');
+INSERT INTO `sys_item` (`id`,`codigo`,`fk_i18n_texto`,`fk_i18n_tooltip`,`icono`,`link`) VALUES (00000000000000000017,'MI_APP_MENU',28,NULL,'fa fa-barcode','/application/admin/menu');
+
 INSERT INTO `sys_item_rol` (`id`,`fk_item`,`fk_rol`) VALUES (00000000000000000029,00000000000000000016,00000000000000000044);
 INSERT INTO `sys_item_rol` (`id`,`fk_item`,`fk_rol`) VALUES (00000000000000000030,00000000000000000017,00000000000000000044);
+
 INSERT INTO `sys_item_subitem` (`id`,`fk_item`,`fk_subitem`,`indice`) VALUES (00000000000000000011,00000000000000000016,00000000000000000017,0);
+
 INSERT INTO `sys_menu_item` (`id`,`fk_menu`,`fk_item`,`indice`) VALUES (00000000000000000006,00000000000000000001,00000000000000000016,3);
+
 INSERT INTO `seg_usuario_rol` (`id`,`fk_usuario`,`fk_rol`) VALUES (00000000000000000022,00000000000000000104,00000000000000000044);
 
 /*Creacion de la pagina*/
@@ -25,8 +32,10 @@ DELETE FROM sys_item WHERE id in (3, 10);
 
 ALTER TABLE `sys_pagina` 
 ADD COLUMN `fk_i18n_descripcion` BIGINT(20) UNSIGNED ZEROFILL NULL DEFAULT NULL AFTER `fk_i18n_subtitulo`;
+
 ALTER TABLE `sys_pagina` 
 CHANGE COLUMN `fk_i18n_descripcion` `fk_i18n_descripcion` BIGINT(20) UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT 'Descripcion de la pagina' ;
+
 ALTER TABLE `sys_pagina` 
 DROP COLUMN `descripcion`;
 

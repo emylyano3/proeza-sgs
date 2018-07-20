@@ -1,5 +1,8 @@
 package com.proeza.sgs.system.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.NONSTRICT_READ_WRITE;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,12 +29,8 @@ import com.proeza.core.i18n.I18nHelper;
 import com.proeza.core.i18n.entity.I18n;
 import com.proeza.security.entity.Rol;
 
-import static javax.persistence.GenerationType.*;
-import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
-
 @Entity
 @Table(
-
         name = "sys_item",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})})
 @Cache(usage = NONSTRICT_READ_WRITE)
@@ -107,7 +106,6 @@ public class Item implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
-
             name = "sys_item_rol",
             joinColumns = {@JoinColumn(name = "fk_item", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "fk_rol", nullable = false, updatable = false)}
