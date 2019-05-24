@@ -14,18 +14,26 @@ import com.proeza.sgs.system.service.dto.MenuDTO;
 @RestController
 @RequestMapping("rest/application")
 public class AppManagementRestController {
+//	@Autowired
+//	private TaskExecutor taskExecutor;
+//
+//	public void executeAsynchronously() {
+//		this.taskExecutor.execute(() -> {
+//			// TODO add long running task
+//		});
+//	}
 
-    @Autowired
-    private IMenuService menuService;
+	@Autowired
+	private IMenuService menuService;
 
-    @RequestMapping(value = "getMenu", method = RequestMethod.POST)
-    public List<MenuDTO> getMenus() {
-        return this.menuService.getMenus();
-    }
+	@RequestMapping(value = "getMenu", method = RequestMethod.POST)
+	public List<MenuDTO> getMenus() {
+		return this.menuService.getMenus();
+	}
 
-    @RequestMapping(value = "getMenu/{code}", method = RequestMethod.POST)
-    public MenuDTO getMenu(@PathVariable String code) {
-        return this.menuService.getMenu(code);
-    }
+	@RequestMapping(value = "getMenu/{code}", method = RequestMethod.POST)
+	public MenuDTO getMenu(@PathVariable String code) {
+		return this.menuService.getMenu(code);
+	}
 
 }
