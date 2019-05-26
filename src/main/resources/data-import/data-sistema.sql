@@ -1,16 +1,16 @@
 /* Pagina */
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (1, 'usuario', 'home' ,'Página de inicio de las funcionalidades de usuario', 15, 18);
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (2, 'usuario', 'listado' ,'Página con la que se realiza el listado de usuarios', 15, 19);
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (3, 'usuario', 'admin' ,'Página con la que se realiza la adminsitración de usuarios', 15, 20);
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (4, 'usuario', 'estadisticas' ,'Página con la que se accede a las estadísticas de usuarios', 15, 21);
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (5, 'root', 'home' ,'Inicio de la aplicación',16, null);
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (6, 'root', 'register','Página de registro de usuario', null, null);
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (7, 'root', 'login','Página de Ingreso al sistema', null, null);
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (8, 'root', 'logout','Página que se muestra al usuario luego de su salida del sistema',null, null);
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (9, 'articulo', 'home' ,'Página inicial de las funcionalidades de articulo',17,18);
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (10, 'articulo', 'listado' ,'Página donde se ofrecen funcionalidades de listado de articulos',17,19);
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (11, 'articulo', 'stats' ,'Página donde se acceden a las estadísticas de articulos',17,21);
-	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (12, 'articulo', 'admin' ,'Página donde se administran los articulos',17,20);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (1, 'usuario', 'home', 22, 15, 18);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (2, 'usuario', 'listado', 23, 15, 19);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (3, 'usuario', 'admin', 24, 15, 20);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (4, 'usuario', 'estadisticas', 25, 15, 21);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (5, 'root', 'home', 26, 16, null);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (6, 'root', 'register', 27, null, null);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (7, 'root', 'login', 28, null, null);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (8, 'root', 'logout', 29, null, null);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (9, 'articulo', 'home', 30 , 17, 18);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (10, 'articulo', 'listado', 31, 17, 19);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (11, 'articulo', 'stats', 32, 17, 21);
+	insert into sgs_proeza_test_db.sys_pagina (id, grupo, nombre, fk_i18n_descripcion, fk_i18n_titulo, fk_i18n_subtitulo) values (12, 'articulo', 'admin', 33, 17, 20);
 /* Pagina */
 
 /* Pagina - Rol */

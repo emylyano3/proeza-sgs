@@ -35,6 +35,18 @@
 	insert into sgs_proeza_test_db.cmn_i18n (id) values (19);
 	insert into sgs_proeza_test_db.cmn_i18n (id) values (20);
 	insert into sgs_proeza_test_db.cmn_i18n (id) values (21);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (22);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (23);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (24);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (25);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (26);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (27);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (28);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (29);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (30);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (31);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (32);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (33);
 	
 	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (1,1,'Home','en_US');
 	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (2,1,'Home','es_AR');
@@ -78,4 +90,29 @@
 	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (40,20,'Management','en_US');
 	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (41,21,'Estadísticas','es_AR');
 	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (42,21,'Statistics','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (43,22,'Página de inicio de usuario','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (44,22,'User home page','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (45,23,'Página de listado de usuarios','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (46,23,'User listing page','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (47,24,'Página de adminsitración de usuarios','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (48,24,'User administration page','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (49,25,'Página de estadísticas de usuarios','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (50,25,'User statistics page','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (51,26,'Inicio de la aplicación','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (52,26,'App home','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (53,27,'Página de registro de usuario','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (54,27,'User registration page','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (55,28,'Página de login','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (56,28,'Login page','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (57,29,'Página de logout','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (58,29,'Logout page','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (59,30,'Página inicial del modulo artículos','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (60,30,'Products home page','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (61,31,'Página de listado de articulos','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (62,31,'Products listing page','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (63,32,'Página de estadísticas de articulos','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (64,32,'Products statistics page','en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (65,33,'Página de administración de articulos','es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (66,33,'Product administration page','en_US');
+	
 /* Internacionalizacion */
