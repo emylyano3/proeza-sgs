@@ -29,7 +29,7 @@ public class HomeController {
         model.addAllAttributes(this.menuService.getMenus(PAGE_GROUP, PAGE_NAME, principal));
     }
 
-    @RequestMapping({"/home"})
+    @RequestMapping({"/", "/home"})
     public String home (ModelMap model) {
         model.addAttribute("pageConfig", buildPageConfig(PAGE_GROUP, PAGE_NAME));
         return PAGE_GROUP + "/" + PAGE_NAME + ".html";
