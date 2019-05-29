@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.proeza</groupId>
@@ -20,7 +21,8 @@
 		<ehcache-core-version>2.6.11</ehcache-core-version>
 		<spring-version>4.2.6.RELEASE</spring-version>
 		<spring.security-version>4.1.0.RELEASE</spring.security-version>
-		<mysql-connector-version>5.1.36</mysql-connector-version>
+		<mysql-connector-version>8.0.12</mysql-connector-version>
+		<mysql-socket-factory-version>1.0.10</mysql-socket-factory-version>
 		<thymeleaf-version>3.0.0.RELEASE</thymeleaf-version>
 		<thymeleaf-extras-springsecurity4-version>3.0.0.RELEASE</thymeleaf-extras-springsecurity4-version>
 		<javax.servlet-api-version>3.1.0</javax.servlet-api-version>
@@ -62,9 +64,20 @@
 				<app.environment>prod</app.environment>
 			</properties>
 		</profile>
+		<profile>
+			<id>cloud</id>
+			<properties>
+				<app.environment>cloud</app.environment>
+			</properties>
+		</profile>
 	</profiles>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.google.cloud.sql</groupId>
+			<artifactId>mysql-socket-factory-connector-j-8</artifactId>
+			<version>${mysql-socket-factory-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
@@ -196,10 +209,9 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate-validator-version}</version>
 		</dependency>
-		<!-- 
-		Agregando esta dependendencia, el plugin maven-compiler invoca al JPAMetaModelEntityProcessor 
-		directamente para generar los sources a partir de las anotaciones
-		 -->
+		<!-- Agregando esta dependendencia, el plugin maven-compiler invoca al 
+			JPAMetaModelEntityProcessor directamente para generar los sources a partir 
+			de las anotaciones -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-jpamodelgen</artifactId>
@@ -224,7 +236,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-connector-version}</version>
 		</dependency>
-		 
+
 		<!-- Rest + JSon -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -357,7 +369,8 @@
 					<target>${java-version}</target>
 				</configuration>
 			</plugin>
-			<!-- Este plugin incorpora los sources generados por el JPAMetaModelEntityProcessor al source path del eclipse -->
+			<!-- Este plugin incorpora los sources generados por el JPAMetaModelEntityProcessor 
+				al source path del eclipse -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import(value = {
     Prod.class,
+    Cloud.class,
     Dev.class,
     Test.class
 })
