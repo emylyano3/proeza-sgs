@@ -3,7 +3,7 @@ Esta libreria  utiliza ADC para la autenticacion, por eso es necesario que cuand
 
 >` set GOOGLE_APPLICATION_CREDENTIALS = <path_to_file>`
 
-Sin esta variable de entorno la APP no será capaz de conextarse a la base de datos remota.
+Sin esta variable de entorno la APP no será capaz de conectarse a la base de datos remota.
 
 Para crear el archivo JSON con las credenciales:  [Creating and managing service account keys](https://cloud.google.com/iam/docs/creating-managing-service-account-keys)
 
