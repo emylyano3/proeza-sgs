@@ -17,8 +17,6 @@ Para ejecutar en este ambiente:
 - Ejecutar en maven el comando 
 > `mvn clean tomcat7:run -P dev`
 
-La aplicacion creara el modelo con datos de testing.
-
 ## Cloud
 Para ejecutar en este ambiente:
 - Ejecutar en maven el comando 
