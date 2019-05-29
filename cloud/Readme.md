@@ -6,7 +6,7 @@
 2. Ingresar al [Dashboard](https://console.cloud.google.com/home/dashboard)
 3. Crear un [Proyecto](https://console.cloud.google.com/projectcreate)
 4. Crear una [Instancia](https://console.cloud.google.com/sql/create-instance-mysql)
-5. Crear una [Base de datos](Crear una base de datos)
+5. Crear una base de datos
 6. Crear un bucket (o segmento) en [Cloud storage](https://console.cloud.google.com/storage/browser)
 7. Subir un dump file al bucket (se detalla como crear un dump file en las acciones local)
 8. Importar los datos a la base creada desde el dump file subido
@@ -49,7 +49,7 @@ Configurar la conexion
 ```
 # --------- Data Source --------- 
 datasource.url=jdbc:mysql://google/<db_name>?cloudSqlInstance=<instance_name>&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false
-datasource.username=root
-datasource.password=root
+datasource.username=user
+datasource.password=pass
 datasource.driver=com.mysql.cj.jdbc.Driver
 ```
