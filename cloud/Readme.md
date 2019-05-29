@@ -26,9 +26,8 @@ Configurar la variable de entorno que apunte al archivo de credenciales (creado 
 
 >` set GOOGLE_APPLICATION_CREDENTIALS = <path_to_file>`
 
+Agregar la dependencia para el [Socket Factory](https://github.com/GoogleCloudPlatform/cloud-sql-jdbc-socket-factory) (libreria de google que permite conectar a bases Cloud sin la necesidad de lidiar con listas blancas de IP´s o certificados SSL)
 
-Agregar la dependencia para el socket factory (libreria de google que permite conectar a bases Cloud sin la necesidad de lidiar con listas blancas de IP´s o certificados SSL.
-https://github.com/GoogleCloudPlatform/cloud-sql-jdbc-socket-factory
 ```
 <dependency>
 	<groupId>com.google.cloud.sql</groupId>
