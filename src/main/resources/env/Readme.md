@@ -7,7 +7,7 @@ Para ejecutar en este ambiente:
 > `mvn clean tomcat7:run -P test`
 
 La aplicacion creara el modelo con datos de testing.
-Cada vez que se despliegue la APP en este ambiente el modelo regenera nuevamente.
+Cada vez que se despliegue la APP en este ambiente el modelo se regenera nuevamente.
 
 ## Development
 Para ejecutar en este ambiente:
@@ -18,7 +18,6 @@ Para ejecutar en este ambiente:
 > `mvn clean tomcat7:run -P dev`
 
 La aplicacion creara el modelo con datos de testing.
-Cada vez que se despliegue la APP en este ambiente el modelo regenera nuevamente.
 
 ## Cloud
 Para ejecutar en este ambiente:
@@ -30,3 +29,4 @@ Al dia de la fecha el servicio esta activo y es gratuito. En el momento en que s
 Para poder correr en modo Cloud es necesario instalar credenciales en la maquina. Ver `\cloud\Readme.md`
 
 ## Producción
+El perfil `prod` solo se usa para armar los binarios finales para produccion.
