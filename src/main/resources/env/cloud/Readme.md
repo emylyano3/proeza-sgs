@@ -1,5 +1,12 @@
+# Configuracion del data source para Google Cloud SQL
+
 Para evitar lidiar con listas blancas de IP´s o certificados SSL se usa la libreria: **com.google.cloud.sql.mysql.SocketFactory**. 
-Esta libreria  utiliza ADC para la autenticacion, por eso es necesario que cuando se despliega la APP como una APP externa (corriendo fuera de la red de google) se setee en las variables de entorno del sistema la variable **GOOGLE_APPLICATION_CREDENTIALS** donde el valor de la misma es el path al archivo que contiene las credenciales.
+Esta libreria es configurada directamente en la url del data source (ver app-config.properties para en ambiente cloud)
+
+>
+datasource.url=jdbc:mysql://google/<db_name>?cloudSqlInstance=<instance_name>&socketFactory=**com.google.cloud.sql.mysql.SocketFactory**&useSSL=false
+
+SocketFactory utiliza [ADC](https://developers.google.com/identity/protocols/application-default-credentials) para la autenticacion, por eso es necesario que cuando se despliega la APP como una APP externa (corriendo fuera de la red de google) se setee en las variables de entorno del sistema la variable **GOOGLE_APPLICATION_CREDENTIALS** donde el valor de la misma es el path al archivo que contiene las credenciales.
 
 >` set GOOGLE_APPLICATION_CREDENTIALS = <path_to_file>`
 
