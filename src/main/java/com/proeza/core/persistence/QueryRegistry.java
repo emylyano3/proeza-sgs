@@ -81,7 +81,7 @@ public class QueryRegistry {
             if (file.isHidden()) {
                 return false;
             }
-            int index = file.getAbsolutePath().indexOf('.');
+            int index = file.getAbsolutePath().lastIndexOf('.');
             if (index >= 0) {
                 return file.getAbsolutePath().substring(index, file.getAbsolutePath().length()).equalsIgnoreCase(".sql");
             }
