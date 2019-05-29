@@ -1,6 +1,6 @@
-#Implementacion de Cloud RDBMS (MySQL) con Google Cloud SQL
+# Implementacion de Cloud RDBMS (MySQL) con Google Cloud SQL
 
-##Acciones WEB
+## Acciones WEB
 
 1. Suscribirse al servicio [Google Cloud](https://cloud.google.com/)
 2. Ingresar al [Dashboard](https://console.cloud.google.com/home/dashboard)
@@ -17,7 +17,7 @@ Habilitar la API
 11. Generar el archivo de [Credenciales](https://console.cloud.google.com/apis/credentials)
 Seleccionar Service Account keys y asociarla a la cuenta de servicio creada anteriormente
 
-###Acciones LOCAL
+## Acciones LOCAL
 
 Crear un dump file de la base sin triggers, vistas o stored procedures
 > `mysqldump --databases <databade> -u<user> -p<pass> --hex-blob --skip-triggers --set-gtid-purged=OFF --ignore-table='<database>.<view_name>' --default-character-set=utf8mb4 > <path_to_dump_file>`

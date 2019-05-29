@@ -1,1 +1,1 @@
-#Sistema de gestion de Stock
+# Sistema de gestion de Stock
