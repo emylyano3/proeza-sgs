@@ -6,7 +6,7 @@ Para ejecutar en este ambiente:
 - Ejecutar en maven el comando 
 > `mvn clean tomcat7:run -P test`
 
-La aplicacion creara el modelo con datos de testing.
+La aplicación creará el modelo con datos de testing.
 Cada vez que se despliegue la APP en este ambiente el modelo se regenera nuevamente.
 
 ## Development
@@ -22,9 +22,9 @@ Para ejecutar en este ambiente:
 - Ejecutar en maven el comando 
 > `mvn clean tomcat7:run -P cloud`
 
-Este ambiente utiliza una base de datos en la nuebe a traves de un servicio de Google Cloud.
-Al dia de la fecha el servicio esta activo y es gratuito. En el momento en que se vuelva pago esta opcion quedara inutilizable.
-Para poder correr en modo Cloud es necesario instalar credenciales en la maquina. Ver `\cloud\Readme.md`
+Este ambiente utiliza una base de datos en la nube a través de un servicio de Google Cloud.
+Al día de la fecha (29/5/2019) el servicio está activo y es gratuito. En el momento en que se vuelva pago esta opción quedara inutilizable.
+Para poder correr en modo `cloud` es necesario instalar credenciales en la maquina. Ver `\cloud\Readme.md`
 
 ## Producción
-El perfil `prod` solo se usa para armar los binarios finales para produccion.
+El perfil `prod` sólo se usa para armar los binarios finales para producción.
