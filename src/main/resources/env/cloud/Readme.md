@@ -1,5 +1,5 @@
 Para evitar lidiar con listas blancas de IP´s o certificados SSL se usa la libreria: **com.google.cloud.sql.mysql.SocketFactory**. 
-Esta libreria  utiliza ADC para la autenticacion, por eso es necesario que cuando se despliega la APP como una APP externa (corriendo fuera de la red de google) se setee en las variables de entorno del sistema la variable donde el valor de la misma es el path al archivo que contiene las credenciales.
+Esta libreria  utiliza ADC para la autenticacion, por eso es necesario que cuando se despliega la APP como una APP externa (corriendo fuera de la red de google) se setee en las variables de entorno del sistema la variable **GOOGLE_APPLICATION_CREDENTIALS** donde el valor de la misma es el path al archivo que contiene las credenciales.
 
 >` set GOOGLE_APPLICATION_CREDENTIALS = <path_to_file>`
 
