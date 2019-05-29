@@ -1,4 +1,6 @@
-# Implementacion de Cloud RDBMS (MySQL) con Google Cloud SQL
+# Cloud RDBMS (MySQL) con Google Cloud SQL
+
+Documentacion de los pasos que se efectuaron para la implementacion de una base de datos en la nube.
 
 ## Acciones WEB
 
@@ -11,11 +13,9 @@
 7. Subir un dump file al bucket (se detalla como crear un dump file en las acciones local)
 8. Importar los datos a la base creada desde el dump file subido
 9. Crear una cuenta de servicio y asignarle el rol de _project owner_ [Service Accouts](https://console.cloud.google.com/iam-admin/serviceaccounts)
-10. Activar SQL Admin desde [API's](https://console.cloud.google.com/apis/library)
-Filtrar por "SQL Admin"
-Habilitar la API
-11. Generar el archivo de [Credenciales](https://console.cloud.google.com/apis/credentials)
-Seleccionar Service Account keys y asociarla a la cuenta de servicio creada anteriormente
+10. Activar SQL Admin desde [API's](https://console.cloud.google.com/apis/library). Filtrar por _SQL Admin_ y habilitar la API.
+11. Generar el archivo de [Credenciales](https://console.cloud.google.com/apis/credentials).
+Seleccionar _Service Account Keys_ y asociarla a la cuenta de servicio creada anteriormente.
 
 ## Acciones LOCAL
 
