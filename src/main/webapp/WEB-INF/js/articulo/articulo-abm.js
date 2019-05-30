@@ -72,7 +72,7 @@ function configControls() {
 
 function notifyComboError (comboName) {
 	$.notify({
-		message: [[#{rest.dataload.error}]]
+		message: /*[[#{rest.dataload.error}]]*/ ''
 	},{
 		type: 'danger'
 	});
@@ -150,20 +150,25 @@ function configProductGrid () {
 		var offset = $('#productGrid').offset();
 		var dataRecord = $('#productGrid').jqxGrid('getrowdata', currentRow);
 		var command = $.trim($(args).text());
+		var edit = /*[[#{prod.menu.edit}]]*/ 'Edit';
+		var create = /*[[#{prod.menu.create}]]*/ 'Create';
+		var copy = /*[[#{prod.menu.copy}]]*/ 'Copy';
+		var remove = /*[[#{prod.menu.remove}]]*/ 'Remove';
+		var addImage = /*[[#{prod.menu.addImage}]]*/ 'Add Image';
 		switch (command) {
-		case [[#{prod.menu.edit}]] :
+		case edit:
 			initEditionForm(dataRecord);
 			break;
-		case [[#{prod.menu.create}]] :
+		case create:
 			initCreationForm();
 			break;
-		case [[#{prod.menu.copy}]] :
+		case copy:
 			initCopyCreationForm(dataRecord);
 			break;
-		case [[#{prod.menu.remove}]] :
+		case remove:
 			showRemoveConfirmation();
 			break;
-		case [[#{prod.menu.addImage}]] :
+		case addImage:
 			showLoadImagePopup(dataRecord);
 			break;
 		default:
@@ -180,8 +185,9 @@ function configProductGrid () {
 			
 		});
 		var command = $.trim($(args).text());
+		var updatePrice = /*[[#{prod.menu.updatePrice}]]*/ 'Update price';
 		switch (command) {
-		case [[#{prod.menu.updatePrice}]] :
+		case updatePrice:
 			showAuxPanel('#priceChangePanel');
 			break;
 		default:
@@ -329,13 +335,13 @@ function showLoadImagePopup(dataRecord) {
 
 function showRemoveConfirmation () {
 	swal({
-			title: [[#{control.confirmDelete.title}]],
-			text: [[#{prod.confirm.remove}]],
+			title: /*[[#{control.confirmDelete.title}]]*/ '',
+			text: /*[[#{prod.confirm.remove}]]*/ '',
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#DD6B55',
-			confirmButtonText: [[#{control.confirmDelete}]],
-			cancelButtonText: [[#{control.cancelDelete}]]
+			confirmButtonText: /*[[#{control.confirmDelete}]]*/ '',
+			cancelButtonText: /*[[#{control.cancelDelete}]]*/ ''
 		}, 
 		function (isConfirm) {
 			if (isConfirm) {
@@ -402,8 +408,8 @@ function initCreationForm () {
 	$('#costo').val('0');
 	$('#cantidad').val('0');
 	// Setting the form controls
-	$('#formTitle').text([[#{prod.admin.creation.title}]]);
-	$('#formFooter').text([[#{prod.admin.creating}]]);
+	$('#formTitle').text(/*[[#{prod.admin.creation.title}]]*/ '');
+	$('#formFooter').text(/*[[#{prod.admin.creating}]]*/ '');
 	$('#codigo').hide();
 	$('#lblCodigo').hide();
 	showAuxPanel('#editionPanel');
@@ -423,8 +429,9 @@ function initCopyCreationForm (dataRecord) {
 	$('#costo').val(dataRecord.costo);
 	$('#cantidad').val('0');
 	// Setting the form controls
-	$('#formTitle').text([[#{prod.admin.creation.title}]]);
-	$('#formFooter').text([[#{prod.admin.copying}]] + dataRecord.clase + ' ' + dataRecord.marca + ' ' + dataRecord.modelo);
+	$('#formTitle').text(/*[[#{prod.admin.creation.title}]]*/ '');
+	var footerText = /*[[#{prod.admin.copying}]]*/ '';
+	$('#formFooter').text(footerText + dataRecord.clase + ' ' + dataRecord.marca + ' ' + dataRecord.modelo);
 	$('#codigo').hide();
 	$('#lblCodigo').hide();
 	showAuxPanel('#editionPanel');
@@ -433,8 +440,9 @@ function initCopyCreationForm (dataRecord) {
 function initEditionForm (dataRecord) {
 	formMode = 'edition';
 	findProduct(dataRecord.codigo, findProductCallback);
-	$('#formTitle').text([[#{prod.admin.edition.title}]]);
-	$('#formFooter').text([[#{prod.admin.editing}]] + dataRecord.codigo);
+	$('#formTitle').text(/*[[#{prod.admin.edition.title}]]*/ '');
+	var footerText = /*[[#{prod.admin.editing}]]*/ '';
+	$('#formFooter').text(footerText + dataRecord.codigo);
 	$('#codigo').show();
 	$('#lblCodigo').show();	
 	showAuxPanel('#editionPanel');
@@ -447,8 +455,8 @@ function findProductCallback (productData, status) {
 	break;
 	case 'error':
 		$.notify({
-			title: [[#{prod.find.title}]],
-			message: [[#{prod.find.error.message}]] 
+			title: /*[[#{prod.find.title}]]*/ '',
+			message: /*[[#{prod.find.error.message}]]*/ '' 
 		},{
 			type: 'error'
 		});

@@ -54,6 +54,9 @@
 	                </li>
 	            </ul>
 	        </div>
+	        <div th:unless="${CONTEXT_PROD_LIST_GRID} != null" id="gridContextMenu">
+	        	
+	        </div>
 		</div>
 		<div th:replace="fragment/misc.html::footer"/>
 	</div>

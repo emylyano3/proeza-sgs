@@ -28,7 +28,7 @@ function initBrandForm() {
 	});
 	$('#mpBraBrandFilter').change(function(e) {
 		if ($('#mpBraBrandFilter')[0].selectedIndex > 0) {
-			loadEntityData($(this).val(), product.rest.brandByCode, [[#{rest.dataload.error}]], setBrandData);	
+			loadEntityData($(this).val(), product.rest.brandByCode, /*[[#{rest.dataload.error}]]*/ '', setBrandData);	
 		} else {
 			cleanBrandForm();
 		}
@@ -47,21 +47,23 @@ function initBrandForm() {
 			break;
 		case 'delete':
 			var brand = $('#mpBraBrandFilter option:selected').text();
+			var swalText = /*[[#{prod.brand.confirmDelete.message}]]*/ '';
+			var successText = /*[[#{prod.brand.delete.succes}]]*/ '';
 			swal({
-					title: [[#{control.confirmDelete.title}]],
-					text: [[#{prod.brand.confirmDelete.message}]] + ' ' + brand,
+					title: /*[[#{control.confirmDelete.title}]]*/ '',
+					text: swalText + ' ' + brand,
 					type: 'warning',
 					showCancelButton: true,
 					confirmButtonColor: '#DD6B55',
-					confirmButtonText: [[#{control.confirmDelete}]],
-					cancelButtonText: [[#{control.cancelDelete}]]
+					confirmButtonText: /*[[#{control.confirmDelete}]]*/ '',
+					cancelButtonText: /*[[#{control.cancelDelete}]]*/ ''
 				}, 
 				function (isConfirm) {
 					if (isConfirm) {
 						saveEntityData(
 							getBrandFormData(), 
 							product.rest.deleteBrand,
-							[[#{prod.brand.delete.succes}]] + ' ' + brand,
+							successText + ' ' + brand,
 							updateBrandCombos
 						);
 						cleanBrandForm();
@@ -76,7 +78,7 @@ function initBrandForm() {
 			saveEntityData(
 				getBrandFormData(), 
 				actionUrl, 
-				[[#{prod.brand.savedata.success}]],
+				/*[[#{prod.brand.savedata.success}]]*/ '',
 				updateBrandCombos
 			);
 		}
@@ -95,8 +97,8 @@ function setBrandFormForCreate () {
 	$('#mpBraBrandFilter').hide();
 	$('#mpBraBrandFilter').prop('disabled', true);
 	$('#mpBraInputDivider').hide();
-	$('#mpBraTitle').text([[#{prod.brand.addPopupTitle}]]);
-	$('#mpBraSave').text([[#{control.save}]]);	
+	$('#mpBraTitle').text(/*[[#{prod.brand.addPopupTitle}]]*/ '');
+	$('#mpBraSave').text(/*[[#{control.save}]]*/ '');	
 }
 
 function setBrandFormForDelete () {
@@ -105,8 +107,8 @@ function setBrandFormForDelete () {
 	$('#mpBraBrandFilter').show();
 	$('#mpBraBrandFilter').prop('disabled', false);
 	$('#mpBraInputDivider').show();
-	$('#mpBraTitle').text([[#{prod.brand.deletePopupTitle}]]);
-	$('#mpBraSave').text([[#{control.remove}]]);
+	$('#mpBraTitle').text(/*[[#{prod.brand.deletePopupTitle}]]*/ '');
+	$('#mpBraSave').text(/*[[#{control.remove}]]*/ '');
 }
 
 function setBrandFormForUpdate () {
@@ -115,8 +117,8 @@ function setBrandFormForUpdate () {
 	$('#mpBraBrandFilter').show();
 	$('#mpBraBrandFilter').prop('disabled', false);
 	$('#mpBraInputDivider').show();
-	$('#mpBraTitle').text([[#{prod.brand.editPopupTitle}]]);
-	$('#mpBraSave').text([[#{control.save}]]);	
+	$('#mpBraTitle').text(/*[[#{prod.brand.editPopupTitle}]]*/ '');
+	$('#mpBraSave').text(/*[[#{control.save}]]*/ '');	
 }
 
 function cleanBrandForm () {
@@ -167,7 +169,7 @@ function initCategoryForm() {
 	});
 	$('#mpCatCategoryFilter').change(function(e) {
 		if ($('#mpCatCategoryFilter')[0].selectedIndex > 0) {
-			loadEntityData($(this).val(), product.rest.categoryByCode, [[#{rest.dataload.error}]], setCategoryData);	
+			loadEntityData($(this).val(), product.rest.categoryByCode, /*[[#{rest.dataload.error}]]*/ '', setCategoryData);	
 		} else {
 			cleanCategoryForm();
 		}
@@ -187,20 +189,20 @@ function initCategoryForm() {
 		case 'delete':
 			var category = $('#mpCatCategoryFilter option:selected').text();
 			swal({
-					title: [[#{control.confirmDelete.title}]],
-					text: [[#{prod.category.confirmDelete.message}]] + ' ' + category,
+					title: /*[[#{control.confirmDelete.title}]]*/ '',
+					text: /*[[#{prod.category.confirmDelete.message}]]*/ '' + ' ' + category,
 					type: 'warning',
 					showCancelButton: true,
 					confirmButtonColor: '#DD6B55',
-					confirmButtonText: [[#{control.confirmDelete}]],
-					cancelButtonText: [[#{control.cancelDelete}]]
+					confirmButtonText: /*[[#{control.confirmDelete}]]*/ '',
+					cancelButtonText: /*[[#{control.cancelDelete}]]*/ ''
 				}, 
 				function (isConfirm) {
 					if (isConfirm) {
 						saveEntityData(
 							getCategoryFormData(), 
 							product.rest.deleteCategory, 
-							[[#{prod.category.delete.success}]] + ' ' + category,
+							/*[[#{prod.category.delete.success}]]*/ '' + ' ' + category,
 							updateCategoryCombos
 						);
 						cleanCategoryForm();
@@ -215,7 +217,7 @@ function initCategoryForm() {
 			saveEntityData(
 				getCategoryFormData(), 
 				actionUrl,  
-				[[#{prod.category.savedata.success}]],
+				/*[[#{prod.category.savedata.success}]]*/ '',
 				updateCategoryCombos
 			);
 		}
@@ -239,8 +241,8 @@ function setCategoryFormForCreate () {
 	$('#mpCatCategoryFilter').hide();
 	$('#mpCatInputDivider').hide();
 	$('#mpCatCategoryFilter').prop('disabled', true);
-	$('#mpCatTitle').text([[#{prod.category.addPopupTitle}]]);
-	$('#mpCatSave').text([[#{control.save}]]);	
+	$('#mpCatTitle').text(/*[[#{prod.category.addPopupTitle}]]*/ '');
+	$('#mpCatSave').text(/*[[#{control.save}]]*/ '');	
 }
 
 function setCategoryFormForDelete () {
@@ -249,8 +251,8 @@ function setCategoryFormForDelete () {
 	$('#mpCatCategoryFilter').show();
 	$('#mpCatCategoryFilter').prop('disabled', false);
 	$('#mpCatInputDivider').show();
-	$('#mpCatTitle').text([[#{prod.category.deletePopupTitle}]]);
-	$('#mpCatSave').text([[#{control.remove}]]);
+	$('#mpCatTitle').text(/*[[#{prod.category.deletePopupTitle}]]*/ '');
+	$('#mpCatSave').text(/*[[#{control.remove}]]*/ '');
 }
 
 function setCategoryFormForUpdate () {
@@ -259,8 +261,8 @@ function setCategoryFormForUpdate () {
 	$('#mpCatCategoryFilter').show();
 	$('#mpCatCategoryFilter').prop('disabled', false);
 	$('#mpCatInputDivider').show();
-	$('#mpCatTitle').text([[#{prod.category.editPopupTitle}]]);
-	$('#mpCatSave').text([[#{control.save}]]);	
+	$('#mpCatTitle').text(/*[[#{prod.category.editPopupTitle}]]*/ '');
+	$('#mpCatSave').text(/*[[#{control.save}]]*/ '');	
 }
 
 function cleanCategoryForm () {
@@ -314,7 +316,7 @@ function initClassForm() {
 	});
 	$('#mpClaClassFilter').change(function(e) {
 		if ($('#mpClaClassFilter')[0].selectedIndex > 0) {
-			loadEntityData($(this).val(), product.rest.classByCode, [[#{rest.dataload.error}]], setClassData);	
+			loadEntityData($(this).val(), product.rest.classByCode, /*[[#{rest.dataload.error}]]*/ '', setClassData);	
 		} else {
 			cleanClassForm();
 		}
@@ -333,21 +335,23 @@ function initClassForm() {
 			break;
 		case 'delete':
 			var clazz = $('#mpClaClassFilter option:selected').text();
+			var swalText =  /*[[#{prod.clazz.confirmDelete.message}]]*/ '';
+			var successText = /*[[#{prod.clazz.delete.success}]]*/ '';
 			swal({
-					title: [[#{control.confirmDelete.title}]],
-					text: [[#{prod.clazz.confirmDelete.message}]] + ' ' + clazz,
+					title: /*[[#{control.confirmDelete.title}]]*/ '',
+					text: swalText + ' ' + clazz,
 					type: 'warning',
 					showCancelButton: true,
 					confirmButtonColor: '#DD6B55',
-					confirmButtonText: [[#{control.confirmDelete}]],
-					cancelButtonText: [[#{control.cancelDelete}]]
+					confirmButtonText: /*[[#{control.confirmDelete}]]*/ '',
+					cancelButtonText: /*[[#{control.cancelDelete}]]*/ ''
 				}, 
 				function (isConfirm) {
 					if (isConfirm) {
 						saveEntityData(
 							getClassFormData(), 
 							product.rest.deleteClass, 
-							[[#{prod.clazz.delete.success}]] + ' ' + clazz,
+							successText + ' ' + clazz,
 							updateClassCombos
 						);
 						cleanClassForm();
@@ -362,7 +366,7 @@ function initClassForm() {
 			saveEntityData(
 				getClassFormData(), 
 				actionUrl, 
-				[[#{prod.clazz.savedata.success}]],
+				/*[[#{prod.clazz.savedata.success}]]*/ '',
 				updateClassCombos
 			);
 		}
@@ -386,8 +390,8 @@ function setClassFormForCreate () {
 	$('#mpClaCatFilter').hide();
 	$('#mpClaInputDivider').hide();
 	$('#mpClaCatFilter').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
-	$('#mpClaTitle').text([[#{prod.clazz.addPopupTitle}]]);
-	$('#mpClaSave').text([[#{control.save}]]);	
+	$('#mpClaTitle').text(/*[[#{prod.clazz.addPopupTitle}]]*/ '');
+	$('#mpClaSave').text(/*[[#{control.save}]]*/ '');	
 }
 
 function setClassFormForDelete () {
@@ -399,8 +403,8 @@ function setClassFormForDelete () {
 	$('#mpClaCatFilter').show();
 	$('#mpClaInputDivider').show();
 	$('#mpClaCatFilter').prop('disabled', false);
-	$('#mpClaTitle').text([[#{prod.clazz.deletePopupTitle}]]);
-	$('#mpClaSave').text([[#{control.remove}]]);
+	$('#mpClaTitle').text(/*[[#{prod.clazz.deletePopupTitle}]]*/ '');
+	$('#mpClaSave').text(/*[[#{control.remove}]]*/ '');
 }
 
 function setClassFormForUpdate () {
@@ -412,8 +416,8 @@ function setClassFormForUpdate () {
 	$('#mpClaCatFilter').show();
 	$('#mpClaCatFilter').prop('disabled', false);
 	$('#mpClaInputDivider').show();
-	$('#mpClaTitle').text([[#{prod.clazz.editPopupTitle}]]);
-	$('#mpClaSave').text([[#{control.save}]]);	
+	$('#mpClaTitle').text(/*[[#{prod.clazz.editPopupTitle}]]*/ '');
+	$('#mpClaSave').text(/*[[#{control.save}]]*/ '');	
 }
 
 function cleanClassForm () {
@@ -478,7 +482,7 @@ function initTypeForm() {
 	});
 	$('#mpTypTypeFilter').change(function(e) {
 		if ($('#mpTypTypeFilter')[0].selectedIndex > 0) {
-			loadEntityData($(this).val(), product.rest.typeByCode, [[#{rest.dataload.error}]], setTypeData);	
+			loadEntityData($(this).val(), product.rest.typeByCode, /*[[#{rest.dataload.error}]]*/ '', setTypeData);	
 		} else {
 			cleanTypeFormInput();
 		}
@@ -497,21 +501,23 @@ function initTypeForm() {
 			break;
 		case 'delete':
 			var type = $('#mpTypTypeFilter option:selected').text();
+			var swalText = /*[[#{prod.type.confirmDelete.message}]]*/ '';
+			var successText = /*[[#{prod.type.delete.success}]]*/ '';
 			swal({
-					title: [[#{control.confirmDelete.title}]],
-					text: [[#{prod.type.confirmDelete.message}]] + ' ' + type,
+					title: /*[[#{control.confirmDelete.title}]]*/ '',
+					text: swalText + ' ' + type,
 					type: 'warning',
 					showCancelButton: true,
 					confirmButtonColor: '#DD6B55',
-					confirmButtonText: [[#{control.confirmDelete}]],
-					cancelButtonText: [[#{control.cancelDelete}]]
+					confirmButtonText: /*[[#{control.confirmDelete}]]*/ '',
+					cancelButtonText: /*[[#{control.cancelDelete}]]*/ ''
 				}, 
 				function (isConfirm) {
 					if (isConfirm) {
 						saveEntityData(
 							getTypeFormData(), 
 							product.rest.deleteType, 
-							[[#{prod.type.delete.success}]] + ' ' + type,
+							successText + ' ' + type,
 							updateTypeCombos
 						);
 						resetTypeForm();
@@ -526,7 +532,7 @@ function initTypeForm() {
 			saveEntityData(
 				getTypeFormData(), 
 				actionUrl,  
-				[[#{prod.type.savedata.success}]],
+				/*[[#{prod.type.savedata.success}]]*/ '',
 				updateTypeCombos
 			);
 		}
@@ -550,8 +556,8 @@ function setTypeFormForCreate () {
 	$('#mpTypTypeFilter').hide();
 	$('#mpTypTypeFilter').prop('disabled', true); // Se deshabilita para que no se valide en el formulario
 	$('#mpTypInputDivider').hide();
-	$('#mpTypTitle').text([[#{prod.type.addPopupTitle}]]);
-	$('#mpTypSave').text([[#{control.save}]]);	
+	$('#mpTypTitle').text(/*[[#{prod.type.addPopupTitle}]]*/ '');
+	$('#mpTypSave').text(/*[[#{control.save}]]*/ '');	
 }
 
 function setTypeFormForDelete () {
@@ -566,8 +572,8 @@ function setTypeFormForDelete () {
 	$('#mpTypTypeFilter').show();
 	$('#mpTypTypeFilter').prop('disabled', false);
 	$('#mpTypInputDivider').show();
-	$('#mpTypTitle').text([[#{prod.type.deletePopupTitle}]]);
-	$('#mpTypSave').text([[#{control.remove}]]);
+	$('#mpTypTitle').text(/*[[#{prod.type.deletePopupTitle}]]*/ '');
+	$('#mpTypSave').text(/*[[#{control.remove}]]*/ '');
 }
 
 function setTypeFormForUpdate () {
@@ -582,8 +588,8 @@ function setTypeFormForUpdate () {
 	$('#mpTypTypeFilter').show();
 	$('#mpTypTypeFilter').prop('disabled', false);
 	$('#mpTypInputDivider').show();
-	$('#mpTypTitle').text([[#{prod.type.editPopupTitle}]]);
-	$('#mpTypSave').text([[#{control.save}]]);	
+	$('#mpTypTitle').text(/*[[#{prod.type.editPopupTitle}]]*/ '');
+	$('#mpTypSave').text(/*[[#{control.save}]]*/ '');	
 }
 
 function resetTypeForm () {

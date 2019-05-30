@@ -112,18 +112,23 @@ function initGridContextMenu() {
 		var offset = $('#productGrid').offset();
 		// get the clicked row's data and initialize the input fields.
 		var dataRecord = $('#productGrid').jqxGrid('getrowdata', rowindex);
+		var seeImages = /*[[#{menuitem.seeImages}]]*/ '';
+		var quickCashSale = /*[[#{menuitem.quickCashSale}]]*/ '';
+		var quickCreditSale = /*[[#{menuitem.quickCreditSale}]]*/ '';
+		var quickDebitSale = /*[[#{menuitem.quickDebitSale}]]*/ '';
+		var userAlias = /*[[${user.alias}]]*/ '';
 		switch (event.target.id) {
-			case [[#{menuitem.seeImages}]] :						
+			case seeImages:						
 				blueimp.Gallery($('#links a'), $('#blueimp-gallery').data());
 				break;
-			case [[#{menuitem.quickCashSale}]] :
-				quickSale (dataRecord.codigo, [[#{saletype.cash}]], [[${user.alias}]], notifyQuickSaleDone);
+			case quickCashSale:
+				quickSale (dataRecord.codigo, /*[[#{saletype.cash}]]*/ '', userAlias, notifyQuickSaleDone);
 				break;
-			case [[#{menuitem.quickCreditSale}]] :
-				quickSale (dataRecord.codigo, [[#{saletype.credit}]], [[${user.alias}]], notifyQuickSaleDone);
+			case quickCreditSale:
+				quickSale (dataRecord.codigo, /*[[#{saletype.credit}]]*/ '', userAlias, notifyQuickSaleDone);
 				break;
-			case [[#{menuitem.quickDebitSale}]] :
-				quickSale (dataRecord.codigo, [[#{saletype.debit}]], [[${user.alias}]], notifyQuickSaleDone);
+			case quickDebitSale:
+				quickSale (dataRecord.codigo, /*[[#{saletype.debit}]]*/ '', userAlias, notifyQuickSaleDone);
 				break;
 			default:
 				break;
@@ -136,14 +141,14 @@ function notifyQuickSaleDone (productCode, status) {
 	var title, message, type;
 	switch (status) {
 		case 'success':
-    		title = [[#{prod.quickSale.success.title}]]; 
-    		message = [[#{prod.quickSale.success.message}]];
+    		title = /*[[#{prod.quickSale.success.title}]]*/ ''; 
+    		message = /*[[#{prod.quickSale.success.message}]]*/ '';
     		type = 'success';
     		refreshGrid(gridSource, 'productGrid');
 		break;
 		case 'error':
-    		title = [[#{prod.quickSale.error.title}]]; 
-    		message = [[#{prod.quickSale.error.message}]];
+    		title = /*[[#{prod.quickSale.error.title}]]*/ ''; 
+    		message = /*[[#{prod.quickSale.error.message}]]*/ '';
     		type = 'danger';
 		break;
 		default:

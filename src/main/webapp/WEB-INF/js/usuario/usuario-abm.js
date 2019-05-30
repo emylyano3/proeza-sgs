@@ -63,13 +63,13 @@ $(document).ready(function() {
         currentrow = $('#gridUsuarios').jqxGrid('getselectedrowindex');// open the popup window when the user clicks a button.
         var offset = $('#gridUsuarios').offset();
         // get the clicked row's data and initialize the input fields.
-        if ($.trim($(args).text()) == [[#{user.admin.menu.edit}]]) {
+        if ($.trim($(args).text()) == /*[[#{user.admin.menu.edit}]]*/ 'Editar usuario') {
             initEditionForm();
-        } else if ($.trim($(args).text()) == [[#{user.admin.menu.remove}]]) {
+        } else if ($.trim($(args).text()) == /*[[#{user.admin.menu.remove}]]*/ 'Eliminar usuario') {
             deleteUser();
-        } else if ($.trim($(args).text()) == [[#{user.admin.menu.create}]]) {
+        } else if ($.trim($(args).text()) == /*[[#{user.admin.menu.create}]]*/ 'Nuevo usuario') {
             initCreationForm();
-        } else if ($.trim($(args).text()) == [[#{user.admin.menu.setPhoto}]]) {
+        } else if ($.trim($(args).text()) == /*[[#{user.admin.menu.setPhoto}]]*/ 'Establecer foto') {
             openBrowseImageDialog();
         }
     });
@@ -179,8 +179,8 @@ function initCreationForm () {
     $('#password').val('');
     $('#btnGenerate').trigger('click');
     $('#email').val('');
-    $('#formTitle').text([[#{user.admin.creation.title}]]);
-    $('#formFooter').text([[#{user.admin.creating}]]);
+    $('#formTitle').text(/*[[#{user.admin.creation.title}]]*/ 'Creacion de usuario');
+    $('#formFooter').text(/*[[#{user.admin.creating}]]*/ 'Creando nuevo usuario');
     $('#roles').val([]);
     showForm();
 }
@@ -195,8 +195,9 @@ function initEditionForm () {
     $('#apellido').val(dataRecord.apellido);
     $('#email').val(dataRecord.email);
     $('#password').val('');
-    $('#formTitle').text([[#{user.admin.edition.title}]]);
-    $('#formFooter').text([[#{user.admin.editing}]] + dataRecord.nombre + ' ' + dataRecord.apellido);
+    $('#formTitle').text(/*[[#{user.admin.edition.title}]]*/ 'Edicion de usuario');
+    var footerText = /*[[#{user.admin.editing}]]*/ 'Editando el usuario: ';
+    $('#formFooter').text(footerText + dataRecord.nombre + ' ' + dataRecord.apellido);
     showForm();
 }
 
@@ -209,8 +210,8 @@ function addUser (formData) {
         data : JSON.stringify(formData),
         success : function() {
             $.notify({
-                title: [[#{user.create.success.title}]],
-                message: [[#{user.create.success.message}]]
+                title: /*[[#{user.create.success.title}]]*/ 'Creacion exitosa',
+                message: /*[[#{user.create.success.message}]]*/ 'Se creo el usuario correctamente'
             },{
                 type: 'success'
             });
@@ -218,8 +219,8 @@ function addUser (formData) {
         },
         error: function () {            
             $.notify({
-                title: [[#{user.create.error.title}]],
-                message: [[#{user.create.error.message}]]
+                title: /*[[#{user.create.error.title}]]*/ 'Creación errónea',
+                message: /*[[#{user.create.error.message}]]*/ 'Ocurrió un error en la creacion del usuario'
             },{
                 type: 'danger'
             });
@@ -237,8 +238,8 @@ function updateUser (formData) {
         data : JSON.stringify(formData),
         success : function() {
             $.notify({
-                title: [[#{user.update.success.title}]],
-                message: [[#{user.update.success.message}]]
+                title: /*[[#{user.update.success.title}]]*/ '' ,
+                message: /*[[#{user.update.success.message}]]*/ ''
             },{
                 type: 'success'
             });
@@ -249,8 +250,8 @@ function updateUser (formData) {
         },
         error: function () {
             $.notify({
-                title: [[#{user.update.error.title}]],
-                message: [[#{user.update.error.message}]]
+                title: /*[[#{user.update.error.title}]]*/ '',
+                message: /*[[#{user.update.error.message}]]*/ ''
             },{
                 type: 'danger'
             });
@@ -277,8 +278,8 @@ function deleteUser () {
         contentType: 'application/json',
         success : function() {
             $.notify({
-                title: [[#{user.remove.success.title}]],
-                message: [[#{user.remove.success.message}]]
+                title: /*[[#{user.remove.success.title}]]*/ '',
+                message: /*[[#{user.remove.success.message}]]*/ ''
             },{
                 type: 'success'
             });
@@ -289,8 +290,8 @@ function deleteUser () {
         },
         error: function () {
             $.notify({
-                title: [[#{user.remove.error.title}]],
-                message: [[#{user.remove.error.message}]]
+                title: /*[[#{user.remove.error.title}]]*/ '',
+                message: /*[[#{user.remove.error.message}]]*/ ''
             },{
                 type: 'danger'
             });
@@ -309,8 +310,8 @@ function findUser (alias) {
         },
         error: function (jqXHR, status) {
             $.notify({
-                title: [[#{user.find.error.title}]],
-                message: [[#{user.find.error.message}]] + alias
+                title: /*[[#{user.find.error.title}]]*/ '',
+                message: /*[[#{user.find.error.message}]]*/ '' + alias
             },{
                 type: 'danger'
             });

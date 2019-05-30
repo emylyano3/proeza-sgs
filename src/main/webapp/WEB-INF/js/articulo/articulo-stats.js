@@ -84,7 +84,7 @@ $(document).ready(function() {
 			    labels: data['STOCK'].labels,
 			    datasets: [
 			        {
-			            label: [[#{prod.chart.stockhistory.label}]],
+			            label: /*[[#{prod.chart.stockhistory.label}]]*/ '',
 			            fillColor: 'rgba(110,220,110,0.3)',
 			            strokeColor: 'rgba(110,220,110,1)',
 			            pointColor: 'rgba(110,220,110,1)',
@@ -101,7 +101,7 @@ $(document).ready(function() {
 			    labels: data['CAPITAL'].labels,
 			    datasets: [
 			        {
-			            label: [[#{prod.chart.stockhistory.label}]],
+			            label: /*[[#{prod.chart.stockhistory.label}]]*/ '',
 			            fillColor: 'rgba(110,220,110,0.3)',
 			            strokeColor: 'rgba(110,220,110,1)',
 			            pointColor: 'rgba(110,220,110,1)',
