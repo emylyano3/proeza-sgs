@@ -70,7 +70,7 @@ public class Item implements Serializable {
         this.code = code;
     }
 
-    @Column(name = "link", nullable = false)
+    @Column(name = "link", nullable = true)
     public String getLink () {
         return this.link;
     }
