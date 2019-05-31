@@ -45,6 +45,9 @@
 	insert into sgs_proeza_test_db.seg_usuario_rol (fk_usuario, fk_rol) values (104, 31);
 	insert into sgs_proeza_test_db.seg_usuario_rol (fk_usuario, fk_rol) values (104, 32);
 	insert into sgs_proeza_test_db.seg_usuario_rol (fk_usuario, fk_rol) values (104, 33);
-	
+	insert into sgs_proeza_test_db.seg_usuario_rol (fk_usuario, fk_rol) values (104, 12);
+	insert into sgs_proeza_test_db.seg_usuario_rol (fk_usuario, fk_rol) values (104, 12);
+	insert into sgs_proeza_test_db.seg_usuario_rol (fk_usuario, fk_rol) values (104, 51);
+	insert into sgs_proeza_test_db.seg_usuario_rol (fk_usuario, fk_rol) values (104, 52);
 	
 /* Seguridad */

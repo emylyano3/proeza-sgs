@@ -47,6 +47,12 @@
 	insert into sgs_proeza_test_db.cmn_i18n (id) values (31);
 	insert into sgs_proeza_test_db.cmn_i18n (id) values (32);
 	insert into sgs_proeza_test_db.cmn_i18n (id) values (33);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (34);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (35);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (36);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (37);
+	insert into sgs_proeza_test_db.cmn_i18n (id) values (38);
+	
 	
 	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (1,1,'Home','en_US');
 	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (2,1,'Home','es_AR');
@@ -114,5 +120,16 @@
 	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (64,32,'Products statistics page','en_US');
 	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (65,33,'Página de administración de articulos','es_AR');
 	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (66,33,'Product administration page','en_US');
-	
+
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (67, 34, 'Ventas', 'es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (68, 34, 'Sales', 'en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (69, 35, 'Venta rápida efectivo', 'es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (70, 35, 'Quick cash sale', 'en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (71, 36, 'Venta rápida crédito', 'es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (72, 36, 'Quick credit sale', 'en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (73, 37, 'Venta rápida débito', 'es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (74, 37, 'Quick debit sale', 'en_US');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (75, 38, 'Ver imágenes', 'es_AR');
+	insert into sgs_proeza_test_db.cmn_traduccion (id, fk_i18n, texto, locale) values (76, 38, 'See images', 'en_US');
+
 /* Internacionalizacion */
