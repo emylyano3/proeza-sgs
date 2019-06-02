@@ -1,54 +1,52 @@
-<div id="header" >
-    <div class="color-line"></div>
-    <a id="logo" class="light-version" href="@{/home}">
-        <div>
-            <img src="assets/img/logo20x.png"/>
-            <span>Proeza SGS</span>
-        </div>
-    </a>
-    <nav role="navigation">
-        <div class="header-link hide-menu">
-            <i class="fa fa-bars"></i>
-        </div>
-        <div class="navbar-form-custom">  <!--th:if="${pageConfig.hasSearch}"--> 
-            <input id="filter" type="text" placeholder="#{control.search}" class="form-control" style="font-size: 18px;" name="search"/>
-        </div>
-        <div class="navbar-right">
-            <ul class="nav navbar-nav no-borders">
-                <li class="button"> <!--th:if="${pageConfig.hasSearch}" -->
-                    <a id="eraser" class="dropdown-toggle" data-toggle="button">
-                        <i class="fa fa-eraser"></i>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle label-menu-corner" data-toggle="dropdown"> 
-                        <i class="fa fa-user fa-fw"></i> 
-                        <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu hdropdown animated flipInX"> <!--sec:authorize="isAnonymous()" -->
-                        <li>
-                            <a href="@{/login}" text="#{control.login}">
-                                <i class="fa fa-sign-in fa-fw"></i>Ingresar
-                            </a>
-                        </li>
-                    </ul>
-                    <ul  class="dropdown-menu hdropdown animated flipInX"> <!--sec:authorize="isAuthenticated()"-->
-                        <div class="title">
-                            <a class="font-extra-bold font-uppercase" >Usuario</a> <!--sec:authentication="name"-->
-                        </div>
-                        <li>
-                            <a href="@{/profile}" text="#{control.profile}">
-                                <i class="fa fa-user fa-fw"></i>Perfil
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@{/doLogout}" text="#{control.logout}">
-                                <i class="fa fa-sign-out fa-fw"></i>Salir
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
+<div class="color-line"></div>
+<a id="logo" class="light-version" href="@{/home}">
+    <div>
+        <img src="assets/img/logo20x.png"/>
+        <span>Proeza SGS</span>
+    </div>
+</a>
+<nav role="navigation">
+    <div class="header-link hide-menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="navbar-form-custom">  <!--th:if="${pageConfig.hasSearch}"--> 
+        <input id="filter" type="text" placeholder="#{control.search}" class="form-control" style="font-size: 18px;" name="search"/>
+    </div>
+    <div class="navbar-right">
+        <ul class="nav navbar-nav no-borders">
+            <li class="button"> <!--th:if="${pageConfig.hasSearch}" -->
+                <a id="eraser" class="dropdown-toggle" data-toggle="button">
+                    <i class="fa fa-eraser"></i>
+                </a>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle label-menu-corner" data-toggle="dropdown"> 
+                    <i class="fa fa-user fa-fw"></i> 
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu hdropdown animated flipInX"> <!--sec:authorize="isAnonymous()" -->
+                    <li>
+                        <a href="@{/login}" text="#{control.login}">
+                            <i class="fa fa-sign-in fa-fw"></i>Ingresar
+                        </a>
+                    </li>
+                </ul>
+                <ul  class="dropdown-menu hdropdown animated flipInX"> <!--sec:authorize="isAuthenticated()"-->
+                    <div class="title">
+                        <a class="font-extra-bold font-uppercase" >Usuario</a> <!--sec:authentication="name"-->
+                    </div>
+                    <li>
+                        <a href="@{/profile}" text="#{control.profile}">
+                            <i class="fa fa-user fa-fw"></i>Perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@{/doLogout}" text="#{control.logout}">
+                            <i class="fa fa-sign-out fa-fw"></i>Salir
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
