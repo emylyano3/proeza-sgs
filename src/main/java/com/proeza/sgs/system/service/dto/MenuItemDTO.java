@@ -1,72 +1,81 @@
 package com.proeza.sgs.system.service.dto;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MenuItemDTO implements Comparable<MenuItemDTO> {
+public class MenuItemDTO implements Serializable, Comparable<MenuItemDTO> {
 
-    public MenuItemDTO () {
-    }
+	private static final long serialVersionUID = 1L;
 
-    private String             text;
-    private String             code;
-    private String             href;
-    private String             icon;
-    private int                index;
-    private List<MenuItemDTO> subitems;
+	public MenuItemDTO () {
+		this.subitems = new ArrayList<MenuItemDTO>(0);
+	}
 
-    public String getText () {
-        return this.text;
-    }
+	private String				text;
+	private String				code;
+	private String				href;
+	private String				icon;
+	private int					index;
+	private List<MenuItemDTO>	subitems;
 
-    public void setText (String text) {
-        this.text = text;
-    }
+	public String getText () {
+		return this.text;
+	}
 
-    public String getCode () {
-        return this.code;
-    }
+	public void setText (String text) {
+		this.text = text;
+	}
 
-    public void setCode (String code) {
-        this.code = code;
-    }
+	public String getCode () {
+		return this.code;
+	}
 
-    public String getHref () {
-        return this.href;
-    }
+	public void setCode (String code) {
+		this.code = code;
+	}
 
-    public void setHref (String href) {
-        this.href = href;
-    }
+	public String getHref () {
+		return this.href;
+	}
 
-    public String getIcon () {
-        return this.icon;
-    }
+	public void setHref (String href) {
+		this.href = href;
+	}
 
-    public void setIcon (String icon) {
-        this.icon = icon;
-    }
+	public String getIcon () {
+		return this.icon;
+	}
 
-    public int getIndex () {
-        return this.index;
-    }
+	public void setIcon (String icon) {
+		this.icon = icon;
+	}
 
-    public void setIndex (int index) {
-        this.index = index;
-    }
+	public int getIndex () {
+		return this.index;
+	}
 
-    public List<MenuItemDTO> getSubitems () {
-        return this.subitems;
-    }
+	public void setIndex (int index) {
+		this.index = index;
+	}
 
-    public void setSubitems (List<MenuItemDTO> subitems) {
-        this.subitems = subitems;
-    }
+	public List<MenuItemDTO> getSubitems () {
+		return this.subitems;
+	}
 
-    @Override
-    public int compareTo (MenuItemDTO o) {
-        if (o == null) {
-            return -1;
-        }
-        return this.getIndex() - o.getIndex();
-    }
+	public void setSubitems (List<MenuItemDTO> subitems) {
+		this.subitems = subitems;
+	}
+
+	public void addSubitem (MenuItemDTO si) {
+		this.subitems.add(si);
+	}
+
+	@Override
+	public int compareTo (MenuItemDTO o) {
+		if (o == null) {
+			return -1;
+		}
+		return this.getIndex() - o.getIndex();
+	}
 }

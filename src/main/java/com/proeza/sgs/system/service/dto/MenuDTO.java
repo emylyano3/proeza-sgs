@@ -1,54 +1,57 @@
 package com.proeza.sgs.system.service.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuDTO {
+public class MenuDTO implements Serializable {
 
-    private String                  code;
-    private String                  text;
-    private final List<MenuItemDTO> items;
+	private static final long		serialVersionUID	= 1L;
 
-    public MenuDTO() {
-        this.items = new ArrayList<>(0);
-    }
+	private String					code;
+	private String					text;
+	private final List<MenuItemDTO>	items;
 
-    public MenuDTO(List<MenuItemDTO> items) {
-        this.items = items;
-    }
+	public MenuDTO () {
+		this.items = new ArrayList<>(0);
+	}
 
-    public MenuDTO(List<MenuItemDTO> items, String code) {
-        this.code = code;
-        this.items = items;
-    }
+	public MenuDTO (List<MenuItemDTO> items) {
+		this.items = items;
+	}
 
-    public MenuDTO(List<MenuItemDTO> items, String code, String text) {
-        this.code = code;
-        this.text = text;
-        this.items = items;
-    }
+	public MenuDTO (List<MenuItemDTO> items, String code) {
+		this.code = code;
+		this.items = items;
+	}
 
-    public String getCode() {
-        return this.code;
-    }
+	public MenuDTO (List<MenuItemDTO> items, String code, String text) {
+		this.code = code;
+		this.text = text;
+		this.items = items;
+	}
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	public String getCode () {
+		return this.code;
+	}
 
-    public String getText() {
-        return this.text;
-    }
+	public void setCode (String code) {
+		this.code = code;
+	}
 
-    public void setText(String text) {
-        this.text = text;
-    }
+	public String getText () {
+		return this.text;
+	}
 
-    public List<MenuItemDTO> getItems() {
-        return this.items;
-    }
+	public void setText (String text) {
+		this.text = text;
+	}
 
-    public void addItem(MenuItemDTO item) {
-        this.items.add(item);
-    }
+	public List<MenuItemDTO> getItems () {
+		return this.items;
+	}
+
+	public void addItem (MenuItemDTO item) {
+		this.items.add(item);
+	}
 }
