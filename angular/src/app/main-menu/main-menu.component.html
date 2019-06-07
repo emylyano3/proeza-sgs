@@ -1,6 +1,7 @@
 <div id="navigation">
-    <div class="profile-picture"> <!--sec:authorize="isAuthenticated()" -->
-        <a href="@{/profile}">
+    <div class="profile-picture">
+        <!--sec:authorize="isAuthenticated()" -->
+        <a href="/profile">
             <!-- <img th:if="${user.hasFoto()} == true" th:src="@{/rest/usuario/getPhoto/}+${user.alias}" class="img-circle m-b"/> -->
             <!-- <img th:if="${user.hasFoto()} == false" th:src="@{/resources/app/img/user-avatar_76x76.jpg}" class="img-circle m-b"/> -->
         </a>
@@ -34,22 +35,22 @@
         </div>
     </div>
     <ul class="nav" id="side-menu">
-        <li th:each="item : ${SIDE_LEFT_MAIN.items}">
-            <a href="@{${item.href}}">
-                <i class="fa fa-info" th:class="${item.icon}"></i>
-                <span th:text="${item.text}"></span>
-                <span th:if="${!item.subitems.isEmpty()}" class="fa arrow"></span>
+        <li *ngFor="let item of menu.items">
+            <a href="{{item.href}}">
+                <i class="{{item.icon}}"></i>
+                <span>{{item.text}}</span>
+                <span *ngIf="item.subitems" class="fa arrow"></span>
             </a>
-            <ul th:if="${!item.subitems.isEmpty()}" class="nav nav-second-level">
-                <li class="nav nav-second-level" th:each="subitem : ${item.subitems}">
+            <ul *ngIf="!item.subitems" class="nav nav-second-level">
+                <!-- <li class="nav nav-second-level" *ngFor="let sub item.subitems">
                     <a href="@{${subitem.href}}" text="${subitem.text}"></a>
-                </li>
+                </li> -->
             </ul>
         </li>
-        <li > <!---->
-            <a href="@{/login}">
+        <li>
+            <a href="/login">
                 <i class="fa fa-sign-in"></i>
-                <span>#{{'{'}}menu.login{{'}'}}</span>
+                <span>Login</span>
             </a>
         </li>
         <!-- 
@@ -59,11 +60,12 @@
                     <span th:text="#{menu.register}" />
                 </a>
             </li>
-                -->
-        <li> <!--sec:authorize="isAuthenticated()"-->
+        -->
+        <li>
+            <!--sec:authorize="isAuthenticated()"-->
             <a href="@{/doLogout}">
                 <i class="fa fa-sign-out"></i>
-                <span>#{{'{'}}menu.logout{{'}'}}</span>
+                <span>Logout</span>
             </a>
         </li>
     </ul>
