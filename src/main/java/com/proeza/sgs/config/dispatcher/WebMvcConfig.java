@@ -1,5 +1,6 @@
 package com.proeza.sgs.config.dispatcher;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.proeza.core.config.GeneralSettings;
 import com.proeza.sgs.web.interceptor.UserLoggedInterceptor;
 
 @Configuration
@@ -22,35 +25,38 @@ import com.proeza.sgs.web.interceptor.UserLoggedInterceptor;
 @EnableTransactionManagement
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-    }
+	@Autowired
+	private GeneralSettings generalSettings;
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(userLoggedInterceptor());
-    }
+	@Override
+	public void addResourceHandlers (ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
 
-    @Bean
-    public UserLoggedInterceptor userLoggedInterceptor() {
-        return new UserLoggedInterceptor();
-    }
+	@Override
+	public void addInterceptors (InterceptorRegistry registry) {
+		registry.addInterceptor(userLoggedInterceptor());
+	}
 
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-    
-    @Override
-    public void addCorsMappings (CorsRegistry registry) {
-    	registry.addMapping("*").allowedOrigins("http://localhost:4200");
-    }
+	@Bean
+	public UserLoggedInterceptor userLoggedInterceptor () {
+		return new UserLoggedInterceptor();
+	}
 
-    @Bean
-    public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-        commonsMultipartResolver.setMaxUploadSize(1024 * 1024);
-        return commonsMultipartResolver;
-    }
+	@Override
+	public void configureDefaultServletHandling (DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
+
+	@Override
+	public void addCorsMappings (CorsRegistry registry) {
+		registry.addMapping("*").allowedOrigins(this.generalSettings.getCrossOriginSource());
+	}
+
+	@Bean
+	public CommonsMultipartResolver multipartResolver () {
+		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+		commonsMultipartResolver.setMaxUploadSize(new Long(this.generalSettings.getMaxUploadSize()));
+		return commonsMultipartResolver;
+	}
 }

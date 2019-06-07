@@ -6,17 +6,39 @@ import org.springframework.stereotype.Component;
 @Component
 public class GeneralSettings extends Settings {
 
-	public GeneralSettings() {
+	public GeneralSettings () {
 	}
 
-	@Value("${app.view.cache}")
-	private boolean viewCacheEnabled;
+	@Value(value = "${cross.origin.source}")
+	private String	crossOriginSource;
 
-	public boolean isViewCacheEnabled() {
+	@Value(value = "${app.maxUploadSize}")
+	private String	maxUploadSize;
+
+	@Value("${app.view.cache}")
+	private boolean	viewCacheEnabled;
+
+	public String getCrossOriginSource () {
+		return crossOriginSource;
+	}
+
+	public void setCrossOriginSource (String crossOriginSource) {
+		this.crossOriginSource = crossOriginSource;
+	}
+
+	public String getMaxUploadSize () {
+		return maxUploadSize;
+	}
+
+	public void setMaxUploadSize (String maxUploadSize) {
+		this.maxUploadSize = maxUploadSize;
+	}
+
+	public boolean isViewCacheEnabled () {
 		return viewCacheEnabled;
 	}
 
-	public void setViewCacheEnabled(boolean viewCacheEnabled) {
+	public void setViewCacheEnabled (boolean viewCacheEnabled) {
 		this.viewCacheEnabled = viewCacheEnabled;
 	}
 }
