@@ -13,10 +13,9 @@ export class TopBarComponent implements OnInit {
         private renderer: Renderer2,
     ) { }
 
-    showingMenu: boolean;
+    private showingMenu = true;
 
     ngOnInit() {
-        this.showingMenu = true;
     }
 
     toggleMenu() {
