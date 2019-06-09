@@ -39,12 +39,12 @@
             <a href="{{item.href}}">
                 <i class="{{item.icon}}"></i>
                 <span>{{item.text}}</span>
-                <span *ngIf="item.subitems" class="fa arrow"></span>
+                <span *ngIf="item.subitems && item.subitems.length > 0" class="fa arrow"></span>
             </a>
-            <ul *ngIf="!item.subitems" class="nav nav-second-level">
-                <!-- <li class="nav nav-second-level" *ngFor="let sub item.subitems">
-                    <a href="@{${subitem.href}}" text="${subitem.text}"></a>
-                </li> -->
+            <ul *ngIf="item.subitems && item.subitems.length > 0" id="{{item.code}}" class="nav nav-second-level">
+                <li class="nav nav-second-level" *ngFor="let subitem of item.subitems">
+                    <a href="{{subitem.href}}" text="{{subitem.text}}"></a>
+                </li>
             </ul>
         </li>
         <li>
