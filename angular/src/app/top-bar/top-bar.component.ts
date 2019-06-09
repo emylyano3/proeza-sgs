@@ -10,7 +10,7 @@ export class TopBarComponent implements OnInit {
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2,
+        private renderer: Renderer2
     ) { }
 
     private showingMenu = true;
