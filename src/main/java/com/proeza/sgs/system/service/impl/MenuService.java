@@ -80,13 +80,6 @@ public class MenuService implements IMenuService {
 		return result;
 	}
 
-	/**
-	 * Recibe un item de menu y los subitems filtrados segun los roles del usuario.
-	 * <p>
-	 * El {@link MenuItemDTO} de respuesta se construye con la data del menuItem recibido y los subitems filtrados. De
-	 * esta manera se exponen del item de menu, solo aquellos subitems que por configuracion estan asociados al usuario
-	 * que hizo el request.
-	 */
 	private MenuItemDTO buildItem (MenuItem menuItem, Usuario user) {
 		List<ItemSubitem> subitemsFiltered = filterSubitems(menuItem, user);
 		List<MenuItemDTO> itemSubitems = new ArrayList<>(subitemsFiltered.size());
@@ -100,6 +93,12 @@ public class MenuService implements IMenuService {
 			.build();
 	}
 
+	/**
+	 * Toma los subitems del item de menu recibido y los filtra de acuerdo a los roles que tiene cada subitem y los
+	 * asignados al usuario.
+	 *
+	 * @return La lista de subitems filtrados por roles
+	 */
 	private List<ItemSubitem> filterSubitems (MenuItem menuItem, Usuario user) {
 		List<ItemSubitem> subitemsFiltered = new ArrayList<>(3);
 		for (ItemSubitem subitem : menuItem.getItem().getSubitems()) {
