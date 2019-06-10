@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Menu } from '../model/Menu';
+import { Menu } from './menu.model';
 
 @Injectable()
 export class MenuService {

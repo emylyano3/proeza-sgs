@@ -6,10 +6,10 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { FooterComponent } from './footer/footer.component';
-import { MenuService } from './services/menu.service';
+import { MenuService } from './main-menu/menu.data-provider.service';
 import { HttpClientModule } from '@angular/common/http';
-import { MenuEntryDirective } from './directives/menu-entry.directive';
-import { MenuSubitemDirective } from './directives/menu-subitem.directive';
+import { MenuEntryDirective } from './main-menu/menu-entry.directive';
+import { MenuSubitemDirective } from './main-menu/menu-subitem.directive';
 
 @NgModule({
     declarations: [
