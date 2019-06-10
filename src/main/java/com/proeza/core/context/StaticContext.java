@@ -15,6 +15,7 @@ public class StaticContext implements ApplicationContextAware {
 
 	private static ApplicationContext context;
 
+	@Override
 	public void setApplicationContext (ApplicationContext appContext) throws BeansException {
 		context = appContext;
 	}
@@ -46,5 +47,10 @@ public class StaticContext implements ApplicationContextAware {
 		@SuppressWarnings("unchecked")
 		Bean b = (Bean) beans.values().iterator().next();
 		return b;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <Bean> Bean get (String beanName) throws RuntimeException {
+		return (Bean) context.getBean(beanName);
 	}
 }

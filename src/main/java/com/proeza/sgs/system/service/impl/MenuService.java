@@ -53,8 +53,8 @@ public class MenuService implements IMenuService {
 
 	@Override
 	@Transactional
-	@Cacheable(value = "userMenus", condition = "#userAlias != null", key = "#menuCode + #userAlias", unless = "#result == null")
-	public MenuDTO getMenu (String menuCode, String userAlias) {
+	@Cacheable(value = "userMenus", condition = "#userAlias != null", key = "#menuCode + #userAlias + #locale", unless = "#result == null")
+	public MenuDTO getMenu (String menuCode, String userAlias, String locale) {
 		return buildMenu(this.menuDao.findByCode(menuCode), userAlias);
 	}
 

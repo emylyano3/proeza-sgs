@@ -17,7 +17,7 @@ public class MenuServiceIT extends IntegrationTest {
 
 	@Test
 	public void getMenu_NULL_USER () {
-		MenuDTO menu = this.menuService.getMenu("MAIN", null);
+		MenuDTO menu = this.menuService.getMenu("MAIN", null, "es_AR");
 		assertNotNull(menu);
 		assertNotNull(menu.getCode());
 		assertNotNull(menu.getItems());
@@ -28,7 +28,7 @@ public class MenuServiceIT extends IntegrationTest {
 
 	@Test
 	public void getMenu_ADMIN_USER () {
-		MenuDTO menu = this.menuService.getMenu("MAIN", "admin");
+		MenuDTO menu = this.menuService.getMenu("MAIN", "admin", "es_AR");
 		assertNotNull(menu);
 		assertNotNull(menu.getCode());
 		assertNotNull(menu.getItems());

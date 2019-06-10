@@ -1,8 +1,5 @@
 package com.proeza.sgs.system.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-import static org.hibernate.annotations.CacheConcurrencyStrategy.NONSTRICT_READ_WRITE;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,30 +22,30 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 
+import com.proeza.core.context.StaticContext;
 import com.proeza.core.i18n.I18nHelper;
 import com.proeza.core.i18n.entity.I18n;
 import com.proeza.security.entity.Rol;
 
+import static javax.persistence.GenerationType.*;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.*;
+
 @Entity
-@Table(
-	name = "sys_item",
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})})
+@Table(name = "sys_item", uniqueConstraints = {@UniqueConstraint(columnNames = {"codigo"})})
 @Cache(usage = NONSTRICT_READ_WRITE)
 public class Item implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	private long              id;
-	private String            code;
-	private String            link;
-	private String            icon;
-	private Set<Rol>          roles            = new HashSet<>(0);
-	private Set<ItemSubitem>  subitems         = new TreeSet<>();
+	private long				id;
+	private String				code;
+	private String				link;
+	private String				icon;
+	private Set<Rol>			roles				= new HashSet<>(0);
+	private Set<ItemSubitem>	subitems			= new TreeSet<>();
 
-	private I18n              tooltipI18n;
-	private I18n              textoI18n;
-
-	private I18nHelper        i18nHelper       = new I18nHelper();
+	private I18n				tooltipI18n;
+	private I18n				textoI18n;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -87,12 +84,12 @@ public class Item implements Serializable {
 
 	@Transient
 	public String getText () {
-		return this.i18nHelper.getTextoLocalizado(this.textoI18n);
+		return StaticContext.get(I18nHelper.class).getTextoLocalizado(this.textoI18n);
 	}
 
 	@Transient
 	public String getTooltip () {
-		return this.i18nHelper.getTextoLocalizado(this.tooltipI18n);
+		return StaticContext.get(I18nHelper.class).getTextoLocalizado(this.tooltipI18n);
 	}
 
 	@Column(name = "icono")

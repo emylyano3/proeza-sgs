@@ -2,6 +2,8 @@ package com.proeza.sgs.config.root;
 
 import java.io.IOException;
 
+import org.springframework.aop.framework.ProxyFactoryBean;
+import org.springframework.aop.target.ThreadLocalTargetSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.cache.CacheManager;
@@ -15,6 +17,7 @@ import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -52,7 +55,19 @@ import net.sf.ehcache.CacheException;
 @Configuration
 @Import(value = {DataSourceConfig.class, JpaConfig.class, SecurityConfig.class
 })
-@ComponentScan(basePackages = {"com.proeza.core.config", "com.proeza.core.service", "com.proeza.core.tracking", "com.proeza.core.datamapper", "com.proeza.core.context", "com.proeza.core.classmapper", "com.proeza.security.dao", "com.proeza.security.service", "com.proeza.sgs.business", "com.proeza.sgs.system", "com.proeza.sgs.system.service",
+@ComponentScan(basePackages = {
+	"com.proeza.core.config",
+	"com.proeza.core.service",
+	"com.proeza.core.tracking",
+	"com.proeza.core.datamapper",
+	"com.proeza.core.context",
+	"com.proeza.core.i18n",
+	"com.proeza.core.classmapper",
+	"com.proeza.security.dao",
+	"com.proeza.security.service",
+	"com.proeza.sgs.business",
+	"com.proeza.sgs.system",
+	"com.proeza.sgs.system.service"
 }, excludeFilters = {@Filter(Configuration.class), @Filter(Controller.class), @Filter(RestController.class)
 })
 @EnableAsync
@@ -190,6 +205,27 @@ public class ContextConfig {
 		mailSender.setProtocol(this.mailSettings.getProtocol());
 		mailSender.setJavaMailProperties(this.mailSettings.asProperties());
 		return mailSender;
+	}
+
+	@Bean(destroyMethod = "destroy")
+	public ThreadLocalTargetSource threadLocalContextLocale () {
+		ThreadLocalTargetSource result = new ThreadLocalTargetSource();
+		result.setTargetBeanName("contextLocale");
+		return result;
+	}
+
+	@Primary
+	@Bean(name = "proxiedThreadLocalTargetSource")
+	public ProxyFactoryBean proxiedThreadLocalContextLocale (ThreadLocalTargetSource threadLocalTargetSource) {
+		ProxyFactoryBean result = new ProxyFactoryBean();
+		result.setTargetSource(threadLocalTargetSource);
+		return result;
+	}
+
+	@Bean(name = "contextLocale")
+	@Scope(scopeName = "prototype")
+	public ContextLocale contextLocale () {
+		return new ContextLocale();
 	}
 
 	@Bean

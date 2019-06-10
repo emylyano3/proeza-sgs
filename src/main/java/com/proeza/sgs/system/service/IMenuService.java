@@ -22,5 +22,5 @@ public interface IMenuService {
 	 * tengan asociados. Solo se devolveran aquellos items que tengan al menos un rol asociado dentro del conjunto de
 	 * roles que tenga asignado el usuario logueado.
 	 */
-	MenuDTO getMenu (String code, String user);
+	MenuDTO getMenu (String code, String user, String locale);
 }
