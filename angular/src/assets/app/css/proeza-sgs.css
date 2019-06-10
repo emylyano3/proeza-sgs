@@ -1952,7 +1952,7 @@ body {
 
 .panel-tools {
 	display: inline-block;
-	float: right;
+	/* float: right; */
 	margin-top: 0;
 	padding: 0;
 	position: relative;
@@ -3726,9 +3726,9 @@ label.error:before {
 }
 
 .forum-box .forum-heading h4 {
-	margin-bottom: 3px;
+	/* margin-bottom: 3px; */
 	font-weight: 600;
-	margin-top: 5px;
+	/* margin-top: 5px; */
 	display: inline;
 }
 
