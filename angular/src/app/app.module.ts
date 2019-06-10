@@ -8,13 +8,17 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { MenuService } from './services/menu.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MenuEntryDirective } from './directives/menu-entry.directive';
+import { MenuSubitemDirective } from './directives/menu-subitem.directive';
 
 @NgModule({
     declarations: [
         AppComponent,
         TopBarComponent,
         MainMenuComponent,
-        FooterComponent
+        FooterComponent,
+        MenuEntryDirective,
+        MenuSubitemDirective
     ],
     imports: [
         BrowserModule,
