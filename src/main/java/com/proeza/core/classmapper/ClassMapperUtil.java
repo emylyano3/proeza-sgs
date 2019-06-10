@@ -52,9 +52,9 @@ public class ClassMapperUtil {
 	 *            El objeto mapeable
 	 */
 	public synchronized void addMapeableOk (Mapeable mapeable) {
-		if (!MAPEABLES_OK.contains(mapeable)) {
+		if (!MAPEABLES_OK.contains(mapeable.getClass())) {
 			synchronized (MAPEABLES_OK) {
-				if (!MAPEABLES_OK.contains(mapeable)) {
+				if (!MAPEABLES_OK.contains(mapeable.getClass())) {
 					MAPEABLES_OK.add(mapeable.getClass());
 				}
 			}
@@ -68,9 +68,9 @@ public class ClassMapperUtil {
 	 *            El objeto mapeable
 	 */
 	public synchronized void addMapeableOnError (Mapeable mapeable) {
-		if (!MAPEABLES_ON_ERROR.contains(mapeable)) {
+		if (!MAPEABLES_ON_ERROR.contains(mapeable.getClass())) {
 			synchronized (MAPEABLES_ON_ERROR) {
-				if (!MAPEABLES_ON_ERROR.contains(mapeable)) {
+				if (!MAPEABLES_ON_ERROR.contains(mapeable.getClass())) {
 					MAPEABLES_ON_ERROR.add(mapeable.getClass());
 				}
 			}
@@ -87,7 +87,9 @@ public class ClassMapperUtil {
 	}
 
 	public BindedField getBindedField (String[] pathToField, Object target) throws BindedFieldNotFoundException {
-		if (pathToField.length == 0) return null;
+		if (pathToField.length == 0) {
+			return null;
+		}
 		int i = 0;
 		Field field = null;
 		while (target != null && i < pathToField.length) {
@@ -139,7 +141,7 @@ public class ClassMapperUtil {
 	/**
 	 * Devuelve el valor de un {@link Field} evitando el error de <b>"acceso denegado"</b> que pudiera llegar a haber si
 	 * el campo es accedido desde un contexto que no tiene visibilidad sobre el campo.
-	 * 
+	 *
 	 * @throws IllegalArgumentException
 	 * @see {@link Field#get(Object)}
 	 */
