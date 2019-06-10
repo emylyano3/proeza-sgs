@@ -29,5 +29,4 @@ public class AppManagementRestController {
 		this.contextLocale.setLocale(locale.toString());
 		return this.menuService.getMenu(code, user, locale.toString());
 	}
-
 }

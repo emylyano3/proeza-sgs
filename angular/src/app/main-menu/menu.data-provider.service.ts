@@ -7,7 +7,7 @@ export class MenuService {
 
     constructor(private http: HttpClient) { }
 
-    static endpoint = 'http://localhost:8080/proeza-sgs/rest/application';
+    static endpoint = 'http://192.168.0.182:8080/proeza-sgs/rest/application';
 
     getMenus() {
         return this.http.get<Menu[]>(MenuService.endpoint + '/getMenus');

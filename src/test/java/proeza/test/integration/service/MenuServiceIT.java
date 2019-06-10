@@ -32,6 +32,8 @@ public class MenuServiceIT extends IntegrationTest {
 		assertNotNull(menu);
 		assertNotNull(menu.getCode());
 		assertNotNull(menu.getItems());
-		assertTrue("Para el usuario admin el menu tiene que estar completo entonces tiene que tener mas que solo la opcion del home", menu.getItems().size() > 1);
+		assertEquals("El menu item del home tiene que estar disponible aun para el usuario null y siempre debe ser el primer item", "MI_HOME", menu.getItems().get(0).getCode());
+		assertNotNull(menu.getItems().get(0).getSubitems());
+		assertTrue("El item de menu home no debe tener subitems", menu.getItems().get(0).getSubitems().isEmpty());
 	}
 }
