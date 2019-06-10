@@ -14,52 +14,52 @@ import com.proeza.sgs.business.service.IClaseService;
 import com.proeza.sgs.business.service.IMarcaService;
 import com.proeza.sgs.business.service.IRubroService;
 import com.proeza.sgs.business.service.ITipoService;
-import com.proeza.sgs.system.service.IPageService;
 import com.proeza.sgs.system.service.IMenuService;
+import com.proeza.sgs.system.service.IPageService;
 import com.proeza.sgs.web.PageConfig;
 
 @Controller
 @RequestMapping({"/articulo"})
 public class ArticuloController {
 
-    public static final String PAGE_GROUP = "articulo";
+	public static final String PAGE_GROUP = "articulo";
 
-    @Autowired
-    private IMenuService       menuService;
+	@Autowired
+	private IMenuService       menuService;
 
-    @Autowired
-    private IClaseService      claseService;
+	@Autowired
+	private IClaseService      claseService;
 
-    @Autowired
-    private ITipoService       tipoService;
+	@Autowired
+	private ITipoService       tipoService;
 
-    @Autowired
-    private IMarcaService      marcaService;
+	@Autowired
+	private IMarcaService      marcaService;
 
-    @Autowired
-    private IRubroService      rubroService;
+	@Autowired
+	private IRubroService      rubroService;
 
-    @Autowired
-    private IPageService       pageService;
+	@Autowired
+	private IPageService       pageService;
 
-    @ModelAttribute
-    public void context(final ModelMap model) {
-        model.addAttribute("clases", this.claseService.findAll());
-        model.addAttribute("tipos", this.tipoService.findAll());
-        model.addAttribute("marcas", this.marcaService.findAll());
-        model.addAttribute("rubros", this.rubroService.findAll());
-    }
+	@ModelAttribute
+	public void context(final ModelMap model) {
+		model.addAttribute("clases", this.claseService.findAll());
+		model.addAttribute("tipos", this.tipoService.findAll());
+		model.addAttribute("marcas", this.marcaService.findAll());
+		model.addAttribute("rubros", this.rubroService.findAll());
+	}
 
-    @RequestMapping({"/{page}"})
-    public String home(ModelMap model, Principal principal, @PathVariable("page") String page) {
-        model.addAllAttributes(this.menuService.getMenus(PAGE_GROUP, page, principal));
-        model.addAttribute("pageConfig", buildPageConfig(PAGE_GROUP, page));
-        return PAGE_GROUP + "/" + page + ".html";
-    }
+	@RequestMapping({"/{page}"})
+	public String home(ModelMap model, Principal principal, @PathVariable("page") String page) {
+		model.addAllAttributes(this.menuService.getMenus(PAGE_GROUP, page, principal != null ? principal.getName() : null));
+		model.addAttribute("pageConfig", buildPageConfig(PAGE_GROUP, page));
+		return PAGE_GROUP + "/" + page + ".html";
+	}
 
-    private Mapeable buildPageConfig(String group, String page) {
-        PageConfig config = new PageConfig().mapFrom(this.pageService.findByGroupAndName(group, page));
-        config.setHasSearch(!"stats".equals(page));
-        return config;
-    }
+	private Mapeable buildPageConfig(String group, String page) {
+		PageConfig config = new PageConfig().mapFrom(this.pageService.findByGroupAndName(group, page));
+		config.setHasSearch(!"stats".equals(page));
+		return config;
+	}
 }

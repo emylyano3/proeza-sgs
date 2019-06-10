@@ -1,7 +1,5 @@
 package com.proeza.sgs.web.rest;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,11 +17,6 @@ public class AppManagementRestController {
 
 	@Autowired
 	private IMenuService menuService;
-
-	@RequestMapping(value = "getMenu", method = RequestMethod.POST)
-	public List<MenuDTO> getMenus() {
-		return this.menuService.getMenus();
-	}
 
 	@RequestMapping(value = "/menu/{code}/{user}", method = RequestMethod.GET)
 	public MenuDTO getMenu(@PathVariable String code, @PathVariable String user) {

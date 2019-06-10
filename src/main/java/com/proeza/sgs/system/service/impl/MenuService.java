@@ -1,6 +1,5 @@
 package com.proeza.sgs.system.service.impl;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,7 +17,6 @@ import com.proeza.security.dao.IUsuarioDao;
 import com.proeza.security.entity.Usuario;
 import com.proeza.sgs.system.dao.IMenuDao;
 import com.proeza.sgs.system.dao.IPageDao;
-import com.proeza.sgs.system.entity.Item;
 import com.proeza.sgs.system.entity.ItemSubitem;
 import com.proeza.sgs.system.entity.Menu;
 import com.proeza.sgs.system.entity.MenuItem;
@@ -40,31 +38,31 @@ public class MenuService implements IMenuService {
 	@Autowired
 	private IUsuarioDao	userDao;
 
-	@Override
-	@Transactional
-	public List<MenuDTO> getMenus () {
-		List<Menu> menus = this.menuDao.findAll();
-		List<MenuDTO> result = new ArrayList<>(menus.size());
-		for (Menu menu : menus) {
-			List<MenuItemDTO> viewMenuItems = new ArrayList<>();
-			for (MenuItem menuItem : menu.getItems()) {
-				viewMenuItems.add(buildItem(menuItem, new ArrayList<ItemSubitem>(0)));
-			}
-			Collections.sort(viewMenuItems);
-			result.add(new MenuDTO(viewMenuItems, menu.getCode(), menu.getText()));
-		}
-		return result;
-	}
+	// @Override
+	// @Transactional
+	// public List<MenuDTO> getMenus () {
+	// List<Menu> menus = this.menuDao.findAll();
+	// List<MenuDTO> result = new ArrayList<>(menus.size());
+	// for (Menu menu : menus) {
+	// List<MenuItemDTO> viewMenuItems = new ArrayList<>();
+	// for (MenuItem menuItem : menu.getItems()) {
+	// viewMenuItems.add(buildItem(menuItem, new ArrayList<ItemSubitem>(0)));
+	// }
+	// Collections.sort(viewMenuItems);
+	// result.add(new MenuDTO(viewMenuItems, menu.getCode(), menu.getText()));
+	// }
+	// return result;
+	// }
 
 	@Override
 	@Transactional
-	@Cacheable(value = "userPageMenus", condition = "#principal != null", key = "#pageGroup + #pageName + #principal.getName()", unless = "#result == null")
-	public Map<String, MenuDTO> getMenus (String pageGroup, String pageName, Principal principal) {
+	@Cacheable(value = "userPageMenus", condition = "#userAlias != null", key = "#pageGroup + #pageName + #userAlias", unless = "#result == null")
+	public Map<String, MenuDTO> getMenus (String pageGroup, String pageName, String userAlias) {
 		Page page = this.pageDao.findByGroupAndName(pageGroup, pageName);
 		Set<Menu> menues = page.getMenues();
 		Map<String, MenuDTO> result = new HashMap<>(menues.size());
 		for (Menu menu : menues) {
-			result.put(menu.getType() + "_" + menu.getCode(), processMenu(menu, principal != null ? principal.getName() : null));
+			result.put(menu.getType() + "_" + menu.getCode(), processMenu(menu, userAlias));
 		}
 		return result;
 	}
@@ -77,64 +75,64 @@ public class MenuService implements IMenuService {
 	}
 
 	private MenuDTO processMenu (Menu menu, String userAlias) {
-		List<MenuItemDTO> viewMenuItems = new ArrayList<>();
+		List<MenuItemDTO> filteredMenuItems = new ArrayList<>();
+		Usuario user = userAlias == null ? null : this.userDao.findByAlias(userAlias);
 		for (MenuItem menuItem : menu.getItems()) {
-			Item item = menuItem.getItem();
-			if (item.getRoles().isEmpty()) {
-				viewMenuItems.add(buildItem(menuItem, new ArrayList<ItemSubitem>(0)));
-			} else {
-				if (userAlias != null) {
-					Usuario user = this.userDao.findByAlias(userAlias);
-					if (user != null) {
-						addItemsFiltering(user, viewMenuItems, menuItem);
-					}
-				}
-			}
+			filteredMenuItems.addAll(getItemsForUser(menuItem, user));
 		}
-		Collections.sort(viewMenuItems);
-		return new MenuDTO(viewMenuItems, menu.getCode(), menu.getText());
+		Collections.sort(filteredMenuItems);
+		return new MenuDTO(filteredMenuItems, menu.getCode(), menu.getText());
 	}
 
-	private void addItemsFiltering (Usuario user, List<MenuItemDTO> viewMenuItems, MenuItem menuItem) {
+	private List<MenuItemDTO> getItemsForUser (MenuItem menuItem, Usuario user) {
 		// El item debe tener roles en comun con el usuario logueado
-		Item item = menuItem.getItem();
-		boolean roleInCommon = !CollectionUtils.intersection(user.getRoles(), item.getRoles()).isEmpty();
+		boolean roleInCommon;
+		roleInCommon = CollectionUtils.isEmpty(menuItem.getItem().getRoles());
+		roleInCommon |= user != null && !CollectionUtils.intersection(user.getRoles(), menuItem.getItem().getRoles()).isEmpty();
+		List<MenuItemDTO> result = new ArrayList<MenuItemDTO>();
 		if (roleInCommon) {
-			List<ItemSubitem> itemSubitemsFilt = new ArrayList<>(1);
-			Set<ItemSubitem> itemSubitems = item.getSubitems();
-			for (ItemSubitem itemSubitem : itemSubitems) {
+			List<ItemSubitem> subitemsFiltered = new ArrayList<>(3);
+			for (ItemSubitem subitem : menuItem.getItem().getSubitems()) {
 				// El subitem debe tener roles en comun con el usuario logueado
-				roleInCommon = !CollectionUtils.intersection(user.getRoles(), itemSubitem.getSubitem().getRoles()).isEmpty();
+				roleInCommon = CollectionUtils.isEmpty(subitem.getSubitem().getRoles());
+				roleInCommon = user != null && !CollectionUtils.intersection(user.getRoles(), subitem.getSubitem().getRoles()).isEmpty();
 				if (roleInCommon) {
-					itemSubitemsFilt.add(itemSubitem);
+					subitemsFiltered.add(subitem);
 				}
 			}
-			viewMenuItems.add(buildItem(menuItem, itemSubitemsFilt));
+			result.add(buildItem(menuItem, subitemsFiltered));
 		}
+		return result;
 	}
 
-	private MenuItemDTO buildItem (MenuItem menuItem, List<ItemSubitem> itemSubitems) {
-		List<MenuItemDTO> viewMenuSubitems = new ArrayList<>(itemSubitems.size());
-		for (ItemSubitem isi : itemSubitems) {
-			Item si = isi.getSubitem();
-			viewMenuSubitems
-				.add(new MenuItemDTOBuilder()
-					.code(si.getCode())
-					.href(si.getLink())
-					.icon(si.getIcon())
-					.index(isi.getIndex())
-					.text(si.getText())
-					.build());
+	/**
+	 * Recibe un item de menu y los subitems filtrados segun los roles del usuario.
+	 * <p>
+	 * El {@link MenuItemDTO} de respuesta se construye con la data del menuItem recibido y los subitems filtrados. De
+	 * esta manera se exponen del item de menu, solo aquellos subitems que por configuracion estan asociados al usuario
+	 * que hizo el request.
+	 */
+	private MenuItemDTO buildItem (MenuItem menuItem, List<ItemSubitem> subitemsFiltered) {
+		List<MenuItemDTO> itemSubitems = new ArrayList<>(subitemsFiltered.size());
+		for (ItemSubitem sif : subitemsFiltered) {
+			itemSubitems
+			.add(
+				new MenuItemDTOBuilder()
+				.index(sif.getIndex())
+				.code(sif.getSubitem().getCode())
+				.href(sif.getSubitem().getLink())
+				.icon(sif.getSubitem().getIcon())
+				.text(sif.getSubitem().getText())
+				.build());
 		}
-		Collections.sort(viewMenuSubitems);
-		Item item = menuItem.getItem();
+		Collections.sort(itemSubitems);
 		return new MenuItemDTOBuilder()
-			.code(item.getCode())
-			.href(item.getLink())
-			.icon(item.getIcon())
 			.index(menuItem.getIndex())
-			.text(item.getText())
-			.subitems(viewMenuSubitems)
+			.code(menuItem.getItem().getCode())
+			.href(menuItem.getItem().getLink())
+			.icon(menuItem.getItem().getIcon())
+			.text(menuItem.getItem().getText())
+			.subitems(itemSubitems)
 			.build();
 	}
 }
