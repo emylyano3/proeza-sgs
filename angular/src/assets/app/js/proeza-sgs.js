@@ -9,11 +9,6 @@ $(document).ready(function() {
 		$('#filter').trigger('focus');
 	});
 
-	// Initialize metsiMenu plugin to sidebar menu
-	if (document.getElementById('side-menu') != null) {
-		jQuery('#side-menu').metisMenu();
-	}
-
 	// Initialize iCheck plugin
 	$('.i-checks').iCheck({
 		checkboxClass : 'icheckbox_square-green',

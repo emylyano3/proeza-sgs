@@ -27,13 +27,11 @@
                             "src/assets/bootstrap/css/bootstrap.css",
                             "src/assets/animate/css/animate.css",
                             "src/assets/font-awesome/css/font-awesome.css",
-                            "src/assets/metismenu/css/metisMenu.css",
                             "src/assets/app/css/proeza-sgs.css"
                         ],
                         "scripts": [
                             "src/assets/jquery/jquery.js",
                             "src/assets/bootstrap/js/bootstrap.js",
-                            "src/assets/metismenu/js/metisMenu.js",
                             "src/assets/icheck/icheck.js",
                             "src/assets/app/js/proeza-sgs.js"
                         ]
