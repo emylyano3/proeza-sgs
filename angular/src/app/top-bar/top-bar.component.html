@@ -10,7 +10,7 @@
         <i class="fa fa-bars"></i>
     </div>
     <div class="navbar-form-custom">  <!--th:if="${pageConfig.hasSearch}"--> 
-        <input id="filter" type="text" placeholder="#{control.search}" class="form-control" style="font-size: 18px;" name="search"/>
+        <input id="filter" type="text" i18n-placeholder="@@control.search" placeholder="Search" class="form-control" style="font-size: 18px;" name="search"/>
     </div>
     <div class="navbar-right">
         <ul class="nav navbar-nav no-borders">
@@ -26,8 +26,8 @@
                 </a>
                 <ul class="dropdown-menu hdropdown animated flipInX"> <!--sec:authorize="isAnonymous()" -->
                     <li>
-                        <a href="@{/login}" text="#{control.login}">
-                            <i class="fa fa-sign-in fa-fw"></i>Ingresar
+                        <a href="@{/login}">
+                            <i class="fa fa-sign-in fa-fw"></i><span i18n="@@control.login">Login</span>
                         </a>
                     </li>
                 </ul>
@@ -36,13 +36,13 @@
                         <a class="font-extra-bold font-uppercase" >Usuario</a> <!--sec:authentication="name"-->
                     </div>
                     <li>
-                        <a href="@{/profile}" text="#{control.profile}">
-                            <i class="fa fa-user fa-fw"></i>Perfil
+                        <a href="@{/profile}">
+                            <i class="fa fa-user fa-fw"></i><span i18n="@@control.profile">Profile</span>
                         </a>
                     </li>
                     <li>
-                        <a href="@{/doLogout}" text="#{control.logout}">
-                            <i class="fa fa-sign-out fa-fw"></i>Salir
+                        <a href="@{/doLogout}">
+                            <i class="fa fa-sign-out fa-fw"></i><span i18n="@@control.logout">Logout</span>
                         </a>
                     </li>
                 </ul>
