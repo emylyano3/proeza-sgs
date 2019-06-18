@@ -3,16 +3,16 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { User } from './user.model';
 import { tap } from 'rxjs/operators';
 import * as moment from 'moment';
-import { AppComponent } from '../app.component';
 
 @Injectable()
 export class AuthService {
+    API_ENDPOINT = 'http://localhost:8080/proeza-sgs/api';
 
     constructor(private http: HttpClient) {
     }
 
     login(alias: string, password: string) {
-        return this.http.post<User>(AppComponent.API_ENDPOINT + '/login', {},
+        return this.http.post<User>(this.API_ENDPOINT + '/login', {},
             {
                 headers: new HttpHeaders().set('Content-Type', 'application/json'),
                 params: new HttpParams().set('user', alias).set('pass', password),
@@ -35,13 +35,16 @@ export class AuthService {
         return moment().isBefore(this.getExpiration());
     }
 
-    isLoggedOut() {
+    public isLoggedOut() {
         return !this.isLoggedIn();
     }
 
-    getExpiration() {
+    private getExpiration() {
         const expiration = localStorage.getItem('expires_at');
-        const expiresAt = JSON.parse(expiration);
-        return moment(expiresAt);
+        if (expiration) {
+            return moment(JSON.parse(expiration));
+        } else {
+            return -1;
+        }
     }
 }
