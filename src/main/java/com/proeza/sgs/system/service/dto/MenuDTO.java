@@ -6,10 +6,10 @@ import java.util.List;
 
 public class MenuDTO implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long		serialVersionUID	= 1L;
 
-	private String				code;
-	private String				text;
+	private String					code;
+	private String					text;
 	private final List<MenuItemDTO>	items;
 
 	public MenuDTO () {
