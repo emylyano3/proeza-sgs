@@ -23,6 +23,8 @@
 		<spring.security-version>4.1.0.RELEASE</spring.security-version>
 		<mysql-connector-version>8.0.12</mysql-connector-version>
 		<mysql-socket-factory-version>1.0.10</mysql-socket-factory-version>
+		<auth0-jwt-version>3.8.1</auth0-jwt-version>
+		<auth0-jwks-rsa-version>0.8.2</auth0-jwks-rsa-version>
 		<thymeleaf-version>3.0.0.RELEASE</thymeleaf-version>
 		<thymeleaf-extras-springsecurity4-version>3.0.0.RELEASE</thymeleaf-extras-springsecurity4-version>
 		<javax.servlet-api-version>3.1.0</javax.servlet-api-version>
@@ -73,6 +75,16 @@
 	</profiles>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${auth0-jwt-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>jwks-rsa</artifactId>
+			<version>${auth0-jwks-rsa-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.cloud.sql</groupId>
 			<artifactId>mysql-socket-factory-connector-j-8</artifactId>
