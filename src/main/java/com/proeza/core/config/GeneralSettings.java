@@ -15,11 +15,14 @@ public class GeneralSettings extends Settings {
 	@Value(value = "${app.maxUploadSize}")
 	private String	maxUploadSize;
 
+	@Value(value = "${app.sessionTime}")
+	private String	sessionTime;
+
 	@Value("${app.view.cache}")
 	private boolean	viewCacheEnabled;
 
 	public String getCrossOriginSource () {
-		return crossOriginSource;
+		return this.crossOriginSource;
 	}
 
 	public void setCrossOriginSource (String crossOriginSource) {
@@ -27,15 +30,23 @@ public class GeneralSettings extends Settings {
 	}
 
 	public String getMaxUploadSize () {
-		return maxUploadSize;
+		return this.maxUploadSize;
 	}
 
 	public void setMaxUploadSize (String maxUploadSize) {
 		this.maxUploadSize = maxUploadSize;
 	}
 
+	public String getSessionTime () {
+		return this.sessionTime;
+	}
+
+	public void setSessionTime (String sessionTime) {
+		this.sessionTime = sessionTime;
+	}
+
 	public boolean isViewCacheEnabled () {
-		return viewCacheEnabled;
+		return this.viewCacheEnabled;
 	}
 
 	public void setViewCacheEnabled (boolean viewCacheEnabled) {

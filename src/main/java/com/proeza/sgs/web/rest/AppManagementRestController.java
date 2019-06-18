@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.proeza.core.config.GeneralSettings;
 import com.proeza.security.dto.UsuarioDTO;
 import com.proeza.security.service.ILoginService;
 import com.proeza.sgs.config.root.ContextLocale;
@@ -42,6 +43,9 @@ public class AppManagementRestController {
 
 	@Autowired
 	private ContextLocale	contextLocale;
+
+	@Autowired
+	private GeneralSettings	generalSettings;
 
 	@RequestMapping(value = "/menu/{code}/{user}", method = RequestMethod.GET)
 	public MenuDTO getMenu (@PathVariable String code, @PathVariable String user, Locale locale) {
@@ -65,7 +69,9 @@ public class AppManagementRestController {
 				.append(token)
 				.append("\"")
 				.append(",")
-				.append("\"expiresIn\": \"1200\"")
+				.append("\"expiresIn\": \"")
+				.append(this.generalSettings.getSessionTime())
+				.append("\"")
 				.append("}");
 			return sb.toString();
 		} catch (JWTCreationException e) {
@@ -74,6 +80,7 @@ public class AppManagementRestController {
 			throw new RuntimeException(e);
 		}
 	}
+
 	public RSAPrivateKey getPrivateKey () {
 		try {
 			KeyFactory kf = KeyFactory.getInstance("RSA");
