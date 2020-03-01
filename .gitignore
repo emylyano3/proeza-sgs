@@ -8,3 +8,5 @@
 /target/
 /Worksheet 1.sql
 /Worksheet .sql
+/.apt_generated_tests/
+/.factorypath
