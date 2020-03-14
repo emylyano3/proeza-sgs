@@ -35,7 +35,7 @@
 		<aspectjrt-version>1.8.5</aspectjrt-version>
 		<json-path-version>2.0.0</json-path-version>
 		<commons-lang-version>2.6</commons-lang-version>
-		<commons-fileupload-version>1.3.1</commons-fileupload-version>
+		<commons-fileupload-version>1.3.3</commons-fileupload-version>
 		<commons-io-version>2.4</commons-io-version>
 		<guava-version>18.0</guava-version>
 	</properties>
