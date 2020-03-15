@@ -9,7 +9,6 @@ import { MenuService } from './menu.data-provider.service';
 })
 export class MainMenuComponent implements OnInit {
 
-    logged = false;
     menu: Menu;
 
     constructor(private service: MenuService) {

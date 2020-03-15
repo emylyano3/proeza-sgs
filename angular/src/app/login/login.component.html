@@ -4,12 +4,12 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="text-center m-b-md">
-                    <h3 i18n="@@login.pleaselogin">Please login in</h3>
+                    <h3 i18n="@@login.pleaselogin">Please log in</h3>
                     <small i18n="@@login.completeuserpass">Fill in your user and password</small>
                 </div>
                 <div class="hpanel">
                     <div class="panel-body">
-                        <!-- <div th:if="${errorMsg != null}" class="alert alert-danger" role="alert" th:text="${errorMsg}">Error en el ingreso</div> -->
+                        <div (show)="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
                         <form [formGroup]="form">
                             <div class="form-group">
                                 <label class="control-label" for="username" text="Usuario" i18n="@@control.username">User name</label>

@@ -26,4 +26,8 @@ export class TopBarComponent implements OnInit {
         }
         this.showingMenu = !this.showingMenu;
     }
+
+    hasSearch() {
+        return false;
+    }
 }

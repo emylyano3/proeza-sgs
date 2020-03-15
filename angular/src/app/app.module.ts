@@ -12,6 +12,7 @@ import { MenuEntryDirective } from './main-menu/menu-entry.directive';
 import { MenuSubitemDirective } from './main-menu/menu-subitem.directive';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './login/auth.service';
+import { AuthInterceptor } from './login/auth.interceptor';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,7 @@ import { AuthService } from './login/auth.service';
         AppRoutingModule,
         ReactiveFormsModule
     ],
-    providers: [MenuService, AuthService],
+    providers: [MenuService, AuthService, AuthInterceptor],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

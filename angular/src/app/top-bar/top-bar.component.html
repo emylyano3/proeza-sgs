@@ -2,19 +2,19 @@
 <a id="logo" class="light-version" href="@{/home}">
     <div>
         <img src="assets/img/logo20x.png"/>
-        <span>Proeza SGS</span>
+        <span i18n="@@app.name">ProezANG SMS</span>
     </div>
 </a>
 <nav role="navigation">
     <div class="header-link" (click)="toggleMenu()">
         <i class="fa fa-bars"></i>
     </div>
-    <div class="navbar-form-custom">  <!--th:if="${pageConfig.hasSearch}"--> 
+    <div *ngIf="hasSearch()" class="navbar-form-custom">
         <input id="filter" type="text" i18n-placeholder="@@control.search" placeholder="Search" class="form-control" style="font-size: 18px;" name="search"/>
     </div>
     <div class="navbar-right">
         <ul class="nav navbar-nav no-borders">
-            <li class="button"> <!--th:if="${pageConfig.hasSearch}" -->
+            <li *ngIf="hasSearch()" class="button">
                 <a id="eraser" class="dropdown-toggle" data-toggle="button">
                     <i class="fa fa-eraser"></i>
                 </a>
@@ -24,16 +24,16 @@
                     <i class="fa fa-user fa-fw"></i> 
                     <i class="fa fa-caret-down"></i>
                 </a>
-                <ul class="dropdown-menu hdropdown animated flipInX"> <!--sec:authorize="isAnonymous()" -->
+                <ul class="dropdown-menu hdropdown animated flipInX">
                     <li>
                         <a href="@{/login}">
                             <i class="fa fa-sign-in fa-fw"></i><span i18n="@@control.login">Login</span>
                         </a>
                     </li>
                 </ul>
-                <ul  class="dropdown-menu hdropdown animated flipInX"> <!--sec:authorize="isAuthenticated()"-->
+                <ul  class="dropdown-menu hdropdown animated flipInX"> 
                     <div class="title">
-                        <a class="font-extra-bold font-uppercase" >Usuario</a> <!--sec:authentication="name"-->
+                        <a class="font-extra-bold font-uppercase" >Usuario</a> 
                     </div>
                     <li>
                         <a href="@{/profile}">

@@ -22,12 +22,14 @@ export class LoginComponent {
         });
     }
 
+    errorMessage: string;
+
     login() {
         const val = this.form.value;
         if (val.username && val.password) {
             this.authService.login(val.username, val.password)
-                .subscribe(() => {
-                    console.log('User is logged in');
+                .subscribe((response) => {
+                    response.console.log('User is logged in');
                     this.router.navigateByUrl('/');
                 });
         }
