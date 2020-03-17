@@ -1,0 +1,52 @@
+<div class="color-line"></div>
+<a id="logo" [routerLink]="['/']" class="light-version">
+    <div>
+        <img src="assets/img/logo20x.png"/>
+        <span i18n="@@app.name">ProezANG SMS</span>
+    </div>
+</a>
+<nav role="navigation">
+    <div class="header-link" (click)="toggleMenu()">
+        <fa-icon [icon]="faBars"></fa-icon>
+    </div>
+    <div *ngIf="hasSearch()" class="navbar-form-custom">
+        <input id="filter" type="text" i18n-placeholder="@@control.search" placeholder="Search" class="form-control" style="font-size: 18px;" name="search"/>
+    </div>
+    <div class="navbar-right">
+        <ul class="nav navbar-nav no-borders">
+            <li *ngIf="hasSearch()" class="button">
+                <a id="eraser" class="dropdown-toggle" data-toggle="button">
+                    <fa-icon [icon]="faEraser"></fa-icon>
+                </a>
+            </li>
+            <!-- <li class="dropdown">
+                <a class="dropdown-toggle label-menu-corner" data-toggle="dropdown"> 
+                    <fa-icon [icon]="faUser"></fa-icon>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu hdropdown animated flipInX">
+                    <li>
+                        <a [routerLink]="['/login']" >
+                            <i class="fa fa-sign-in fa-fw"></i><span i18n="@@control.login">Login</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul  class="dropdown-menu hdropdown animated flipInX"> 
+                    <div class="title">
+                        <a class="font-extra-bold font-uppercase" >Usuario</a> 
+                    </div>
+                    <li>
+                        <a [routerLink]="['/profile']" >
+                            <i class="fa fa-user fa-fw"></i><span i18n="@@control.profile">Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/doLogout']" >
+                            <i class="fa fa-sign-out fa-fw"></i><span i18n="@@control.logout">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </li> -->
+        </ul>
+    </div>
+</nav>

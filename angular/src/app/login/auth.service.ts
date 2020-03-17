@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
+  API_ENDPOINT = 'http://localhost:8080/proeza-sgs/api';
 
   constructor() { }
   login(alias: string, password: string) {
@@ -20,7 +21,7 @@ export class AuthService {
   }
   public isLoggedIn() {
     // return moment().isBefore(this.getExpiration());
-    return false;
+    return true;
   }
 
   public isLoggedOut() {
