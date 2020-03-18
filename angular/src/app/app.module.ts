@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { AuthService } from './login/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MainMenuComponent } from './main-menu/main-menu.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   imports: [
@@ -24,7 +26,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   declarations: [
     AppComponent,
     LoginComponent,
-    TopBarComponent
+    TopBarComponent,
+    MainMenuComponent,
+    FooterComponent
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
