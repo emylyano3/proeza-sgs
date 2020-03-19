@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, OnInit, Inject, Renderer2 } from '@angular/core';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faEraser } from '@fortawesome/free-solid-svg-icons';
+// import { faBars } from '@fortawesome/free-solid-svg-icons';
+// import { faEraser } from '@fortawesome/free-solid-svg-icons';
 // import { faUser } from '@fortawesome/free-solid-svg-icons';
 // import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 // import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -14,8 +14,8 @@ import { faEraser } from '@fortawesome/free-solid-svg-icons';
 })
 export class TopBarComponent implements OnInit {
 
-    faBars = faBars;
-    faEraser = faEraser;
+    // faBars = faBars;
+    // faEraser = faEraser;
     // faUser = faUser;
     // faCaretDown = faCaretDown;
     // faSignInAlt = faSignInAlt;
