@@ -15,7 +15,6 @@ export class MenuDataProviderService {
 
   getMenu(code: string, user: string): Observable<MenuModel> {
     return this.http.get<MenuModel>(this.API_ENDPOINT + '/menu/' + code + '/' + user).pipe(retry(3), catchError(this.handleError));
-    // return new Observable();
   }
 
   private handleError(error: HttpErrorResponse) {

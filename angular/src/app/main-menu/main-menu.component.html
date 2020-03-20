@@ -1,9 +1,13 @@
 <div id="navigation">
     <ul class="nav" id="side-menu">
-        <li *ngFor="let item of menu.items">
-            <a href='{{item.href}}'>{{item.text}}</a>
-            <ul *ngIf="item.subitems && item.subitems.length > 0" id="{{item.code}}" class="nav nav-second-level collapse">
-                <li class="nav nav-second-level" *ngFor="let subitem of item.subitems">
+        <li *ngFor="let item of menu?.items">
+            <a href='{{item.href}}'>
+                <i class="{{item.icon}}"></i> 
+                <span>{{item.text}}</span> 
+                <span *ngIf="item?.subitems.length > 0" class="fa arrow"></span>
+            </a>
+            <ul *ngIf="item?.subitems.length > 0" id="{{item.code}}" class="nav nav-second-level collapse">
+                <li class="nav nav-second-level" *ngFor="let subitem of item?.subitems">
                     <a href="{{subitem.href}}">{{subitem.text}}</a>
                 </li>
             </ul>
