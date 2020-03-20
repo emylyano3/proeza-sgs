@@ -4,11 +4,6 @@ $(document).ready(function() {
 	// Add special class to minimalize page elements when screen is less than 768px
 	setBodySmall();
 
-	$('#eraser').click(function() {
-		$('#filter').val('');
-		$('#filter').trigger('focus');
-	});
-
 	// Initialize metsiMenu plugin to sidebar menu
 	if (document.getElementById('side-menu') != null) {
 		$('#side-menu').metisMenu();

@@ -1,37 +1,29 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, OnInit, Inject, Renderer2 } from '@angular/core';
-// import { faBars } from '@fortawesome/free-solid-svg-icons';
-// import { faEraser } from '@fortawesome/free-solid-svg-icons';
-// import { faUser } from '@fortawesome/free-solid-svg-icons';
-// import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-// import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
-// import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, Inject, Renderer2, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
     selector: 'app-top-bar',
     templateUrl: './top-bar.component.html',
     styleUrls: ['./top-bar.component.css']
 })
-export class TopBarComponent implements OnInit {
-
-    // faBars = faBars;
-    // faEraser = faEraser;
-    // faUser = faUser;
-    // faCaretDown = faCaretDown;
-    // faSignInAlt = faSignInAlt;
-    // faSignOutAlt = faSignOutAlt;
+export class TopBarComponent implements OnInit, AfterViewInit {
+    @ViewChild("filter", { read: ElementRef, static: false }) filter: ElementRef;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
         private renderer: Renderer2
     ) { }
 
+    ngAfterViewInit(): void {
+        console.log(this.filter.nativeElement.textContent);
+    }
+
     private showingMenu = true;
 
     ngOnInit() {
     }
 
-    toggleMenu() {
+    toggleMenu(): void {
         if (this.showingMenu) {
             this.renderer.addClass(this.document.body, 'hide-sidebar');
         } else {
@@ -40,7 +32,12 @@ export class TopBarComponent implements OnInit {
         this.showingMenu = !this.showingMenu;
     }
 
-    hasSearch() {
-        return false;
+    hasSearch(): boolean {
+        return true;
+    }
+
+    erasefilter(): void {
+        $(this.filter.nativeElement).val('');
+        $(this.filter.nativeElement).trigger('focus');
     }
 }
