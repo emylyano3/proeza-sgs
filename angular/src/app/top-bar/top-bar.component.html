@@ -7,7 +7,7 @@
 </a>
 <nav role="navigation">
     <div class="header-link" (click)="toggleMenu()">
-        <!-- <fa-icon [icon]="faBars"></fa-icon> -->
+        <i class="fa fa-bars"></i>
     </div>
     <div *ngIf="hasSearch()" class="navbar-form-custom">
         <input id="filter" type="text" i18n-placeholder="@@control.search" placeholder="Search" class="form-control" style="font-size: 18px;" name="search"/>
@@ -16,7 +16,7 @@
         <ul class="nav navbar-nav no-borders">
             <li *ngIf="hasSearch()" class="button">
                 <a id="eraser" class="dropdown-toggle" data-toggle="button">
-                    <!-- <fa-icon [icon]="faEraser"></fa-icon> -->
+                    <i class="fa fa-eraser"></i>
                 </a>
             </li>
             <!-- <li class="dropdown">

@@ -9,29 +9,8 @@ import { MenuDataProviderService } from './menu-data-provider.service';
 })
 export class MainMenuComponent implements OnInit {
 
-  constructor(
-    private menuService : MenuDataProviderService
-    ) {
-      this.menu = { 
-        code: 'M1', 
-        tooltip: 'Menu uno', 
-        text: 'Menu 1', 
-        items: [{ 
-          text: 'Item 1',
-          code: 'I1', 
-          href: '/', 
-          icon: 'none', 
-          index: 0, 
-          subitems: [
-            {text: 'Sub Item 1',
-            code: 'SI1', 
-            href: '/', 
-            icon: 'none', 
-            index: 0, 
-            subitems: []}
-          ] 
-      }] 
-    };
+  constructor(private menuService : MenuDataProviderService) {
+      
   }
 
   menu: MenuModel;
