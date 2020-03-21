@@ -1,3 +1,5 @@
+import * as $ from "jquery";
+
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -10,11 +12,10 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { AuthService } from './login/auth.service';
 import { MenuDataProviderService } from './main-menu/menu-data-provider.service';
-// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { MenuEntryDirective } from './main-menu/menu-entry.directive';
-import * as $ from "jquery";
+import { UserListComponent } from './user/user-list/user-list.component';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import * as $ from "jquery";
     TopBarComponent,
     MainMenuComponent,
     FooterComponent,
+    UserListComponent,
     MenuEntryDirective
   ],
   providers: [AuthService, MenuDataProviderService],
