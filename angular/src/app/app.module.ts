@@ -16,6 +16,7 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { MenuEntryDirective } from './main-menu/menu-entry.directive';
 import { UserListComponent } from './user/user-list/user-list.component';
+import { ArticuloListComponent } from './articulo/articulo-list/articulo-list.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { UserListComponent } from './user/user-list/user-list.component';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'login', component: LoginComponent },
+      { path: 'articulo/listado', component: ArticuloListComponent },
     ], 
     { enableTracing: true }),
     HttpClientModule
@@ -35,7 +37,8 @@ import { UserListComponent } from './user/user-list/user-list.component';
     MainMenuComponent,
     FooterComponent,
     UserListComponent,
-    MenuEntryDirective
+    MenuEntryDirective,
+    ArticuloListComponent
   ],
   providers: [AuthService, MenuDataProviderService],
   bootstrap: [AppComponent]
