@@ -5,9 +5,9 @@ $(document).ready(function() {
 	setBodySmall();
 
 	// Initialize metsiMenu plugin to sidebar menu
-	if (document.getElementById('side-menu') != null) {
-		$('#side-menu').metisMenu();
-	}
+	// if (document.getElementById('side-menu') != null) {
+	// 	$('#side-menu').metisMenu();
+	// }
 
 	// Initialize iCheck plugin
 	// $('.i-checks').iCheck({

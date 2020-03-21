@@ -1,5 +1,3 @@
-import * as $ from "jquery";
-
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -18,6 +16,8 @@ import { MenuEntryDirective } from './main-menu/menu-entry.directive';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { ArticuloListComponent } from './articulo/articulo-list/articulo-list.component';
 import { HomeComponent } from './home/home/home.component';
+
+import * as $ from "jquery";
 
 @NgModule({
   imports: [
