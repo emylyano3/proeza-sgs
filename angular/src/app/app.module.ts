@@ -14,6 +14,7 @@ import { MenuDataProviderService } from './main-menu/menu-data-provider.service'
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { MenuEntryDirective } from './main-menu/menu-entry.directive';
+import * as $ from "jquery";
 
 @NgModule({
   imports: [
