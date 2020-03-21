@@ -15,7 +15,6 @@ export class TopBarComponent implements OnInit, AfterViewInit {
     ) { }
 
     ngAfterViewInit(): void {
-        console.log(this.filter.nativeElement.textContent);
     }
 
     private showingMenu = true;
