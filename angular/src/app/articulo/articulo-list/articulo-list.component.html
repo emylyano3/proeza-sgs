@@ -3,9 +3,9 @@
         <div class="col-md-12">
             <div #productGrid id="productGrid">
                 <ag-grid-angular 
-                    style="width: 500px; height: 500px;" 
+                    style="width: 1000px; height: 500px;" 
                     class="ag-theme-alpine" 
-                    [rowData]="rowData"
+                    [rowData]="data | async"
                     [columnDefs]="columnDefs">
                 </ag-grid-angular>
 
