@@ -6,6 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
 import { AgGridModule } from 'ag-grid-angular';
 
+import 'ag-grid-enterprise';
+
 import { LoginComponent } from './login/login.component';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';

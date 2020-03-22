@@ -1,12 +1,18 @@
 <div id="content" class="content animate-panel container-fluid">
     <div id="gridPanel" class="row animated zoomIn">
         <div class="col-md-12">
+            <button (click)="getSelectedRows()">Get Selected Rows</button>
+
             <div #productGrid id="productGrid">
-                <ag-grid-angular 
+                <ag-grid-angular
+                    #userListGrid
                     style="width: 1000px; height: 500px;" 
                     class="ag-theme-alpine" 
                     [rowData]="data | async"
-                    [columnDefs]="columnDefs">
+                    [columnDefs]="columnDefs"
+                    [getContextMenuItems]="getContextMenuItems"
+                    rowSelection="multiple"
+                    >
                 </ag-grid-angular>
 
             </div>
