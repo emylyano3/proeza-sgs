@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
+import { AgGridModule } from 'ag-grid-angular';
 
 import { LoginComponent } from './login/login.component';
 import { AppComponent } from './app.component';
@@ -24,14 +25,15 @@ import * as $ from "jquery";
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'home', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'articulo/listado', component: ArticuloListComponent },
-    ], 
-    { enableTracing: true }),
-    HttpClientModule
+    HttpClientModule,
+    AgGridModule.withComponents([]),
+        RouterModule.forRoot([
+          { path: '', component: HomeComponent },
+          { path: 'home', component: HomeComponent },
+          { path: 'login', component: LoginComponent },
+          { path: 'articulo/listado', component: ArticuloListComponent },
+        ], 
+        { enableTracing: true })
   ],
   declarations: [
     AppComponent,

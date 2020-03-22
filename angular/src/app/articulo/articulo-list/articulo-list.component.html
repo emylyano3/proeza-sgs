@@ -1,15 +1,23 @@
 <div id="content" class="content animate-panel container-fluid">
     <div id="gridPanel" class="row animated zoomIn">
         <div class="col-md-12">
-            <div #productGrid id="productGrid"></div>
+            <div #productGrid id="productGrid">
+                <ag-grid-angular 
+                    style="width: 500px; height: 500px;" 
+                    class="ag-theme-alpine" 
+                    [rowData]="rowData"
+                    [columnDefs]="columnDefs">
+                </ag-grid-angular>
+
+            </div>
         </div>
     </div>
     <p>
-    <div id="thumbnailsPanel" class="row">
-        <div class="col-md-12">
-            <div #links id="links"></div>
+        <div id="thumbnailsPanel" class="row">
+            <div class="col-md-12">
+                <div #links id="links"></div>
+            </div>
         </div>
-    </div>
         <!-- <div th:if="${CONTEXT_PROD_LIST_GRID} != null" id="gridContextMenu">
             <ul>
                 <li th:each="item : ${CONTEXT_PROD_LIST_GRID.items}" th:id="${item.code}" >

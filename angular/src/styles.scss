@@ -1,6 +1,10 @@
-@import
-	url("http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700")
-	;
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+@import "../node_modules/ag-grid-community/src/styles/ag-grid";
+@import "../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin";
+
+.ag-theme-alpine {
+    @include ag-theme-alpine();
+}
 /* MARGINS & PADDINGS */
 .p-xxs {
 	padding: 5px !important;

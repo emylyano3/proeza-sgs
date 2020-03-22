@@ -4,7 +4,7 @@ import { Component, OnInit, Inject, Renderer2, ViewChild, ElementRef, AfterViewI
 @Component({
     selector: 'app-top-bar',
     templateUrl: './top-bar.component.html',
-    styleUrls: ['./top-bar.component.css']
+    styleUrls: ['./top-bar.component.scss']
 })
 export class TopBarComponent implements OnInit, AfterViewInit {
     @ViewChild("filter", { read: ElementRef, static: false }) filter: ElementRef;
